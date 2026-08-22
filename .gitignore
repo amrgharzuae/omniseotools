@@ -1,0 +1,73 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ==============================================================================
+# 1. Environment Variables & Secrets (CRITICAL SECURITY)
+# ==============================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env
+*.env.*
+*.env.vault
+
+# ==============================================================================
+# 2. Dependencies & Package Managers
+# ==============================================================================
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ==============================================================================
+# 3. Next.js & Build Outputs
+# ==============================================================================
+/.next/
+/out/
+/build/
+/dist/
+
+# ==============================================================================
+# 4. Debug Logs & Crash Reports
+# ==============================================================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+logs/
+*.log
+
+# ==============================================================================
+# 5. OS & Local System Files
+# ==============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==============================================================================
+# 6. IDEs & Code Editors
+# ==============================================================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# ==============================================================================
+# 7. TypeScript & Deployment Platforms
+# ==============================================================================
+*.tsbuildinfo
+next-env.d.ts
+.vercel
