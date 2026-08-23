@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { CATEGORIES } from "@/config/categories";
-import { Sparkles, Shield, Heart } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
+import { Shield } from "lucide-react";
 
 export function Footer() {
   return (
@@ -12,14 +13,9 @@ export function Footer() {
           
           {/* Col 1: Brand & Mission */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <span className="font-bold text-slate-900 dark:text-white tracking-tight">
-                {siteConfig.name}
-              </span>
-            </div>
+            <Link href="/" className="inline-block">
+              <Logo size={32} />
+            </Link>
             <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
               {siteConfig.description} Built for SEO specialists, founders, developers, and growth marketers.
             </p>

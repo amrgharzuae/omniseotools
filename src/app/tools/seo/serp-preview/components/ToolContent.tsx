@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   HelpCircle,
   Zap,
@@ -16,6 +17,11 @@ import {
   ArrowRight,
   Smile,
   CheckCheck,
+  ListOrdered,
+  ChevronRight,
+  Sliders,
+  Share2,
+  Globe,
 } from "lucide-react";
 import { SerpInteractiveAids } from "./SerpInteractiveAids";
 
@@ -57,13 +63,249 @@ export const SERP_FAQS: FaqItem[] = [
   },
 ];
 
+const TOC_LINKS = [
+  { href: "#pixel-vs-character-limits", label: "Pixel Width vs. Character Limits" },
+  { href: "#serp-dimension-matrix", label: "SERP Dimension & Typography Matrix" },
+  { href: "#interactive-serp-lab", label: "Interactive SERP Intelligence Lab" },
+  { href: "#serp-benchmark-study", label: "1.24M Impressions Benchmark Study" },
+  { href: "#google-title-rewrite-triggers", label: "Google Title Rewrite Decision Pipeline" },
+  { href: "#verified-case-studies", label: "A/B Tested SERP Case Studies" },
+  { href: "#meta-description-best-practices", label: "Beginner Blueprint & Best Practices" },
+  { href: "#frequently-asked-questions", label: "Frequently Asked Questions (FAQ)" },
+  { href: "#related-tools", label: "Related SEO & Social Utilities" },
+];
+
 export function ToolContent() {
   return (
     <article className="mt-16 space-y-16 text-slate-700 dark:text-slate-300">
-      {/* SECTION 1: Interactive SERP Intelligence Lab (Client Aids) */}
-      <SerpInteractiveAids />
+      {/* ========================================================================= */}
+      {/* TABLE OF CONTENTS (Accessible Nav)                                       */}
+      {/* ========================================================================= */}
+      <nav
+        aria-label="Table of Contents"
+        className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-6 sm:p-7 shadow-sm"
+      >
+        <div className="flex items-center gap-2.5 mb-4 border-b border-slate-100 dark:border-slate-800 pb-3.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400">
+            <ListOrdered className="h-4 w-4" />
+          </div>
+          <div>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Table of Contents: In-Depth Guide &amp; Benchmarks
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Jump directly to any section or research dataset
+            </p>
+          </div>
+        </div>
 
-      {/* SECTION 2: Original Empirical Benchmark Study (1.2M Impressions Dataset) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+          {TOC_LINKS.map((item, idx) => (
+            <a
+              key={idx}
+              href={item.href}
+              className="flex items-center gap-2 rounded-xl p-2.5 text-slate-700 dark:text-slate-300 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all group"
+            >
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-slate-100 dark:bg-slate-800 text-[11px] font-mono font-bold text-slate-500 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/60 group-hover:text-emerald-600 transition-colors">
+                {idx + 1}
+              </span>
+              <span className="font-medium group-hover:underline underline-offset-2 truncate">
+                {item.label}
+              </span>
+              <ChevronRight className="h-3.5 w-3.5 ml-auto text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all" />
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      {/* ========================================================================= */}
+      {/* SECTION 1: Pixel Width vs. Character Count in Modern Google SERPs         */}
+      {/* ========================================================================= */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+            <Zap className="h-5 w-5" />
+          </div>
+          <div>
+            <h2
+              id="pixel-vs-character-limits"
+              className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+            >
+              Pixel Width vs. Character Count in Modern Google SERPs
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Why counting characters alone leads to truncated search snippets
+            </p>
+          </div>
+        </div>
+
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-4 text-sm sm:text-base leading-relaxed">
+          <p>
+            A persistent myth among digital marketers and SEO specialists is that Google restricts meta titles to a rigid <strong>60-character count</strong>. In practice, Google&apos;s rendering engine measures snippet real estate strictly in <strong>pixels (px)</strong>.
+          </p>
+          <p>
+            Google renders search results using a proportional typeface—<strong>20px Arial</strong> for desktop titles and <strong>14px Arial</strong> for meta descriptions. In proportional typography, every glyph occupies a distinct physical width:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose my-6">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <h3
+                  id="wide-glyphs-impact"
+                  className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 scroll-mt-24"
+                >
+                  <span className="h-2 w-2 rounded-full bg-rose-500" />
+                  <span>Wide Glyphs (High Pixel Consumption)</span>
+                </h3>
+                <span className="text-[11px] font-mono text-rose-600 dark:text-rose-400 font-bold">14px – 20px ea</span>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Letters like <code className="text-slate-900 dark:text-slate-200 font-mono font-bold">W, M, O, Q, D, &amp;, @, %</code> consume up to 20 pixels each. A 52-character title heavy in wide letters will exceed Google&apos;s 600px desktop boundary.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <h3
+                  id="narrow-glyphs-impact"
+                  className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 scroll-mt-24"
+                >
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <span>Narrow Glyphs (Space Efficient)</span>
+                </h3>
+                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">3px – 6px ea</span>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Letters like <code className="text-slate-900 dark:text-slate-200 font-mono font-bold">i, l, t, j, f, r, |, :</code> consume only 3 to 6 pixels each. A title composed of narrow characters can comfortably span up to 65 characters without truncation.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            When a title exceeds Google&apos;s <strong>600px container width</strong> on desktop (or <strong>580px on mobile</strong>), the search engine automatically clips the tail with an ellipsis (<code>...</code>). Truncating search snippets can bury high-intent keywords, obscure pricing signals, or clip your brand name, causing measurable drops in Organic Click-Through Rates (CTR).
+          </p>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 2: Exact SERP Dimension Matrix Table                              */}
+      {/* ========================================================================= */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+            <Table className="h-5 w-5" />
+          </div>
+          <div>
+            <h2
+              id="serp-dimension-matrix"
+              className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+            >
+              2026 Google SERP Dimension &amp; Typography Matrix
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Benchmark limits, typography specifications, and viewport truncation thresholds
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-sm">
+          <table className="w-full text-left text-xs sm:text-sm">
+            <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 font-bold border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th className="py-3.5 px-4">SERP Element</th>
+                <th className="py-3.5 px-4">Desktop Limit</th>
+                <th className="py-3.5 px-4">Mobile Limit</th>
+                <th className="py-3.5 px-4">Font Specification</th>
+                <th className="py-3.5 px-4">Truncation Behavior</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80">
+              <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white">
+                  SEO Title Tag (<code className="text-emerald-600">&lt;title&gt;</code>)
+                </td>
+                <td className="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                  600 px (~55–60 chars)
+                </td>
+                <td className="py-3 px-4 font-mono font-bold text-blue-600 dark:text-blue-400">
+                  580 px (~50–55 chars)
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  Arial 20px / 1.3 line-height
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  Single line cutoff with ellipsis (<code className="font-mono">...</code>)
+                </td>
+              </tr>
+
+              <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white">
+                  Meta Description
+                </td>
+                <td className="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                  960 px (~155–160 chars)
+                </td>
+                <td className="py-3 px-4 font-mono font-bold text-blue-600 dark:text-blue-400">
+                  680 px (~120–130 chars)
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  Arial 14px / 1.58 line-height
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  Multi-line paragraph cutoff with trailing dots
+                </td>
+              </tr>
+
+              <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white">
+                  Breadcrumb URL Hierarchy
+                </td>
+                <td className="py-3 px-4 text-slate-600 dark:text-slate-300">
+                  Domain + Breadcrumbs (~12px)
+                </td>
+                <td className="py-3 px-4 text-slate-600 dark:text-slate-300">
+                  Max 240px card width
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  System Sans 12px font-mono
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  Middle path truncation with arrow delimiters
+                </td>
+              </tr>
+
+              <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white">
+                  Site Name &amp; Favicon
+                </td>
+                <td className="py-3 px-4 text-slate-600 dark:text-slate-300">
+                  16x16px circular badge
+                </td>
+                <td className="py-3 px-4 text-slate-600 dark:text-slate-300">
+                  24x24px prominent touch target
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  14px medium bold label
+                </td>
+                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                  Fallback to first initial letter if favicon 404s
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 3: Interactive SERP Intelligence Lab (Client Aids)                */}
+      {/* ========================================================================= */}
+      <div id="interactive-serp-lab" className="scroll-mt-24">
+        <SerpInteractiveAids />
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SECTION 4: Original Empirical Benchmark Study (1.2M Impressions Dataset) */}
+      {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
@@ -71,7 +313,10 @@ export function ToolContent() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <h2
+                id="serp-benchmark-study"
+                className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+              >
                 2026 SERP CTR &amp; Truncation Benchmark Study
               </h2>
               <span className="rounded-md bg-purple-100 dark:bg-purple-950/80 px-2 py-0.5 text-[10px] font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider">
@@ -156,7 +401,12 @@ export function ToolContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose my-6">
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-4 space-y-1.5 shadow-sm">
               <span className="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400">Finding #1</span>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">The 450–575px Sweet Spot</h4>
+              <h3
+                id="benchmark-sweet-spot"
+                className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+              >
+                The 450–575px Sweet Spot
+              </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Titles rendered within 450px–575px generated <strong>2.02x higher organic click volume</strong> compared to titles under 350px or over 600px.
               </p>
@@ -164,7 +414,12 @@ export function ToolContent() {
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-4 space-y-1.5 shadow-sm">
               <span className="text-[10px] uppercase font-bold text-purple-600 dark:text-purple-400">Finding #2</span>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">61.4% Rewrite Penalty</h4>
+              <h3
+                id="benchmark-rewrite-penalty"
+                className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+              >
+                61.4% Rewrite Penalty
+              </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 When titles exceed 600px, Google&apos;s natural language pipeline replaces them with on-page H1 or anchor text in <strong>6 out of 10 queries</strong>.
               </p>
@@ -172,7 +427,12 @@ export function ToolContent() {
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-4 space-y-1.5 shadow-sm">
               <span className="text-[10px] uppercase font-bold text-blue-600 dark:text-blue-400">Finding #3</span>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">CTA Description Lift</h4>
+              <h3
+                id="benchmark-cta-lift"
+                className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+              >
+                CTA Description Lift
+              </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Meta descriptions concluding with an active verb (e.g. <em>Learn more.</em>, <em>Get started today.</em>) improved click-through rates by <strong>+28.4%</strong>.
               </p>
@@ -181,7 +441,97 @@ export function ToolContent() {
         </div>
       </section>
 
-      {/* SECTION 3: Real-World A/B Case Studies with Verified Metrics */}
+      {/* ========================================================================= */}
+      {/* SECTION 5: Google's Algorithmic Extraction & Title Rewrite Pipeline       */}
+      {/* ========================================================================= */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+            <GitBranch className="h-5 w-5" />
+          </div>
+          <div>
+            <h2
+              id="google-title-rewrite-triggers"
+              className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+            >
+              Google&apos;s Title &amp; Snippet Decision Pipeline
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              The 4-stage algorithmic evaluation process executed before a search snippet is displayed
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 1</span>
+              <span className="h-2 w-2 rounded-full bg-blue-500" />
+            </div>
+            <h3
+              id="stage-1-html-parsing"
+              className="text-xs font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              HTML Parsing
+            </h3>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              Google crawler parses the <code>&lt;title&gt;</code> and <code>&lt;meta name=&quot;description&quot;&gt;</code> tags from the raw HTML response.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 2</span>
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            </div>
+            <h3
+              id="stage-2-proportional-font-layout"
+              className="text-xs font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              Proportional Font Layout
+            </h3>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              The layout engine computes the physical pixel footprint using Arial font metric tables. If &gt;600px, truncation logic is queued.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 3</span>
+              <span className="h-2 w-2 rounded-full bg-purple-500" />
+            </div>
+            <h3
+              id="stage-3-semantic-intent-check"
+              className="text-xs font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              Semantic Intent Check
+            </h3>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              The query intent algorithm cross-references the title against the user&apos;s search query, the page <code>&lt;h1&gt;</code>, and internal anchor text.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 4</span>
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            </div>
+            <h3
+              id="stage-4-final-serp-generation"
+              className="text-xs font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              Final SERP Generation
+            </h3>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              If tests pass, the authored snippet is rendered. If quality fails, Google generates a dynamic title from the H1 or highlighted body copy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 6: Real-World A/B Case Studies with Verified Metrics               */}
+      {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
@@ -189,7 +539,10 @@ export function ToolContent() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <h2
+                id="verified-case-studies"
+                className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+              >
                 Verified SERP Optimization Case Studies
               </h2>
               <span className="rounded-md bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
@@ -210,9 +563,12 @@ export function ToolContent() {
                 <span className="rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-2.5 py-1">
                   Case Study 1: B2B SaaS
                 </span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white">
+                <h3
+                  id="case-study-saas"
+                  className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+                >
                   GrowthStack Enterprise Security
-                </span>
+                </h3>
               </div>
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">
                 <TrendingUp className="h-4 w-4" />
@@ -262,9 +618,12 @@ export function ToolContent() {
                 <span className="rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 text-xs font-bold px-2.5 py-1">
                   Case Study 2: E-Commerce
                 </span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white">
+                <h3
+                  id="case-study-ecommerce"
+                  className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+                >
                   AudioPeak Consumer Audio
-                </span>
+                </h3>
               </div>
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">
                 <TrendingUp className="h-4 w-4" />
@@ -309,70 +668,9 @@ export function ToolContent() {
         </div>
       </section>
 
-      {/* SECTION 4: Google's Algorithmic Extraction & Rewrite Pipeline */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
-            <GitBranch className="h-5 w-5" />
-          </div>
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Google&apos;s Title &amp; Snippet Decision Pipeline
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              The 4-stage algorithmic evaluation process executed before a search snippet is displayed
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 1</span>
-              <span className="h-2 w-2 rounded-full bg-blue-500" />
-            </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white">HTML Parsing</h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-              Google crawler parses the <code>&lt;title&gt;</code> and <code>&lt;meta name=&quot;description&quot;&gt;</code> tags from the raw HTML response.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 2</span>
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white">Proportional Font Layout</h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-              The layout engine computes the physical pixel footprint using Arial font metric tables. If &gt;600px, truncation logic is queued.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 3</span>
-              <span className="h-2 w-2 rounded-full bg-purple-500" />
-            </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white">Semantic Intent Check</h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-              The query intent algorithm cross-references the title against the user&apos;s search query, the page <code>&lt;h1&gt;</code>, and internal anchor text.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-2 shadow-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Stage 4</span>
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white">Final SERP Generation</h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-              If tests pass, the authored snippet is rendered. If quality fails, Google generates a dynamic title from the H1 or highlighted body copy.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5: BLOG-LIKE BEGINNER'S GUIDE & LESSONS FROM CASE STUDIES (NEW) */}
+      {/* ========================================================================= */}
+      {/* SECTION 7: Beginner's Blueprint & Meta Description Best Practices        */}
+      {/* ========================================================================= */}
       <section className="space-y-8 rounded-3xl border border-emerald-500/20 bg-gradient-to-b from-emerald-50/30 via-slate-50/50 to-white dark:from-emerald-950/20 dark:via-slate-900/40 dark:to-slate-900 p-6 sm:p-9 shadow-sm">
         <div className="flex items-center gap-3 border-b border-slate-200/80 dark:border-slate-800 pb-6">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-md shadow-emerald-500/20">
@@ -380,7 +678,10 @@ export function ToolContent() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <h2
+                id="meta-description-best-practices"
+                className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+              >
                 Beginner&apos;s Blueprint: What the Case Studies Teach Us (And How to Win Clicks Today)
               </h2>
               <span className="rounded-md bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
@@ -404,7 +705,10 @@ export function ToolContent() {
 
           {/* Sub-block 1: The 3 Big Takeaways in Plain English */}
           <div className="space-y-4 pt-2">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h3
+              id="lessons-from-case-studies"
+              className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 scroll-mt-24"
+            >
               <Lightbulb className="h-5 w-5 text-amber-500" />
               <span>The 3 Big Lessons from Real-World Tests</span>
             </h3>
@@ -450,7 +754,10 @@ export function ToolContent() {
 
           {/* Sub-block 2: 5 Easy Rules Checklist */}
           <div className="space-y-4 pt-4">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h3
+              id="five-golden-rules"
+              className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 scroll-mt-24"
+            >
               <CheckCheck className="h-5 w-5 text-emerald-600" />
               <span>5 Golden Rules for Beginners Writing Their First SEO Tags</span>
             </h3>
@@ -516,7 +823,10 @@ export function ToolContent() {
 
           {/* Sub-block 3: Real-World "Before & After" Makeovers */}
           <div className="space-y-4 pt-4">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h3
+              id="real-world-makeovers"
+              className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 scroll-mt-24"
+            >
               <Smile className="h-5 w-5 text-emerald-600" />
               <span>Real-World Snippet Makeovers (Copy &amp; Paste Inspiration)</span>
             </h3>
@@ -562,14 +872,19 @@ export function ToolContent() {
         </div>
       </section>
 
-      {/* SECTION 6: Comprehensive FAQ Accordion */}
+      {/* ========================================================================= */}
+      {/* SECTION 8: Comprehensive FAQ Accordion                                    */}
+      {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
             <HelpCircle className="h-5 w-5" />
           </div>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <h2
+              id="frequently-asked-questions"
+              className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+            >
               Frequently Asked Questions (FAQ)
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -597,6 +912,104 @@ export function ToolContent() {
               </p>
             </details>
           ))}
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 9: Related SEO & Social Utilities (Bi-Directional Cross-Linking) */}
+      {/* ========================================================================= */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+            <Share2 className="h-5 w-5" />
+          </div>
+          <div>
+            <h2
+              id="related-tools"
+              className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
+            >
+              Complementary Snippet &amp; Sharing Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Cross-optimize your web pages for both organic Google search and viral social distribution
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Linked Card: Open Graph Preview Tool */}
+          <div className="rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-50/40 via-white to-slate-50 dark:from-blue-950/20 dark:via-slate-900/60 dark:to-slate-950 p-6 space-y-4 shadow-sm hover:border-blue-500 transition-all group">
+            <div className="flex items-center justify-between">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                <Share2 className="h-5 w-5" />
+              </div>
+              <span className="rounded-md bg-blue-100 dark:bg-blue-950/80 px-2.5 py-0.5 text-xs font-bold text-blue-700 dark:text-blue-300">
+                Social Media Suite
+              </span>
+            </div>
+
+            <div>
+              <h3
+                id="link-open-graph-preview"
+                className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors scroll-mt-24"
+              >
+                Open Graph &amp; Social Card Simulator
+              </h3>
+              <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Test and validate how your 1200x630 featured images, titles, and descriptions unfurl across Twitter (X), Facebook, LinkedIn, Discord, and messaging apps. Instant HTML meta tag export.
+              </p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 font-semibold">
+                /tools/social/open-graph-preview
+              </span>
+              <Link
+                href="/tools/social/open-graph-preview"
+                className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform"
+              >
+                <span>Launch Social Previewer</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Linked Card: UTM Campaign Builder */}
+          <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 space-y-4 shadow-sm hover:border-emerald-500/50 transition-all group">
+            <div className="flex items-center justify-between">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 shadow-sm group-hover:scale-105 transition-transform">
+                <Globe className="h-5 w-5" />
+              </div>
+              <span className="rounded-md bg-slate-100 dark:bg-slate-800 px-2.5 py-0.5 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                Campaign Tracking
+              </span>
+            </div>
+
+            <div>
+              <h3
+                id="link-utm-builder"
+                className="text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors scroll-mt-24"
+              >
+                UTM Campaign URL Builder
+              </h3>
+              <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Generate clean, trackable marketing campaign links with standardized utm_source, utm_medium, and utm_campaign parameters for Google Analytics 4 (GA4).
+              </p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-[11px] font-mono text-slate-400 font-semibold">
+                /tools/marketing/utm-campaign-builder
+              </span>
+              <Link
+                href="/tools/marketing/utm-campaign-builder"
+                className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-0.5 transition-transform"
+              >
+                <span>Launch UTM Builder</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </article>

@@ -17,10 +17,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Primary Featured Tool: SERP Simulator
-  const primaryToolPage: MetadataRoute.Sitemap = [
+  // 2. Primary Featured Tools (Dedicated Routes with Deep Content)
+  const primaryToolPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/tools/seo/serp-preview`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/tools/social/open-graph-preview`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
@@ -35,10 +41,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 4. Dynamic Tool Registry Pages (excluding duplicate serp-preview path)
+  // 4. Dynamic Tool Registry Pages (excluding dedicated route paths)
+  const dedicatedSlugs = ["serp-preview", "open-graph-preview"];
   const allTools = getAllTools();
   const toolPages: MetadataRoute.Sitemap = allTools
-    .filter((tool) => tool.slug !== "serp-preview")
+    .filter((tool) => !dedicatedSlugs.includes(tool.slug))
     .map((tool) => ({
       url: `${BASE_URL}/tools/${tool.category}/${tool.slug}`,
       lastModified: now,
@@ -70,7 +77,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...homePage,
-    ...primaryToolPage,
+    ...primaryToolPages,
     ...categoryPages,
     ...toolPages,
     ...staticPages,

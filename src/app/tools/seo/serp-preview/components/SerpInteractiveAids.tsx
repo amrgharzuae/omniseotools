@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import {
   calculateTitlePixels,
   calculateDescPixels,
@@ -627,8 +628,14 @@ export function SerpInteractiveAids() {
               </span>
 
               <div className="flex items-center gap-2 text-xs">
-                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-[10px] font-bold">
-                  O
+                <div className="relative flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 overflow-hidden shadow-sm">
+                  <Image
+                    src="/logo.png"
+                    alt="OmniSEOTools"
+                    width={18}
+                    height={18}
+                    className="object-contain"
+                  />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[14px] text-[#202124] dark:text-[#dadce0] leading-tight">

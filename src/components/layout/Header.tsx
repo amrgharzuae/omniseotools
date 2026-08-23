@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { CATEGORIES } from "@/config/categories";
+import { Logo } from "@/components/ui/Logo";
 import { 
   Sparkles, 
   Search, 
@@ -22,15 +23,8 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-              Omni<span className="text-emerald-600 dark:text-emerald-400">SEO</span>Tools
-            </span>
-          </div>
+        <Link href="/" className="flex items-center">
+          <Logo size={36} />
         </Link>
 
         {/* Desktop Navigation */}
