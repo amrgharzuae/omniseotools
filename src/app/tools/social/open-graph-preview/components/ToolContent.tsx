@@ -16,6 +16,10 @@ import {
   ExternalLink,
   ShieldAlert,
   Search,
+  MessageSquare,
+  FileCode,
+  AlertTriangle,
+  Zap,
 } from "lucide-react";
 
 export interface OgFaqItem {
@@ -27,7 +31,17 @@ export const OG_FAQS: OgFaqItem[] = [
   {
     question: "What is the best image size for Open Graph and Twitter cards in 2026?",
     answer:
-      "The universal standard resolution for Open Graph images is 1200 x 630 pixels, which adheres to a 1.91:1 aspect ratio. This exact resolution ensures crystal-clear presentation across Facebook, Twitter (X) summary_large_image, LinkedIn, WhatsApp, Discord, and iMessage without unwanted edge cropping or blurred scaling.",
+      "The universal standard resolution for Open Graph images is 1200 x 630 pixels (1.91:1 aspect ratio). This exact resolution ensures crisp presentation across Facebook, Twitter/X summary_large_image, LinkedIn, WhatsApp, Discord, and iMessage without unwanted edge cropping or blurry downscaling.",
+  },
+  {
+    question: "Why do WhatsApp and iMessage fail to show preview cards for my link?",
+    answer:
+      "WhatsApp and iMessage have strict crawler constraints: the og:image must be under 300KB in file size, served over a valid HTTPS connection with a complete SSL certificate chain (no self-signed or incomplete intermediate certs), and referenced using a full absolute URL (e.g., https://yourdomain.com/og.png rather than /og.png).",
+  },
+  {
+    question: "How do I configure Open Graph metadata in Next.js 14 and 15 App Router?",
+    answer:
+      "In Next.js App Router, export a static `metadata: Metadata` object or an async `generateMetadata()` function from your page.tsx or layout.tsx file. Populate the `openGraph` and `twitter` properties with titles, descriptions, and an array of image objects specifying width (1200), height (630), and alt text.",
   },
   {
     question: "What is the difference between summary and summary_large_image on Twitter (X)?",
@@ -35,14 +49,9 @@ export const OG_FAQS: OgFaqItem[] = [
       "The 'summary_large_image' card format renders a prominent full-width 1200x630 banner above your title and domain, occupying maximum visual real estate in user feeds. In contrast, the standard 'summary' card type displays a small 1:1 square thumbnail (minimum 144x144px) to the left of the text snippet.",
   },
   {
-    question: "How do Twitter and LinkedIn handle fallback if twitter:* tags are missing?",
+    question: "How do I force Facebook and LinkedIn to refresh my preview card after updating images?",
     answer:
-      "Both Twitter (X) and LinkedIn implement Open Graph inheritance. If twitter:title, twitter:description, or twitter:image tags are omitted, the crawler automatically falls back to og:title, og:description, and og:image. However, defining explicit twitter:card tags is still required to instruct Twitter to display a large banner instead of a compact square.",
-  },
-  {
-    question: "Why is my updated Open Graph image not showing up on social platforms?",
-    answer:
-      "Major social platforms aggressively cache Open Graph metadata for up to 30 days to optimize their server loads. To force an immediate re-scrape and purge stale caches, submit your URL to the Facebook Sharing Debugger and LinkedIn Post Inspector. For Twitter (X), appending a cache-busting query parameter (e.g. ?v=2) forces their scraper to fetch the newest tags immediately.",
+      "Major social platforms aggressively cache Open Graph metadata for up to 30 days. To force an immediate re-scrape, submit your URL to the official Facebook Sharing Debugger and LinkedIn Post Inspector. For Twitter (X), appending a cache-busting query parameter (e.g. ?v=2) bypasses the cached card immediately.",
   },
   {
     question: "Can I use WebP or SVG file formats for my og:image?",
@@ -52,11 +61,11 @@ export const OG_FAQS: OgFaqItem[] = [
 ];
 
 const TOC_LINKS = [
-  { href: "#og-dimension-matrix", label: "Social Media Image Dimensions 2026" },
-  { href: "#platform-differences", label: "Open Graph Inheritance & Fallback Logic" },
-  { href: "#code-snippet-export", label: "Standard Essential OG & Twitter Meta Tags" },
-  { href: "#cache-busting-debugging", label: "How to Clear Facebook, LinkedIn, & X Caches" },
-  { href: "#frequently-asked-questions", label: "Frequently Asked Questions (FAQ)" },
+  { href: "#aspect-ratios", label: "Image Aspect Ratios & Dimension Matrix 2026" },
+  { href: "#whatsapp-imessage-rules", label: "Why WhatsApp & iMessage Drop Previews" },
+  { href: "#nextjs-og-metadata", label: "Next.js App Router Open Graph Guide" },
+  { href: "#cache-purging", label: "How to Debug & Clear Social Media Caches" },
+  { href: "#faq", label: "Frequently Asked Questions (FAQ)" },
   { href: "#related-tools", label: "Related SEO & Web Utilities" },
 ];
 
@@ -79,7 +88,7 @@ export function ToolContent() {
               Table of Contents: Open Graph Architecture Guide
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Jump directly to platform dimensions, fallback logic, or code templates
+              Jump directly to aspect ratios, WhatsApp chat rules, or Next.js code recipes
             </p>
           </div>
         </div>
@@ -113,7 +122,7 @@ export function ToolContent() {
           </div>
           <div>
             <h2
-              id="og-dimension-matrix"
+              id="aspect-ratios"
               className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
             >
               2026 Social Media Open Graph Dimension Matrix
@@ -218,11 +227,11 @@ export function ToolContent() {
                 <td className="py-3 px-4 font-mono text-slate-700 dark:text-slate-300">
                   1.91 : 1 / 1 : 1
                 </td>
-                <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
-                  300 KB recommended
+                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">
+                  Under 300 KB strictly
                 </td>
                 <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
-                  Requires image under 300KB for instant inline chat unfurling on mobile
+                  Must be under 300KB for instant inline chat unfurling on mobile clients
                 </td>
               </tr>
             </tbody>
@@ -231,126 +240,156 @@ export function ToolContent() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 2: Twitter Cards vs Facebook Open Graph Fallback Logic            */}
+      {/* SECTION 2: Why WhatsApp and iMessage Fail to Show Link Previews           */}
       {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
-            <Layers className="h-5 w-5" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+            <MessageSquare className="h-5 w-5" />
           </div>
           <div>
             <h2
-              id="platform-differences"
+              id="whatsapp-imessage-rules"
               className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
             >
-              Open Graph Inheritance &amp; Platform Fallback Mechanics
+              Why WhatsApp and iMessage Fail to Show Link Previews
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Understanding how Twitter (X), LinkedIn, and messaging crawlers resolve missing tags
+              The 3 critical technical bottlenecks that cause mobile messaging apps to drop preview cards
             </p>
           </div>
         </div>
 
-        <div className="prose prose-slate dark:prose-invert max-w-none space-y-4 text-sm sm:text-base leading-relaxed">
-          <p>
-            When a web page is shared on social media, automated scraper bots (such as <code>facebookexternalhit</code>, <code>Twitterbot</code>, and <code>LinkedInBot</code>) fetch your HTML document head to parse metadata.
+        {/* Warning Callout Box */}
+        <div className="rounded-3xl border border-amber-300 dark:border-amber-900/60 bg-amber-50/50 dark:bg-amber-950/20 p-6 space-y-3 shadow-sm">
+          <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-bold">
+            <AlertTriangle className="h-5 w-5" />
+            <h3
+              id="whatsapp-300kb-rule"
+              className="text-base scroll-mt-24"
+            >
+              The Strict 300 KB Mobile Paywall Rule
+            </h3>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            Unlike web social networks (Facebook, Twitter, LinkedIn) which cache multi-megabyte images on enterprise CDNs, <strong>WhatsApp and Apple iMessage perform link parsing directly on user mobile devices</strong>. To protect cellular bandwidth, both clients will immediately abort the image download if the referenced <code>og:image</code> exceeds <strong>300 KB</strong> or takes longer than 3 seconds to respond.
           </p>
-          <p>
-            The <strong>Open Graph protocol</strong> (standardized by Facebook) serves as the universal foundation for link sharing across the web. Most platforms follow a strict priority waterfall:
-          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose my-6">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-5 space-y-2.5 shadow-sm">
-              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block">
-                Rule 1: Twitter Card Fallback
-              </span>
-              <h3
-                id="rule-twitter-fallback"
-                className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
-              >
-                OG Tags Populate Twitter Cards
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                If <code>twitter:title</code> or <code>twitter:image</code> are omitted, Twitter automatically consumes <code>og:title</code> and <code>og:image</code>. However, you <em>must</em> still include <code>&lt;meta name=&quot;twitter:card&quot; content=&quot;summary_large_image&quot;&gt;</code>.
-              </p>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 space-y-2.5 shadow-sm">
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
+              Requirement 1
+            </span>
+            <h3
+              id="req-file-size"
+              className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              Compress Under 300 KB
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Export your 1200×630 graphics as optimized PNGs or 80%-quality JPGs. Keep the total file weight between 100 KB and 280 KB for instant mobile unfurling.
+            </p>
+          </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-5 space-y-2.5 shadow-sm">
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
-                Rule 2: Absolute URLs Only
-              </span>
-              <h3
-                id="rule-absolute-urls"
-                className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
-              >
-                No Relative Paths for Images
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Social bots do not resolve relative paths like <code>/og-image.png</code>. You must provide a full HTTPS URL: <code>https://yourdomain.com/og-image.png</code>.
-              </p>
-            </div>
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 space-y-2.5 shadow-sm">
+            <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block">
+              Requirement 2
+            </span>
+            <h3
+              id="req-ssl-chain"
+              className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              Complete SSL Certificate Chain
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Apple iMessage rejects preview unfurls if your HTTPS server has missing intermediate CA certificates (even if Chrome appears green). Verify your SSL chain on Qualys SSL Labs.
+            </p>
+          </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-5 space-y-2.5 shadow-sm">
-              <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider block">
-                Rule 3: WhatsApp 300KB Limit
-              </span>
-              <h3
-                id="rule-whatsapp-limits"
-                className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
-              >
-                Fast Inline Chat Unfurling
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                WhatsApp will silently drop image previews if the referenced graphic exceeds <strong>300 KB</strong>. Compress your social banners using modern WebP or optimized PNG tools.
-              </p>
-            </div>
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 space-y-2.5 shadow-sm">
+            <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider block">
+              Requirement 3
+            </span>
+            <h3
+              id="req-absolute-urls"
+              className="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24"
+            >
+              Full Absolute HTTPS URLs
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Never use relative paths like <code>/og.png</code>. Messaging scrapers do not resolve relative domain roots; always provide <code>https://yourdomain.com/og.png</code>.
+            </p>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 3: Standard Essential OG & Twitter Meta Tags Code Block           */}
+      {/* SECTION 3: Next.js App Router Open Graph Configuration Guide              */}
       {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
-            <Code2 className="h-5 w-5" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
+            <FileCode className="h-5 w-5" />
           </div>
           <div>
             <h2
-              id="code-snippet-export"
+              id="nextjs-og-metadata"
               className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
             >
-              Essential Open Graph &amp; Twitter Meta Tag Template
+              Next.js App Router Open Graph Configuration Guide
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Copy and paste this standard production blueprint directly into your website&apos;s &lt;head&gt;
+              How to export typed Metadata objects in Next.js 14 and 15 without third-party head plugins
             </p>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-950 p-5 font-mono text-xs text-slate-200 shadow-sm overflow-x-auto">
-          <pre className="leading-relaxed">
-{`<!-- Primary Open Graph Meta Tags (Facebook, LinkedIn, Discord) -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.yourdomain.com/page-path">
-<meta property="og:site_name" content="Your Brand Name">
-<meta property="og:title" content="Engaging Title Between 50 to 60 Characters">
-<meta property="og:description" content="Compelling description summarizing the value proposition within 140 to 155 characters.">
-<meta property="og:image" content="https://www.yourdomain.com/og-image-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Visual description of the social card image">
+        <div className="space-y-4">
+          <p className="text-sm leading-relaxed">
+            In modern Next.js App Router (versions 13, 14, and 15), you no longer need <code>next/head</code> or React Helmet. Instead, define a statically typed <code>Metadata</code> object directly inside any <code>page.tsx</code> or <code>layout.tsx</code> file:
+          </p>
 
-<!-- Twitter (X) Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@YourTwitterHandle">
-<meta name="twitter:creator" content="@AuthorTwitterHandle">
-<meta name="twitter:url" content="https://www.yourdomain.com/page-path">
-<meta name="twitter:title" content="Engaging Title Between 50 to 60 Characters">
-<meta name="twitter:description" content="Compelling description summarizing the value proposition within 140 to 155 characters.">
-<meta name="twitter:image" content="https://www.yourdomain.com/og-image-1200x630.png">`}
-          </pre>
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-950 p-5 font-mono text-xs text-slate-200 shadow-sm overflow-x-auto">
+            <pre className="leading-relaxed">
+{`// src/app/your-page/page.tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Your Page Title | Brand Name",
+  description: "A high-CTR summary snippet of your web page content.",
+  alternates: {
+    canonical: "https://yourdomain.com/your-page",
+  },
+  openGraph: {
+    title: "Your Page Title | Brand Name",
+    description: "A high-CTR summary snippet of your web page content.",
+    url: "https://yourdomain.com/your-page",
+    siteName: "Brand Name",
+    images: [
+      {
+        url: "https://yourdomain.com/og-image-1200x630.png",
+        width: 1200,
+        height: 630,
+        alt: "Preview banner for your web page",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Your Page Title | Brand Name",
+    description: "A high-CTR summary snippet of your web page content.",
+    images: ["https://yourdomain.com/og-image-1200x630.png"],
+  },
+};
+
+export default function Page() {
+  return <main>{/* Your Page Content */}</main>;
+}`}
+            </pre>
+          </div>
         </div>
       </section>
 
@@ -359,12 +398,12 @@ export function ToolContent() {
       {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
             <RefreshCw className="h-5 w-5" />
           </div>
           <div>
             <h2
-              id="cache-busting-debugging"
+              id="cache-purging"
               className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
             >
               How to Debug &amp; Purge Social Media Caches
@@ -449,12 +488,12 @@ export function ToolContent() {
       {/* ========================================================================= */}
       <section className="space-y-6">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
             <HelpCircle className="h-5 w-5" />
           </div>
           <div>
             <h2
-              id="frequently-asked-questions"
+              id="faq"
               className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight scroll-mt-24"
             >
               Frequently Asked Questions (FAQ)

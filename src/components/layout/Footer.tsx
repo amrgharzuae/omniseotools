@@ -59,13 +59,28 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <span className="text-slate-400 dark:text-slate-600">OpenGraph Social Preview (Soon)</span>
+                <Link
+                  href="/tools/social/open-graph-preview"
+                  className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                >
+                  Open Graph Social Previewer
+                </Link>
               </li>
               <li>
-                <span className="text-slate-400 dark:text-slate-600">Robots.txt Generator (Soon)</span>
+                <Link
+                  href="/tools/marketing/utm-campaign-builder"
+                  className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                >
+                  UTM Campaign Builder
+                </Link>
               </li>
               <li>
-                <span className="text-slate-400 dark:text-slate-600">UTM Campaign Builder (Soon)</span>
+                <Link
+                  href="/tools/developer/robots-txt-generator"
+                  className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                >
+                  Robots.txt Generator
+                </Link>
               </li>
             </ul>
           </div>
