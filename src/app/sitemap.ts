@@ -50,6 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.85,
     },
+    {
+      url: `${BASE_URL}/tools/content/keyword-density-analyzer`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
   ];
 
   // 3. Programmatic Platform Pages for UTM Campaign Builder
@@ -75,6 +81,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "utm-campaign-builder",
     "robots-txt-generator",
     "url-slug-generator",
+    "keyword-density-analyzer",
   ];
   const allTools = getAllTools();
   const toolPages: MetadataRoute.Sitemap = allTools
