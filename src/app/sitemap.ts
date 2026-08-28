@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllTools } from "@/config/tools";
 import { CATEGORIES } from "@/config/categories";
+import platformsData from "@/data/utm-platforms.json";
 
 const BASE_URL = "https://www.omniseotools.com";
 
@@ -31,9 +32,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/tools/marketing/utm-campaign-builder`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
   ];
 
-  // 3. Dynamic Category Hub Pages
+  // 3. Programmatic Platform Pages for UTM Campaign Builder
+  const platformPages: MetadataRoute.Sitemap = platformsData.map((p) => ({
+    url: `${BASE_URL}/tools/marketing/utm-campaign-builder/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  // 4. Dynamic Category Hub Pages
   const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
     url: `${BASE_URL}/tools/${cat.slug}`,
     lastModified: now,
@@ -41,8 +56,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 4. Dynamic Tool Registry Pages (excluding dedicated route paths)
-  const dedicatedSlugs = ["serp-preview", "open-graph-preview"];
+  // 5. Dynamic Tool Registry Pages (excluding dedicated route paths)
+  const dedicatedSlugs = ["serp-preview", "open-graph-preview", "utm-campaign-builder"];
   const allTools = getAllTools();
   const toolPages: MetadataRoute.Sitemap = allTools
     .filter((tool) => !dedicatedSlugs.includes(tool.slug))
@@ -53,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: tool.status === "active" ? 0.85 : 0.7,
     }));
 
-  // 5. Static Informational & Compliance Pages
+  // 6. Static Informational & Compliance Pages
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/about`,
@@ -78,6 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...homePage,
     ...primaryToolPages,
+    ...platformPages,
     ...categoryPages,
     ...toolPages,
     ...staticPages,

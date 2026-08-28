@@ -1,0 +1,312 @@
+[
+  {
+    "slug": "google-ads",
+    "name": "Google Ads (PPC / Search)",
+    "shortName": "Google Ads",
+    "icon": "Search",
+    "defaultSource": "google",
+    "defaultMedium": "cpc",
+    "defaultCampaign": "search_brand_2026",
+    "sourcePlatform": "Google Ads",
+    "dynamicMacros": "{campaignid}, {adgroupid}, {keyword}",
+    "macroList": [
+      {
+        "token": "{campaignid}",
+        "param": "utm_id",
+        "description": "Populates the numeric Google Ads Campaign ID dynamically."
+      },
+      {
+        "token": "{adgroupid}",
+        "param": "utm_content",
+        "description": "Injects the unique Ad Group ID for granular split testing."
+      },
+      {
+        "token": "{keyword}",
+        "param": "utm_term",
+        "description": "Captures the exact keyword from your account that triggered the ad."
+      },
+      {
+        "token": "{matchtype}",
+        "param": "utm_term",
+        "description": "Records the match type (e.g. e = exact, p = phrase, b = broad)."
+      }
+    ],
+    "tips": "Ensure auto-tagging (gclid) is enabled in your Google Ads account settings. Use UTM parameters in Tracking Templates for cross-platform analytics consistency in third-party CRMs and GA4.",
+    "ga4ChannelGroup": "Paid Search",
+    "channelGroupReason": "GA4 matches traffic with utm_source='google' (or any search platform) and utm_medium matching '^(cpc|ppc|paidsearch)$' into the Paid Search channel group.",
+    "faqs": [
+      {
+        "question": "Should I use UTMs if Google Ads auto-tagging (gclid) is already enabled?",
+        "answer": "Yes, using both is standard practice. While gclid provides native Google Ads reporting within GA4, manual UTM parameters ensure that third-party analytics tools, marketing CRMs (such as HubSpot or Salesforce), and server logs can attribute lead sources accurately without requiring access to Google's proprietary gclid database."
+      },
+      {
+        "question": "Where do I add UTM parameters in Google Ads?",
+        "answer": "You can add UTM parameters at the Account, Campaign, or Ad Group level inside Google Ads under Settings > Tracking Template. Using ValueTrack parameters like '{lpurl}?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}' ensures every ad automatically carries dynamic attribution."
+      },
+      {
+        "question": "What is the recommended utm_medium for Google Ads in GA4?",
+        "answer": "Always use 'cpc', 'ppc', or 'paidsearch'. Using non-standard medium names like 'google_ads' or 'paid' will cause GA4 to fail regex pattern matching and categorize your paid traffic as 'Unassigned'."
+      }
+    ]
+  },
+  {
+    "slug": "facebook-ads",
+    "name": "Facebook & Instagram Ads",
+    "shortName": "Meta Ads",
+    "icon": "Share2",
+    "defaultSource": "facebook",
+    "defaultMedium": "paid-social",
+    "defaultCampaign": "prospecting_feed_2026",
+    "sourcePlatform": "Meta Ads",
+    "dynamicMacros": "{{campaign.name}}, {{adset.name}}, {{ad.name}}",
+    "macroList": [
+      {
+        "token": "{{campaign.name}}",
+        "param": "utm_campaign",
+        "description": "Automatically replaces with the active campaign name inside Meta Ads Manager."
+      },
+      {
+        "token": "{{adset.name}}",
+        "param": "utm_term",
+        "description": "Inserts the ad set (audience targeting) name into the URL."
+      },
+      {
+        "token": "{{ad.name}}",
+        "param": "utm_content",
+        "description": "Captures the individual ad creative or copy variant name."
+      },
+      {
+        "token": "{{placement}}",
+        "param": "utm_content",
+        "description": "Identifies where the ad appeared (e.g. Facebook_Desktop_Feed, Instagram_Stories)."
+      }
+    ],
+    "tips": "Use Meta Ads Manager's 'Build a URL Parameter' feature to dynamically inject {{campaign.name}} and {{ad.name}} directly into your destination links, eliminating manual spreadsheet errors.",
+    "ga4ChannelGroup": "Paid Social",
+    "channelGroupReason": "GA4 matches recognized social sources (facebook, instagram) paired with utm_medium matching '^(paid-social|paidsocial|paid_social|cpc)$' into the Paid Social channel group.",
+    "faqs": [
+      {
+        "question": "How do I add dynamic UTM parameters in Facebook Ads Manager?",
+        "answer": "In Meta Ads Manager at the Ad creation level, scroll to the 'Tracking' section, find 'URL Parameters', and click 'Build a URL Parameter'. Select Meta's dynamic placeholders like '{{campaign.name}}' for Campaign and '{{ad.name}}' for Content."
+      },
+      {
+        "question": "Should I use 'paid-social' or 'cpc' for Facebook Ads in GA4?",
+        "answer": "Both map to Paid Social in GA4 if the source is recognized as facebook or instagram. However, 'paid-social' or 'paid_social' is the modern standard recommended by Google Analytics 4 documentation to distinguish social ads from search CPC campaigns."
+      },
+      {
+        "question": "Why does Facebook rename or re-encode dynamic macros in the URL?",
+        "answer": "If you paste dynamic curly brackets directly into the Website URL field, Meta may URL-encode them. Always insert macros into the dedicated 'URL parameters' field in Meta Ads Manager so they are dynamically populated at auction time."
+      }
+    ]
+  },
+  {
+    "slug": "tiktok-ads",
+    "name": "TikTok Ads Manager",
+    "shortName": "TikTok Ads",
+    "icon": "Flame",
+    "defaultSource": "tiktok",
+    "defaultMedium": "paid-social",
+    "defaultCampaign": "spark_ads_ugc_2026",
+    "sourcePlatform": "TikTok Ads",
+    "dynamicMacros": "__CAMPAIGN_NAME__, __AID_NAME__",
+    "macroList": [
+      {
+        "token": "__CAMPAIGN_NAME__",
+        "param": "utm_campaign",
+        "description": "Dynamically populates the campaign name configured in TikTok Ads Manager."
+      },
+      {
+        "token": "__AID_NAME__",
+        "param": "utm_term",
+        "description": "Inserts the targeting Ad Group name from TikTok."
+      },
+      {
+        "token": "__CID_NAME__",
+        "param": "utm_content",
+        "description": "Captures the specific video creative name or Spark Ad asset."
+      },
+      {
+        "token": "__PLACEMENT__",
+        "param": "utm_content",
+        "description": "Identifies the TikTok app placement (e.g. TikTok, Pangle, Global App Bundle)."
+      }
+    ],
+    "tips": "TikTok Ads Manager uses double underscores (__MACRO__) for dynamic URL parameter macro injection. Ensure you match TikTok's exact syntax in your tracking parameters.",
+    "ga4ChannelGroup": "Paid Social",
+    "channelGroupReason": "GA4 detects 'tiktok' as a recognized social platform and categorizes utm_medium='paid-social' into the Paid Social channel group.",
+    "faqs": [
+      {
+        "question": "How do dynamic parameters work in TikTok Ads Manager?",
+        "answer": "TikTok replaces double-underscore macros (such as __CAMPAIGN_NAME__ and __CID_NAME__) in real-time when a user clicks on an in-feed video ad, passing campaign and creative data directly into GA4."
+      },
+      {
+        "question": "What is the best utm_source value for TikTok campaigns?",
+        "answer": "Use 'tiktok' in all-lowercase. Avoid using 'TikTok_Ads' or 'tik-tok' because irregular source naming can prevent GA4's default regex engine from pairing it with standard social channels."
+      }
+    ]
+  },
+  {
+    "slug": "linkedin-ads",
+    "name": "LinkedIn Sponsored Content",
+    "shortName": "LinkedIn Ads",
+    "icon": "Globe",
+    "defaultSource": "linkedin",
+    "defaultMedium": "paid-social",
+    "defaultCampaign": "enterprise_saas_q3",
+    "sourcePlatform": "LinkedIn Ads",
+    "dynamicMacros": "N/A (Manual URL Construction)",
+    "macroList": [
+      {
+        "token": "Manual String",
+        "param": "utm_campaign",
+        "description": "Specify the exact LinkedIn Campaign Group or Campaign name manually."
+      },
+      {
+        "token": "Audience Name",
+        "param": "utm_term",
+        "description": "Tag targeted job titles or industries (e.g. cto_decision_makers)."
+      },
+      {
+        "token": "Creative Format",
+        "param": "utm_content",
+        "description": "Differentiate between Single Image Ad, Carousel, Document Ad, or Thought Leader ad."
+      }
+    ],
+    "tips": "Because LinkedIn Campaign Manager does not support dynamic URL macro tokens natively, standardize your UTM parameters using our generator before pasting destination URLs into ad creatives.",
+    "ga4ChannelGroup": "Paid Social",
+    "channelGroupReason": "Traffic with utm_source='linkedin' and utm_medium='paid-social' (or 'cpc') is cleanly attributed to the Paid Social channel grouping in GA4.",
+    "faqs": [
+      {
+        "question": "Does LinkedIn Ads support dynamic ValueTrack parameters like Google or Meta?",
+        "answer": "No. LinkedIn Campaign Manager currently does not offer dynamic macro token replacement in destination URLs. You must construct distinct UTM links for each creative variation manually."
+      },
+      {
+        "question": "How can I differentiate organic LinkedIn shares from paid LinkedIn ads in GA4?",
+        "answer": "For organic posts, use 'utm_source=linkedin&utm_medium=social'. For sponsored campaigns, use 'utm_source=linkedin&utm_medium=paid-social'. GA4 will automatically categorize organic shares under Organic Social and ad clicks under Paid Social."
+      }
+    ]
+  },
+  {
+    "slug": "email-newsletter",
+    "name": "Email Marketing & Newsletters",
+    "shortName": "Email Marketing",
+    "icon": "Layers",
+    "defaultSource": "newsletter",
+    "defaultMedium": "email",
+    "defaultCampaign": "weekly_digest_issue42",
+    "sourcePlatform": "Klaviyo / Mailchimp",
+    "dynamicMacros": "*|CAMPAIGN_UID|*, {{message.name}}",
+    "macroList": [
+      {
+        "token": "*|CAMPAIGN_UID|*",
+        "param": "utm_id",
+        "description": "Mailchimp merge tag for unique campaign identifier."
+      },
+      {
+        "token": "{{message.name}}",
+        "param": "utm_campaign",
+        "description": "Klaviyo tag dynamically inserting the email campaign name."
+      },
+      {
+        "token": "button_vs_text",
+        "param": "utm_content",
+        "description": "Tag individual buttons vs inline text hyperlinks within the newsletter body."
+      }
+    ],
+    "tips": "Always tag all external links in your marketing emails with utm_medium=email. Without UTM parameters, traffic from desktop email clients (like Apple Mail or Outlook) will be misclassified as (direct) / (none).",
+    "ga4ChannelGroup": "Email",
+    "channelGroupReason": "GA4 matches any traffic where utm_medium equals 'email', 'e-mail', 'e_mail', or 'newsletter' directly to the Email default channel group.",
+    "faqs": [
+      {
+        "question": "Why does untagged email traffic show up as 'Direct' in Google Analytics?",
+        "answer": "Desktop and mobile email applications (like Microsoft Outlook and Apple Mail) do not pass HTTP referrer headers when users click links. Without UTM parameters, web servers cannot detect where the user originated, dumping all visits into Direct."
+      },
+      {
+        "question": "What is the best utm_content strategy for email newsletters?",
+        "answer": "Use utm_content to compare click performance across different elements of your email (e.g. 'utm_content=header_logo', 'utm_content=hero_cta_button', 'utm_content=footer_link'). This helps you discover which visual placements generate actual conversions."
+      }
+    ]
+  },
+  {
+    "slug": "youtube-ads",
+    "name": "YouTube Video Campaigns",
+    "shortName": "YouTube Ads",
+    "icon": "Globe",
+    "defaultSource": "youtube",
+    "defaultMedium": "video",
+    "defaultCampaign": "bumper_ads_awareness",
+    "sourcePlatform": "Google Ads Video",
+    "dynamicMacros": "{campaignid}, {creative}",
+    "macroList": [
+      {
+        "token": "{campaignid}",
+        "param": "utm_id",
+        "description": "Injects the numeric YouTube/Google Ads video campaign ID."
+      },
+      {
+        "token": "{creative}",
+        "param": "utm_content",
+        "description": "Identifies the unique video ad creative ID serving impressions."
+      },
+      {
+        "token": "skippable_in_stream",
+        "param": "utm_term",
+        "description": "Describes the ad format (e.g. In-Feed, Bumper, Skippable In-Stream)."
+      }
+    ],
+    "tips": "Tag YouTube video placements with utm_medium=video to isolate video ad view-through and click-through attribution from standard search text ads in GA4.",
+    "ga4ChannelGroup": "Paid Video",
+    "channelGroupReason": "GA4 routes traffic with utm_source='youtube' and utm_medium matching '^(video|paid-video|cpm)$' into the Paid Video channel group.",
+    "faqs": [
+      {
+        "question": "How does GA4 categorize YouTube video traffic?",
+        "answer": "When tagged with utm_source=youtube and utm_medium=video (or paid-video), GA4 groups the sessions under the 'Paid Video' channel group, allowing clean separation from standard search campaigns."
+      },
+      {
+        "question": "Should I use YouTube cards and end screens with UTMs?",
+        "answer": "Yes. Tag end screens and video description links with utm_medium=video and utm_content=end_screen to measure exact viewer interaction points."
+      }
+    ]
+  },
+  {
+    "slug": "twitter-ads",
+    "name": "Twitter / X Ads",
+    "shortName": "X (Twitter) Ads",
+    "icon": "Share2",
+    "defaultSource": "twitter",
+    "defaultMedium": "paid-social",
+    "defaultCampaign": "promoted_tweet_launch",
+    "sourcePlatform": "X Ads Manager",
+    "dynamicMacros": "{campaign_id}",
+    "macroList": [
+      {
+        "token": "{campaign_id}",
+        "param": "utm_id",
+        "description": "Injects the X Ads Campaign ID for automated reporting."
+      },
+      {
+        "token": "promoted_tweet_v1",
+        "param": "utm_content",
+        "description": "Differentiates promoted video tweets, image cards, or text tweets."
+      },
+      {
+        "token": "tech_founders_lookalike",
+        "param": "utm_term",
+        "description": "Records the targeted handle follower or keyword list."
+      }
+    ],
+    "tips": "Tag promoted tweets and handle link conversions cleanly with utm_medium=paid-social to distinguish paid ad engagement from viral organic retweets.",
+    "ga4ChannelGroup": "Paid Social",
+    "channelGroupReason": "Traffic with utm_source='twitter' (or 't.co') and utm_medium='paid-social' is categorized under the Paid Social channel group in GA4.",
+    "faqs": [
+      {
+        "question": "How does Twitter (X) t.co link wrapping affect UTM parameters?",
+        "answer": "Twitter wraps all links in t.co shortlinks for security. However, the original UTM parameters remain fully intact and are passed to the final destination URL when the redirect completes."
+      },
+      {
+        "question": "What is the recommended utm_source for Twitter vs X?",
+        "answer": "Use 'twitter' as the standard utm_source for consistent historical reporting in GA4, as GA4's default regex library specifically recognizes 'twitter' and 't.co'."
+      }
+    ]
+  }
+]
