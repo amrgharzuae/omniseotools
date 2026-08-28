@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
@@ -59,6 +60,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-Q2R74NKBXQ";
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -81,6 +84,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* Google Analytics 4 Script Integration via @next/third-parties */}
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
