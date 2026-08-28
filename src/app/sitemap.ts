@@ -38,6 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/tools/developer/robots-txt-generator`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
   ];
 
   // 3. Programmatic Platform Pages for UTM Campaign Builder
@@ -57,7 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // 5. Dynamic Tool Registry Pages (excluding dedicated route paths)
-  const dedicatedSlugs = ["serp-preview", "open-graph-preview", "utm-campaign-builder"];
+  const dedicatedSlugs = [
+    "serp-preview",
+    "open-graph-preview",
+    "utm-campaign-builder",
+    "robots-txt-generator",
+  ];
   const allTools = getAllTools();
   const toolPages: MetadataRoute.Sitemap = allTools
     .filter((tool) => !dedicatedSlugs.includes(tool.slug))
