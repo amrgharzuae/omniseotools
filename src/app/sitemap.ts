@@ -44,6 +44,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/tools/seo/url-slug-generator`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
   ];
 
   // 3. Programmatic Platform Pages for UTM Campaign Builder
@@ -68,6 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "open-graph-preview",
     "utm-campaign-builder",
     "robots-txt-generator",
+    "url-slug-generator",
   ];
   const allTools = getAllTools();
   const toolPages: MetadataRoute.Sitemap = allTools
