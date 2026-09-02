@@ -91,8 +91,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const validTones = ["professional", "engaging", "direct", "creative"] as const;
-    const selectedTone = tone && validTones.includes(tone as any) ? tone : "professional";
+    const validTones: readonly string[] = ["professional", "engaging", "direct", "creative"];
+    const selectedTone = tone && validTones.includes(tone) ? tone : "professional";
 
     const { geminiKey, openAiKey } = getApiKeys();
 
@@ -166,11 +166,12 @@ Tone: ${selectedTone}`;
               break;
             }
           }
-        } catch (e: any) {
-          lastGeminiError = e.message || String(e);
+        } catch (e: unknown) {
+          lastGeminiError = e instanceof Error ? e.message : String(e);
           console.warn(`Attempt with ${model} failed:`, e);
         }
       }
+
 
       if (!parsedResult) {
         throw new Error(lastGeminiError || "Failed to generate metadata using Google Gemini API.");

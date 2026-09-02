@@ -13,6 +13,20 @@
 *.env.*
 *.env.vault
 
+# Explicitly permit .env.example for open-source setup
+!.env.example
+!.env*.example
+
+# Private Keys, Certificates & Credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*credentials*.json
+*service-account*.json
+
 # ==============================================================================
 # 2. Dependencies & Package Managers
 # ==============================================================================
@@ -28,6 +42,9 @@
 /out/
 /build/
 /dist/
+.cache/
+.parcel-cache/
+.turbo/
 
 # ==============================================================================
 # 4. Debug Logs & Crash Reports
@@ -40,7 +57,17 @@ logs/
 *.log
 
 # ==============================================================================
-# 5. OS & Local System Files
+# 5. Testing & Coverage
+# ==============================================================================
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+
+# ==============================================================================
+# 6. OS & Local System Files
 # ==============================================================================
 .DS_Store
 .DS_Store?
@@ -49,13 +76,15 @@ logs/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # ==============================================================================
-# 6. IDEs & Code Editors
+# 7. IDEs & Code Editors
 # ==============================================================================
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+!.vscode/tasks.json
 .idea/
 *.suo
 *.ntvs*
@@ -66,8 +95,15 @@ Thumbs.db
 *.sublime-workspace
 
 # ==============================================================================
-# 7. TypeScript & Deployment Platforms
+# 8. TypeScript & Deployment Platforms
 # ==============================================================================
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# ==============================================================================
+# 9. AI Assistant & Local Scratch Directories
+# ==============================================================================
+.agents/
+.gemini/
+scratch/
