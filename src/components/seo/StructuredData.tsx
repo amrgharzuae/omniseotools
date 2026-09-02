@@ -4,15 +4,16 @@ import { siteConfig } from "@/config/site";
 
 interface StructuredDataProps {
   tool: ToolDefinition;
+  url?: string;
 }
 
-export function StructuredData({ tool }: StructuredDataProps) {
-  const toolUrl = siteConfig.url + "/tools/" + tool.category + "/" + tool.slug;
+export function StructuredData({ tool, url }: StructuredDataProps) {
+  const toolUrl = url || siteConfig.url + "/tools/" + tool.slug;
 
   const softwareAppSchema = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: tool.name,
+    "@type": "SoftwareApplication",
+    name: tool.title || tool.name,
     url: toolUrl,
     applicationCategory: "BusinessApplication",
     operatingSystem: "All",
@@ -21,13 +22,14 @@ export function StructuredData({ tool }: StructuredDataProps) {
       price: "0",
       priceCurrency: "USD",
     },
-    description: tool.shortDescription,
+    description: tool.metaDescription || tool.shortDescription,
     author: {
       "@type": "Organization",
       name: siteConfig.name,
       url: siteConfig.url,
     },
   };
+
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

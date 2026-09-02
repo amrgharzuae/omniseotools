@@ -3,7 +3,10 @@ export type ToolCategoryId =
   | "marketing" 
   | "developer" 
   | "social" 
-  | "content";
+  | "content"
+  | "serp"
+  | "copywriting"
+  | "technical";
 
 export interface CategoryDefinition {
   id: ToolCategoryId;
@@ -14,3 +17,4 @@ export interface CategoryDefinition {
   color: string;
   toolCount?: number;
 }
+

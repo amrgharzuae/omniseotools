@@ -1,126 +1,54 @@
 import { MetadataRoute } from "next";
-import { getAllTools } from "@/config/tools";
-import { CATEGORIES } from "@/config/categories";
-import platformsData from "@/data/utm-platforms.json";
+import { TOOLS_REGISTRY } from "@/config/tools-registry";
 
-const BASE_URL = "https://www.omniseotools.com";
+const BASE_URL = "https://omniseotools.com";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // 1. Core Homepage
+  // 1. Homepage
   const homePage: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 1.0,
     },
   ];
 
-  // 2. Primary Featured Tools (Dedicated Routes with Deep Content)
-  const primaryToolPages: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE_URL}/tools/seo/serp-preview`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/tools/social/open-graph-preview`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/tools/marketing/utm-campaign-builder`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/tools/developer/robots-txt-generator`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/tools/seo/url-slug-generator`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${BASE_URL}/tools/content/keyword-density-analyzer`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-  ];
-
-  // 3. Programmatic Platform Pages for UTM Campaign Builder
-  const platformPages: MetadataRoute.Sitemap = platformsData.map((p) => ({
-    url: `${BASE_URL}/tools/marketing/utm-campaign-builder/${p.slug}`,
+  // 2. All 10 Programmatic Tool Routes from tools-registry.ts
+  const toolPages: MetadataRoute.Sitemap = TOOLS_REGISTRY.map((tool) => ({
+    url: `${BASE_URL}/tools/${tool.slug}`,
     lastModified: now,
     changeFrequency: "weekly",
-    priority: 0.8,
+    priority: 0.9,
   }));
 
-  // 4. Dynamic Category Hub Pages
-  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${BASE_URL}/tools/${cat.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
-
-  // 5. Dynamic Tool Registry Pages (excluding dedicated route paths)
-  const dedicatedSlugs = [
-    "serp-preview",
-    "open-graph-preview",
-    "utm-campaign-builder",
-    "robots-txt-generator",
-    "url-slug-generator",
-    "keyword-density-analyzer",
-  ];
-  const allTools = getAllTools();
-  const toolPages: MetadataRoute.Sitemap = allTools
-    .filter((tool) => !dedicatedSlugs.includes(tool.slug))
-    .map((tool) => ({
-      url: `${BASE_URL}/tools/${tool.category}/${tool.slug}`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: tool.status === "active" ? 0.85 : 0.7,
-    }));
-
-  // 6. Static Informational & Compliance Pages
-  const staticPages: MetadataRoute.Sitemap = [
+  // 3. Legal & Compliance Informational Pages
+  const legalPages: MetadataRoute.Sitemap = [
     {
-      url: `${BASE_URL}/about`,
+      url: `${BASE_URL}/privacy-policy`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/privacy`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.3,
     },
     {
       url: `${BASE_URL}/terms`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
     },
   ];
 
   return [
     ...homePage,
-    ...primaryToolPages,
-    ...platformPages,
-    ...categoryPages,
     ...toolPages,
-    ...staticPages,
+    ...legalPages,
   ];
 }

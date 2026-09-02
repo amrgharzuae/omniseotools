@@ -16,10 +16,18 @@ export interface ToolFAQ {
   answer: string;
 }
 
+export interface ToolGuideContent {
+  title: string;
+  sections: ToolEditorialSection[];
+}
+
 export interface ToolDefinition {
   id: string;
   slug: string;
   name: string;
+  title?: string;
+  h1?: string;
+  tagline?: string;
   shortDescription: string;
   category: ToolCategoryId;
   icon: string; // Lucide icon identifier
@@ -30,9 +38,8 @@ export interface ToolDefinition {
   featured?: boolean;
   status: "active" | "coming-soon";
   howToSteps?: ToolHowToStep[];
-  editorialGuide?: {
-    title: string;
-    sections: ToolEditorialSection[];
-  };
+  editorialGuide?: ToolGuideContent;
+  guideContent?: ToolGuideContent;
   faqs?: ToolFAQ[];
 }
+

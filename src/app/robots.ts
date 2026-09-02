@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://www.omniseotools.com/sitemap.xml",
+    sitemap: "https://omniseotools.com/sitemap.xml",
+    host: "https://omniseotools.com",
   };
 }
