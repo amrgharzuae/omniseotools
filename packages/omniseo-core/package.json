@@ -1,0 +1,33 @@
+{
+  "name": "omniseo-core",
+  "version": "1.0.0",
+  "description": "Lightweight client-side utility for SERP pixel measurements, Open Graph tag generation, and Flesch-Kincaid readability scoring.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "homepage": "https://omniseotools.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amrgharzuae/omniseotools.git",
+    "directory": "packages/omniseo-core"
+  },
+  "keywords": [
+    "seo",
+    "serp",
+    "pixel-checker",
+    "open-graph",
+    "readability",
+    "flesch-kincaid"
+  ],
+  "author": "OmniSEO Tools",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
