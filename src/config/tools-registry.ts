@@ -937,27 +937,44 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   }
 ];
 
+import { openGraphPreviewTool } from "./tools/social/open-graph-preview";
+
 // Helper Query Methods
 export function getAllProgrammaticTools(): ToolDefinition[] {
-  return TOOLS_REGISTRY;
+  const tools = [...TOOLS_REGISTRY];
+  if (!tools.some((t) => t.slug === openGraphPreviewTool.slug)) {
+    tools.push(openGraphPreviewTool);
+  }
+  return tools;
 }
 
 export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefined {
-  return TOOLS_REGISTRY.find((t) => t.slug === slug || t.id === slug);
+  if (!slug) return undefined;
+  const normalized = slug.toLowerCase().trim();
+  const found = TOOLS_REGISTRY.find(
+    (t) => t.slug.toLowerCase() === normalized || t.id.toLowerCase() === normalized
+  );
+  if (found) return found;
+
+  if (normalized === "open-graph-preview" || normalized === "opengraph-preview") {
+    return openGraphPreviewTool;
+  }
+  return undefined;
 }
 
 export function getAllTools(): ToolDefinition[] {
-  return TOOLS_REGISTRY;
+  return getAllProgrammaticTools();
 }
 
 export function getToolBySlug(slug: string): ToolDefinition | undefined {
-  return TOOLS_REGISTRY.find((t) => t.slug === slug || t.id === slug);
+  return getProgrammaticToolBySlug(slug);
 }
 
 export function getToolsByCategory(category: ToolCategoryId): ToolDefinition[] {
-  return TOOLS_REGISTRY.filter((t) => t.category === category);
+  return getAllProgrammaticTools().filter((t) => t.category === category);
 }
 
 export function getFeaturedTools(): ToolDefinition[] {
-  return TOOLS_REGISTRY.filter((t) => t.featured);
+  return getAllProgrammaticTools().filter((t) => t.featured);
 }
+
