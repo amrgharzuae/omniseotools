@@ -1,0 +1,258 @@
+import React from "react";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ChevronRight, Sparkles, CheckCircle2, Server } from "lucide-react";
+import {
+  getAllProgrammaticTools,
+  getProgrammaticToolBySlug,
+} from "@/config/tools-registry";
+import {
+  getAllPlatforms,
+  getPlatformBySlug,
+  getPlatformToolContent,
+} from "@/config/platforms-registry";
+import { siteConfig } from "@/config/site";
+import { PlatformStructuredData } from "@/components/platform/PlatformStructuredData";
+import { PlatformGuide } from "@/components/platform/PlatformGuide";
+import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
+import { PlatformSwitcher } from "@/components/platform/PlatformSwitcher";
+import { RelatedTools } from "@/components/tool-layout/RelatedTools";
+import { AdSlot } from "@/components/ads/AdSlot";
+
+// Interactive Tool Components
+import { SocialPreviewer } from "@/components/tools/social/SocialPreviewer";
+import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
+import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
+import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
+import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
+
+interface PlatformToolPageProps {
+  params: Promise<{
+    slug: string;
+    platformSlug: string;
+  }>;
+}
+
+export async function generateStaticParams() {
+  const tools = getAllProgrammaticTools();
+  const platforms = getAllPlatforms();
+
+  const paramsList: { slug: string; platformSlug: string }[] = [];
+
+  for (const tool of tools) {
+    for (const platform of platforms) {
+      paramsList.push({
+        slug: tool.slug,
+        platformSlug: platform.slug,
+      });
+    }
+  }
+
+  return paramsList;
+}
+
+export async function generateMetadata({
+  params,
+}: PlatformToolPageProps): Promise<Metadata> {
+  const { slug, platformSlug } = await params;
+  const tool = getProgrammaticToolBySlug(slug);
+  const platform = getPlatformBySlug(platformSlug);
+
+  if (!tool || !platform) {
+    return {};
+  }
+
+  const content = getPlatformToolContent(slug, platformSlug);
+  const canonicalUrl = `https://omniseotools.com/tools/${slug}/${platformSlug}`;
+
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    keywords: [
+      ...(tool.keywords || []),
+      `${tool.name.toLowerCase()} ${platform.name.toLowerCase()}`,
+      `${platform.name.toLowerCase()} seo meta tags`,
+      `${platform.name.toLowerCase()} open graph tags`,
+      `${platform.name.toLowerCase()} twitter cards`,
+      `${platform.name.toLowerCase()} preview tool`,
+    ],
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: content.metaTitle,
+      description: content.metaDescription,
+      url: canonicalUrl,
+      type: "website",
+      siteName: siteConfig.name,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.metaTitle,
+      description: content.metaDescription,
+    },
+  };
+}
+
+export default async function PlatformToolPage({
+  params,
+}: PlatformToolPageProps) {
+  const { slug, platformSlug } = await params;
+  const tool = getProgrammaticToolBySlug(slug);
+  const platform = getPlatformBySlug(platformSlug);
+
+  if (!tool || !platform) {
+    notFound();
+  }
+
+  const content = getPlatformToolContent(slug, platformSlug);
+  const canonicalUrl = `https://omniseotools.com/tools/${tool.slug}/${platform.slug}`;
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* 1. Injected Structured Data (SoftwareApplication + FAQPage + HowTo + BreadcrumbList) */}
+      <PlatformStructuredData
+        tool={tool}
+        platform={platform}
+        content={content}
+        url={canonicalUrl}
+      />
+
+      {/* 2. Hero Header */}
+      <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 pb-8 pt-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Semantic Breadcrumbs */}
+          <nav
+            className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500 mb-4"
+            aria-label="Breadcrumb"
+          >
+            <Link href="/" className="hover:text-indigo-600 transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+            <Link
+              href={`/#category-${tool.category || "seo"}`}
+              className="hover:text-indigo-600 uppercase font-medium transition-colors"
+            >
+              {tool.category || "Tools"}
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+            <Link
+              href={`/tools/${tool.slug}`}
+              className="hover:text-indigo-600 font-medium transition-colors truncate max-w-[150px] sm:max-w-none"
+            >
+              {tool.name}
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+            <span className="text-slate-900 dark:text-slate-200 font-semibold">
+              {platform.name}
+            </span>
+          </nav>
+
+          {/* Heading and Platform Badge */}
+          <div className="flex flex-wrap items-center gap-3 mb-3">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              {content.h1}
+            </h1>
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-100 dark:bg-indigo-950/80 border border-indigo-500/30 px-3 py-1 text-xs font-bold text-indigo-700 dark:text-indigo-300">
+              <Server className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
+              {platform.name} Integration
+            </span>
+            {tool.badge && (
+              <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">
+                <Sparkles className="h-3 w-3" />
+                {tool.badge}
+              </span>
+            )}
+          </div>
+
+          {/* 1-Sentence Tagline */}
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+            {content.tagline}
+          </p>
+
+          {/* Trust Micro-Badges */}
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400">
+            <span className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400">
+              <CheckCircle2 className="h-3.5 w-3.5" /> 100% Free & Client-Side Private
+            </span>
+            <span className="flex items-center gap-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" /> Copy-Paste {platform.name} Snippets
+            </span>
+            <span className="flex items-center gap-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" /> 2026 Engine Rules
+            </span>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Container */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 pb-16">
+        {/* Top Pre-Reserved AdSlot */}
+        <AdSlot slotType="leaderboard" className="my-6" />
+
+        {/* Platform Cross-Links Switcher */}
+        <PlatformSwitcher
+          toolSlug={tool.slug}
+          currentPlatformSlug={platform.slug}
+        />
+
+        {/* 3. Interactive Tool Widget */}
+        <section className="mt-2" id="tool-interactive" aria-label="Interactive Tool">
+          {tool.slug === "twitter-card-preview" ? (
+            <SocialPreviewer defaultPlatform="twitter" />
+          ) : tool.slug === "linkedin-link-preview" ? (
+            <SocialPreviewer defaultPlatform="linkedin" />
+          ) : tool.slug === "facebook-open-graph-debugger" ? (
+            <SocialPreviewer defaultPlatform="facebook" />
+          ) : tool.slug === "discord-embed-generator" ? (
+            <SocialPreviewer defaultPlatform="discord" />
+          ) : tool.slug === "meta-title-pixel-checker" ? (
+            <SERPPreviewer mode="title-pixel" />
+          ) : tool.slug === "meta-description-length-counter" ? (
+            <SERPPreviewer mode="description-counter" />
+          ) : tool.slug === "google-serp-simulator" ? (
+            <SERPPreviewer mode="full-simulator" />
+          ) : tool.slug === "flesch-kincaid-calculator" ? (
+            <ReadabilityCalculator />
+          ) : tool.slug === "keyword-density-checker" ? (
+            <KeywordDensity />
+          ) : tool.slug === "open-graph-meta-generator" ? (
+            <MetaTagGenerator />
+          ) : tool.slug === "open-graph-preview" ? (
+            <SocialPreviewer defaultPlatform="twitter" />
+          ) : (
+            <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-12 text-center">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                {tool.name} for {platform.name}
+              </h2>
+              <p className="mt-2 text-xs text-slate-500 max-w-md mx-auto">
+                {tool.shortDescription}
+              </p>
+            </div>
+          )}
+        </section>
+
+        {/* Mid-Content In-Feed AdSlot */}
+        <AdSlot slotType="in-feed" className="my-10" />
+
+        {/* 4. Platform-Specific Guide with Copyable Snippet */}
+        <PlatformGuide tool={tool} platform={platform} content={content} />
+
+        {/* 5. Platform-Specific FAQ Accordion */}
+        <PlatformFAQ
+          platformName={platform.name}
+          toolName={tool.name}
+          faqs={content.faqs}
+        />
+
+        {/* 6. Related Tools Internal Linking Mesh */}
+        <RelatedTools currentTool={tool} />
+
+        {/* Bottom AdSlot */}
+        <AdSlot slotType="leaderboard" className="mt-12" />
+      </main>
+    </div>
+  );
+}

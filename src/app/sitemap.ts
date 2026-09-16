@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
+import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -16,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 2. All 10 Programmatic Tool Routes from tools-registry.ts
+  // 2. All Core Programmatic Tool Routes from tools-registry.ts
   const toolPages: MetadataRoute.Sitemap = TOOLS_REGISTRY.map((tool) => ({
     url: `${BASE_URL}/tools/${tool.slug}`,
     lastModified: now,
@@ -24,7 +25,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // 3. Legal & Compliance Informational Pages
+  // 3. Programmatic Platform Pages (Tool x Platform Permutations)
+  const programmaticPlatformPages: MetadataRoute.Sitemap = [];
+  for (const tool of TOOLS_REGISTRY) {
+    for (const platform of PLATFORMS_REGISTRY) {
+      programmaticPlatformPages.push({
+        url: `${BASE_URL}/tools/${tool.slug}/${platform.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  // 4. Legal & Compliance Informational Pages
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/privacy-policy`,
@@ -49,6 +63,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...homePage,
     ...toolPages,
+    ...programmaticPlatformPages,
     ...legalPages,
   ];
 }
+
