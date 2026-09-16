@@ -25,7 +25,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // 3. Programmatic Platform Pages (Tool x Platform Permutations)
+  // 3. Platform Index & Hub Pages (All 8 Platforms)
+  const platformPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/platforms`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    ...PLATFORMS_REGISTRY.map((platform) => ({
+      url: `${BASE_URL}/platforms/${platform.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  // 4. Programmatic Platform Pages (Tool x Platform Permutations)
   const programmaticPlatformPages: MetadataRoute.Sitemap = [];
   for (const tool of TOOLS_REGISTRY) {
     for (const platform of PLATFORMS_REGISTRY) {
@@ -38,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // 4. Legal & Compliance Informational Pages
+  // 5. Legal & Compliance Informational Pages
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/privacy-policy`,
@@ -63,8 +79,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...homePage,
     ...toolPages,
+    ...platformPages,
     ...programmaticPlatformPages,
     ...legalPages,
   ];
 }
+
 

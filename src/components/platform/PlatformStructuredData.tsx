@@ -51,18 +51,24 @@ export function PlatformStructuredData({
       {
         "@type": "ListItem",
         position: 2,
-        name: tool.category ? tool.category.toUpperCase() : "TOOLS",
-        item: `${siteConfig.url}/#category-${tool.category || "seo"}`,
+        name: "Platforms",
+        item: `${siteConfig.url}/platforms`,
       },
       {
         "@type": "ListItem",
         position: 3,
+        name: platform.name,
+        item: `${siteConfig.url}/platforms/${platform.slug}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
         name: tool.name,
         item: `${siteConfig.url}/tools/${tool.slug}`,
       },
       {
         "@type": "ListItem",
-        position: 4,
+        position: 5,
         name: `${tool.name} for ${platform.name}`,
         item: toolUrl,
       },

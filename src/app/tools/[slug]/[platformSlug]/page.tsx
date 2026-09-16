@@ -132,10 +132,17 @@ export default async function PlatformToolPage({
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
             <Link
-              href={`/#category-${tool.category || "seo"}`}
-              className="hover:text-indigo-600 uppercase font-medium transition-colors"
+              href="/platforms"
+              className="hover:text-indigo-600 transition-colors font-medium"
             >
-              {tool.category || "Tools"}
+              Platforms
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+            <Link
+              href={`/platforms/${platform.slug}`}
+              className="hover:text-indigo-600 font-medium transition-colors"
+            >
+              {platform.name}
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
             <Link

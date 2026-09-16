@@ -1,16 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
 import { Logo } from "@/components/ui/Logo";
-import { Shield, Sparkles, Share2, Search, FileText } from "lucide-react";
+import { Shield, Sparkles, Share2, Search, FileText, Server } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-12">
         
-        {/* Semantic 4-Column Directory Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Semantic 5-Column Directory Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           
           {/* Column 1: Brand Overview & Mission */}
           <div className="space-y-4">
@@ -32,11 +33,33 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Social & OpenGraph Tools (4 Direct Links) */}
+          {/* Column 2: Platform Hubs (All 8 Platforms) */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-2">
+              <Server className="h-3.5 w-3.5 text-indigo-500" />
+              <Link href="/platforms" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                Platform Hubs
+              </Link>
+            </h3>
+            <ul className="space-y-2 text-xs">
+              {PLATFORMS_REGISTRY.map((platform) => (
+                <li key={platform.slug}>
+                  <Link
+                    href={`/platforms/${platform.slug}`}
+                    className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
+                  >
+                    {platform.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Social & OpenGraph Tools (4 Direct Links) */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-2">
               <Share2 className="h-3.5 w-3.5 text-indigo-500" />
-              Social & OpenGraph Tools
+              Social & OpenGraph
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
@@ -74,7 +97,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: SERP & Search Tools (3 Direct Links) */}
+          {/* Column 4: SERP & Search Tools (3 Direct Links) */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-2">
               <Search className="h-3.5 w-3.5 text-indigo-500" />
@@ -108,11 +131,11 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Copywriting, Technical & Legal (3 Direct Tools + Legal Links) */}
+          {/* Column 5: Copywriting, Technical & Legal (3 Direct Tools + Legal Links) */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-2">
               <FileText className="h-3.5 w-3.5 text-indigo-500" />
-              Copywriting & Technical
+              Copywriting & Legal
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
@@ -185,3 +208,4 @@ export function Footer() {
     </footer>
   );
 }
+
