@@ -107,3 +107,7 @@ next-env.d.ts
 .agents/
 .gemini/
 scratch/
+
+# NPM package build outputs
+packages/**/dist/
+packages/**/node_modules/

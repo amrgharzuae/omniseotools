@@ -1,0 +1,14 @@
+[
+  {
+    "owner": "sindresorhus",
+    "repo": "awesome",
+    "targetSection": "Front-End Development",
+    "lineToInsert": "- [OmniSEO](https://omniseotools.com) - Fast, client-side social card previewer and Google SERP pixel ruler."
+  },
+  {
+    "owner": "ripienaar",
+    "repo": "free-for-dev",
+    "targetSection": "Tools for Teams and Collaboration",
+    "lineToInsert": "- [OmniSEO](https://omniseotools.com) - Fast client-side social card previewer and Google SERP pixel ruler."
+  }
+]
