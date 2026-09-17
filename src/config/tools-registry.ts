@@ -934,6 +934,1391 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
         answer: "Yes, always include a <link rel=\"canonical\" href=\"https://...\"> tag pointing to your preferred URL. This unifies search engine ranking signals and prevents duplicate content issues."
       }
     ]
+  },
+
+  // 11. Schema Markup Generator
+  {
+    id: "schema-markup-generator",
+    slug: "schema-markup-generator",
+    name: "Schema Markup Generator",
+    title: "JSON-LD Schema Markup Generator (2026 Structured Data)",
+    metaTitle: "JSON-LD Schema Markup Generator (2026 Structured Data)",
+    metaDescription: "Generate Google-compliant JSON-LD Schema.org structured data for Articles, Products, Organizations, Local Businesses, and WebSites.",
+    h1: "JSON-LD Schema Markup Generator & Structured Data Builder",
+    tagline: "Generate Google-compliant JSON-LD structured data to win rich snippets, knowledge graph cards, and enhanced search results.",
+    shortDescription: "Generate Google-compliant JSON-LD Schema.org structured data markup for Articles, Products, Organizations, and WebSites.",
+    category: "technical",
+    icon: "Code2",
+    badge: "Popular",
+    keywords: [
+      "schema markup generator",
+      "json-ld generator",
+      "schema org structured data",
+      "google rich snippets generator",
+      "article schema json-ld",
+      "organization schema builder"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "schemaType",
+        label: "Schema Type",
+        type: "select",
+        defaultValue: "Article",
+        options: [
+          { label: "Article / BlogPosting", value: "Article" },
+          { label: "Organization / Company", value: "Organization" },
+          { label: "WebSite / SearchAction", value: "WebSite" },
+          { label: "Product / E-commerce", value: "Product" },
+          { label: "LocalBusiness", value: "LocalBusiness" }
+        ],
+        description: "Select the Schema.org entity type to generate."
+      },
+      {
+        id: "name",
+        label: "Entity Name / Headline",
+        type: "text",
+        defaultValue: "How to Master Technical SEO in 2026",
+        placeholder: "e.g. Master Guide to Next.js SEO"
+      },
+      {
+        id: "url",
+        label: "Target Webpage URL",
+        type: "text",
+        defaultValue: "https://example.com/guide/technical-seo",
+        placeholder: "https://example.com/page"
+      },
+      {
+        id: "authorOrBrand",
+        label: "Author / Organization Name",
+        type: "text",
+        defaultValue: "OmniSEOTools Editorial Team",
+        placeholder: "e.g. Acme Corp or John Doe"
+      },
+      {
+        id: "imageUrl",
+        label: "Featured Image URL",
+        type: "text",
+        defaultValue: "https://example.com/images/hero-banner.jpg",
+        placeholder: "https://example.com/image.jpg"
+      },
+      {
+        id: "description",
+        label: "Description / Summary",
+        type: "textarea",
+        defaultValue: "A comprehensive developer guide covering JSON-LD structured data, Schema.org best practices, and search engine rich snippet compliance.",
+        placeholder: "Enter concise entity description..."
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Article Schema",
+        values: {
+          schemaType: "Article",
+          name: "The Complete Next.js SEO Optimization Guide",
+          url: "https://example.com/blog/nextjs-seo",
+          authorOrBrand: "Sarah Chen",
+          imageUrl: "https://example.com/og/nextjs-seo.jpg",
+          description: "Learn how to configure metadataBase, dynamic Open Graph images, and robots.txt in Next.js 15."
+        }
+      },
+      {
+        name: "Organization Schema",
+        values: {
+          schemaType: "Organization",
+          name: "Acme Web Technologies",
+          url: "https://acmeweb.com",
+          authorOrBrand: "Acme Web Inc.",
+          imageUrl: "https://acmeweb.com/logo.png",
+          description: "Leading enterprise developer tooling and cloud optimization infrastructure."
+        }
+      }
+    ],
+    defaultValues: {
+      schemaType: "Article",
+      name: "How to Master Technical SEO in 2026",
+      url: "https://example.com/guide/technical-seo",
+      authorOrBrand: "OmniSEOTools Editorial Team",
+      imageUrl: "https://example.com/images/hero-banner.jpg",
+      description: "A comprehensive developer guide covering JSON-LD structured data, Schema.org best practices, and search engine rich snippet compliance."
+    },
+    howToSteps: [
+      {
+        name: "Select Schema Entity Type",
+        text: "Choose from Article, Organization, WebSite, Product, or LocalBusiness schemas."
+      },
+      {
+        name: "Fill Entity Information",
+        text: "Provide primary entity properties including headline/name, canonical URL, author, and featured image."
+      },
+      {
+        name: "Validate JSON-LD Syntax",
+        text: "Inspect the generated script block against Schema.org and Google Rich Results guidelines."
+      },
+      {
+        name: "Embed in HTML Head",
+        text: "Paste the generated <script type=\"application/ld+json\"> block inside your page head or Next.js layout."
+      }
+    ],
+    guideContent: {
+      title: "The Ultimate Guide to Schema.org JSON-LD Structured Data",
+      sections: [
+        {
+          heading: "Why Google Recommends JSON-LD for Structured Data",
+          content: "<p>Google explicitly recommends <strong>JSON-LD (JavaScript Object Notation for Linked Data)</strong> over older formats like Microdata or RDFa. JSON-LD encapsulates structured entities inside an isolated <code>&lt;script type=\"application/ld+json\"&gt;</code> element in the document head or body, keeping presentation markup cleanly separated from semantic data.</p><p>Implementing Schema.org markup allows search engine crawlers to directly understand entities, authors, organizations, and product specs, unlocking visual enhancements such as rich snippet stars, carousel items, breadcrumb hierarchies, and Knowledge Graph panels.</p>",
+          keyTakeaways: [
+            "Google officially recommends JSON-LD as the preferred structured data syntax.",
+            "JSON-LD does not alter the visible UI and can be placed anywhere inside the HTML.",
+            "Valid structured data directly powers Google Rich Results and AI Overviews citations."
+          ]
+        },
+        {
+          heading: "Key Schema Types for Modern Digital Publishing",
+          content: "<p>Depending on your content type, choosing the correct Schema.org model is essential for search compliance:</p><ul><li><strong>Article / BlogPosting:</strong> Essential for news, editorial blogs, and guides; signals author attribution, publication date, and headline.</li><li><strong>Organization / LocalBusiness:</strong> Establishes brand authority, official logo URL, social profiles, and contact channels in Google's Knowledge Graph.</li><li><strong>Product & Offer:</strong> Displays real-time pricing, availability, and aggregate customer review stars in Google Shopping and search listings.</li><li><strong>WebSite & SearchAction:</strong> Enables Google to render an internal site search box directly within your domain's brand search results.</li></ul>",
+          keyTakeaways: [
+            "Use Article schema for editorial posts to qualify for Google Discover and Top Stories.",
+            "Always include required properties: @context, @type, name, and url.",
+            "Test live markup using Google's Rich Results Test tool before deploying to production."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "Where should I place JSON-LD schema on my webpage?",
+        answer: "JSON-LD can be placed in either the document <head> or <body>. Google recommends placing it inside the <head> section to ensure crawlers discover structured entities early during initial HTML parsing."
+      },
+      {
+        question: "Does Schema markup guarantee rich snippets in Google search?",
+        answer: "No. Valid Schema markup makes your page eligible for rich results, but Google's ranking algorithms decide algorithmically whether to display rich snippets based on domain trust, search query intent, and content quality."
+      },
+      {
+        question: "Can I use multiple Schema types on a single page?",
+        answer: "Yes! You can include multiple JSON-LD script blocks or nest entities within an @graph array (for example, combining WebSite, Organization, and Article schemas on a single article page)."
+      },
+      {
+        question: "How do I implement JSON-LD in Next.js App Router?",
+        answer: "In Next.js App Router, inject structured data by rendering a <script type=\"application/ld+json\" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaObject) }} /> tag directly inside your page.tsx component."
+      }
+    ]
+  },
+
+  // 12. Canonical Tag Generator
+  {
+    id: "canonical-tag-generator",
+    slug: "canonical-tag-generator",
+    name: "Canonical Tag Generator",
+    title: "Canonical URL Tag Generator (Duplicate Content Fixer)",
+    metaTitle: "Canonical URL Tag Generator (Duplicate Content Fixer)",
+    metaDescription: "Generate clean rel=\"canonical\" link tags and Next.js alternates metadata to eliminate duplicate content issues and consolidate SEO signals.",
+    h1: "Canonical URL Tag Generator & Link Rel Builder",
+    tagline: "Generate clean, certified rel=\"canonical\" tags and Next.js alternates metadata to eliminate duplicate content issues.",
+    shortDescription: "Build self-referential and cross-domain canonical link tags to unify Google ranking signals and prevent duplicate content penalties.",
+    category: "technical",
+    icon: "Link2",
+    badge: "Updated",
+    keywords: [
+      "canonical tag generator",
+      "rel canonical generator",
+      "canonical url builder",
+      "duplicate content fix",
+      "nextjs alternates canonical",
+      "seo canonical link tag"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "canonicalUrl",
+        label: "Preferred Canonical URL (HTTPS)",
+        type: "text",
+        defaultValue: "https://example.com/products/wireless-headphones",
+        placeholder: "https://example.com/target-page",
+        description: "Must be an absolute HTTPS URL without session IDs or tracking parameters."
+      }
+    ],
+    samplePresets: [
+      {
+        name: "E-Commerce Product",
+        values: {
+          canonicalUrl: "https://example.com/shop/mens-jacket"
+        }
+      },
+      {
+        name: "Blog Post Master",
+        values: {
+          canonicalUrl: "https://example.com/blog/core-web-vitals-guide"
+        }
+      }
+    ],
+    defaultValues: {
+      canonicalUrl: "https://example.com/products/wireless-headphones"
+    },
+    howToSteps: [
+      {
+        name: "Enter Preferred Canonical URL",
+        text: "Input the absolute HTTPS destination URL that should receive search indexing priority."
+      },
+      {
+        name: "Review Syntax Compliance",
+        text: "Ensure the URL excludes trailing tracking parameters (like utm_source or sessionid)."
+      },
+      {
+        name: "Copy Link Tag or Metadata",
+        text: "Export the standard <link rel=\"canonical\"> tag or typed Next.js alternates config."
+      },
+      {
+        name: "Add to Document Head",
+        text: "Place the snippet inside the <head> section of all duplicate, syndicated, or parameter-based URL variants."
+      }
+    ],
+    guideContent: {
+      title: "The Authoritative Guide to Rel=Canonical & Duplicate Content Consolidation",
+      sections: [
+        {
+          heading: "What is a Canonical Tag and Why is it Essential?",
+          content: "<p>A <strong>canonical tag</strong> (<code>&lt;link rel=\"canonical\" href=\"...\" /&gt;</code>) is an HTML element that tells search engines which version of a URL represents the definitive master copy. When multiple URLs serve identical or near-identical content (for instance, via pagination, filtering parameters, uppercase/lowercase paths, or HTTP/HTTPS variations), search engines can split ranking authority across those pages.</p><p>Setting an explicit canonical tag prevents duplicate content dilution, consolidates link equity (PageRank), and ensures search engines index and rank your preferred master URL.</p>",
+          keyTakeaways: [
+            "Canonical tags unify ranking signals across parameterized and duplicate URL permutations.",
+            "Always specify an absolute HTTPS URL including the exact protocol and trailing slash convention.",
+            "Self-referential canonical tags on master pages protect against scrapers and parameter indexing."
+          ]
+        },
+        {
+          heading: "Common Canonical Mistakes to Avoid",
+          content: "<p>To ensure Google honors your canonical suggestions without ignoring them:</p><ul><li><strong>Never use relative URLs:</strong> Relative paths like <code>href=\"/product\"</code> can cause crawlers to misunderstand the canonical root.</li><li><strong>Avoid Canonical Chains:</strong> Page A pointing to Page B, which points to Page C, causes Googlebot to disregard the directive.</li><li><strong>Do Not Canonicalize Noindexed Pages:</strong> Conflicting directives (like combining <code>noindex</code> with a canonical to another page) create crawler deadlocks.</li></ul>",
+          keyTakeaways: [
+            "Always verify that the canonical URL returns an HTTP 200 status code.",
+            "Do not point canonical tags to redirected URLs (301 or 302).",
+            "Maintain consistent trailing slashes across your sitemap, internal links, and canonical tags."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "Is rel=canonical a directive or a hint to Google?",
+        answer: "Rel=canonical is treated as a strong hint rather than a strict directive. If Google detects strong conflicting signals (such as internal links pointing heavily to a non-canonical variant or mismatched content), it may select a different canonical URL."
+      },
+      {
+        question: "Should every page have a self-referencing canonical tag?",
+        answer: "Yes! Google Webmaster guidelines recommend that every indexable page include a self-referential canonical tag pointing to its own clean, absolute URL to prevent tracking parameters (like ?utm_source or ?fbclid) from spawning duplicate index entries."
+      },
+      {
+        question: "Can I use cross-domain canonical tags for syndicated content?",
+        answer: "Yes! If you syndicate articles to platforms like Medium, LinkedIn, or partner publications, a cross-domain canonical tag pointing back to your original domain ensures your site retains primary ranking attribution."
+      },
+      {
+        question: "How do I add canonical tags in Next.js App Router?",
+        answer: "In Next.js App Router, configure alternates.canonical inside your metadata object: export const metadata = { alternates: { canonical: 'https://yourdomain.com/page' } }."
+      }
+    ]
+  },
+
+  // 13. Meta Viewport Generator
+  {
+    id: "meta-viewport-generator",
+    slug: "meta-viewport-generator",
+    name: "Meta Viewport Generator",
+    title: "Meta Viewport Tag Generator (Mobile SEO & Responsive Layouts)",
+    metaTitle: "Meta Viewport Tag Generator (Mobile SEO & Responsive Layouts)",
+    metaDescription: "Generate responsive HTML5 meta viewport tags and Next.js viewport exports with device-width scaling and iOS viewport-fit cover support.",
+    h1: "Responsive Meta Viewport Tag Generator & Tester",
+    tagline: "Configure optimal mobile viewport settings, device-width scaling, and viewport-fit rules for mobile SEO and iOS safe areas.",
+    shortDescription: "Generate responsive HTML5 meta viewport tags and Next.js viewport exports with viewport-fit cover and device-width scaling.",
+    category: "developer",
+    icon: "SlidersHorizontal",
+    badge: "New",
+    keywords: [
+      "meta viewport generator",
+      "viewport tag builder",
+      "responsive meta viewport",
+      "nextjs viewport export",
+      "mobile seo viewport",
+      "viewport-fit cover ios"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "width",
+        label: "Viewport Width",
+        type: "select",
+        defaultValue: "device-width",
+        options: [
+          { label: "device-width (Standard Responsive)", value: "device-width" },
+          { label: "1024 (Fixed Desktop)", value: "1024" },
+          { label: "1280 (Wide Layout)", value: "1280" }
+        ],
+        description: "Width of the virtual viewport in pixels or device-width."
+      },
+      {
+        id: "initialScale",
+        label: "Initial Scale",
+        type: "select",
+        defaultValue: "1.0",
+        options: [
+          { label: "1.0 (Default 100% Zoom)", value: "1.0" },
+          { label: "0.86 (Scaled Down)", value: "0.86" }
+        ]
+      },
+      {
+        id: "viewportFit",
+        label: "Viewport Fit (iOS Safe Area)",
+        type: "select",
+        defaultValue: "cover",
+        options: [
+          { label: "cover (Extends to iPhone Notch & Home Bar)", value: "cover" },
+          { label: "auto (Standard Letterbox)", value: "auto" },
+          { label: "contain (Constrained)", value: "contain" }
+        ]
+      },
+      {
+        id: "userScalable",
+        label: "Allow User Zoom / Pinch-to-Zoom (Accessibility)",
+        type: "boolean",
+        defaultValue: true,
+        description: "Disabling user zoom violates WCAG accessibility guidelines. Keep enabled unless strictly required."
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Standard Responsive (Best for SEO)",
+        values: {
+          width: "device-width",
+          initialScale: "1.0",
+          viewportFit: "cover",
+          userScalable: true
+        }
+      },
+      {
+        name: "PWA Fullscreen App",
+        values: {
+          width: "device-width",
+          initialScale: "1.0",
+          viewportFit: "cover",
+          userScalable: false
+        }
+      }
+    ],
+    defaultValues: {
+      width: "device-width",
+      initialScale: "1.0",
+      viewportFit: "cover",
+      userScalable: true
+    },
+    howToSteps: [
+      {
+        name: "Select Viewport Width",
+        text: "Use device-width to ensure fluid scaling across all smartphone and tablet resolutions."
+      },
+      {
+        name: "Configure Viewport-Fit",
+        text: "Choose viewport-fit=cover to enable edge-to-edge rendering on notched iPhone and OLED displays."
+      },
+      {
+        name: "Set Accessibility Scalability",
+        text: "Keep user-scalable enabled to comply with Google Mobile-Friendly standards and WCAG 2.1 rules."
+      },
+      {
+        name: "Export to Codebase",
+        text: "Copy the generated HTML <meta name=\"viewport\"> tag or Next.js 14/15 Viewport export."
+      }
+    ],
+    guideContent: {
+      title: "The Definitive Guide to Viewport Meta Tags & Mobile SEO",
+      sections: [
+        {
+          heading: "How Mobile Browsers Use the Viewport Meta Tag",
+          content: "<p>Without a viewport meta tag, mobile browsers default to rendering webpages at a legacy desktop resolution of <strong>980 pixels</strong>, forcing smartphone users to pinch-and-zoom awkwardly to read text. The <code>&lt;meta name=\"viewport\"&gt;</code> tag instructs the browser engine to match the screen's native CSS pixel dimensions (<code>width=device-width</code>) and set an initial zoom ratio of 1.0.</p><p>Because Google uses <strong>Mobile-First Indexing</strong> exclusively, having a valid, responsive viewport tag is a prerequisite for passing Google Core Web Vitals and Mobile Usability audits.</p>",
+          keyTakeaways: [
+            "width=device-width forces the viewport to match the device's physical screen width in CSS pixels.",
+            "Missing viewport tags trigger immediate Mobile-Friendly test failures in Google Search Console.",
+            "viewport-fit=cover unlocks env(safe-area-inset-top) CSS variables for iPhone notch handling."
+          ]
+        },
+        {
+          heading: "Accessibility & WCAG 2.1 Guidelines for Zooming",
+          content: "<p>Setting <code>user-scalable=no</code> or <code>maximum-scale=1.0</code> blocks users with visual impairments from zooming in on text and interactive elements. The W3C Web Content Accessibility Guidelines (WCAG 2.1 Success Criterion 1.4.4) mandate that users must be permitted to resize text up to 200% without loss of content or functionality.</p><p>Always maintain <code>user-scalable=yes</code> for public web pages and e-commerce stores unless building an embedded touchscreen kiosk application.</p>",
+          keyTakeaways: [
+            "Never disable user zooming on public web content.",
+            "Use Next.js Viewport export API in Next.js 14+ rather than deprecated metadata viewport fields."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "What is the standard meta viewport tag for responsive design?",
+        answer: "The industry standard tag is: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\" />. This guarantees responsive rendering and full display coverage on modern devices."
+      },
+      {
+        question: "How do I configure viewport in Next.js 14 and 15?",
+        answer: "In Next.js 14+, viewport configuration was moved out of the Metadata object into a dedicated export: export const viewport: Viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover' }."
+      },
+      {
+        question: "What does viewport-fit=cover do?",
+        answer: "viewport-fit=cover tells the mobile Safari browser to expand the webpage content to fill the entire physical screen, including the areas behind the iPhone sensor notch and the bottom home indicator bar."
+      },
+      {
+        question: "Why does Google Search Console report 'Viewport not set'?",
+        answer: "This error occurs when a webpage is missing a <meta name=\"viewport\"> tag in its initial HTML response, causing Google's smartphone crawler to render the page as a shrunk desktop layout."
+      }
+    ]
+  },
+
+  // 14. Hreflang Tag Generator
+  {
+    id: "hreflang-tag-generator",
+    slug: "hreflang-tag-generator",
+    name: "Hreflang Tag Generator",
+    title: "Hreflang Tag Generator (Multi-Language & Regional SEO)",
+    metaTitle: "Hreflang Tag Generator (Multi-Language & Regional SEO)",
+    metaDescription: "Generate valid hreflang link tags and XML sitemap annotations for multi-language, multi-regional websites. Prevent international ranking cannibalization.",
+    h1: "Hreflang Tag Generator for Multi-Language SEO",
+    tagline: "Build bidirectional hreflang cluster tags and x-default annotations for multi-lingual and international websites.",
+    shortDescription: "Generate multi-lingual hreflang link tags, XML sitemap annotations, and x-default fallbacks for international Google targeting.",
+    category: "international",
+    icon: "Globe",
+    badge: "Popular",
+    keywords: [
+      "hreflang tag generator",
+      "hreflang generator tool",
+      "multi language seo tags",
+      "international seo hreflang",
+      "x default hreflang builder",
+      "hreflang link tag creator"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "defaultUrl",
+        label: "Default Global URL (x-default fallback)",
+        type: "text",
+        defaultValue: "https://example.com/",
+        placeholder: "https://example.com/"
+      },
+      {
+        id: "enUrl",
+        label: "English Edition URL (en / en-US)",
+        type: "text",
+        defaultValue: "https://example.com/en/",
+        placeholder: "https://example.com/en/"
+      },
+      {
+        id: "esUrl",
+        label: "Spanish Edition URL (es / es-ES)",
+        type: "text",
+        defaultValue: "https://example.com/es/",
+        placeholder: "https://example.com/es/"
+      },
+      {
+        id: "frUrl",
+        label: "French Edition URL (fr / fr-FR)",
+        type: "text",
+        defaultValue: "https://example.com/fr/",
+        placeholder: "https://example.com/fr/"
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Global Brand (EN, ES, FR)",
+        values: {
+          defaultUrl: "https://brand.com/",
+          enUrl: "https://brand.com/en/",
+          esUrl: "https://brand.com/es/",
+          frUrl: "https://brand.com/fr/"
+        }
+      },
+      {
+        name: "Regional Store (US, UK, CA)",
+        values: {
+          defaultUrl: "https://store.com/",
+          enUrl: "https://store.com/us/",
+          esUrl: "https://store.com/uk/",
+          frUrl: "https://store.com/ca/"
+        }
+      }
+    ],
+    defaultValues: {
+      defaultUrl: "https://example.com/",
+      enUrl: "https://example.com/en/",
+      esUrl: "https://example.com/es/",
+      frUrl: "https://example.com/fr/"
+    },
+    howToSteps: [
+      {
+        name: "Define Global Default URL",
+        text: "Provide your master domain or language selector landing page URL for the x-default attribute."
+      },
+      {
+        name: "Assign Language & Country Codes",
+        text: "Map each translated page version using ISO 639-1 language codes (e.g. 'en', 'es', 'fr') and optional ISO 3166-1 country codes."
+      },
+      {
+        name: "Verify Bidirectional Links",
+        text: "Ensure every language variant page includes reciprocal links pointing back to all other sister versions."
+      },
+      {
+        name: "Implement in Head or Sitemap",
+        text: "Paste the generated <link rel=\"alternate\" hreflang=\"...\"> tags into the HTML <head> of every language page."
+      }
+    ],
+    guideContent: {
+      title: "Mastering Hreflang Tags, Multi-Regional SEO & Language Clustering",
+      sections: [
+        {
+          heading: "How Hreflang Solves International Content Duplication",
+          content: "<p>When a website serves localized content across multiple countries or languages (such as an English page for the US and an English page for the UK), search engines might view these pages as duplicate content. The <strong>hreflang attribute</strong> (<code>&lt;link rel=\"alternate\" hreflang=\"...\" href=\"...\" /&gt;</code>) tells Google, Bing, and Yandex which localized URL to display to users based on their browser language and geographic IP.</p><p>Hreflang prevents search cannibalization and ensures international visitors land on the correct currency, pricing, and translated language edition automatically.</p>",
+          keyTakeaways: [
+            "Hreflang tags must be strictly bidirectional: Page A must link to Page B, and Page B must link back to Page A.",
+            "The x-default tag serves as the fallback for searchers whose language does not match any specified localized page.",
+            "Use standard ISO 639-1 format for languages (e.g., 'de', 'ja') and ISO 3166-1 Alpha-2 for regions ('en-GB', 'en-AU')."
+          ]
+        },
+        {
+          heading: "HTML Head Tags vs. XML Sitemap Hreflang",
+          content: "<p>Hreflang can be implemented via three supported methods:</p><ol><li><strong>HTML Head Tags:</strong> Simple to implement and inspect, optimal for sites with 2–5 language variations.</li><li><strong>XML Sitemap Annotations:</strong> Recommended for large enterprise sites with 10+ languages to avoid inflating HTML document sizes.</li><li><strong>HTTP Headers:</strong> Used for non-HTML files like localized PDF downloads.</li></ol>",
+          keyTakeaways: [
+            "Always include self-referencing hreflang tags on each regional page.",
+            "Never point hreflang tags to redirected (301) or broken (404) URLs."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "What is the x-default hreflang attribute?",
+        answer: "The x-default value tells search engines which page to show when no specific language or region matches the user's settings. It is typically set to the global homepage or an interactive country selector page."
+      },
+      {
+        question: "Why does Google Search Console report 'No return tags' for hreflang?",
+        answer: "This error occurs when Page A links to Page B via hreflang, but Page B fails to include a reciprocal link back to Page A. Google requires complete bidirectional confirmation across all pages in the cluster."
+      },
+      {
+        question: "Can I use country codes without a language code in hreflang?",
+        answer: "No. The language code is always mandatory in ISO 639-1 format. You cannot specify a country code alone (e.g. hreflang=\"uk\" is invalid; it must be hreflang=\"en-GB\")."
+      },
+      {
+        question: "How do I implement hreflang in Next.js?",
+        answer: "In Next.js App Router, specify the alternates.languages object inside your metadata export: alternates: { languages: { 'en-US': '/en', 'es-ES': '/es', 'x-default': '/' } }."
+      }
+    ]
+  },
+
+  // 15. Meta Robots Builder
+  {
+    id: "meta-robots-builder",
+    slug: "meta-robots-builder",
+    name: "Meta Robots Tag Builder",
+    title: "Meta Robots Tag Builder (Index, Follow, Max-Snippet)",
+    metaTitle: "Meta Robots Tag Builder (Index, Follow, Max-Snippet)",
+    metaDescription: "Configure granular meta robots directives, Googlebot preview limits (max-snippet, max-image-preview), and noindex tags for search engines.",
+    h1: "Meta Robots Tag Builder & Crawler Directives Generator",
+    tagline: "Configure noindex, nofollow, max-snippet, max-image-preview, and noarchive directives for Googlebot and search crawlers.",
+    shortDescription: "Build granular meta robots directives, Googlebot preview limits (max-snippet, max-image-preview), and noindex tags.",
+    category: "technical",
+    icon: "ShieldAlert",
+    badge: "Updated",
+    keywords: [
+      "meta robots builder",
+      "meta robots tag generator",
+      "noindex follow generator",
+      "googlebot meta tags",
+      "max-snippet directive",
+      "max-image-preview large"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "index",
+        label: "Indexing Directive (index / noindex)",
+        type: "boolean",
+        defaultValue: true,
+        description: "Allow search engines to index this page and display it in search results."
+      },
+      {
+        id: "follow",
+        label: "Link Following Directive (follow / nofollow)",
+        type: "boolean",
+        defaultValue: true,
+        description: "Allow search engines to crawl and pass PageRank through links on this page."
+      },
+      {
+        id: "maxImagePreview",
+        label: "Max Image Preview Size (Google Discover)",
+        type: "select",
+        defaultValue: "large",
+        options: [
+          { label: "large (Required for Google Discover & Rich Cards)", value: "large" },
+          { label: "standard (Default Thumbnail)", value: "standard" },
+          { label: "none (Disable Image Previews)", value: "none" }
+        ],
+        description: "Controls the maximum size of image thumbnails shown in search and Google Discover."
+      },
+      {
+        id: "maxSnippet",
+        label: "Max Snippet Length in Characters",
+        type: "select",
+        defaultValue: "-1",
+        options: [
+          { label: "-1 (No Character Limit / Full Snippet)", value: "-1" },
+          { label: "0 (Disable Text Snippets)", value: "0" },
+          { label: "160 (Standard 160 Chars)", value: "160" }
+        ]
+      },
+      {
+        id: "noarchive",
+        label: "NoArchive (Prevent Google Cached Copies)",
+        type: "boolean",
+        defaultValue: false
+      },
+      {
+        id: "nosnippet",
+        label: "NoSnippet (Disable Text Snippets & Previews)",
+        type: "boolean",
+        defaultValue: false
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Standard Indexable Page (Max SEO)",
+        values: {
+          index: true,
+          follow: true,
+          maxImagePreview: "large",
+          maxSnippet: "-1",
+          noarchive: false,
+          nosnippet: false
+        }
+      },
+      {
+        name: "Private / Staging Page (NoIndex)",
+        values: {
+          index: false,
+          follow: false,
+          maxImagePreview: "none",
+          maxSnippet: "0",
+          noarchive: true,
+          nosnippet: true
+        }
+      }
+    ],
+    defaultValues: {
+      index: true,
+      follow: true,
+      maxImagePreview: "large",
+      maxSnippet: "-1",
+      noarchive: false,
+      nosnippet: false
+    },
+    howToSteps: [
+      {
+        name: "Choose Indexing State",
+        text: "Select 'index' for public ranking pages, or 'noindex' for internal search, admin panels, and thank-you pages."
+      },
+      {
+        name: "Configure Rich Preview Limits",
+        text: "Set max-image-preview:large to qualify your articles for high-traffic Google Discover feeds."
+      },
+      {
+        name: "Apply Googlebot Directives",
+        text: "Customize noarchive or nosnippet rules if handling sensitive user dashboards or staging portals."
+      },
+      {
+        name: "Embed in Page Header",
+        text: "Copy the generated HTML <meta name=\"robots\"> tag into your template head."
+      }
+    ],
+    guideContent: {
+      title: "The Comprehensive Guide to Meta Robots Directives & Google Discover",
+      sections: [
+        {
+          heading: "How Search Engines Interpret Robots Meta Tags",
+          content: "<p>The <strong>robots meta tag</strong> (<code>&lt;meta name=\"robots\" content=\"...\"&gt;</code>) gives website owners granular, page-by-page control over how search crawlers index content and pass link equity. While <code>robots.txt</code> blocks crawlers from accessing URLs entirely, the robots meta tag allows crawlers to fetch the page while strictly obeying indexing restrictions (such as indexing without following links, or vice-versa).</p><p>Crucially, modern search engines like Google also support fine-grained preview controls (such as <code>max-image-preview:large</code> and <code>max-snippet:-1</code>) which directly determine your eligibility for Google Discover traffic.</p>",
+          keyTakeaways: [
+            "noindex stops a page from appearing in search results while allowing search engines to crawl it.",
+            "max-image-preview:large is mandatory for maximizing Google Discover CTR and impression volume.",
+            "Do not block noindexed pages in robots.txt; doing so prevents crawlers from reading the noindex tag."
+          ]
+        },
+        {
+          heading: "Meta Robots Directives Breakdown",
+          content: "<p>Key directives supported across major search engines in 2026:</p><ul><li><strong>index / noindex:</strong> Tells search engines whether to store the page in their search index.</li><li><strong>follow / nofollow:</strong> Tells crawlers whether to follow links found on this page to discover other URLs.</li><li><strong>max-image-preview:large:</strong> Authorizes Google to display full-width high-resolution images in search cards and Discover.</li><li><strong>max-snippet:[number]:</strong> Limits the text snippet length in search results.</li><li><strong>noarchive:</strong> Prevents search engines from caching HTML snapshots of the page.</li></ul>",
+          keyTakeaways: [
+            "Combine index, follow, max-image-preview:large as the gold standard for marketing pages.",
+            "Use noindex, follow on paginated blog category archives to pass equity to older articles without indexing thin lists."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "What is the difference between robots.txt and meta robots?",
+        answer: "robots.txt tells crawlers which URLs they are not allowed to request or download. Meta robots tells crawlers what they can do with a page after downloading it (such as indexing, caching, or following links)."
+      },
+      {
+        question: "Why do I need max-image-preview:large?",
+        answer: "Google Discover exclusively features high-resolution banner images for sites that explicitly provide the max-image-preview:large directive in their robots meta tag."
+      },
+      {
+        question: "Can I target Googlebot specifically with its own meta tag?",
+        answer: "Yes! You can use <meta name=\"googlebot\" content=\"...\"> to specify rules intended strictly for Google without affecting other search engines like Bing or DuckDuckGo."
+      },
+      {
+        question: "How do I configure meta robots in Next.js?",
+        answer: "In Next.js App Router, configure robots inside your Metadata export: export const metadata = { robots: { index: true, follow: true, googleBot: { 'max-image-preview': 'large' } } }."
+      }
+    ]
+  },
+
+  // 16. Security Headers Meta Generator
+  {
+    id: "security-headers-meta-generator",
+    slug: "security-headers-meta-generator",
+    name: "Security Headers Meta Generator",
+    title: "Security Headers & Meta Tag Generator (CSP & Referrer Policy)",
+    metaTitle: "Security Headers & Meta Tag Generator (CSP & Referrer Policy)",
+    metaDescription: "Generate production-grade Content-Security-Policy (CSP), Referrer-Policy, and X-Content-Type-Options meta tags and Next.js security headers.",
+    h1: "Security Headers & Meta Tag Generator",
+    tagline: "Generate client-side Content-Security-Policy (CSP), Referrer-Policy, and X-Content-Type-Options meta tags for web apps.",
+    shortDescription: "Generate production-grade Content-Security-Policy (CSP), Strict-Transport-Security, and Referrer-Policy head tags and headers.",
+    category: "developer",
+    icon: "Lock",
+    badge: "New",
+    keywords: [
+      "security headers meta generator",
+      "csp generator",
+      "content security policy meta tag",
+      "referrer-policy meta",
+      "nextjs security headers",
+      "web security headers builder"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "csp",
+        label: "Content-Security-Policy (CSP)",
+        type: "textarea",
+        defaultValue: "default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
+        description: "Restricts which external domains and scripts are allowed to execute."
+      },
+      {
+        id: "referrerPolicy",
+        label: "Referrer-Policy",
+        type: "select",
+        defaultValue: "strict-origin-when-cross-origin",
+        options: [
+          { label: "strict-origin-when-cross-origin (Recommended Standard)", value: "strict-origin-when-cross-origin" },
+          { label: "no-referrer (Completely Hide Referrer)", value: "no-referrer" },
+          { label: "origin-when-cross-origin (Send Origin Only)", value: "origin-when-cross-origin" },
+          { label: "same-origin (Send on Internal Links Only)", value: "same-origin" }
+        ],
+        description: "Controls what referrer information is sent when users click outbound links."
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Standard Modern Web App (Secure)",
+        values: {
+          csp: "default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
+          referrerPolicy: "strict-origin-when-cross-origin"
+        }
+      },
+      {
+        name: "Strict Lockdown (High Security)",
+        values: {
+          csp: "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none';",
+          referrerPolicy: "no-referrer"
+        }
+      }
+    ],
+    defaultValues: {
+      csp: "default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
+      referrerPolicy: "strict-origin-when-cross-origin"
+    },
+    howToSteps: [
+      {
+        name: "Define Content Security Directives",
+        text: "Configure allowed sources for scripts, styles, images, and embedded frames."
+      },
+      {
+        name: "Select Referrer Policy",
+        text: "Choose strict-origin-when-cross-origin to protect user privacy while preserving analytics attribution."
+      },
+      {
+        name: "Select Output Format",
+        text: "Export as HTML <meta http-equiv> tags or Next.js config headers."
+      },
+      {
+        name: "Deploy and Audit",
+        text: "Deploy to production and verify an A+ security grade using SecurityHeaders.com."
+      }
+    ],
+    guideContent: {
+      title: "The Web Developer's Guide to Security Headers & Browser Hardening",
+      sections: [
+        {
+          heading: "Why Client-Side Security Headers Protect Modern Web Apps",
+          content: "<p>Security headers tell the browser how to behave when handling your site's content, effectively neutralizing common web vulnerabilities like <strong>Cross-Site Scripting (XSS)</strong>, clickjacking, MIME-type sniffing, and data leakage. While HTTP response headers set at the server/CDN level offer the highest protection, HTML <code>&lt;meta http-equiv&gt;</code> tags provide an essential fallback for static sites and client-side applications.</p><p>Implementing Content Security Policy (CSP) and strict Referrer Policies builds user trust and protects sensitive tokens from malicious third-party script injection.</p>",
+          keyTakeaways: [
+            "CSP restricts script execution to trusted domains, preventing XSS attacks.",
+            "strict-origin-when-cross-origin prevents leaking sensitive URL query parameters to third-party destinations.",
+            "X-Content-Type-Options: nosniff blocks browsers from executing malicious non-script files."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "Can Content-Security-Policy be set via HTML meta tags?",
+        answer: "Yes, you can set CSP using <meta http-equiv=\"Content-Security-Policy\" content=\"...\">. However, frame-ancestors, report-uri, and sandbox directives must be set via server HTTP response headers."
+      },
+      {
+        question: "What is the most privacy-conscious Referrer-Policy?",
+        answer: "strict-origin-when-cross-origin is the modern web standard. It sends full URLs for same-origin requests, sends domain-only for HTTPS cross-origin requests, and sends no referrer when downgrading from HTTPS to HTTP."
+      },
+      {
+        question: "How do I add security headers in Next.js?",
+        answer: "In Next.js, configure security headers inside the headers() function of next.config.js or next.config.mjs to apply them server-side across all incoming requests."
+      },
+      {
+        question: "What is X-Content-Type-Options nosniff?",
+        answer: "It prevents browsers from trying to guess ('sniff') the MIME type of a file, ensuring that stylesheets and scripts are only executed if they are served with valid MIME types."
+      }
+    ]
+  },
+
+  // 17. Social Share Link Generator
+  {
+    id: "social-share-link-generator",
+    slug: "social-share-link-generator",
+    name: "Social Share Link Generator",
+    title: "Social Share Link & URL Builder (Twitter, LinkedIn, Facebook)",
+    metaTitle: "Social Share Link & URL Builder (Twitter, LinkedIn, Facebook)",
+    metaDescription: "Create 1-click share links and custom button URLs with pre-filled headlines, URLs, and hashtags for Twitter/X, LinkedIn, Facebook, and WhatsApp.",
+    h1: "Social Share Link & One-Click Button URL Generator",
+    tagline: "Build instant one-click sharing URLs for Twitter/X, LinkedIn, Facebook, WhatsApp, Telegram, and Reddit.",
+    shortDescription: "Create 1-click share links and custom button URLs with pre-filled headlines, URLs, and hashtags for all major social networks.",
+    category: "social",
+    icon: "Share2",
+    badge: "Popular",
+    keywords: [
+      "social share link generator",
+      "twitter share url builder",
+      "linkedin share link creator",
+      "facebook share button url",
+      "whatsapp share link generator",
+      "1 click social share links"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "shareUrl",
+        label: "URL to Share",
+        type: "text",
+        defaultValue: "https://omniseotools.com/tools/social-share-link-generator",
+        placeholder: "https://yourdomain.com/post"
+      },
+      {
+        id: "shareText",
+        label: "Pre-filled Headline / Promotional Text",
+        type: "textarea",
+        defaultValue: "Boost your organic search traffic with 20+ free SEO and developer tools from OmniSEOTools! 🚀",
+        placeholder: "Enter compelling share text..."
+      },
+      {
+        id: "twitterHandle",
+        label: "Twitter / X Attribution Handle (optional)",
+        type: "text",
+        defaultValue: "@OmniSEOTools",
+        placeholder: "@YourBrand"
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Product Launch Share",
+        values: {
+          shareUrl: "https://example.com/launch",
+          shareText: "We just launched our new AI Developer Suite! Check it out live:",
+          twitterHandle: "@AcmeDev"
+        }
+      },
+      {
+        name: "Blog Post Share",
+        values: {
+          shareUrl: "https://example.com/blog/seo-trends",
+          shareText: "Read the top 10 SEO trends every developer needs to know in 2026:",
+          twitterHandle: "@TechBlog"
+        }
+      }
+    ],
+    defaultValues: {
+      shareUrl: "https://omniseotools.com/tools/social-share-link-generator",
+      shareText: "Boost your organic search traffic with 20+ free SEO and developer tools from OmniSEOTools! 🚀",
+      twitterHandle: "@OmniSEOTools"
+    },
+    howToSteps: [
+      {
+        name: "Enter Target Destination URL",
+        text: "Input the canonical link you want users to share across their social channels."
+      },
+      {
+        name: "Compose Catchy Share Text",
+        text: "Draft an engaging headline that will be pre-filled into the user's post composer."
+      },
+      {
+        name: "Add Author Attribution",
+        text: "Include your brand's social handle to gain follower attribution with every viral share."
+      },
+      {
+        name: "Copy 1-Click URLs or HTML",
+        text: "Copy the direct share links for Twitter, LinkedIn, Facebook, WhatsApp, or embed the HTML buttons."
+      }
+    ],
+    guideContent: {
+      title: "How One-Click Social Share Links Drive Viral Referral Traffic",
+      sections: [
+        {
+          heading: "Why Native Share Links Outperform Heavy JavaScript Plugins",
+          content: "<p>Third-party social sharing widgets often load megabytes of bloated tracking scripts, cookies, and stylesheets that slow down page speed and damage Google Core Web Vitals. In contrast, <strong>lightweight 1-click URL share links</strong> require zero external JavaScript, respect user privacy, and work instantly across all devices.</p><p>By generating pre-filled intent URLs for Twitter/X, LinkedIn, Facebook, and WhatsApp, you reduce sharing friction for readers, resulting in significantly higher social distribution.</p>",
+          keyTakeaways: [
+            "URL-based share links eliminate third-party tracking scripts and zero layout shifts (CLS).",
+            "Pre-filled headlines increase sharing conversion rates by removing blank-composer hesitation.",
+            "Always include target='_blank' and rel='noopener noreferrer' on share links."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "How does a 1-click Twitter/X share link work?",
+        answer: "It uses Twitter's intent endpoint: https://twitter.com/intent/tweet?url=[URL]&text=[TEXT]&via=[HANDLE]. When clicked, it opens Twitter's web or mobile composer with your pre-filled text and link."
+      },
+      {
+        question: "Can I customize the title and image inside LinkedIn share links?",
+        answer: "No. LinkedIn pulls the title, description, and image automatically from your page's Open Graph meta tags. The share URL only accepts the destination link parameter."
+      },
+      {
+        question: "Do these share links work on mobile apps?",
+        answer: "Yes! On mobile devices, WhatsApp, Telegram, and Twitter intent links automatically launch their native mobile applications if installed."
+      },
+      {
+        question: "Do static share links slow down my website?",
+        answer: "Not at all. Static share links are standard HTML <a> hyperlinks, requiring zero external JavaScript libraries or third-party cookies."
+      }
+    ]
+  },
+
+  // 18. Breadcrumb Schema Generator
+  {
+    id: "breadcrumb-schema-generator",
+    slug: "breadcrumb-schema-generator",
+    name: "Breadcrumb Schema Generator",
+    title: "BreadcrumbList Schema Generator (Google Rich Snippets)",
+    metaTitle: "BreadcrumbList Schema Generator (Google Rich Snippets)",
+    metaDescription: "Generate Google-compliant BreadcrumbList Schema.org JSON-LD markup to unlock clean hierarchical breadcrumbs in search engine results.",
+    h1: "BreadcrumbList JSON-LD Schema Generator",
+    tagline: "Generate nested BreadcrumbList structured data to display clear navigational trails in Google search results.",
+    shortDescription: "Generate Google-compliant BreadcrumbList Schema.org JSON-LD markup to unlock hierarchical breadcrumbs in search snippets.",
+    category: "technical",
+    icon: "Layers",
+    badge: "Popular",
+    keywords: [
+      "breadcrumb schema generator",
+      "breadcrumblist json-ld",
+      "google breadcrumb structured data",
+      "schema breadcrumb builder",
+      "serp breadcrumb rich snippet",
+      "breadcrumb markup creator"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "item1Name",
+        label: "Level 1 Label (Home)",
+        type: "text",
+        defaultValue: "Home",
+        placeholder: "Home"
+      },
+      {
+        id: "item1Url",
+        label: "Level 1 URL",
+        type: "text",
+        defaultValue: "https://example.com",
+        placeholder: "https://example.com"
+      },
+      {
+        id: "item2Name",
+        label: "Level 2 Label (Category)",
+        type: "text",
+        defaultValue: "Tools",
+        placeholder: "Tools"
+      },
+      {
+        id: "item2Url",
+        label: "Level 2 URL",
+        type: "text",
+        defaultValue: "https://example.com/tools",
+        placeholder: "https://example.com/tools"
+      },
+      {
+        id: "item3Name",
+        label: "Level 3 Label (Current Page)",
+        type: "text",
+        defaultValue: "Breadcrumb Schema Generator",
+        placeholder: "Current Page Name"
+      },
+      {
+        id: "item3Url",
+        label: "Level 3 URL",
+        type: "text",
+        defaultValue: "https://example.com/tools/breadcrumb-schema-generator",
+        placeholder: "https://example.com/tools/current-page"
+      }
+    ],
+    samplePresets: [
+      {
+        name: "E-Commerce Hierarchy",
+        values: {
+          item1Name: "Home",
+          item1Url: "https://store.com",
+          item2Name: "Electronics",
+          item2Url: "https://store.com/electronics",
+          item3Name: "Noise Cancelling Headphones",
+          item3Url: "https://store.com/electronics/headphones"
+        }
+      },
+      {
+        name: "Blog Category Hierarchy",
+        values: {
+          item1Name: "Home",
+          item1Url: "https://blog.com",
+          item2Name: "Tutorials",
+          item2Url: "https://blog.com/tutorials",
+          item3Name: "Next.js SEO Masterclass",
+          item3Url: "https://blog.com/tutorials/nextjs-seo"
+        }
+      }
+    ],
+    defaultValues: {
+      item1Name: "Home",
+      item1Url: "https://example.com",
+      item2Name: "Tools",
+      item2Url: "https://example.com/tools",
+      item3Name: "Breadcrumb Schema Generator",
+      item3Url: "https://example.com/tools/breadcrumb-schema-generator"
+    },
+    howToSteps: [
+      {
+        name: "Map Site Hierarchy Levels",
+        text: "Define the parent-to-child navigational sequence starting from Home to the leaf page."
+      },
+      {
+        name: "Enter Names and Absolute URLs",
+        text: "Provide exact page titles and canonical HTTPS links for each level."
+      },
+      {
+        name: "Validate Position Indexing",
+        text: "Ensure positions increment sequentially (1, 2, 3) in the generated JSON-LD."
+      },
+      {
+        name: "Embed in HTML or Next.js",
+        text: "Insert the <script type=\"application/ld+json\"> block inside your page template."
+      }
+    ],
+    guideContent: {
+      title: "Mastering BreadcrumbList Structured Data for Google SERPs",
+      sections: [
+        {
+          heading: "How BreadcrumbList Transforms Search Snippet URLs",
+          content: "<p>In Google search results, webpages without structured breadcrumbs display raw, cluttered URL paths (e.g. <code>https://example.com/p/124?cat=4</code>). When you implement <strong>BreadcrumbList JSON-LD</strong>, Google replaces the raw URL with a clean, hierarchical navigational trail (e.g. <code>example.com > Tools > Technical SEO</code>).</p><p>This clear visual structure improves search snippet readability, reinforces site architecture authority, and increases organic click-through rates.</p>",
+          keyTakeaways: [
+            "Breadcrumbs in SERPs replace ugly URL strings with human-readable hierarchy chains.",
+            "Each breadcrumb item requires @type: 'ListItem', position, name, and item (URL).",
+            "The final item represents the current page and should match the canonical URL."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "What is Schema.org BreadcrumbList?",
+        answer: "BreadcrumbList is a structured data schema that defines a webpage's position within a website's hierarchical navigation tree, helping search engines understand content categories."
+      },
+      {
+        question: "Does Google require breadcrumbs to be visibly present on the page?",
+        answer: "Yes. Google's structured data guidelines require that information marked up in JSON-LD must also be visibly accessible to human visitors on the page."
+      },
+      {
+        question: "How many breadcrumb levels can I include?",
+        answer: "You can include as many levels as match your actual site architecture (typically 2 to 5 levels). Google usually displays the first 2-3 levels in search results."
+      },
+      {
+        question: "Can I combine BreadcrumbList with other schemas on the same page?",
+        answer: "Yes! It is best practice to include BreadcrumbList alongside Article, Product, or FAQPage schemas on a single webpage."
+      }
+    ]
+  },
+
+  // 19. FAQ Schema Generator
+  {
+    id: "faq-schema-generator",
+    slug: "faq-schema-generator",
+    name: "FAQ Schema Generator",
+    title: "FAQPage Schema Generator (Google Rich Snippets 2026)",
+    metaTitle: "FAQPage Schema Generator (Google Rich Snippets 2026)",
+    metaDescription: "Create validated Schema.org FAQPage JSON-LD code with multiple Q&A pairs for enhanced Google rich dropdown accordions.",
+    h1: "FAQPage JSON-LD Schema Generator & Validator",
+    tagline: "Build structured FAQPage schema markup to win rich dropdown accordion snippets in Google search results.",
+    shortDescription: "Create validated Schema.org FAQPage JSON-LD code with multiple Q&A pairs for enhanced search visibility.",
+    category: "technical",
+    icon: "HelpCircle",
+    badge: "Popular",
+    keywords: [
+      "faq schema generator",
+      "faqpage json-ld generator",
+      "google faq rich snippet",
+      "schema faq accordion builder",
+      "structured data faq creator",
+      "faq rich results generator"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "q1",
+        label: "Question 1",
+        type: "text",
+        defaultValue: "What is Schema.org structured data?",
+        placeholder: "Enter question 1..."
+      },
+      {
+        id: "a1",
+        label: "Answer 1",
+        type: "textarea",
+        defaultValue: "Schema.org structured data is a standardized machine-readable format that helps search engines parse and display rich search snippets.",
+        placeholder: "Enter answer 1..."
+      },
+      {
+        id: "q2",
+        label: "Question 2",
+        type: "text",
+        defaultValue: "How does FAQ schema improve my search ranking CTR?",
+        placeholder: "Enter question 2..."
+      },
+      {
+        id: "a2",
+        label: "Answer 2",
+        type: "textarea",
+        defaultValue: "FAQPage schema allows search engines to render expandable Q&A accordions directly under your search result, capturing more SERP real estate.",
+        placeholder: "Enter answer 2..."
+      }
+    ],
+    samplePresets: [
+      {
+        name: "SaaS Pricing FAQ",
+        values: {
+          q1: "Is there a free trial available?",
+          a1: "Yes! We offer a 14-day full-featured free trial with no credit card required.",
+          q2: "Can I cancel or switch plans anytime?",
+          a2: "Yes, you can upgrade, downgrade, or cancel your subscription at any time from your account settings."
+        }
+      },
+      {
+        name: "SEO Optimization FAQ",
+        values: {
+          q1: "How often should I audit my meta tags?",
+          a1: "We recommend auditing your metadata quarterly or whenever major algorithm updates are deployed.",
+          q2: "What is the optimal meta description length?",
+          a2: "The recommended length is between 140 and 155 characters (under 960 pixels) to avoid desktop and mobile truncation."
+        }
+      }
+    ],
+    defaultValues: {
+      q1: "What is Schema.org structured data?",
+      a1: "Schema.org structured data is a standardized machine-readable format that helps search engines parse and display rich search snippets.",
+      q2: "How does FAQ schema improve my search ranking CTR?",
+      a2: "FAQPage schema allows search engines to render expandable Q&A accordions directly under your search result, capturing more SERP real estate."
+    },
+    howToSteps: [
+      {
+        name: "Enter Relevant Questions & Answers",
+        text: "Provide authoritative, concise answers directly addressing common search queries."
+      },
+      {
+        name: "Ensure On-Page Visual Alignment",
+        text: "Confirm that all questions and answers in the schema are visibly readable on your public page."
+      },
+      {
+        name: "Generate Valid JSON-LD",
+        text: "Review the generated @type: 'FAQPage' structure with mainEntity Question and acceptedAnswer nodes."
+      },
+      {
+        name: "Copy and Deploy",
+        text: "Paste the script tag into your HTML document or Next.js layout component."
+      }
+    ],
+    guideContent: {
+      title: "The Complete Guide to FAQPage Schema & Search Rich Results",
+      sections: [
+        {
+          heading: "How FAQPage Structured Data Enhances SERP Dominance",
+          content: "<p>Adding <strong>FAQPage Schema.org markup</strong> to authoritative content allows Google to render interactive, expandable accordions beneath your search listing. This commands up to 2x more vertical screen real estate on desktop and mobile SERPs, pushing competitors down the page and elevating organic click-through rates.</p><p>Per Google guidelines, FAQ markup must only be used on pages that contain a dedicated list of questions and answers created by the site itself.</p>",
+          keyTakeaways: [
+            "FAQPage schema commands massive vertical search real estate on Google results.",
+            "All Q&A content in the schema must appear visibly on the corresponding webpage.",
+            "Use HTML formatting (like <b> or <p>) within answer text if linking to supplementary resources."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "Can any website get FAQ rich snippets in Google?",
+        answer: "Google updated its guidelines to prioritize FAQ rich results primarily for authoritative government, health, and established institutional domains, though valid schema is still actively crawled and indexed for AI Overviews citations."
+      },
+      {
+        question: "Can I include links inside FAQ answers?",
+        answer: "Yes! HTML tags such as <a>, <b>, <i>, <p>, and <ul> are supported inside the acceptedAnswer.text field of FAQ schema."
+      },
+      {
+        question: "How many questions should I include in FAQ schema?",
+        answer: "There is no hard limit, but including between 3 and 7 high-intent questions provides the ideal balance of topical depth without clutter."
+      },
+      {
+        question: "Is FAQPage schema supported by AI search engines like Perplexity?",
+        answer: "Yes! Modern AI search engines (like Perplexity and Google Gemini) heavily utilize Schema.org FAQPage structured data to extract direct factual answers for citations."
+      }
+    ]
+  },
+
+  // 20. Favicon Meta Generator
+  {
+    id: "favicon-meta-generator",
+    slug: "favicon-meta-generator",
+    name: "Favicon Meta Tag Generator",
+    title: "Favicon & PWA App Icon Meta Generator (All Devices)",
+    metaTitle: "Favicon & PWA App Icon Meta Generator (All Devices)",
+    metaDescription: "Generate complete favicon links, Apple Touch Icons, Web App Manifests, and theme colors for all browsers, iOS, Android, and Windows.",
+    h1: "Favicon & Web App Icon Meta Generator",
+    tagline: "Generate comprehensive favicon links, Apple Touch Icons, Web App Manifests, and theme colors for all browsers.",
+    shortDescription: "Generate complete favicon, Apple touch icon, Android PWA manifest, and Windows tile HTML meta tag bundles.",
+    category: "developer",
+    icon: "Sparkles",
+    badge: "New",
+    keywords: [
+      "favicon meta generator",
+      "apple touch icon generator",
+      "favicon html generator",
+      "pwa manifest icon tags",
+      "theme-color meta generator",
+      "website favicon tags builder"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "basePath",
+        label: "Icon Root Base Path",
+        type: "text",
+        defaultValue: "/",
+        placeholder: "/assets/icons/ or /"
+      },
+      {
+        id: "appName",
+        label: "Web App / Brand Name",
+        type: "text",
+        defaultValue: "OmniSEOTools",
+        placeholder: "Your Brand"
+      },
+      {
+        id: "themeColor",
+        label: "Browser Theme Color (Hex Code)",
+        type: "text",
+        defaultValue: "#4F46E5",
+        placeholder: "#4F46E5"
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Root Directory Setup",
+        values: {
+          basePath: "/",
+          appName: "OmniSEOTools",
+          themeColor: "#4F46E5"
+        }
+      },
+      {
+        name: "Assets Folder Setup",
+        values: {
+          basePath: "/assets/icons/",
+          appName: "My Enterprise App",
+          themeColor: "#0F172A"
+        }
+      }
+    ],
+    defaultValues: {
+      basePath: "/",
+      appName: "OmniSEOTools",
+      themeColor: "#4F46E5"
+    },
+    howToSteps: [
+      {
+        name: "Define Icon Asset Directory",
+        text: "Specify where your favicon.ico, icon.svg, and touch icons are hosted (e.g. / or /icons/)."
+      },
+      {
+        name: "Choose Brand Theme Color",
+        text: "Pick a hex color for mobile address bars and Windows desktop tiles."
+      },
+      {
+        name: "Review Universal Tag Bundle",
+        text: "Inspect the generated link tags for modern SVG favicons, legacy ICO fallbacks, and Apple Touch icons."
+      },
+      {
+        name: "Copy to HTML Head or Next.js",
+        text: "Paste into your website's <head> section or configure inside Next.js metadata.icons."
+      }
+    ],
+    guideContent: {
+      title: "The Comprehensive Favicon & App Icon Standards Guide for 2026",
+      sections: [
+        {
+          heading: "Why Favicons Are Crucial for Google SERP CTR & Brand Trust",
+          content: "<p>Google prominently displays <strong>16x16px and 32x32px website favicons</strong> next to every search result title in mobile and desktop SERPs. Websites with missing or broken favicons display a generic globe icon, which decreases user trust and lowers organic click-through rates.</p><p>Modern web standards also require support for high-DPI displays (SVG vectors), Apple iOS home screen bookmarks (180x180 PNGs), and Progressive Web App manifests for Android and ChromeOS devices.</p>",
+          keyTakeaways: [
+            "Google displays favicons directly next to search snippets in SERPs.",
+            "Use an SVG icon (<link rel='icon' type='image/svg+xml'>) for infinite vector scaling and dark mode support.",
+            "Always provide a fallback favicon.ico for legacy browsers and automated feed crawlers."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "What favicon files do I need for full 2026 browser support?",
+        answer: "A complete setup requires: 1) favicon.ico (multi-size 16x16, 32x32, 48x48); 2) icon.svg (vector for modern browsers); 3) apple-touch-icon.png (180x180 for iOS); and 4) site.webmanifest (with 192x192 and 512x512 icons for Android PWAs)."
+      },
+      {
+        question: "Why is my favicon not showing up in Google search results?",
+        answer: "Google's favicon crawler (Google-Favicons) crawls favicons periodically. Ensure your favicon is publicly accessible, at least 48x48 pixels, returns HTTP 200, and is not blocked by robots.txt."
+      },
+      {
+        question: "Can I use SVG favicons for dark mode automatic switching?",
+        answer: "Yes! SVG favicons support CSS @media (prefers-color-scheme: dark) rules embedded directly inside the SVG code, allowing your browser tab icon to change color automatically based on OS dark mode."
+      },
+      {
+        question: "How do I configure icons in Next.js App Router?",
+        answer: "You can either place favicon.ico and icon.png directly in your app/ directory for automatic resolution, or declare metadata.icons inside app/layout.tsx."
+      }
+    ]
   }
 ];
 

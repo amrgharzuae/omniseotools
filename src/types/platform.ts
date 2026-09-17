@@ -25,6 +25,15 @@ export interface PlatformSnippetInfo {
   description: string;
 }
 
+export interface PlatformAffiliateSlot {
+  badge: string;         // e.g. "Recommended Partner"
+  title: string;         // e.g. "Shopify Merchant Accelerator"
+  description: string;   // Short helper text
+  ctaText: string;       // e.g. "Claim Partner Offer →"
+  targetUrl?: string;    // Defaults to "#" or placeholder link
+  isPlaceholder?: boolean;
+}
+
 export interface PlatformDefinition {
   slug: PlatformSlug;
   name: string;
@@ -40,6 +49,7 @@ export interface PlatformDefinition {
   bestPractices: string[];
   setupSteps: PlatformStep[];
   defaultFaqs: PlatformFAQItem[];
+  affiliateSlot?: PlatformAffiliateSlot;
 }
 
 export interface PlatformToolSEOData {

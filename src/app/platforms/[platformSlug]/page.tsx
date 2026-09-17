@@ -23,6 +23,10 @@ import {
   Link2,
   Type,
   BarChart3,
+  SlidersHorizontal,
+  Globe,
+  Lock,
+  HelpCircle,
 } from "lucide-react";
 import {
   getAllPlatforms,
@@ -35,6 +39,7 @@ import {
 import { siteConfig } from "@/config/site";
 import { PlatformCodeBlock } from "@/components/platform/PlatformCodeBlock";
 import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
+import { PlatformAffiliateSlot } from "@/components/platform/PlatformAffiliateSlot";
 import { AdSlot } from "@/components/ads/AdSlot";
 
 interface PlatformPageProps {
@@ -52,6 +57,12 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   BarChart3,
   FileText,
   Code2,
+  SlidersHorizontal,
+  Globe,
+  Lock,
+  Layers,
+  HelpCircle,
+  Sparkles,
 };
 
 export async function generateStaticParams() {
@@ -277,7 +288,7 @@ export default async function PlatformHubPage({ params }: PlatformPageProps) {
               </p>
             </div>
             <span className="text-xs font-medium text-slate-500 shrink-0">
-              Showing 10 active utilities
+              Showing {tools.length} active utilities
             </span>
           </div>
 
@@ -336,6 +347,14 @@ export default async function PlatformHubPage({ params }: PlatformPageProps) {
 
         {/* Mid-Content In-Feed AdSlot */}
         <AdSlot slotType="in-feed" className="my-12" />
+
+        {/* Strategy 4: High-Intent Contextual Platform Affiliate / Resource Callout */}
+        {platform.affiliateSlot && (
+          <PlatformAffiliateSlot
+            affiliate={platform.affiliateSlot}
+            platformName={platform.name}
+          />
+        )}
 
         {/* 2. Code Snippet Section */}
         <section className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/50 p-6 sm:p-10 shadow-sm">

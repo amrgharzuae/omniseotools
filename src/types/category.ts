@@ -6,7 +6,8 @@ export type ToolCategoryId =
   | "content"
   | "serp"
   | "copywriting"
-  | "technical";
+  | "technical"
+  | "international";
 
 export interface CategoryDefinition {
   id: ToolCategoryId;

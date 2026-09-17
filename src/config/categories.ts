@@ -41,6 +41,30 @@ export const CATEGORIES: CategoryDefinition[] = [
     icon: "FileText",
     color: "from-rose-500/20 to-red-500/20 border-rose-500/30 text-rose-500",
   },
+  {
+    id: "technical",
+    name: "Technical SEO",
+    slug: "technical",
+    description: "Generate structured schema markup, canonical tags, XML sitemaps, and robots directives.",
+    icon: "Code2",
+    color: "from-cyan-500/20 to-blue-500/20 border-cyan-500/30 text-cyan-500",
+  },
+  {
+    id: "serp",
+    name: "SERP & Snippets",
+    slug: "serp",
+    description: "Measure Google title pixel limits, simulate desktop/mobile snippets, and test rich badges.",
+    icon: "Eye",
+    color: "from-indigo-500/20 to-violet-500/20 border-indigo-500/30 text-indigo-500",
+  },
+  {
+    id: "international",
+    name: "International SEO",
+    slug: "international",
+    description: "Build hreflang cluster tags, multi-regional language headers, and country-specific canonicals.",
+    icon: "Globe",
+    color: "from-teal-500/20 to-emerald-500/20 border-teal-500/30 text-teal-500",
+  },
 ];
 
 export function getCategoryBySlug(slug: string): CategoryDefinition | undefined {

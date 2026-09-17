@@ -30,6 +30,7 @@ import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
 import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
+import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Eye,
@@ -188,14 +189,7 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
           ) : tool.slug === "open-graph-meta-generator" ? (
             <MetaTagGenerator />
           ) : (
-            <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-12 text-center">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                {tool.name}
-              </h2>
-              <p className="mt-2 text-xs text-slate-500 max-w-md mx-auto">
-                {tool.shortDescription}
-              </p>
-            </div>
+            <DynamicToolGenerator tool={tool} />
           )}
         </section>
 

@@ -89,6 +89,15 @@ export const metadata: Metadata = {
           "Yes! Create an `opengraph-image.tsx` or `twitter-image.tsx` file in your route directory using Next.js ImageResponse API to generate 1200x630 dynamic SVG/JSX-based share cards on the edge.",
       },
     ],
+    affiliateSlot: {
+      badge: "Recommended Infrastructure",
+      title: "Deploy Next.js with Automated Edge OG Previews",
+      description:
+        "Supercharge your Next.js Open Graph image generation with native Edge Functions, dynamic @vercel/og rendering, and automated preview deployments.",
+      ctaText: "Start Building with Vercel →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 2. Shopify
@@ -167,6 +176,15 @@ export const metadata: Metadata = {
           "Add `og:price:amount` and `og:price:currency` Open Graph tags inside your `snippets/social-meta-tags.liquid` file using Liquid variables `{{ product.price | money_without_currency }}` and `{{ cart.currency.iso_code }}`.",
       },
     ],
+    affiliateSlot: {
+      badge: "Recommended Partner",
+      title: "Shopify Merchant SEO Accelerator",
+      description:
+        "Scale your store organic revenue with automated schema markup, speed optimizations, and 1-click rich snippet enhancements.",
+      ctaText: "Claim Partner Offer →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 3. WordPress
@@ -254,6 +272,15 @@ add_action('wp_head', 'omni_custom_social_meta_tags', 5);`,
           "Duplicate tags occur when both your WordPress theme and an SEO plugin output `og:*` tags. Check your theme settings or `header.php` to disable theme-level social tags, allowing your SEO plugin to handle them exclusively.",
       },
     ],
+    affiliateSlot: {
+      badge: "Verified Hosting Partner",
+      title: "WP Engine Managed Enterprise WordPress",
+      description:
+        "Get enterprise-grade caching, automated Yoast/Rank Math optimizations, and sub-100ms TTFB for your high-traffic WordPress site.",
+      ctaText: "Get 4 Months Free on WP Engine →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 4. Webflow
@@ -326,6 +353,15 @@ add_action('wp_head', 'omni_custom_social_meta_tags', 5);`,
           "Yes, but you must inject `<meta name=\"twitter:card\" content=\"summary_large_image\">` into Page Settings > Custom Code > 'Inside <head> tag' or global Project Settings > Custom Code.",
       },
     ],
+    affiliateSlot: {
+      badge: "Visual CMS Partner",
+      title: "Webflow SEO & Localization Toolkit",
+      description:
+        "Build production-grade visual CMS collections with programmatic schema binding, automated sitemaps, and multi-language SEO.",
+      ctaText: "Try Webflow Free →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 5. Squarespace
@@ -391,6 +427,15 @@ add_action('wp_head', 'omni_custom_social_meta_tags', 5);`,
           "After updating your Social Image, social media crawlers retain cached versions. Use the Facebook Sharing Debugger or LinkedIn Post Inspector to force a re-scrape of your Squarespace URL.",
       },
     ],
+    affiliateSlot: {
+      badge: "Recommended Builder",
+      title: "Squarespace Commerce & Social Suite",
+      description:
+        "Launch your brand website with built-in social card templates, integrated analytics, and custom domain SSL security.",
+      ctaText: "Get 20% Off Squarespace →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 6. Wix
@@ -463,6 +508,15 @@ $w.onReady(function () {
           "Wix automatically outputs Twitter cards for images uploaded in the Social Share tab. You can also enforce `summary_large_image` via Wix Velo's `wix-seo.setMetaTags()` method.",
       },
     ],
+    affiliateSlot: {
+      badge: "Agency Partner Offer",
+      title: "Wix Studio Advanced SEO & Velo Suite",
+      description:
+        "Access deep Velo programmatic SEO APIs, custom bot indexing rules, dynamic schema patterns, and client-ready SEO reporting.",
+      ctaText: "Explore Wix Studio →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 7. Ghost CMS
@@ -528,6 +582,15 @@ $w.onReady(function () {
           "Navigate to Ghost Admin > Settings > Code Injection. In the 'Site Header' textarea, paste your custom HTML `<meta>` tags and click Save.",
       },
     ],
+    affiliateSlot: {
+      badge: "Publishing Partner",
+      title: "Ghost(Pro) Managed Newsletter & SEO Cloud",
+      description:
+        "Fast, zero-maintenance newsletter publishing platform with native Twitter card, Facebook meta editors, and instant edge caching.",
+      ctaText: "Start 14-Day Ghost Trial →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 
   // 8. Tailwind / HTML
@@ -618,6 +681,15 @@ $w.onReady(function () {
           "JPG or PNG with 1200 x 630 pixels resolution (1.91:1 ratio) and file sizes under 1MB. While WebP is supported by modern browsers, some legacy social scrapers still prefer standard JPG or PNG.",
       },
     ],
+    affiliateSlot: {
+      badge: "Component Partner",
+      title: "Tailwind UI & Catalyst Application Kit",
+      description:
+        "Pre-built, accessible HTML & React components designed for maximum Core Web Vitals performance and instant page speed.",
+      ctaText: "Browse Tailwind UI Kits →",
+      targetUrl: "#",
+      isPlaceholder: true,
+    },
   },
 ];
 

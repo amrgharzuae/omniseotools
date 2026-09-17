@@ -17,6 +17,7 @@ import { PlatformStructuredData } from "@/components/platform/PlatformStructured
 import { PlatformGuide } from "@/components/platform/PlatformGuide";
 import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
 import { PlatformSwitcher } from "@/components/platform/PlatformSwitcher";
+import { PlatformAffiliateSlot } from "@/components/platform/PlatformAffiliateSlot";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
 
@@ -26,6 +27,7 @@ import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
 import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
+import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
 
 interface PlatformToolPageProps {
   params: Promise<{
@@ -230,19 +232,20 @@ export default async function PlatformToolPage({
           ) : tool.slug === "open-graph-preview" ? (
             <SocialPreviewer defaultPlatform="twitter" />
           ) : (
-            <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-12 text-center">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                {tool.name} for {platform.name}
-              </h2>
-              <p className="mt-2 text-xs text-slate-500 max-w-md mx-auto">
-                {tool.shortDescription}
-              </p>
-            </div>
+            <DynamicToolGenerator tool={tool} platform={platform} />
           )}
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}
         <AdSlot slotType="in-feed" className="my-10" />
+
+        {/* Strategy 4: High-Intent Contextual Platform Affiliate / Resource Callout */}
+        {platform.affiliateSlot && (
+          <PlatformAffiliateSlot
+            affiliate={platform.affiliateSlot}
+            platformName={platform.name}
+          />
+        )}
 
         {/* 4. Platform-Specific Guide with Copyable Snippet */}
         <PlatformGuide tool={tool} platform={platform} content={content} />

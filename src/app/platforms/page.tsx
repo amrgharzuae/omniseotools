@@ -170,7 +170,7 @@ export default function PlatformsIndexPage() {
           </p>
 
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
-            Every platform hub includes dedicated guides, implementation best practices, FAQ documentation, and 10 interactive preview utilities tailored to your CMS or framework.
+            Every platform hub includes dedicated guides, implementation best practices, FAQ documentation, and 20 interactive preview utilities tailored to your CMS or framework.
           </p>
 
           {/* Trust Micro-Badges */}

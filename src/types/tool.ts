@@ -21,6 +21,22 @@ export interface ToolGuideContent {
   sections: ToolEditorialSection[];
 }
 
+export interface ToolPresetField {
+  id: string;
+  label: string;
+  type: "text" | "textarea" | "select" | "boolean" | "number";
+  placeholder?: string;
+  defaultValue?: any;
+  options?: Array<{ label: string; value: string }>;
+  description?: string;
+}
+
+export interface ToolPresetSample {
+  name: string;
+  values: Record<string, any>;
+  label?: string;
+}
+
 export interface ToolDefinition {
   id: string;
   slug: string;
@@ -41,5 +57,8 @@ export interface ToolDefinition {
   editorialGuide?: ToolGuideContent;
   guideContent?: ToolGuideContent;
   faqs?: ToolFAQ[];
+  presetSchema?: ToolPresetField[];
+  samplePresets?: ToolPresetSample[];
+  defaultValues?: Record<string, any>;
 }
 
