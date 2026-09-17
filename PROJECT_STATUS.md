@@ -8,6 +8,7 @@
   - Programmatic Permutations: `/tools/[slug]/[platformSlug]`
   - Platform Hubs: `/platforms/[platformSlug]`
   - Directory Index: `/platforms`
+- **Structured Data (JSON-LD):** Programmatic injection of Schema.org `WebApplication`, `BreadcrumbList`, and `FAQPage` via `src/lib/schema-generator.ts` and `src/components/seo/JsonLd.tsx` across standalone tools, platform permutations, and hub routes.
 - **Sitemap:** Dynamic (`src/app/sitemap.ts`) generating 193+ canonical apex URLs with proper priorities (20 core tools + 160 programmatic permutations + 9 platform hubs + legal pages).
 
 ## 2. Shared Libraries & Engine

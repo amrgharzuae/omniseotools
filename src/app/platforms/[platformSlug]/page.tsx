@@ -37,6 +37,11 @@ import {
   TOOLS_REGISTRY,
 } from "@/config/tools-registry";
 import { siteConfig } from "@/config/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+} from "@/lib/schema-generator";
 import { PlatformCodeBlock } from "@/components/platform/PlatformCodeBlock";
 import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
 import { PlatformAffiliateSlot } from "@/components/platform/PlatformAffiliateSlot";
@@ -132,74 +137,18 @@ export default async function PlatformHubPage({ params }: PlatformPageProps) {
   const allPlatforms = getAllPlatforms();
   const canonicalUrl = `https://omniseotools.com/platforms/${platform.slug}`;
 
-  // Structured Data (Schema.org)
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "CollectionPage",
-        "@id": `${canonicalUrl}#collection`,
-        "url": canonicalUrl,
-        "name": `${platform.name} SEO & Social Meta Tag Optimization Hub`,
-        "description": platform.description,
-        "isPartOf": {
-          "@type": "WebSite",
-          "@id": "https://omniseotools.com/#website",
-          "name": siteConfig.name,
-          "url": "https://omniseotools.com",
-        },
-        "about": {
-          "@type": "SoftwareApplication",
-          "name": platform.name,
-          "applicationCategory": platform.category,
-        },
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${canonicalUrl}#breadcrumbs`,
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://omniseotools.com",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Platforms",
-            "item": "https://omniseotools.com/platforms",
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": platform.name,
-            "item": canonicalUrl,
-          },
-        ],
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${canonicalUrl}#faq`,
-        "mainEntity": platform.defaultFaqs.map((faq) => ({
-          "@type": "Question",
-          "name": faq.question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": faq.answer,
-          },
-        })),
-      },
-    ],
-  };
+  // Structured Data (BreadcrumbList + FAQPage)
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "https://omniseotools.com" },
+    { name: "Platforms", url: "https://omniseotools.com/platforms" },
+    { name: platform.name, url: canonicalUrl },
+  ]);
+  const faqSchema = generateFAQSchema(platform.defaultFaqs);
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Schema.org JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd schema={[breadcrumbSchema, faqSchema]} />
 
       {/* Hero Header */}
       <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 pb-10 pt-8">
@@ -236,7 +185,7 @@ export default async function PlatformHubPage({ params }: PlatformPageProps) {
             </span>
             <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
               <Sparkles className="h-3.5 w-3.5" />
-              10 Dedicated Tools
+              {tools.length} Dedicated Tools
             </span>
           </div>
 

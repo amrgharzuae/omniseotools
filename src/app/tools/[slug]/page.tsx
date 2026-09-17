@@ -18,7 +18,12 @@ import {
 import { getProgrammaticToolBySlug, getAllProgrammaticTools, getToolsByCategory } from "@/config/tools-registry";
 import { CATEGORIES, getCategoryBySlug } from "@/config/categories";
 import { siteConfig } from "@/config/site";
-import { StructuredData } from "@/components/seo/StructuredData";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  generateToolSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+} from "@/lib/schema-generator";
 import { ToolGuide } from "@/components/tool-layout/ToolGuide";
 import { ToolFAQ } from "@/components/tool-layout/ToolFAQ";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
@@ -99,10 +104,19 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
 
   const canonicalUrl = `https://omniseotools.com/tools/${tool.slug}`;
 
+  // Generate Structured Data (WebApplication, BreadcrumbList, FAQPage)
+  const toolSchema = generateToolSchema({ tool, canonicalUrl });
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "https://omniseotools.com" },
+    { name: tool.category.toUpperCase(), url: `https://omniseotools.com/#category-${tool.category}` },
+    { name: tool.name, url: canonicalUrl },
+  ]);
+  const faqSchema = generateFAQSchema(tool.faqs);
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Injected Structured Data (SoftwareApplication + FAQPage) */}
-      <StructuredData tool={tool} url={canonicalUrl} />
+      {/* 1. Injected Structured Data (WebApplication + BreadcrumbList + FAQPage) */}
+      <JsonLd schema={[toolSchema, breadcrumbSchema, faqSchema]} />
 
       {/* 2. Page Hero Header */}
       <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 pb-8 pt-6">

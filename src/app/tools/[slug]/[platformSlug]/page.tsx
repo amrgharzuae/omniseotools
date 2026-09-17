@@ -13,7 +13,12 @@ import {
   getPlatformToolContent,
 } from "@/config/platforms-registry";
 import { siteConfig } from "@/config/site";
-import { PlatformStructuredData } from "@/components/platform/PlatformStructuredData";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  generateToolSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+} from "@/lib/schema-generator";
 import { PlatformGuide } from "@/components/platform/PlatformGuide";
 import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
 import { PlatformSwitcher } from "@/components/platform/PlatformSwitcher";
@@ -111,15 +116,21 @@ export default async function PlatformToolPage({
   const content = getPlatformToolContent(slug, platformSlug);
   const canonicalUrl = `https://omniseotools.com/tools/${tool.slug}/${platform.slug}`;
 
+  // Generate Composite Structured Data (WebApplication, BreadcrumbList, FAQPage)
+  const toolSchema = generateToolSchema({ tool, platform, canonicalUrl });
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "https://omniseotools.com" },
+    { name: "Platforms", url: "https://omniseotools.com/platforms" },
+    { name: platform.name, url: `https://omniseotools.com/platforms/${platform.slug}` },
+    { name: tool.name, url: `https://omniseotools.com/tools/${tool.slug}` },
+    { name: `${tool.name} for ${platform.name}`, url: canonicalUrl },
+  ]);
+  const faqSchema = generateFAQSchema(content.faqs);
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Injected Structured Data (SoftwareApplication + FAQPage + HowTo + BreadcrumbList) */}
-      <PlatformStructuredData
-        tool={tool}
-        platform={platform}
-        content={content}
-        url={canonicalUrl}
-      />
+      {/* 1. Injected Structured Data (WebApplication + BreadcrumbList + FAQPage) */}
+      <JsonLd schema={[toolSchema, breadcrumbSchema, faqSchema]} />
 
       {/* 2. Hero Header */}
       <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 pb-8 pt-6">
