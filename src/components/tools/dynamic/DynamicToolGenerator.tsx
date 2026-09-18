@@ -5,13 +5,16 @@ import { Copy, Check, Sparkles, Terminal, Code2, Sliders, ExternalLink } from "l
 import { ToolDefinition } from "@/types/tool";
 import { PlatformDefinition } from "@/types/platform";
 import { cn } from "@/lib/utils";
+import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
+import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
 
 interface DynamicToolGeneratorProps {
   tool: ToolDefinition;
   platform?: PlatformDefinition;
+  isEmbedded?: boolean;
 }
 
-export function DynamicToolGenerator({ tool, platform }: DynamicToolGeneratorProps) {
+export function DynamicToolGenerator({ tool, platform, isEmbedded }: DynamicToolGeneratorProps) {
   // Initialize form state from default values or preset schema
   const initialValues = useMemo(() => {
     const defaults: Record<string, any> = { ...(tool.defaultValues || {}) };
@@ -431,11 +434,16 @@ export const metadata: Metadata = {
   }, [tool, formState, activeTab]);
 
   const handleCopy = () => {
-    const codeToCopy =
+    const rawCode =
       activeTab === "platform" && platform
         ? platform.defaultSnippet
         : generatedCode;
-    navigator.clipboard.writeText(codeToCopy);
+    const codeWithAttribution = formatSnippetWithAttribution(rawCode, {
+      slug: tool.slug,
+      platformSlug: platform?.slug,
+      language: activeTab === "platform" ? platform?.snippetLanguage || "html" : activeTab,
+    });
+    navigator.clipboard.writeText(codeWithAttribution);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -645,28 +653,33 @@ export const metadata: Metadata = {
                 )}
               </div>
 
-              <button
-                type="button"
-                onClick={handleCopy}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all",
-                  copied
-                    ? "bg-emerald-600 text-white"
-                    : "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-indigo-600 dark:hover:bg-indigo-400"
+              <div className="flex items-center gap-2">
+                {!isEmbedded && (
+                  <EmbedToolModal slug={tool.slug} toolName={tool.name} />
                 )}
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-3.5 w-3.5" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" />
-                    <span>Copy Snippet</span>
-                  </>
-                )}
-              </button>
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all",
+                    copied
+                      ? "bg-emerald-600 text-white"
+                      : "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-indigo-600 dark:hover:bg-indigo-400"
+                  )}
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-3.5 w-3.5" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5" />
+                      <span>Copy Snippet</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Code Display Area */}

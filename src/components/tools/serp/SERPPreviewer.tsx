@@ -21,6 +21,8 @@ import {
   BarChart2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
+import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
 import {
   calculateTitlePixels,
   calculateDescPixels,
@@ -33,6 +35,9 @@ export type SerpViewMode = "title-pixel" | "description-counter" | "full-simulat
 
 interface SERPPreviewerProps {
   mode?: SerpViewMode;
+  toolSlug?: string;
+  toolName?: string;
+  isEmbedded?: boolean;
 }
 
 const SAMPLE_PRESETS = [
@@ -62,7 +67,26 @@ const SAMPLE_PRESETS = [
   },
 ];
 
-export function SERPPreviewer({ mode = "full-simulator" }: SERPPreviewerProps) {
+export function SERPPreviewer({
+  mode = "full-simulator",
+  toolSlug,
+  toolName,
+  isEmbedded,
+}: SERPPreviewerProps) {
+  const currentSlug = useMemo(() => {
+    if (toolSlug) return toolSlug;
+    if (mode === "title-pixel") return "meta-title-pixel-checker";
+    if (mode === "description-counter") return "meta-description-length-counter";
+    return "google-serp-simulator";
+  }, [toolSlug, mode]);
+
+  const currentToolName = useMemo(() => {
+    if (toolName) return toolName;
+    if (mode === "title-pixel") return "Meta Title Pixel Checker";
+    if (mode === "description-counter") return "Meta Description Length Counter";
+    return "Google SERP Simulator";
+  }, [toolName, mode]);
+
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
   const [title, setTitle] = useState(
     "OmniSEOTools: Free High-Performance SEO & Marketing Utilities"
@@ -124,11 +148,15 @@ export function SERPPreviewer({ mode = "full-simulator" }: SERPPreviewerProps) {
   };
 
   const exportHtmlTags = () => {
-    const code = `<!-- Google / Search Engine Tags -->
+    const rawCode = `<!-- Google / Search Engine Tags -->
 <title>${title.trim()}</title>
 <meta name="description" content="${description.trim()}" />
 <link rel="canonical" href="${url.trim()}" />`;
-    navigator.clipboard.writeText(code);
+    const codeWithAttribution = formatSnippetWithAttribution(rawCode, {
+      slug: currentSlug,
+      language: "html",
+    });
+    navigator.clipboard.writeText(codeWithAttribution);
     setCopiedHtml(true);
     setTimeout(() => setCopiedHtml(false), 2000);
   };
@@ -468,22 +496,27 @@ export function SERPPreviewer({ mode = "full-simulator" }: SERPPreviewerProps) {
                 </span>
               </div>
 
-              <button
-                onClick={exportHtmlTags}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-sm shadow-indigo-500/20"
-              >
-                {copiedHtml ? (
-                  <>
-                    <CheckCheck className="h-3.5 w-3.5" />
-                    <span>Tags Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" />
-                    <span>Copy SEO Meta Tags</span>
-                  </>
+              <div className="flex items-center gap-2">
+                {!isEmbedded && (
+                  <EmbedToolModal slug={currentSlug} toolName={currentToolName} />
                 )}
-              </button>
+                <button
+                  onClick={exportHtmlTags}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-sm shadow-indigo-500/20"
+                >
+                  {copiedHtml ? (
+                    <>
+                      <CheckCheck className="h-3.5 w-3.5" />
+                      <span>Tags Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5" />
+                      <span>Copy SEO Meta Tags</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
           </div>

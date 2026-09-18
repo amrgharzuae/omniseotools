@@ -16,6 +16,14 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
+import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
+
+interface MetaTagGeneratorProps {
+  toolSlug?: string;
+  toolName?: string;
+  isEmbedded?: boolean;
+}
 
 interface SamplePreset {
   name: string;
@@ -78,7 +86,11 @@ const SAMPLE_PRESETS: SamplePreset[] = [
 
 type ExportFormat = "html" | "nextjs" | "helmet";
 
-export function MetaTagGenerator() {
+export function MetaTagGenerator({
+  toolSlug = "open-graph-meta-generator",
+  toolName = "Open Graph Meta Tag Generator",
+  isEmbedded,
+}: MetaTagGeneratorProps) {
   const [title, setTitle] = useState(SAMPLE_PRESETS[0].title);
   const [description, setDescription] = useState(SAMPLE_PRESETS[0].description);
   const [url, setUrl] = useState(SAMPLE_PRESETS[0].url);
@@ -90,6 +102,7 @@ export function MetaTagGenerator() {
   const [robots, setRobots] = useState("index, follow");
   const [formatTab, setFormatTab] = useState<ExportFormat>("html");
   const [copied, setCopied] = useState(false);
+  const [isEmbedModalOpen, setIsEmbedModalOpen] = useState(false);
 
   const loadPreset = (preset: SamplePreset) => {
     setTitle(preset.title);
@@ -112,14 +125,13 @@ export function MetaTagGenerator() {
     setTwitterHandle("");
   };
 
-  // Generate code string
+  // Live Generated Code String
   const outputCode = useMemo(() => {
-    const cleanTitle = title.trim() || "Page Title";
-    const cleanDesc = description.trim() || "Page Description";
-    const cleanUrl = url.trim() || "https://example.com";
-    const cleanSite = siteName.trim() || "Site Name";
-    const cleanImg = imageUrl.trim() || "https://example.com/og-image.jpg";
-    const cleanTwitter = twitterHandle.trim() || "@brand";
+    const cleanTitle = title.replace(/"/g, "&quot;");
+    const cleanDesc = description.replace(/"/g, "&quot;");
+    const cleanUrl = url.trim();
+    const cleanImg = imageUrl.trim();
+    const cleanSite = siteName.replace(/"/g, "&quot;");
 
     if (formatTab === "html") {
       return `<!-- Primary Meta Tags -->
@@ -138,52 +150,56 @@ export function MetaTagGenerator() {
 <meta property="og:site_name" content="${cleanSite}" />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="${twitterCard}" />
-<meta property="twitter:url" content="${cleanUrl}" />
-<meta property="twitter:title" content="${cleanTitle}" />
-<meta property="twitter:description" content="${cleanDesc}" />
-<meta property="twitter:image" content="${cleanImg}" />
-${cleanTwitter ? `<meta property="twitter:site" content="${cleanTwitter}" />\n<meta property="twitter:creator" content="${cleanTwitter}" />` : ""}`;
+<meta name="twitter:card" content="${twitterCard}" />
+<meta name="twitter:url" content="${cleanUrl}" />
+<meta name="twitter:title" content="${cleanTitle}" />
+<meta name="twitter:description" content="${cleanDesc}" />
+<meta name="twitter:image" content="${cleanImg}" />
+${twitterHandle ? `<meta name="twitter:site" content="${twitterHandle}" />\n<meta name="twitter:creator" content="${twitterHandle}" />` : ""}`;
     }
 
     if (formatTab === "nextjs") {
       return `import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '${cleanTitle}',
-  description: '${cleanDesc}',
+  title: '${cleanTitle.replace(/'/g, "\\'")}',
+  description: '${cleanDesc.replace(/'/g, "\\'")}',
   alternates: {
     canonical: '${cleanUrl}',
   },
-  robots: '${robots}',
+  robots: {
+    index: ${robots.includes("index")},
+    follow: ${robots.includes("follow")},
+  },
   openGraph: {
-    title: '${cleanTitle}',
-    description: '${cleanDesc}',
+    title: '${cleanTitle.replace(/'/g, "\\'")}',
+    description: '${cleanDesc.replace(/'/g, "\\'")}',
     url: '${cleanUrl}',
-    siteName: '${cleanSite}',
-    type: '${ogType}',
+    siteName: '${cleanSite.replace(/'/g, "\\'")}',
     images: [
       {
         url: '${cleanImg}',
         width: 1200,
         height: 630,
-        alt: '${cleanTitle}',
+        alt: '${cleanTitle.replace(/'/g, "\\'")}',
       },
     ],
+    type: '${ogType}',
   },
   twitter: {
     card: '${twitterCard}',
-    title: '${cleanTitle}',
-    description: '${cleanDesc}',
+    title: '${cleanTitle.replace(/'/g, "\\'")}',
+    description: '${cleanDesc.replace(/'/g, "\\'")}',
     images: ['${cleanImg}'],
-    ${cleanTwitter ? `creator: '${cleanTwitter}',\n    site: '${cleanTwitter}',` : ""}
+    ${twitterHandle ? `creator: '${twitterHandle}',\n    site: '${twitterHandle}',` : ""}
   },
 };`;
     }
 
     return `<Helmet>
-  {/* Standard Meta Tags */}
+  {/* Primary Meta Tags */}
   <title>${cleanTitle}</title>
+  <meta name="title" content="${cleanTitle}" />
   <meta name="description" content="${cleanDesc}" />
   <meta name="robots" content="${robots}" />
   <link rel="canonical" href="${cleanUrl}" />
@@ -206,10 +222,20 @@ export const metadata: Metadata = {
   }, [formatTab, title, description, url, siteName, imageUrl, ogType, twitterCard, twitterHandle, robots]);
 
   const copyCode = () => {
-    navigator.clipboard.writeText(outputCode);
+    const codeWithAttribution = formatSnippetWithAttribution(outputCode, {
+      slug: toolSlug,
+      language: formatTab,
+    });
+    navigator.clipboard.writeText(codeWithAttribution);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const displayUrl = url.trim() || "https://example.com/page";
+  const displayTitle = title.trim() || "Page Title";
+  const displayDesc = description.trim() || "Page description goes here...";
+  const displayImg = imageUrl.trim() || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=630&fit=crop&q=80";
+  const displaySite = siteName.trim() || "example.com";
 
   return (
     <div className="space-y-8">
@@ -448,22 +474,27 @@ export const metadata: Metadata = {
                 </button>
               </div>
 
-              <button
-                onClick={copyCode}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-sm shadow-indigo-500/20"
-              >
-                {copied ? (
-                  <>
-                    <CheckCheck className="h-3.5 w-3.5" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" />
-                    <span>Copy Snippet</span>
-                  </>
+              <div className="flex items-center gap-2">
+                {!isEmbedded && (
+                  <EmbedToolModal slug={toolSlug} toolName={toolName} />
                 )}
-              </button>
+                <button
+                  onClick={copyCode}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-sm shadow-indigo-500/20"
+                >
+                  {copied ? (
+                    <>
+                      <CheckCheck className="h-3.5 w-3.5" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5" />
+                      <span>Copy Snippet</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Generated Code Display */}

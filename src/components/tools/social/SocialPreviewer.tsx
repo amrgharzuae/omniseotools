@@ -22,6 +22,8 @@ import {
   CheckCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
+import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
 
 export type SocialPlatform = "twitter" | "linkedin" | "facebook" | "discord";
 
@@ -83,10 +85,37 @@ type CodeExportTab = "html" | "nextjs" | "helmet";
 
 interface SocialPreviewerProps {
   defaultPlatform?: SocialPlatform;
+  toolSlug?: string;
+  toolName?: string;
+  isEmbedded?: boolean;
 }
 
-export function SocialPreviewer({ defaultPlatform = "twitter" }: SocialPreviewerProps) {
+export function SocialPreviewer({
+  defaultPlatform = "twitter",
+  toolSlug,
+  toolName,
+  isEmbedded,
+}: SocialPreviewerProps) {
   const [platform, setPlatform] = useState<SocialPlatform>(defaultPlatform);
+
+  const currentSlug = useMemo(() => {
+    if (toolSlug) return toolSlug;
+    if (platform === "twitter") return "twitter-card-preview";
+    if (platform === "linkedin") return "linkedin-link-preview";
+    if (platform === "facebook") return "facebook-open-graph-debugger";
+    if (platform === "discord") return "discord-embed-generator";
+    return "twitter-card-preview";
+  }, [toolSlug, platform]);
+
+  const currentToolName = useMemo(() => {
+    if (toolName) return toolName;
+    if (platform === "twitter") return "Twitter Card Previewer";
+    if (platform === "linkedin") return "LinkedIn Link Preview";
+    if (platform === "facebook") return "Facebook Open Graph Debugger";
+    if (platform === "discord") return "Discord Embed Generator";
+    return "Social Card Previewer";
+  }, [toolName, platform]);
+
   const [title, setTitle] = useState(
     "OmniSEOTools - Free High-Performance SEO & Marketing Utilities"
   );
@@ -115,62 +144,37 @@ export function SocialPreviewer({ defaultPlatform = "twitter" }: SocialPreviewer
     loaded: boolean;
     error: boolean;
   }>({
-    width: 1200,
-    height: 630,
-    ratio: 1.905,
-    loaded: true,
+    width: 0,
+    height: 0,
+    ratio: 0,
+    loaded: false,
     error: false,
   });
 
-  // Calculate parsed domain
-  const domain = useMemo(() => {
-    try {
-      const parsed = new URL(url.startsWith("http") ? url : `https://${url}`);
-      return parsed.hostname;
-    } catch {
-      return "omniseotools.com";
-    }
-  }, [url]);
-
-  // Load and validate image dimensions
   useEffect(() => {
     if (!imageUrl) {
-      setImgDimensions({
-        width: 0,
-        height: 0,
-        ratio: 0,
-        loaded: false,
-        error: false,
-      });
+      setImgDimensions({ width: 0, height: 0, ratio: 0, loaded: false, error: false });
       return;
     }
 
     const img = new Image();
     img.src = imageUrl;
     img.onload = () => {
-      const w = img.naturalWidth;
-      const h = img.naturalHeight;
-      const r = h > 0 ? w / h : 0;
       setImgDimensions({
-        width: w,
-        height: h,
-        ratio: r,
+        width: img.naturalWidth,
+        height: img.naturalHeight,
+        ratio: img.naturalWidth / (img.naturalHeight || 1),
         loaded: true,
         error: false,
       });
     };
     img.onerror = () => {
-      setImgDimensions({
-        width: 0,
-        height: 0,
-        ratio: 0,
-        loaded: false,
-        error: true,
-      });
+      setImgDimensions({ width: 0, height: 0, ratio: 0, loaded: false, error: true });
     };
   }, [imageUrl]);
 
   const loadPreset = (preset: SamplePreset) => {
+    setActivePreset(preset.name);
     setTitle(preset.title);
     setDescription(preset.description);
     setUrl(preset.url);
@@ -178,25 +182,33 @@ export function SocialPreviewer({ defaultPlatform = "twitter" }: SocialPreviewer
     setImageUrl(preset.imageUrl);
     setTwitterCard(preset.twitterCard);
     setDiscordColor(preset.discordColor);
-    setActivePreset(preset.name);
   };
 
   const handleReset = () => {
+    setActivePreset("");
     setTitle("");
     setDescription("");
     setUrl("");
     setSiteName("");
     setImageUrl("");
-    setActivePreset("");
   };
 
-  // Generate Export Code
+  const domain = useMemo(() => {
+    try {
+      const u = new URL(url.startsWith("http") ? url : `https://${url}`);
+      return u.hostname.replace("www.", "");
+    } catch {
+      return "example.com";
+    }
+  }, [url]);
+
+  // Generate production code snippet
   const generatedCode = useMemo(() => {
-    const cleanUrl = url.trim() || "https://example.com";
-    const cleanTitle = title.trim() || "Page Title";
-    const cleanDesc = description.trim() || "Page Description";
-    const cleanImage = imageUrl.trim() || "https://example.com/og-image.jpg";
-    const cleanSite = siteName.trim() || "Site Name";
+    const cleanTitle = title.replace(/"/g, "&quot;");
+    const cleanDesc = description.replace(/"/g, "&quot;");
+    const cleanUrl = url.trim();
+    const cleanSite = siteName.replace(/"/g, "&quot;");
+    const cleanImage = imageUrl.trim();
 
     if (codeTab === "html") {
       return `<!-- Primary Meta Tags -->
@@ -204,7 +216,7 @@ export function SocialPreviewer({ defaultPlatform = "twitter" }: SocialPreviewer
 <meta name="title" content="${cleanTitle}" />
 <meta name="description" content="${cleanDesc}" />
 
-<!-- Open Graph / Facebook / LinkedIn -->
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="${cleanUrl}" />
 <meta property="og:title" content="${cleanTitle}" />
@@ -212,50 +224,48 @@ export function SocialPreviewer({ defaultPlatform = "twitter" }: SocialPreviewer
 <meta property="og:image" content="${cleanImage}" />
 <meta property="og:site_name" content="${cleanSite}" />
 
-<!-- Twitter / X -->
-<meta property="twitter:card" content="${twitterCard}" />
-<meta property="twitter:url" content="${cleanUrl}" />
-<meta property="twitter:title" content="${cleanTitle}" />
-<meta property="twitter:description" content="${cleanDesc}" />
-<meta property="twitter:image" content="${cleanImage}" />
-
-<!-- Discord Embed Color -->
-<meta name="theme-color" content="${discordColor}" />`;
+<!-- Twitter -->
+<meta name="twitter:card" content="${twitterCard}" />
+<meta name="twitter:url" content="${cleanUrl}" />
+<meta name="twitter:title" content="${cleanTitle}" />
+<meta name="twitter:description" content="${cleanDesc}" />
+<meta name="twitter:image" content="${cleanImage}" />`;
     }
 
     if (codeTab === "nextjs") {
       return `import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '${cleanTitle}',
-  description: '${cleanDesc}',
+  title: '${cleanTitle.replace(/'/g, "\\'")}',
+  description: '${cleanDesc.replace(/'/g, "\\'")}',
   openGraph: {
-    title: '${cleanTitle}',
-    description: '${cleanDesc}',
+    title: '${cleanTitle.replace(/'/g, "\\'")}',
+    description: '${cleanDesc.replace(/'/g, "\\'")}',
     url: '${cleanUrl}',
-    siteName: '${cleanSite}',
+    siteName: '${cleanSite.replace(/'/g, "\\'")}',
     images: [
       {
         url: '${cleanImage}',
         width: 1200,
         height: 630,
-        alt: '${cleanTitle}',
+        alt: '${cleanTitle.replace(/'/g, "\\'")}',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: '${twitterCard}',
-    title: '${cleanTitle}',
-    description: '${cleanDesc}',
+    title: '${cleanTitle.replace(/'/g, "\\'")}',
+    description: '${cleanDesc.replace(/'/g, "\\'")}',
     images: ['${cleanImage}'],
   },
 };`;
     }
 
     return `<Helmet>
-  {/* Standard SEO */}
+  {/* Primary Meta Tags */}
   <title>${cleanTitle}</title>
+  <meta name="title" content="${cleanTitle}" />
   <meta name="description" content="${cleanDesc}" />
 
   {/* Open Graph */}
@@ -276,7 +286,11 @@ export const metadata: Metadata = {
   }, [codeTab, title, description, url, siteName, imageUrl, twitterCard, discordColor]);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedCode);
+    const codeWithAttribution = formatSnippetWithAttribution(generatedCode, {
+      slug: currentSlug,
+      language: codeTab,
+    });
+    navigator.clipboard.writeText(codeWithAttribution);
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
   };
@@ -879,22 +893,27 @@ export const metadata: Metadata = {
               </button>
             </div>
 
-            <button
-              onClick={copyToClipboard}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-sm shadow-indigo-500/20"
-            >
-              {copiedCode ? (
-                <>
-                  <CheckCheck className="h-3.5 w-3.5" />
-                  <span>Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="h-3.5 w-3.5" />
-                  <span>Copy Code</span>
-                </>
+            <div className="flex items-center gap-2">
+              {!isEmbedded && (
+                <EmbedToolModal slug={currentSlug} toolName={currentToolName} />
               )}
-            </button>
+              <button
+                onClick={copyToClipboard}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-sm shadow-indigo-500/20"
+              >
+                {copiedCode ? (
+                  <>
+                    <CheckCheck className="h-3.5 w-3.5" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" />
+                    <span>Copy Code</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 

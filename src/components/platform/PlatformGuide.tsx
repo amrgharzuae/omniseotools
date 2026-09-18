@@ -58,6 +58,8 @@ export function PlatformGuide({ tool, platform, content }: PlatformGuideProps) {
             language={content.snippet.language}
             filename={content.snippet.filename}
             description={content.snippet.description}
+            toolSlug={tool.slug}
+            platformSlug={platform.slug}
           />
         </section>
 

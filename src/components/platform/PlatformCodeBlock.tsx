@@ -3,12 +3,15 @@
 import React, { useState } from "react";
 import { Copy, Check, FileCode, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
 
 interface PlatformCodeBlockProps {
   code: string;
   language?: string;
   filename?: string;
   description?: string;
+  toolSlug?: string;
+  platformSlug?: string;
   className?: string;
 }
 
@@ -17,19 +20,29 @@ export function PlatformCodeBlock({
   language = "typescript",
   filename,
   description,
+  toolSlug,
+  platformSlug,
   className,
 }: PlatformCodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
+    const codeWithAttribution = toolSlug
+      ? formatSnippetWithAttribution(code, {
+          slug: toolSlug,
+          platformSlug,
+          language,
+        })
+      : code;
+
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(codeWithAttribution);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback
       const textarea = document.createElement("textarea");
-      textarea.value = code;
+      textarea.value = codeWithAttribution;
       document.body.appendChild(textarea);
       textarea.select();
       document.execCommand("copy");
