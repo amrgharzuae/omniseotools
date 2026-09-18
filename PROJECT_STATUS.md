@@ -8,6 +8,7 @@
   - Programmatic Permutations: `/tools/[slug]/[platformSlug]`
   - Platform Hubs: `/platforms/[platformSlug]`
   - Directory Index: `/platforms`
+- **Dynamic Social Share Images (OG Cards):** Edge runtime `ImageResponse` (`@vercel/og`) generators dynamically render high-contrast 1200x630 branded social cards with dynamic titles, category badges, platform pills, and value props across `/tools/[slug]/opengraph-image` and `/tools/[slug]/[platformSlug]/opengraph-image`.
 - **Structured Data (JSON-LD):** Programmatic injection of Schema.org `WebApplication`, `BreadcrumbList`, and `FAQPage` via `src/lib/schema-generator.ts` and `src/components/seo/JsonLd.tsx` across standalone tools, platform permutations, and hub routes.
 - **Sitemap:** Dynamic (`src/app/sitemap.ts`) generating 193+ canonical apex URLs with proper priorities (20 core tools + 160 programmatic permutations + 9 platform hubs + legal pages).
 
@@ -27,6 +28,7 @@
 
 ## 5. Immutable Engineering Rules
 - Always preserve `generateStaticParams()` and dynamic `generateMetadata()` on dynamic routes.
+- Preserve Edge-rendered `opengraph-image.tsx` generators without hardcoding conflicting `openGraph.images` in route metadata.
 - Never hardcode affiliate destination links directly in UI components; always source through `platforms-registry.ts`.
 - Maintain the bidirectional linking cluster: `Home` -> `Platforms` -> `[Platform Hub]` <-> `[Tool Permutation]`.
 - All text processing tools must support bulk inputs and preserve diacritic transliteration handling.

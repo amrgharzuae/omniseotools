@@ -208,7 +208,13 @@ export default function HomePage() {
 
                   {/* Tool Title */}
                   <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                    {tool.name}
+                    {isClickable ? (
+                      <Link href={`/tools/${tool.slug}`}>
+                        {tool.name}
+                      </Link>
+                    ) : (
+                      tool.name
+                    )}
                   </h3>
 
                   {/* Short Description */}
@@ -225,7 +231,7 @@ export default function HomePage() {
                   
                   {isClickable ? (
                     <Link
-                      href={`/tools/${tool.category}/${tool.slug}`}
+                      href={`/tools/${tool.slug}`}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
                     >
                       <span>Open Tool</span>

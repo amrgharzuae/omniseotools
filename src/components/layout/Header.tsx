@@ -112,7 +112,7 @@ export function Header() {
             <span>Search 20+ utilities...</span>
           </a>
           <Link
-            href="/tools/seo/serp-preview"
+            href="/tools/google-serp-simulator"
             className="flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition-all"
           >
             <Flame className="h-3.5 w-3.5" />
@@ -191,7 +191,7 @@ export function Header() {
 
           <div className="pt-2">
             <Link
-              href="/tools/seo/serp-preview"
+              href="/tools/google-serp-simulator"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full rounded-lg bg-emerald-600 py-2.5 text-sm font-semibold text-white shadow"
             >
