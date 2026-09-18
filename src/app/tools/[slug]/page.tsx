@@ -27,6 +27,7 @@ import {
 import { ToolGuide } from "@/components/tool-layout/ToolGuide";
 import { ToolFAQ } from "@/components/tool-layout/ToolFAQ";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
+import { ComparisonMatrix } from "@/components/seo/ComparisonMatrix";
 import { AdSlot } from "@/components/ads/AdSlot";
 
 // Interactive Tool Components
@@ -212,6 +213,9 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
 
         {/* 4. Deep Technical Guide (400+ Words) */}
         <ToolGuide tool={tool} />
+
+        {/* Feature Comparison Matrix (SaaS vs OmniSEO Tools) */}
+        <ComparisonMatrix toolName={tool.name} category={tool.category} />
 
         {/* 5. Interactive FAQ Accordion (4 Q&As) */}
         <ToolFAQ tool={tool} />

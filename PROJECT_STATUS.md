@@ -9,6 +9,7 @@
   - Platform Hubs: `/platforms/[platformSlug]`
   - Directory Index: `/platforms`
 - **Dynamic Social Share Images (OG Cards):** Edge runtime `ImageResponse` (`@vercel/og`) generators dynamically render high-contrast 1200x630 branded social cards with dynamic titles, category badges, platform pills, and value props across `/tools/[slug]/opengraph-image` and `/tools/[slug]/[platformSlug]/opengraph-image`.
+- **Feature Comparison Matrix:** Programmatic `ComparisonMatrix.tsx` component injected across standalone and platform permutation tool routes, comparing traditional SaaS suite friction (server queues, database logging, email paywalls) with OmniSEO Tools' zero-latency, client-side, paywall-free architecture.
 - **Structured Data (JSON-LD):** Programmatic injection of Schema.org `WebApplication`, `BreadcrumbList`, and `FAQPage` via `src/lib/schema-generator.ts` and `src/components/seo/JsonLd.tsx` across standalone tools, platform permutations, and hub routes.
 - **Sitemap:** Dynamic (`src/app/sitemap.ts`) generating 193+ canonical apex URLs with proper priorities (20 core tools + 160 programmatic permutations + 9 platform hubs + legal pages).
 

@@ -23,6 +23,7 @@ import { PlatformGuide } from "@/components/platform/PlatformGuide";
 import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
 import { PlatformSwitcher } from "@/components/platform/PlatformSwitcher";
 import { PlatformAffiliateSlot } from "@/components/platform/PlatformAffiliateSlot";
+import { ComparisonMatrix } from "@/components/seo/ComparisonMatrix";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
 
@@ -260,6 +261,13 @@ export default async function PlatformToolPage({
 
         {/* 4. Platform-Specific Guide with Copyable Snippet */}
         <PlatformGuide tool={tool} platform={platform} content={content} />
+
+        {/* Feature Comparison Matrix (SaaS vs OmniSEO Tools) */}
+        <ComparisonMatrix
+          toolName={tool.name}
+          platformName={platform.name}
+          category={tool.category}
+        />
 
         {/* 5. Platform-Specific FAQ Accordion */}
         <PlatformFAQ

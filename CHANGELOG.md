@@ -1,5 +1,17 @@
 # Changelog
 
+## [2026-09-18] - Sprint 8: High-Converting Feature Comparison Matrix
+### Added
+- Created `src/components/seo/ComparisonMatrix.tsx`: High-converting, responsive comparison table benchmarking OmniSEO Tools against traditional heavy SaaS audit suites across 5 key dimensions:
+  1. Execution Architecture: Server-side queues (5–15s delay) vs. 100% Client-Side / Edge (0ms queue).
+  2. Privacy & Data Storage: Database logging of queries/drafts vs. 100% in-browser client-side privacy.
+  3. Account Requirements: Mandatory paywalls & email capture vs. zero login, 100% free access.
+  4. Code Snippets & Export: Generic code suggestions vs. instant 1-click platform-tailored exports (HTML5, Next.js, Liquid, JSX).
+  5. Core Web Vitals Impact: Heavy dashboard tracking bloat vs. ultra-lightweight edge performance with 0 layout shift.
+- Injected `<ComparisonMatrix />` across:
+  - Standalone tool pages (`/tools/[slug]`)
+  - Programmatic platform permutations (`/tools/[slug]/[platformSlug]`) with platform-specific export highlights.
+
 ## [2026-09-18] - Sprint 7: Dynamic Social Share Images (Edge ImageResponse / @vercel/og)
 ### Added
 - Created `src/app/tools/[slug]/opengraph-image.tsx`: Dynamic Edge runtime `ImageResponse` generator rendering high-contrast 1200x630 branded developer cards with tool titles, resolved category pills, status badges, and value proposition tags.
