@@ -24,6 +24,12 @@ import {
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
 import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
+import {
+  MetaFormData,
+  toHtml,
+  toNextJsMetadata,
+  toLiquidSnippet,
+} from "@/lib/formatters/metaFormatters";
 
 export type SocialPlatform = "twitter" | "linkedin" | "facebook" | "discord";
 
@@ -81,7 +87,7 @@ const SAMPLE_PRESETS: SamplePreset[] = [
   },
 ];
 
-type CodeExportTab = "html" | "nextjs" | "helmet";
+type CodeExportTab = "html" | "nextjs" | "liquid";
 
 interface SocialPreviewerProps {
   defaultPlatform?: SocialPlatform;
@@ -202,94 +208,37 @@ export function SocialPreviewer({
     }
   }, [url]);
 
+  const currentFormData = useMemo<MetaFormData>(() => ({
+    title,
+    description,
+    url,
+    siteName,
+    imageUrl,
+    ogType: "website",
+    twitterCard,
+    slug: currentSlug,
+  }), [title, description, url, siteName, imageUrl, twitterCard, currentSlug]);
+
   // Generate production code snippet
   const generatedCode = useMemo(() => {
-    const cleanTitle = title.replace(/"/g, "&quot;");
-    const cleanDesc = description.replace(/"/g, "&quot;");
-    const cleanUrl = url.trim();
-    const cleanSite = siteName.replace(/"/g, "&quot;");
-    const cleanImage = imageUrl.trim();
-
-    if (codeTab === "html") {
-      return `<!-- Primary Meta Tags -->
-<title>${cleanTitle}</title>
-<meta name="title" content="${cleanTitle}" />
-<meta name="description" content="${cleanDesc}" />
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="${cleanUrl}" />
-<meta property="og:title" content="${cleanTitle}" />
-<meta property="og:description" content="${cleanDesc}" />
-<meta property="og:image" content="${cleanImage}" />
-<meta property="og:site_name" content="${cleanSite}" />
-
-<!-- Twitter -->
-<meta name="twitter:card" content="${twitterCard}" />
-<meta name="twitter:url" content="${cleanUrl}" />
-<meta name="twitter:title" content="${cleanTitle}" />
-<meta name="twitter:description" content="${cleanDesc}" />
-<meta name="twitter:image" content="${cleanImage}" />`;
-    }
-
     if (codeTab === "nextjs") {
-      return `import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: '${cleanTitle.replace(/'/g, "\\'")}',
-  description: '${cleanDesc.replace(/'/g, "\\'")}',
-  openGraph: {
-    title: '${cleanTitle.replace(/'/g, "\\'")}',
-    description: '${cleanDesc.replace(/'/g, "\\'")}',
-    url: '${cleanUrl}',
-    siteName: '${cleanSite.replace(/'/g, "\\'")}',
-    images: [
-      {
-        url: '${cleanImage}',
-        width: 1200,
-        height: 630,
-        alt: '${cleanTitle.replace(/'/g, "\\'")}',
-      },
-    ],
-    type: 'website',
-  },
-  twitter: {
-    card: '${twitterCard}',
-    title: '${cleanTitle.replace(/'/g, "\\'")}',
-    description: '${cleanDesc.replace(/'/g, "\\'")}',
-    images: ['${cleanImage}'],
-  },
-};`;
+      return toNextJsMetadata(currentFormData, { withAttribution: false });
     }
-
-    return `<Helmet>
-  {/* Primary Meta Tags */}
-  <title>${cleanTitle}</title>
-  <meta name="title" content="${cleanTitle}" />
-  <meta name="description" content="${cleanDesc}" />
-
-  {/* Open Graph */}
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="${cleanUrl}" />
-  <meta property="og:title" content="${cleanTitle}" />
-  <meta property="og:description" content="${cleanDesc}" />
-  <meta property="og:image" content="${cleanImage}" />
-  <meta property="og:site_name" content="${cleanSite}" />
-
-  {/* Twitter */}
-  <meta name="twitter:card" content="${twitterCard}" />
-  <meta name="twitter:url" content="${cleanUrl}" />
-  <meta name="twitter:title" content="${cleanTitle}" />
-  <meta name="twitter:description" content="${cleanDesc}" />
-  <meta name="twitter:image" content="${cleanImage}" />
-</Helmet>`;
-  }, [codeTab, title, description, url, siteName, imageUrl, twitterCard, discordColor]);
+    if (codeTab === "liquid") {
+      return toLiquidSnippet(currentFormData, { withAttribution: false });
+    }
+    return toHtml(currentFormData, { withAttribution: false });
+  }, [codeTab, currentFormData]);
 
   const copyToClipboard = () => {
-    const codeWithAttribution = formatSnippetWithAttribution(generatedCode, {
-      slug: currentSlug,
-      language: codeTab,
-    });
+    let codeWithAttribution = "";
+    if (codeTab === "nextjs") {
+      codeWithAttribution = toNextJsMetadata(currentFormData, { withAttribution: true });
+    } else if (codeTab === "liquid") {
+      codeWithAttribution = toLiquidSnippet(currentFormData, { withAttribution: true });
+    } else {
+      codeWithAttribution = toHtml(currentFormData, { withAttribution: true });
+    }
     navigator.clipboard.writeText(codeWithAttribution);
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
@@ -881,15 +830,15 @@ export const metadata: Metadata = {
                 Next.js App Router
               </button>
               <button
-                onClick={() => setCodeTab("helmet")}
+                onClick={() => setCodeTab("liquid")}
                 className={cn(
                   "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
-                  codeTab === "helmet"
+                  codeTab === "liquid"
                     ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                     : "text-slate-600 dark:text-slate-400"
                 )}
               >
-                React Helmet
+                Shopify Liquid
               </button>
             </div>
 

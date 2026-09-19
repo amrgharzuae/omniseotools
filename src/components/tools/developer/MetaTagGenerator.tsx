@@ -18,6 +18,12 @@ import {
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
 import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
+import {
+  MetaFormData,
+  toHtml,
+  toNextJsMetadata,
+  toLiquidSnippet,
+} from "@/lib/formatters/metaFormatters";
 
 interface MetaTagGeneratorProps {
   toolSlug?: string;
@@ -84,7 +90,7 @@ const SAMPLE_PRESETS: SamplePreset[] = [
   },
 ];
 
-type ExportFormat = "html" | "nextjs" | "helmet";
+type ExportFormat = "html" | "nextjs" | "liquid";
 
 export function MetaTagGenerator({
   toolSlug = "open-graph-meta-generator",
@@ -102,7 +108,6 @@ export function MetaTagGenerator({
   const [robots, setRobots] = useState("index, follow");
   const [formatTab, setFormatTab] = useState<ExportFormat>("html");
   const [copied, setCopied] = useState(false);
-  const [isEmbedModalOpen, setIsEmbedModalOpen] = useState(false);
 
   const loadPreset = (preset: SamplePreset) => {
     setTitle(preset.title);
@@ -125,107 +130,40 @@ export function MetaTagGenerator({
     setTwitterHandle("");
   };
 
-  // Live Generated Code String
+  const currentFormData = useMemo<MetaFormData>(() => ({
+    title,
+    description,
+    url,
+    siteName,
+    imageUrl,
+    ogType,
+    twitterCard,
+    twitterHandle,
+    robots,
+    slug: toolSlug,
+  }), [title, description, url, siteName, imageUrl, ogType, twitterCard, twitterHandle, robots, toolSlug]);
+
+  // Live Generated Code String (clean preview)
   const outputCode = useMemo(() => {
-    const cleanTitle = title.replace(/"/g, "&quot;");
-    const cleanDesc = description.replace(/"/g, "&quot;");
-    const cleanUrl = url.trim();
-    const cleanImg = imageUrl.trim();
-    const cleanSite = siteName.replace(/"/g, "&quot;");
-
-    if (formatTab === "html") {
-      return `<!-- Primary Meta Tags -->
-<title>${cleanTitle}</title>
-<meta name="title" content="${cleanTitle}" />
-<meta name="description" content="${cleanDesc}" />
-<meta name="robots" content="${robots}" />
-<link rel="canonical" href="${cleanUrl}" />
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="${ogType}" />
-<meta property="og:url" content="${cleanUrl}" />
-<meta property="og:title" content="${cleanTitle}" />
-<meta property="og:description" content="${cleanDesc}" />
-<meta property="og:image" content="${cleanImg}" />
-<meta property="og:site_name" content="${cleanSite}" />
-
-<!-- Twitter -->
-<meta name="twitter:card" content="${twitterCard}" />
-<meta name="twitter:url" content="${cleanUrl}" />
-<meta name="twitter:title" content="${cleanTitle}" />
-<meta name="twitter:description" content="${cleanDesc}" />
-<meta name="twitter:image" content="${cleanImg}" />
-${twitterHandle ? `<meta name="twitter:site" content="${twitterHandle}" />\n<meta name="twitter:creator" content="${twitterHandle}" />` : ""}`;
-    }
-
     if (formatTab === "nextjs") {
-      return `import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: '${cleanTitle.replace(/'/g, "\\'")}',
-  description: '${cleanDesc.replace(/'/g, "\\'")}',
-  alternates: {
-    canonical: '${cleanUrl}',
-  },
-  robots: {
-    index: ${robots.includes("index")},
-    follow: ${robots.includes("follow")},
-  },
-  openGraph: {
-    title: '${cleanTitle.replace(/'/g, "\\'")}',
-    description: '${cleanDesc.replace(/'/g, "\\'")}',
-    url: '${cleanUrl}',
-    siteName: '${cleanSite.replace(/'/g, "\\'")}',
-    images: [
-      {
-        url: '${cleanImg}',
-        width: 1200,
-        height: 630,
-        alt: '${cleanTitle.replace(/'/g, "\\'")}',
-      },
-    ],
-    type: '${ogType}',
-  },
-  twitter: {
-    card: '${twitterCard}',
-    title: '${cleanTitle.replace(/'/g, "\\'")}',
-    description: '${cleanDesc.replace(/'/g, "\\'")}',
-    images: ['${cleanImg}'],
-    ${twitterHandle ? `creator: '${twitterHandle}',\n    site: '${twitterHandle}',` : ""}
-  },
-};`;
+      return toNextJsMetadata(currentFormData, { withAttribution: false });
     }
-
-    return `<Helmet>
-  {/* Primary Meta Tags */}
-  <title>${cleanTitle}</title>
-  <meta name="title" content="${cleanTitle}" />
-  <meta name="description" content="${cleanDesc}" />
-  <meta name="robots" content="${robots}" />
-  <link rel="canonical" href="${cleanUrl}" />
-
-  {/* Open Graph */}
-  <meta property="og:type" content="${ogType}" />
-  <meta property="og:url" content="${cleanUrl}" />
-  <meta property="og:title" content="${cleanTitle}" />
-  <meta property="og:description" content="${cleanDesc}" />
-  <meta property="og:image" content="${cleanImg}" />
-  <meta property="og:site_name" content="${cleanSite}" />
-
-  {/* Twitter */}
-  <meta name="twitter:card" content="${twitterCard}" />
-  <meta name="twitter:url" content="${cleanUrl}" />
-  <meta name="twitter:title" content="${cleanTitle}" />
-  <meta name="twitter:description" content="${cleanDesc}" />
-  <meta name="twitter:image" content="${cleanImg}" />
-</Helmet>`;
-  }, [formatTab, title, description, url, siteName, imageUrl, ogType, twitterCard, twitterHandle, robots]);
+    if (formatTab === "liquid") {
+      return toLiquidSnippet(currentFormData, { withAttribution: false });
+    }
+    return toHtml(currentFormData, { withAttribution: false });
+  }, [formatTab, currentFormData]);
 
   const copyCode = () => {
-    const codeWithAttribution = formatSnippetWithAttribution(outputCode, {
-      slug: toolSlug,
-      language: formatTab,
-    });
+    let codeWithAttribution = "";
+    if (formatTab === "nextjs") {
+      codeWithAttribution = toNextJsMetadata(currentFormData, { withAttribution: true });
+    } else if (formatTab === "liquid") {
+      codeWithAttribution = toLiquidSnippet(currentFormData, { withAttribution: true });
+    } else {
+      codeWithAttribution = toHtml(currentFormData, { withAttribution: true });
+    }
+
     navigator.clipboard.writeText(codeWithAttribution);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -445,10 +383,10 @@ export const metadata: Metadata = {
                     "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
                     formatTab === "html"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                      : "text-slate-600 dark:text-slate-400"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   )}
                 >
-                  HTML Tags
+                  HTML
                 </button>
                 <button
                   onClick={() => setFormatTab("nextjs")}
@@ -456,21 +394,21 @@ export const metadata: Metadata = {
                     "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
                     formatTab === "nextjs"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                      : "text-slate-600 dark:text-slate-400"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   )}
                 >
                   Next.js App Router
                 </button>
                 <button
-                  onClick={() => setFormatTab("helmet")}
+                  onClick={() => setFormatTab("liquid")}
                   className={cn(
                     "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
-                    formatTab === "helmet"
+                    formatTab === "liquid"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                      : "text-slate-600 dark:text-slate-400"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   )}
                 >
-                  React Helmet
+                  Shopify Liquid
                 </button>
               </div>
 
