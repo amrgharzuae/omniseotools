@@ -22,6 +22,8 @@ import {
   MetaFormData,
   toHtml,
   toNextJsMetadata,
+  toAstroSnippet,
+  toSvelteKitSnippet,
   toLiquidSnippet,
 } from "@/lib/formatters/metaFormatters";
 
@@ -90,7 +92,7 @@ const SAMPLE_PRESETS: SamplePreset[] = [
   },
 ];
 
-type ExportFormat = "html" | "nextjs" | "liquid";
+type ExportFormat = "html" | "nextjs" | "astro" | "sveltekit" | "shopify";
 
 export function MetaTagGenerator({
   toolSlug = "open-graph-meta-generator",
@@ -145,23 +147,40 @@ export function MetaTagGenerator({
 
   // Live Generated Code String (clean preview)
   const outputCode = useMemo(() => {
-    if (formatTab === "nextjs") {
-      return toNextJsMetadata(currentFormData, { withAttribution: false });
+    switch (formatTab) {
+      case "nextjs":
+        return toNextJsMetadata(currentFormData, { withAttribution: false });
+      case "astro":
+        return toAstroSnippet(currentFormData, { withAttribution: false });
+      case "sveltekit":
+        return toSvelteKitSnippet(currentFormData, { withAttribution: false });
+      case "shopify":
+        return toLiquidSnippet(currentFormData, { withAttribution: false });
+      case "html":
+      default:
+        return toHtml(currentFormData, { withAttribution: false });
     }
-    if (formatTab === "liquid") {
-      return toLiquidSnippet(currentFormData, { withAttribution: false });
-    }
-    return toHtml(currentFormData, { withAttribution: false });
   }, [formatTab, currentFormData]);
 
   const copyCode = () => {
     let codeWithAttribution = "";
-    if (formatTab === "nextjs") {
-      codeWithAttribution = toNextJsMetadata(currentFormData, { withAttribution: true });
-    } else if (formatTab === "liquid") {
-      codeWithAttribution = toLiquidSnippet(currentFormData, { withAttribution: true });
-    } else {
-      codeWithAttribution = toHtml(currentFormData, { withAttribution: true });
+    switch (formatTab) {
+      case "nextjs":
+        codeWithAttribution = toNextJsMetadata(currentFormData, { withAttribution: true });
+        break;
+      case "astro":
+        codeWithAttribution = toAstroSnippet(currentFormData, { withAttribution: true });
+        break;
+      case "sveltekit":
+        codeWithAttribution = toSvelteKitSnippet(currentFormData, { withAttribution: true });
+        break;
+      case "shopify":
+        codeWithAttribution = toLiquidSnippet(currentFormData, { withAttribution: true });
+        break;
+      case "html":
+      default:
+        codeWithAttribution = toHtml(currentFormData, { withAttribution: true });
+        break;
     }
 
     navigator.clipboard.writeText(codeWithAttribution);
@@ -376,11 +395,11 @@ export function MetaTagGenerator({
             
             {/* Format Selector Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
-              <div className="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-0.5">
+              <div className="flex overflow-x-auto no-scrollbar max-w-full rounded-xl bg-slate-100 dark:bg-slate-800 p-0.5">
                 <button
                   onClick={() => setFormatTab("html")}
                   className={cn(
-                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
+                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
                     formatTab === "html"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -391,19 +410,41 @@ export function MetaTagGenerator({
                 <button
                   onClick={() => setFormatTab("nextjs")}
                   className={cn(
-                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
+                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
                     formatTab === "nextjs"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   )}
                 >
-                  Next.js App Router
+                  Next.js
                 </button>
                 <button
-                  onClick={() => setFormatTab("liquid")}
+                  onClick={() => setFormatTab("astro")}
                   className={cn(
-                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
-                    formatTab === "liquid"
+                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
+                    formatTab === "astro"
+                      ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  )}
+                >
+                  Astro
+                </button>
+                <button
+                  onClick={() => setFormatTab("sveltekit")}
+                  className={cn(
+                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
+                    formatTab === "sveltekit"
+                      ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  )}
+                >
+                  SvelteKit
+                </button>
+                <button
+                  onClick={() => setFormatTab("shopify")}
+                  className={cn(
+                    "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
+                    formatTab === "shopify"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   )}

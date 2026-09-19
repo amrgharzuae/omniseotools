@@ -28,6 +28,8 @@ import {
   MetaFormData,
   toHtml,
   toNextJsMetadata,
+  toAstroSnippet,
+  toSvelteKitSnippet,
   toLiquidSnippet,
 } from "@/lib/formatters/metaFormatters";
 
@@ -87,7 +89,7 @@ const SAMPLE_PRESETS: SamplePreset[] = [
   },
 ];
 
-type CodeExportTab = "html" | "nextjs" | "liquid";
+type CodeExportTab = "html" | "nextjs" | "astro" | "sveltekit" | "shopify" | "liquid";
 
 interface SocialPreviewerProps {
   defaultPlatform?: SocialPlatform;
@@ -109,40 +111,32 @@ export function SocialPreviewer({
     if (platform === "twitter") return "twitter-card-preview";
     if (platform === "linkedin") return "linkedin-link-preview";
     if (platform === "facebook") return "facebook-open-graph-debugger";
-    if (platform === "discord") return "discord-embed-generator";
-    return "twitter-card-preview";
+    return "discord-embed-generator";
   }, [toolSlug, platform]);
 
   const currentToolName = useMemo(() => {
     if (toolName) return toolName;
     if (platform === "twitter") return "Twitter Card Previewer";
-    if (platform === "linkedin") return "LinkedIn Link Preview";
+    if (platform === "linkedin") return "LinkedIn Link Previewer";
     if (platform === "facebook") return "Facebook Open Graph Debugger";
-    if (platform === "discord") return "Discord Embed Generator";
-    return "Social Card Previewer";
+    return "Discord Embed Previewer";
   }, [toolName, platform]);
 
-  const [title, setTitle] = useState(
-    "OmniSEOTools - Free High-Performance SEO & Marketing Utilities"
-  );
-  const [description, setDescription] = useState(
-    "Simulate SERPs, preview social cards, and generate tracking URLs with zero latency. 100% free and client-side private."
-  );
-  const [url, setUrl] = useState("https://omniseotools.com");
-  const [siteName, setSiteName] = useState("OmniSEOTools");
-  const [imageUrl, setImageUrl] = useState(
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=630&fit=crop&q=80"
-  );
+  const [title, setTitle] = useState(SAMPLE_PRESETS[0].title);
+  const [description, setDescription] = useState(SAMPLE_PRESETS[0].description);
+  const [url, setUrl] = useState(SAMPLE_PRESETS[0].url);
+  const [siteName, setSiteName] = useState(SAMPLE_PRESETS[0].siteName);
+  const [imageUrl, setImageUrl] = useState(SAMPLE_PRESETS[0].imageUrl);
   const [twitterCard, setTwitterCard] = useState<"summary_large_image" | "summary">(
-    "summary_large_image"
+    SAMPLE_PRESETS[0].twitterCard
   );
-  const [discordColor, setDiscordColor] = useState("#4f46e5");
+  const [discordColor, setDiscordColor] = useState(SAMPLE_PRESETS[0].discordColor);
   const [codeTab, setCodeTab] = useState<CodeExportTab>("html");
   const [activePreset, setActivePreset] = useState<string>("SaaS Platform");
   const [copiedCode, setCopiedCode] = useState(false);
   const [viewDevice, setViewDevice] = useState<"desktop" | "mobile">("desktop");
 
-  // Image validation state
+  // Diagnostic state for image validation
   const [imgDimensions, setImgDimensions] = useState<{
     width: number;
     height: number;
@@ -166,10 +160,12 @@ export function SocialPreviewer({
     const img = new Image();
     img.src = imageUrl;
     img.onload = () => {
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
       setImgDimensions({
-        width: img.naturalWidth,
-        height: img.naturalHeight,
-        ratio: img.naturalWidth / (img.naturalHeight || 1),
+        width: w,
+        height: h,
+        ratio: h > 0 ? parseFloat((w / h).toFixed(2)) : 0,
         loaded: true,
         error: false,
       });
@@ -179,7 +175,7 @@ export function SocialPreviewer({
     };
   }, [imageUrl]);
 
-  const loadPreset = (preset: SamplePreset) => {
+  const handlePreset = (preset: SamplePreset) => {
     setActivePreset(preset.name);
     setTitle(preset.title);
     setDescription(preset.description);
@@ -221,23 +217,42 @@ export function SocialPreviewer({
 
   // Generate production code snippet
   const generatedCode = useMemo(() => {
-    if (codeTab === "nextjs") {
-      return toNextJsMetadata(currentFormData, { withAttribution: false });
+    switch (codeTab) {
+      case "nextjs":
+        return toNextJsMetadata(currentFormData, { withAttribution: false });
+      case "astro":
+        return toAstroSnippet(currentFormData, { withAttribution: false });
+      case "sveltekit":
+        return toSvelteKitSnippet(currentFormData, { withAttribution: false });
+      case "shopify":
+      case "liquid":
+        return toLiquidSnippet(currentFormData, { withAttribution: false });
+      case "html":
+      default:
+        return toHtml(currentFormData, { withAttribution: false });
     }
-    if (codeTab === "liquid") {
-      return toLiquidSnippet(currentFormData, { withAttribution: false });
-    }
-    return toHtml(currentFormData, { withAttribution: false });
   }, [codeTab, currentFormData]);
 
   const copyToClipboard = () => {
     let codeWithAttribution = "";
-    if (codeTab === "nextjs") {
-      codeWithAttribution = toNextJsMetadata(currentFormData, { withAttribution: true });
-    } else if (codeTab === "liquid") {
-      codeWithAttribution = toLiquidSnippet(currentFormData, { withAttribution: true });
-    } else {
-      codeWithAttribution = toHtml(currentFormData, { withAttribution: true });
+    switch (codeTab) {
+      case "nextjs":
+        codeWithAttribution = toNextJsMetadata(currentFormData, { withAttribution: true });
+        break;
+      case "astro":
+        codeWithAttribution = toAstroSnippet(currentFormData, { withAttribution: true });
+        break;
+      case "sveltekit":
+        codeWithAttribution = toSvelteKitSnippet(currentFormData, { withAttribution: true });
+        break;
+      case "shopify":
+      case "liquid":
+        codeWithAttribution = toLiquidSnippet(currentFormData, { withAttribution: true });
+        break;
+      case "html":
+      default:
+        codeWithAttribution = toHtml(currentFormData, { withAttribution: true });
+        break;
     }
     navigator.clipboard.writeText(codeWithAttribution);
     setCopiedCode(true);
@@ -287,7 +302,7 @@ export function SocialPreviewer({
           {SAMPLE_PRESETS.map((p) => (
             <button
               key={p.name}
-              onClick={() => loadPreset(p)}
+              onClick={() => handlePreset(p)}
               className={cn(
                 "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
                 activePreset === p.name
@@ -806,36 +821,58 @@ export function SocialPreviewer({
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-0.5">
+            <div className="flex overflow-x-auto no-scrollbar max-w-full rounded-xl bg-slate-100 dark:bg-slate-800 p-0.5">
               <button
                 onClick={() => setCodeTab("html")}
                 className={cn(
-                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
+                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
                   codeTab === "html"
                     ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                    : "text-slate-600 dark:text-slate-400"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 )}
               >
-                HTML Tags
+                HTML
               </button>
               <button
                 onClick={() => setCodeTab("nextjs")}
                 className={cn(
-                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
+                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
                   codeTab === "nextjs"
                     ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                    : "text-slate-600 dark:text-slate-400"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 )}
               >
-                Next.js App Router
+                Next.js
               </button>
               <button
-                onClick={() => setCodeTab("liquid")}
+                onClick={() => setCodeTab("astro")}
                 className={cn(
-                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all",
-                  codeTab === "liquid"
+                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
+                  codeTab === "astro"
                     ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                    : "text-slate-600 dark:text-slate-400"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                )}
+              >
+                Astro
+              </button>
+              <button
+                onClick={() => setCodeTab("sveltekit")}
+                className={cn(
+                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
+                  codeTab === "sveltekit"
+                    ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                )}
+              >
+                SvelteKit
+              </button>
+              <button
+                onClick={() => setCodeTab("shopify")}
+                className={cn(
+                  "px-3 py-1 text-xs font-semibold rounded-lg transition-all whitespace-nowrap",
+                  codeTab === "shopify" || codeTab === "liquid"
+                    ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 )}
               >
                 Shopify Liquid

@@ -1,5 +1,14 @@
 # Changelog
 
+## [2026-09-20] - Sprint 11: Astro & SvelteKit Code Export Expansion
+### Added
+- Expanded `src/lib/formatters/metaFormatters.ts` with dedicated Astro and SvelteKit formatters:
+  1. `toAstroSnippet(data, options)`: Generates Astro component head meta snippets using `{JSON.stringify(...)}` expression wrappers to eliminate quoting collisions and JSX syntax errors.
+  2. `toSvelteKitSnippet(data, options)`: Formats meta and social card tags wrapped within `<svelte:head>` blocks with HTML entity escaping.
+- Updated `src/lib/snippet-attribution.ts` to include `astro`, `svelte`, and `sveltekit` in language attribution types.
+- Upgraded responsive tab selectors across `MetaTagGenerator.tsx` and `SocialPreviewer.tsx` to `[ HTML ] [ Next.js ] [ Astro ] [ SvelteKit ] [ Shopify Liquid ]` with horizontal scroll wrappers (`overflow-x-auto no-scrollbar`).
+- Verified zero TypeScript compilation errors and successful SSG prerendering across all 245 routes.
+
 ## [2026-09-19] - Sprint 10: Multi-Framework Code Export Tab (HTML / Next.js / Shopify Liquid)
 ### Added
 - Created `src/lib/formatters/metaFormatters.ts`: Pure formatter utility functions transforming form state data into:

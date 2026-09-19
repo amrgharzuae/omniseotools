@@ -8,7 +8,19 @@
 export interface SnippetAttributionOptions {
   slug: string;
   platformSlug?: string;
-  language?: "html" | "nextjs" | "helmet" | "javascript" | "typescript" | "liquid" | "plaintext" | string;
+  language?:
+    | "html"
+    | "nextjs"
+    | "astro"
+    | "sveltekit"
+    | "svelte"
+    | "shopify"
+    | "liquid"
+    | "helmet"
+    | "javascript"
+    | "typescript"
+    | "plaintext"
+    | string;
   withAttribution?: boolean;
 }
 
