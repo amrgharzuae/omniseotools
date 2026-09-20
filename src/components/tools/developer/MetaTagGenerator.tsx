@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Code2,
   Sparkles,
@@ -28,6 +28,11 @@ import {
   toSvelteKitSnippet,
   toLiquidSnippet,
 } from "@/lib/formatters/metaFormatters";
+import {
+  encodeStateToHash,
+  decodeStateFromHash,
+  ShareableMetaState,
+} from "@/lib/url-state";
 
 interface MetaTagGeneratorProps {
   toolSlug?: string;
@@ -112,6 +117,49 @@ export function MetaTagGenerator({
   const [robots, setRobots] = useState("index, follow");
   const [formatTab, setFormatTab] = useState<ExportFormat>("html");
   const [copied, setCopied] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
+
+  // State Hydration on Mount from URL Hash
+  useEffect(() => {
+    const restored = decodeStateFromHash();
+    if (restored) {
+      if (restored.title !== undefined) setTitle(restored.title);
+      if (restored.description !== undefined) setDescription(restored.description);
+      if (restored.url !== undefined) setUrl(restored.url);
+      if (restored.siteName !== undefined) setSiteName(restored.siteName);
+      if (restored.image !== undefined) setImageUrl(restored.image);
+      if (restored.twitterHandle !== undefined) setTwitterHandle(restored.twitterHandle);
+      if (restored.cardType !== undefined) setTwitterCard(restored.cardType);
+    }
+  }, []);
+
+  const handleSharePreview = async () => {
+    const stateToShare: ShareableMetaState = {
+      title,
+      description,
+      url,
+      image: imageUrl,
+      siteName,
+      twitterHandle,
+      cardType: twitterCard,
+    };
+
+    const hash = encodeStateToHash(stateToShare);
+    if (hash && typeof window !== "undefined") {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search + hash
+      );
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2500);
+      } catch (err) {
+        console.error("Failed to copy share link:", err);
+      }
+    }
+  };
 
   // Live URL inspection state
   const [inspectUrl, setInspectUrl] = useState("");
@@ -313,13 +361,38 @@ export function MetaTagGenerator({
           ))}
         </div>
 
-        <button
-          onClick={handleClear}
-          className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
-        >
-          <RotateCcw className="h-3.5 w-3.5" />
-          Clear Fields
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleSharePreview}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all",
+              shareCopied
+                ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 shadow-sm"
+                : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750"
+            )}
+            title="Generate a shareable permalink with current form state"
+          >
+            {shareCopied ? (
+              <>
+                <CheckCheck className="h-3.5 w-3.5 text-emerald-500" />
+                <span>Link Copied!</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="h-3.5 w-3.5 text-indigo-500" />
+                <span>Share Preview</span>
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={handleClear}
+            className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            Clear Fields
+          </button>
+        </div>
       </div>
 
       {/* Main Studio Grid */}

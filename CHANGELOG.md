@@ -1,5 +1,27 @@
 # Changelog
 
+## [2026-09-20] - Sprint 14: Client-Side URL Permalinks & Preview Sharing
+### Added
+- Created `src/lib/url-state.ts`:
+  - Zero-latency client-side state serialization library compressing active metadata form inputs into URL hash fragments (`#s=...`).
+  - Implemented `ShareableMetaState` interface covering `title`, `description`, `url`, `image`, `siteName`, `twitterHandle`, `cardType`, and `theme`.
+  - Built `encodeStateToHash`: Strips empty fields, trims values, and encodes JSON payloads with UTF-8 safe base64 (`btoa(encodeURIComponent(json))`) ensuring non-ASCII characters, emojis, quotes, and international text never cause DOMException errors.
+  - Built `decodeStateFromHash`: Safely extracts and decodes `#s=...` payloads (`decodeURIComponent(atob(payload))`) with full SSR safety and corrupted hash fallbacks.
+- Integrated URL state hydration and permalink sharing into:
+  - `src/components/tools/social/SocialPreviewer.tsx`
+  - `src/components/tools/developer/MetaTagGenerator.tsx`
+- Added **Share Preview** action buttons beside "Clear Fields" in tool preset bars with 1-click clipboard URL copying, instant visual feedback (`Link Copied!`), and seamless address bar hash updates via `window.history.replaceState` (0 page reloads, 0 layout shifts, 0 database storage).
+- Verified full automatic state restoration on page load, updating live social card previews and multi-framework code export tabs (HTML, Next.js, Astro, SvelteKit, Shopify Liquid).
+- Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 245 production routes.
+
+## [2026-09-20] - Sprint 13: 1-Click Social Mockup PNG Export
+### Added
+- Integrated `html-to-image` for high-resolution client-side PNG exports of live social card previews.
+- Added `mockupRef` and 1-click **Download Mockup (PNG)** action button beside the platform selector tabs in `src/components/tools/social/SocialPreviewer.tsx`.
+- Implemented crisp `@2x` retina scaling (`pixelRatio: 2`, `quality: 0.95`, `cacheBust: true`) exporting cleanly formatted filenames (`${platform}-preview-${Date.now()}.png`).
+- Included dynamic SSR-safe import, interactive spinner state (`Loader2`), and automatic toast confirmation.
+- Verified 0 TypeScript errors and full SSG compilation across all 245 production routes via `npm run build`.
+
 ## [2026-09-20] - Sprint 12: Live URL Metadata Fetcher & Auto-Fill
 ### Added
 - Created `src/app/api/scrape-meta/route.ts`:

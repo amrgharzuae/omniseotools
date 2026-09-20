@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import {
   Sparkles,
   Copy,
@@ -21,6 +21,7 @@ import {
   Sliders,
   CheckCheck,
   Loader2,
+  Camera,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
@@ -33,6 +34,11 @@ import {
   toSvelteKitSnippet,
   toLiquidSnippet,
 } from "@/lib/formatters/metaFormatters";
+import {
+  encodeStateToHash,
+  decodeStateFromHash,
+  ShareableMetaState,
+} from "@/lib/url-state";
 
 export type SocialPlatform = "twitter" | "linkedin" | "facebook" | "discord";
 
@@ -135,7 +141,66 @@ export function SocialPreviewer({
   const [codeTab, setCodeTab] = useState<CodeExportTab>("html");
   const [activePreset, setActivePreset] = useState<string>("SaaS Platform");
   const [copiedCode, setCopiedCode] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
   const [viewDevice, setViewDevice] = useState<"desktop" | "mobile">("desktop");
+
+  // State Hydration on Mount from URL Hash
+  useEffect(() => {
+    const restored = decodeStateFromHash();
+    if (restored) {
+      if (restored.title !== undefined) setTitle(restored.title);
+      if (restored.description !== undefined) setDescription(restored.description);
+      if (restored.url !== undefined) setUrl(restored.url);
+      if (restored.image !== undefined) setImageUrl(restored.image);
+      if (restored.siteName !== undefined) setSiteName(restored.siteName);
+      if (
+        restored.cardType === "summary_large_image" ||
+        restored.cardType === "summary"
+      ) {
+        setTwitterCard(restored.cardType);
+      }
+      if (restored.theme !== undefined) setDiscordColor(restored.theme);
+      setActivePreset("");
+    }
+  }, []);
+
+  // PNG Mockup Export Ref & State
+  const mockupRef = useRef<HTMLDivElement>(null);
+  const [isDownloadingPng, setIsDownloadingPng] = useState(false);
+  const [downloadToast, setDownloadToast] = useState<string | null>(null);
+
+  const handleDownloadPng = async () => {
+    if (!mockupRef.current || isDownloadingPng) return;
+
+    setIsDownloadingPng(true);
+    setDownloadToast(null);
+
+    try {
+      // Dynamic import to guarantee clean SSR compatibility
+      const { toPng } = await import("html-to-image");
+
+      const dataUrl = await toPng(mockupRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        quality: 0.95,
+      });
+
+      const link = document.createElement("a");
+      const filename = `${platform}-preview-${Date.now()}.png`;
+      link.download = filename;
+      link.href = dataUrl;
+      link.click();
+
+      setDownloadToast(`Saved mockup as ${filename}`);
+      setTimeout(() => setDownloadToast(null), 3500);
+    } catch (err: unknown) {
+      console.error("Failed to generate PNG mockup:", err);
+      setDownloadToast("Failed to generate PNG mockup. Please try again.");
+      setTimeout(() => setDownloadToast(null), 4000);
+    } finally {
+      setIsDownloadingPng(false);
+    }
+  };
 
   // Live URL inspection state
   const [inspectUrl, setInspectUrl] = useState("");
@@ -185,6 +250,34 @@ export function SocialPreviewer({
       setTimeout(() => setInspectError(null), 5000);
     } finally {
       setIsInspecting(false);
+    }
+  };
+
+  const handleSharePreview = async () => {
+    const stateToShare: ShareableMetaState = {
+      title,
+      description,
+      url,
+      image: imageUrl,
+      siteName,
+      cardType: twitterCard,
+      theme: discordColor,
+    };
+
+    const hash = encodeStateToHash(stateToShare);
+    if (hash && typeof window !== "undefined") {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search + hash
+      );
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2500);
+      } catch (err) {
+        console.error("Failed to copy share link:", err);
+      }
     }
   };
 
@@ -424,13 +517,38 @@ export function SocialPreviewer({
           ))}
         </div>
 
-        <button
-          onClick={handleReset}
-          className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
-        >
-          <RotateCcw className="h-3.5 w-3.5" />
-          Clear Fields
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleSharePreview}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all",
+              shareCopied
+                ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 shadow-sm"
+                : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750"
+            )}
+            title="Generate a shareable permalink with current form state"
+          >
+            {shareCopied ? (
+              <>
+                <CheckCheck className="h-3.5 w-3.5 text-emerald-500" />
+                <span>Link Copied!</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="h-3.5 w-3.5 text-indigo-500" />
+                <span>Share Preview</span>
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            Clear Fields
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -652,13 +770,13 @@ export function SocialPreviewer({
         {/* Right Column: Live Feed Simulation */}
         <div className="lg:col-span-7 space-y-6">
           <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 shadow-sm">
-            {/* Platform Selector Tabs */}
+            {/* Platform Selector Tabs & Actions */}
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
-              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80">
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 overflow-x-auto no-scrollbar max-w-full">
                 <button
                   onClick={() => setPlatform("twitter")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all",
+                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap",
                     platform === "twitter"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -669,7 +787,7 @@ export function SocialPreviewer({
                 <button
                   onClick={() => setPlatform("linkedin")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all",
+                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap",
                     platform === "linkedin"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -680,7 +798,7 @@ export function SocialPreviewer({
                 <button
                   onClick={() => setPlatform("facebook")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all",
+                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap",
                     platform === "facebook"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -691,7 +809,7 @@ export function SocialPreviewer({
                 <button
                   onClick={() => setPlatform("discord")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all",
+                    "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap",
                     platform === "discord"
                       ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -701,13 +819,40 @@ export function SocialPreviewer({
                 </button>
               </div>
 
-              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
-                Live Feed Mockup
-              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleDownloadPng}
+                  disabled={isDownloadingPng}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-semibold transition-all shadow-sm disabled:opacity-50"
+                  title="Export high-resolution PNG mockup"
+                >
+                  {isDownloadingPng ? (
+                    <>
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-indigo-500" />
+                      <span>Generating PNG...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Camera className="h-3.5 w-3.5 text-indigo-500" />
+                      <span>Download Mockup (PNG)</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
+            {downloadToast && (
+              <div className="mb-4 flex items-center gap-2 text-xs text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 p-2.5 rounded-xl border border-indigo-200 dark:border-indigo-900/40 animate-in fade-in duration-200">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-indigo-500" />
+                <span>{downloadToast}</span>
+              </div>
+            )}
+
             {/* Platform Previews */}
-            <div className="p-4 sm:p-6 rounded-2xl bg-slate-100/70 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 flex items-center justify-center min-h-[380px]">
+            <div
+              ref={mockupRef}
+              className="p-4 sm:p-6 rounded-2xl bg-slate-100/70 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 flex items-center justify-center min-h-[380px]"
+            >
               
               {/* TWITTER / X CARD */}
               {platform === "twitter" && (
