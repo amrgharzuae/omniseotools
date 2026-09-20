@@ -26,6 +26,21 @@ export interface UtmFaqItem {
 
 export const UTM_FAQS: UtmFaqItem[] = [
   {
+    question: "What is a campaign URL builder?",
+    answer:
+      "A campaign URL builder is a specialized utility that appends standardized query string parameters (known as UTM parameters) to a destination website link. These parameters allow web analytics platforms like Google Analytics 4 (GA4) to track and attribute incoming visitor sessions, conversion rates, and revenue back to the exact marketing channel, campaign name, and creative variant.",
+  },
+  {
+    question: "How does GA4 record UTM parameters?",
+    answer:
+      "When a visitor lands on a website via a link with UTM parameters, Google Analytics 4 automatically extracts utm_source, utm_medium, utm_campaign, utm_term, and utm_content from the URL string. GA4 matches these values against its Default Channel Grouping regex rules (e.g., mapping utm_medium=cpc to Paid Search or utm_medium=email to Email) and records them in session-scoped and user-scoped attribution dimensions.",
+  },
+  {
+    question: "Can I shorten campaign URLs safely?",
+    answer:
+      "Yes, you can safely pass UTM-tagged URLs through URL shorteners (such as Bitly, TinyURL, or custom branded short domains) or QR codes. When a user clicks the shortened link, the server issues an HTTP 301 or 302 redirect that preserves the full destination URL including all UTM query parameters, allowing GA4 to capture attribution without data loss.",
+  },
+  {
     question: "Are UTM parameters case-sensitive in Google Analytics 4 (GA4)?",
     answer:
       "Yes, UTM parameters are strictly case-sensitive in GA4. If you use 'utm_source=facebook', 'utm_source=Facebook', and 'utm_source=FACEBOOK', Google Analytics 4 will record these as three completely separate traffic sources, fragmenting your campaign reports. Always enforce lowercase conventions company-wide.",

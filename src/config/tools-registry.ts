@@ -1,5 +1,7 @@
 import { ToolDefinition } from "@/types/tool";
 import { ToolCategoryId } from "@/types/category";
+import { openGraphPreviewTool } from "./tools/social/open-graph-preview";
+import { utmCampaignBuilderTool } from "./tools/marketing/utm-campaign-builder";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -7,10 +9,10 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     id: "twitter-card-preview",
     slug: "twitter-card-preview",
     name: "Twitter Card Previewer",
-    title: "Free Twitter Card Previewer (Live 2026 Tester)",
-    metaTitle: "Free Twitter Card Previewer (Live 2026 Tester)",
-    metaDescription: "Preview and test Twitter Cards in real-time. Verify summary and large image card dimensions, debug meta tags, and optimize your tweets for maximum CTR.",
-    h1: "Free Twitter Card Previewer & Validator",
+    title: "Twitter Card Preview & Validator (Summary & Large Image) | OmniSEO",
+    metaTitle: "Twitter Card Preview & Validator (Summary & Large Image) | OmniSEO",
+    metaDescription: "Test, validate, and preview your Twitter Card tags in real time. Inspect summary, summary_large_image, image aspect ratios, and export clean framework metadata.",
+    h1: "Twitter Card Preview & Validator",
     tagline: "Test, preview, and debug Twitter Cards in real-time to ensure flawless tweet previews and higher engagement.",
     shortDescription: "Simulate Twitter / X timeline card previews, validate image aspect ratios (1.91:1 & 1:1), and generate exact twitter:card meta tags.",
     category: "social",
@@ -18,11 +20,10 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     badge: "Popular",
     keywords: [
       "twitter card preview",
+      "twitter preview card",
       "twitter card validator",
-      "x card previewer",
-      "twitter large image card test",
-      "twitter summary card meta tags",
-      "open graph twitter test"
+      "twitter card generator",
+      "twitter meta tags"
     ],
     status: "active",
     featured: true,
@@ -48,21 +49,21 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
       title: "The Comprehensive Twitter Card Optimization & Debugging Guide",
       sections: [
         {
-          heading: "How Twitter / X Evaluates Card Meta Tags in 2026",
-          content: "<p>Twitter Cards transform standard plain-text URLs into rich, media-driven interactive snippets on the X timeline. When a user or automated bot shares a link, Twitter's crawler (<code>Twitterbot/1.0</code>) fetches the webpage, parses specific HTML meta tags located in the document <code>&lt;head&gt;</code>, and dynamically builds an interactive visual card preview. If dedicated <code>twitter:*</code> tags are omitted, Twitter automatically falls back to Open Graph (<code>og:*</code>) properties. However, relying exclusively on Open Graph can lead to unexpected image cropping or missing author attribution.</p><p>To guarantee optimal click-through rates (CTR) and pristine visual presentation, publishing teams must implement and test both <strong>summary_large_image</strong> and <strong>summary</strong> card formats prior to publishing content.</p>",
+          heading: "Twitter Card Types: summary vs. summary_large_image",
+          content: "<p>Twitter / X supports two primary visual card formats for linking to external content:</p><ul><li><strong>Summary Card with Large Image (summary_large_image):</strong> Features a full-width, panoramic hero banner above the title and description. The recommended resolution is <strong>1200 x 630 pixels</strong> (1.91:1 aspect ratio) or <strong>1200 x 675 pixels</strong> (16:9 ratio). Minimum supported dimensions are 300 x 157 pixels, and file sizes must remain under 5MB. Large image cards occupy maximum screen real estate on user feeds, driving up to <strong>3x higher click-through rates (CTR)</strong> for articles, product launches, and landing pages.</li><li><strong>Standard Summary Card (summary):</strong> Displays a square thumbnail on the left with title and description text aligned to the right. Requires a <strong>1:1 square aspect ratio</strong> (minimum 144 x 144 pixels; recommended 400 x 400 pixels). Ideal for author profiles, quick directory listings, or mobile-first minimalist sites.</li></ul>",
           keyTakeaways: [
             "Always specify twitter:card as summary_large_image for editorial and marketing landing pages to capture up to 3x higher timeline CTR.",
-            "Twitterbot respects standard Open Graph tags as fallbacks, but explicit twitter:site and twitter:creator attributes unlock verified profile badges.",
-            "Images are strictly cached upon first crawl; updating an image requires changing the URL parameter or clearing cache via validator requests."
+            "Large Image Card: 1200 x 630px (1.91:1) or 1200 x 675px (16:9), max 5MB file size.",
+            "Summary Card: 400 x 400px (1:1 square), max 5MB file size."
           ]
         },
         {
-          heading: "Card Dimensions, Aspect Ratios & Technical Specifications",
-          content: "<p>Twitter supports multiple card layouts, with <strong>Summary Card with Large Image</strong> being the dominant format for articles, products, and landing pages. The recommended dimensions are <strong>1200 x 675 pixels</strong> (a 16:9 ratio) or <strong>1200 x 630 pixels</strong> (a 1.91:1 ratio). The absolute minimum supported dimensions for large cards are 300 x 157 pixels, and file sizes must remain strictly under 5MB for JPG, PNG, WEBP, or GIF formats.</p><p>For standard <strong>Summary Cards</strong>, square images with a <strong>1:1 aspect ratio</strong> (minimum 144 x 144 pixels; recommended 400 x 400 pixels) are required. Titles are truncated by Twitter after approximately 70 characters, while descriptions are limited to 200 characters on web and mobile viewports.</p>",
+          heading: "Why Your Twitter Card Preview Isn't Updating (The Cache Problem)",
+          content: "<p>When a link is shared on Twitter, the platform crawler (<code>Twitterbot/1.0</code>) fetches your webpage's HTML headers and caches the metadata aggressively for up to <strong>7 days</strong>. If you update your <code>og:image</code>, <code>twitter:title</code>, or description, existing tweets and new shares will continue displaying stale cached data until the cache expires.</p><p>To diagnose and bypass Twitter caching delays:</p><ol><li><strong>Query String Cache-Busting:</strong> Append a unique version parameter to your link (e.g. <code>https://yourdomain.com/article?v=2026</code> or <code>?utm_source=twitter&amp;t=1</code>). Twitterbot treats this as a brand new URL and triggers an immediate fresh crawl.</li><li><strong>Inspect Server Response Headers:</strong> Ensure your image asset returns an HTTP 200 OK status code with valid <code>Content-Type: image/png</code> or <code>image/jpeg</code> headers, and verify that Cloudflare bot challenge screens or hotlink protections are not blocking Twitterbot requests.</li><li><strong>Simulate Before Publishing:</strong> Test card dimensions and meta tags in real-time with OmniSEOTools before broadcasting links across active marketing campaigns.</li></ol>",
           keyTakeaways: [
-            "Large Image Card: 1200 x 675px (16:9) or 1200 x 630px (1.91:1), max 5MB file size.",
-            "Summary Card: 400 x 400px (1:1 square), max 5MB file size.",
-            "Title limit: 70 characters max; Description limit: 200 characters max."
+            "Twitter caches card metadata for up to 7 days; append ?v=2 to bust cache instantly.",
+            "Verify image assets return HTTP 200 and are not blocked by robots.txt or firewall challenges.",
+            "Always validate meta tag syntax prior to launching major social campaigns."
           ]
         },
         {
@@ -77,20 +78,20 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     },
     faqs: [
       {
-        question: "Why is my Twitter Card not displaying an image when shared?",
-        answer: "The most frequent causes are: 1) Using relative image URLs instead of absolute https:// paths; 2) The image server blocking Twitterbot via robots.txt or Cloudflare hotlink protection; 3) The image file size exceeding Twitter's 5MB limit; or 4) Twitter serving a stale cached version of the URL."
+        question: "Why is my Twitter card showing a blank image?",
+        answer: "The most frequent causes are: 1) Using relative image URLs instead of absolute https:// paths; 2) The image server blocking Twitterbot via robots.txt or Cloudflare bot protection; 3) The image file size exceeding Twitter's 5MB limit; 4) Image dimensions being below the 300x157px minimum; or 5) Twitter serving a stale cached version of the URL."
       },
       {
-        question: "What is the difference between summary and summary_large_image cards?",
-        answer: "The 'summary' card displays a small square thumbnail (1:1 ratio) alongside the title and description on the right. The 'summary_large_image' card features a full-width panoramic banner (1.91:1 ratio) above the title and description, commanding significantly more visual space on user timelines."
+        question: "What is the optimal Twitter card image size?",
+        answer: "For summary_large_image cards, the optimal image size is 1200 x 630 pixels (1.91:1 aspect ratio) or 1200 x 675 pixels (16:9 aspect ratio). For standard summary cards, the optimal image size is 400 x 400 pixels (1:1 square aspect ratio). Keep file sizes strictly under 5MB in PNG, JPG, or WebP format."
       },
       {
-        question: "Does Twitter still have an official Card Validator tool?",
-        answer: "Twitter deprecated the public interactive Card Validator in 2022. Today, developers and marketers use OmniSEOTools' real-time Twitter Card Previewer to simulate card rendering and validate meta tags instantly without having to post test tweets."
+        question: "Do I need both Open Graph and Twitter Card meta tags?",
+        answer: "Yes, providing both is recommended. While Twitter's crawler will fall back to Open Graph (og:title, og:description, og:image) if Twitter tags are missing, specifying explicit twitter:card tags is required to guarantee summary_large_image full-width layout rather than a compressed thumbnail. Dedicated Twitter tags also enable official brand and author handle attribution."
       },
       {
         question: "How do I clear Twitter's cached preview for an updated URL?",
-        answer: "Twitter aggressively caches metadata for days. To force a refresh, you can append a unique query parameter to your link (e.g., https://yoursite.com/page?v=2026) or compose a draft tweet with the URL in TweetDeck / X Web Composer to trigger a fresh crawl."
+        answer: "Twitter caches metadata aggressively for up to 7 days. To force an immediate refresh, append a unique versioning query parameter to your link (e.g., https://yoursite.com/page?v=2026) or compose a draft tweet with the URL in TweetDeck / X Web Composer to trigger a fresh Twitterbot crawl."
       }
     ]
   },
@@ -565,22 +566,20 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     id: "google-serp-simulator",
     slug: "google-serp-simulator",
     name: "Google SERP Simulator",
-    title: "Google SERP Simulator (Live Search Snippet Tool)",
-    metaTitle: "Google SERP Simulator (Live Search Snippet Tool)",
-    metaDescription: "Simulate Google desktop and mobile search snippets in real time. Test title pixel widths, meta descriptions, rich schema badges, and maximize organic CTR.",
-    h1: "Google SERP Snippet Simulator & Previewer",
+    title: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
+    metaTitle: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
+    metaDescription: "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
+    h1: "Google SERP Simulator & Snippet Optimizer Tool",
     tagline: "Simulate live Google desktop and mobile search results with rich snippets, star ratings, and real-time pixel metrics.",
     shortDescription: "Simulate Google desktop and mobile search results, test rich snippet star ratings, publish dates, sitelinks, and audit CTR scores.",
     category: "serp",
     icon: "Eye",
     badge: "Popular",
     keywords: [
+      "serp simulator",
       "google serp simulator",
       "serp preview tool",
-      "google search snippet preview",
-      "rich snippet simulator",
-      "google search results simulator",
-      "seo snippet tester"
+      "search snippet preview"
     ],
     status: "active",
     featured: true,
@@ -2319,18 +2318,16 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
         answer: "You can either place favicon.ico and icon.png directly in your app/ directory for automatic resolution, or declare metadata.icons inside app/layout.tsx."
       }
     ]
-  }
+  },
+  // 21. Social Meta & OpenGraph Card Simulator
+  openGraphPreviewTool,
+  // 22. Campaign UTM Builder
+  utmCampaignBuilderTool
 ];
-
-import { openGraphPreviewTool } from "./tools/social/open-graph-preview";
 
 // Helper Query Methods
 export function getAllProgrammaticTools(): ToolDefinition[] {
-  const tools = [...TOOLS_REGISTRY];
-  if (!tools.some((t) => t.slug === openGraphPreviewTool.slug)) {
-    tools.push(openGraphPreviewTool);
-  }
-  return tools;
+  return [...TOOLS_REGISTRY];
 }
 
 export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefined {
@@ -2343,6 +2340,19 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
 
   if (normalized === "open-graph-preview" || normalized === "opengraph-preview") {
     return openGraphPreviewTool;
+  }
+  if (
+    normalized === "utm-campaign-builder" ||
+    normalized === "utm-builder" ||
+    normalized === "campaign-utm-builder"
+  ) {
+    return utmCampaignBuilderTool;
+  }
+  if (normalized === "twitter-card-previewer") {
+    return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
+  }
+  if (normalized === "serp-simulator" || normalized === "serp-preview") {
+    return TOOLS_REGISTRY.find((t) => t.slug === "google-serp-simulator");
   }
   return undefined;
 }

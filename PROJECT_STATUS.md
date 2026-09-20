@@ -10,8 +10,10 @@
   - Directory Index: `/platforms`
 - **Dynamic Social Share Images (OG Cards):** Edge runtime `ImageResponse` (`@vercel/og`) generators dynamically render high-contrast 1200x630 branded social cards with dynamic titles, category badges, platform pills, and value props across `/tools/[slug]/opengraph-image` and `/tools/[slug]/[platformSlug]/opengraph-image`.
 - **Feature Comparison Matrix:** Programmatic `ComparisonMatrix.tsx` component injected across standalone and platform permutation tool routes, comparing traditional SaaS suite friction (server queues, database logging, email paywalls) with OmniSEO Tools' zero-latency, client-side, paywall-free architecture.
-- **Structured Data (JSON-LD):** Programmatic injection of Schema.org `WebApplication`, `BreadcrumbList`, and `FAQPage` via `src/lib/schema-generator.ts` and `src/components/seo/JsonLd.tsx` across standalone tools, platform permutations, and hub routes.
-- **Sitemap:** Dynamic (`src/app/sitemap.ts`) generating 193+ canonical apex URLs with proper priorities (20 core tools + 160 programmatic permutations + 9 platform hubs + legal pages).
+- **Structured Data (JSON-LD):** Programmatic injection of Schema.org `WebApplication`, `BreadcrumbList`, and `FAQPage` via `src/lib/schema-generator.ts` and `src/components/seo/JsonLd.tsx` across standalone tools, platform permutations, hub routes, and dedicated tool routes (`/tools/marketing/utm-campaign-builder`, `/tools/seo/serp-preview`).
+- **On-Page SEO Boost & High-Intent Editorial Content:** In-depth technical documentation blocks (GA4 campaign parameter roles, Default Channel Grouping matrices, Twitter card format requirements, cache-busting mechanics, and FAQ accordions) back-linked by valid Schema.org `FAQPage` structured data to target high-intent search queries.
+- **Lateral Internal Link Mesh & Equity Flow:** Contextual cross-linking banners and attribution helpers connecting UTM Builder, Social Previewer, Meta Tag Generator, and SERP Simulator, supported by direct anchor links in the site Footer and Header navigation.
+- **Sitemap:** Dynamic (`src/app/sitemap.ts`) generating 194+ canonical apex URLs with proper priorities (22 core tools + /tools hub directory + 160 programmatic permutations + 9 platform hubs + legal pages).
 
 ## 2. Shared Libraries & Engine
 - **Open-Source Engine:** Uses `@omniseo-core` (or `src/lib/core`) for underlying calculation logic (keyword density, SERP length calculators, meta tag validators, diacritic transliteration).
@@ -27,7 +29,7 @@
 - **Analytics & Tracking:** `@next/third-parties` for GA4 integration. Zero layout shift tracking implementation.
 
 ## 3. Active Registries & Taxonomy
-- `src/config/tools-registry.ts`: Single source of truth for 20 active SEO/Web utilities (Twitter Card Previewer, Open Graph Generator, Keyword Density Checker, SERP Previewer, Schema Markup Generator, Canonical Tag Generator, Meta Viewport Generator, Hreflang Tag Generator, Meta Robots Builder, Security Headers Generator, Social Share Link Generator, Breadcrumb Schema Generator, FAQ Schema Generator, Favicon Meta Generator, etc.). Defines slug, categories, sample presets, and metadata.
+- `src/config/tools-registry.ts`: Single source of truth for 22 active SEO/Web utilities (Campaign UTM Builder, Social Meta & OpenGraph Card Simulator, Twitter Card Previewer, Open Graph Generator, Keyword Density Checker, SERP Previewer, Schema Markup Generator, Canonical Tag Generator, Meta Viewport Generator, Hreflang Tag Generator, Meta Robots Builder, Security Headers Generator, Social Share Link Generator, Breadcrumb Schema Generator, FAQ Schema Generator, Favicon Meta Generator, etc.). Defines slug, categories, sample presets, and metadata.
 - `src/config/platforms-registry.ts`: 8 platform definitions (Shopify, WordPress, Next.js, Webflow, Squarespace, Wix, Ghost CMS, HTML/Tailwind) with Liquid/JS/HTML presets, code snippets, FAQs, and monetization slots.
 - `src/types/platform.ts`: Strict TypeScript interfaces for platforms and affiliate slots.
 

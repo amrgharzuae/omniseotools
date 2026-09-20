@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import Link from "next/link";
 import {
   Sparkles,
   Copy,
@@ -26,6 +27,7 @@ import {
   UploadCloud,
   Upload,
   Download,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
@@ -656,6 +658,17 @@ export function SocialPreviewer({
                   className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-mono"
                 />
               </div>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Want to track traffic attribution? Generate tagged links with the{" "}
+                <Link
+                  href="/tools/marketing/utm-campaign-builder"
+                  className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                >
+                  <span>Campaign UTM Builder</span>
+                  <ArrowRight className="h-2.5 w-2.5" />
+                </Link>
+                .
+              </p>
             </div>
 
             {/* Title */}

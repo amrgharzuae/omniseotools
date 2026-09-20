@@ -3,24 +3,25 @@ import { ToolDefinition } from "@/types/tool";
 export const serpPreviewTool: ToolDefinition = {
   id: "serp-preview",
   slug: "serp-preview",
-  name: "Google SERP Snippet Previewer & Pixel Counter",
-  shortDescription: "Simulate exact Google Desktop & Mobile search results, measure title and description pixel limits, and optimize CTR with real-time heuristic scoring.",
+  name: "Google SERP Simulator & Snippet Optimizer Tool",
+  title: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
+  metaTitle: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
+  metaDescription:
+    "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
+  h1: "Google SERP Simulator & Snippet Optimizer Tool",
+  shortDescription:
+    "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
   category: "seo",
   icon: "Eye",
   badge: "Popular",
   featured: true,
   status: "active",
   keywords: [
+    "serp simulator",
     "google serp simulator",
-    "meta title pixel counter",
     "serp preview tool",
-    "seo snippet generator",
-    "meta description length",
-    "google search preview",
-    "title tag pixel width 2026",
+    "search snippet preview"
   ],
-  metaTitle: "Google SERP Simulator & Meta Tag Pixel Counter (2026 Free Tool)",
-  metaDescription: "Test and optimize your SEO title and description with pixel accuracy for Google Desktop & Mobile SERP previews. Free real-time simulator.",
   howToSteps: [
     {
       name: "Enter Your Target Page Title",

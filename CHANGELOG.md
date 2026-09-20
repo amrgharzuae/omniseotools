@@ -1,5 +1,49 @@
 # Changelog
 
+## [2026-09-20] - Sprint 17.1: Registered Campaign UTM Builder into Central Tool Directory Catalog
+### Added
+- **Central Tools Registry Synchronization:**
+  - Directly registered `utmCampaignBuilderTool` (Campaign UTM Builder) and `openGraphPreviewTool` into the primary `TOOLS_REGISTRY` array in `src/config/tools-registry.ts`.
+  - Updated tool metadata: `name: "Campaign UTM Builder"`, `category: "marketing"`, `icon: "Link2"`, `badge: "Popular"`, `shortDescription: "Generate custom campaign URLs with GA4 UTM tracking parameters, instant validation, and 1-click clipboard copying."`.
+  - Synchronized `getAllTools()`, `getAllProgrammaticTools()`, `getToolsByCategory()`, and `getFeaturedTools()` to return all 22 active utilities.
+- **Tool Hub Directory & Category Grid Pages:**
+  - Created dedicated `/tools` page (`src/app/(site)/tools/page.tsx`) rendering the complete 22+ tool hub catalog with live search, category filtering, responsive breadcrumbs, and ad slots.
+  - Verified homepage (`src/app/(site)/page.tsx`) displays all 22 tools in "All Utilities (22)" as well as within the "Marketing & Growth" category filter.
+  - Updated dynamic sitemap (`src/app/sitemap.ts`) to include `/tools` directory index and all 22 tool routes.
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 256 production routes via `npm run build`.
+
+## [2026-09-20] - Sprint 17: SEO Title Re-Alignment, GA4 UTM Guide, Twitter Card FAQs & Internal PageRank Mesh
+### Added
+- **Metadata & Heading Re-Alignment:**
+  - Updated Campaign UTM Builder (`/tools/marketing/utm-campaign-builder` & `/tools/utm-campaign-builder`):
+    - `title`: `"Campaign UTM Builder & Google Analytics URL Generator | OmniSEO"`
+    - `description`: `"Free zero-latency Campaign URL builder for Google Analytics 4 (GA4). Generate trackable campaign links with utm_source, utm_medium, utm_campaign, and custom parameters."`
+    - `keywords`: `["utm builder", "campaign url builder", "google analytics campaign url builder", "ga4 url builder", "campaign utm builder", "utm link generator"]`
+    - `H1`: `"Campaign UTM Builder & Google Analytics URL Generator"`
+  - Updated Twitter Card Previewer (`/tools/twitter-card-preview`):
+    - `title`: `"Twitter Card Preview & Validator (Summary & Large Image) | OmniSEO"`
+    - `description`: `"Test, validate, and preview your Twitter Card tags in real time. Inspect summary, summary_large_image, image aspect ratios, and export clean framework metadata."`
+    - `keywords`: `["twitter card preview", "twitter preview card", "twitter card validator", "twitter card generator", "twitter meta tags"]`
+    - `H1`: `"Twitter Card Preview & Validator"`
+  - Updated Google SERP Simulator (`/tools/google-serp-simulator` & `/tools/seo/serp-preview`):
+    - `title`: `"Google SERP Simulator & Snippet Optimizer Tool | OmniSEO"`
+    - `description`: `"Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying."`
+    - `keywords`: `["serp simulator", "google serp simulator", "serp preview tool", "search snippet preview"]`
+    - `H1`: `"Google SERP Simulator & Snippet Optimizer Tool"`
+- **High-Intent Technical Editorial Content & Schema.org FAQPage:**
+  - Expanded UTM Builder with GA4 campaign parameter breakdowns (`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `utm_id`, `utm_source_platform`), GA4 Default Channel Grouping matrices, and best practice rules.
+  - Added Schema.org `FAQPage` structured data scripts and interactive FAQ accordions answering core user search queries (campaign URL builder definition, GA4 recording mechanics, safe link shortening).
+  - Added Twitter Card deep dive guide explaining `summary` vs `summary_large_image` aspect ratios and Twitter crawler cache-busting mechanics with Schema.org `FAQPage` structured data.
+- **Lateral Internal Link Mesh & PageRank Flow:**
+  - Injected contextual cross-linking callout banners below output links in UTM Builder linking to Twitter Card Previewer (`/tools/twitter-card-preview`) and Google SERP Simulator (`/tools/google-serp-simulator`).
+  - Added subtle attribution helpers linking to Campaign UTM Builder (`/tools/marketing/utm-campaign-builder`) below Canonical URL fields in `SocialPreviewer.tsx` and `MetaTagGenerator.tsx`.
+  - Injected cross-linking cards linking to Meta Tag Generator (`/tools/open-graph-meta-generator`) and Twitter Card Previewer (`/tools/twitter-card-preview`) inside SERP Simulator.
+  - Added explicit, direct anchor links for "Campaign UTM Builder", "Twitter Card Preview", and "SERP Simulator" across global Footer directory and Header Quick Tools navigation.
+  - Configured permanent 301 redirects in `next.config.mjs` for alias routes (`/tools/utm-builder`, `/tools/campaign-utm-builder`, `/tools/twitter-card-previewer`, `/tools/serp-simulator`).
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 255 production routes via `npm run build`.
+
 ## [2026-09-20] - Sprint 16: Local Image Upload Dropzone & Client-Side 1200x630 WebP Converter
 ### Added
 - Extended `src/lib/image-resizer.ts`:

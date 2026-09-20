@@ -17,13 +17,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 2. All Core Programmatic Tool Routes from tools-registry.ts
-  const toolPages: MetadataRoute.Sitemap = TOOLS_REGISTRY.map((tool) => ({
-    url: `${BASE_URL}/tools/${tool.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
+  // 2. All Core Programmatic Tool Routes from tools-registry.ts + Tools Directory
+  const toolPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/tools`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    ...TOOLS_REGISTRY.map((tool) => ({
+      url: `${BASE_URL}/tools/${tool.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    })),
+  ];
 
   // 3. Platform Index & Hub Pages (All 8 Platforms)
   const platformPages: MetadataRoute.Sitemap = [

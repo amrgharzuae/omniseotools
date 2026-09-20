@@ -7,38 +7,34 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { SerpPreviewTool } from "@/components/tools/serp/SerpPreviewTool";
 import { ToolContent, SERP_FAQS } from "./components/ToolContent";
 
-const CANONICAL_URL = "https://www.omniseotools.com/tools/seo/serp-preview";
+const CANONICAL_URL = "https://omniseotools.com/tools/seo/serp-preview";
 
 export const metadata: Metadata = {
-  title: "Google SERP Simulator & Meta Tag Pixel Counter (2026 Free Tool)",
+  title: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
   description:
-    "Simulate exact Google Desktop & Mobile search results, measure title and description pixel limits, and optimize CTR with real-time AI metadata generation.",
+    "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
   keywords: [
+    "serp simulator",
     "google serp simulator",
-    "meta title pixel counter",
     "serp preview tool",
-    "ai meta description generator",
-    "google title length in pixels",
-    "seo snippet generator 2026",
-    "google serp pixel width checker",
-    "meta title pixel length checker",
+    "search snippet preview",
   ],
   alternates: {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Google SERP Simulator & Meta Tag Pixel Counter (2026 Free Tool)",
+    title: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
     description:
-      "Test and optimize your SEO title and description with pixel accuracy for Google Desktop & Mobile SERP previews. Free real-time simulator.",
+      "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
     url: CANONICAL_URL,
     type: "website",
     siteName: "OmniSEOTools",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Google SERP Simulator & Meta Tag Pixel Counter (2026 Free Tool)",
+    title: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
     description:
-      "Test and optimize your SEO title and description with pixel accuracy for Google Desktop & Mobile SERP previews.",
+      "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
   },
 };
 

@@ -37,6 +37,7 @@ import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCal
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
+import { UtmCampaignBuilderTool } from "@/components/tools/marketing/UtmCampaignBuilderTool";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Eye,
@@ -183,8 +184,10 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
 
         {/* 3. Interactive Tool Widget */}
         <section className="mt-4" id="tool-interactive">
-          {tool.slug === "twitter-card-preview" ? (
+          {tool.slug === "twitter-card-preview" || tool.slug === "twitter-card-previewer" ? (
             <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
+          ) : tool.slug === "utm-campaign-builder" || tool.slug === "utm-builder" || tool.slug === "campaign-utm-builder" ? (
+            <UtmCampaignBuilderTool />
           ) : tool.slug === "linkedin-link-preview" ? (
             <SocialPreviewer defaultPlatform="linkedin" toolSlug={tool.slug} toolName={tool.name} />
           ) : tool.slug === "facebook-open-graph-debugger" ? (
@@ -195,7 +198,7 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
             <SERPPreviewer mode="title-pixel" toolSlug={tool.slug} toolName={tool.name} />
           ) : tool.slug === "meta-description-length-counter" ? (
             <SERPPreviewer mode="description-counter" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "google-serp-simulator" ? (
+          ) : tool.slug === "google-serp-simulator" || tool.slug === "serp-simulator" || tool.slug === "serp-preview" ? (
             <SERPPreviewer mode="full-simulator" toolSlug={tool.slug} toolName={tool.name} />
           ) : tool.slug === "flesch-kincaid-calculator" ? (
             <ReadabilityCalculator />

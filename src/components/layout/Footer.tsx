@@ -67,7 +67,7 @@ export function Footer() {
                   href="/tools/twitter-card-preview"
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
                 >
-                  Twitter Card Previewer
+                  Twitter Card Preview
                 </Link>
               </li>
               <li>
@@ -106,6 +106,14 @@ export function Footer() {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link
+                  href="/tools/google-serp-simulator"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
+                >
+                  SERP Simulator
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/tools/meta-title-pixel-checker"
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
                 >
@@ -120,24 +128,32 @@ export function Footer() {
                   Meta Description Length Counter
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/tools/google-serp-simulator"
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
-                >
-                  Google SERP Simulator
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Column 5: Copywriting, Technical & Legal (3 Direct Tools + Legal Links) */}
+          {/* Column 5: Copywriting, Technical & Legal (4 Direct Tools + Legal Links) */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-2">
               <FileText className="h-3.5 w-3.5 text-indigo-500" />
-              Copywriting & Legal
+              Marketing & SEO Tools
             </h3>
             <ul className="space-y-2 text-xs">
+              <li>
+                <Link
+                  href="/tools/marketing/utm-campaign-builder"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block font-medium text-emerald-600 dark:text-emerald-400"
+                >
+                  Campaign UTM Builder
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/open-graph-meta-generator"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
+                >
+                  Open Graph Meta Generator
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/tools/flesch-kincaid-calculator"
@@ -152,14 +168,6 @@ export function Footer() {
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
                 >
                   Keyword Density Checker
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/tools/open-graph-meta-generator"
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
-                >
-                  Open Graph Meta Generator
                 </Link>
               </li>
             </ul>

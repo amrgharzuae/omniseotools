@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import {
   calculateTitlePixels,
   calculateDescPixels,
@@ -841,6 +842,33 @@ export function SerpPreviewTool() {
             {/* HTML Tag Snippet Preview */}
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-950 p-4 font-mono text-[11px] text-slate-300 overflow-x-auto">
               <pre>{fullHtmlSnippet}</pre>
+            </div>
+
+            {/* Lateral Cross-Linking Card */}
+            <div className="rounded-2xl border border-indigo-500/20 bg-indigo-50/50 dark:bg-indigo-950/30 p-4 space-y-2 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-indigo-700 dark:text-indigo-300">
+                <Sparkles className="h-4 w-4 text-indigo-500" />
+                <span>Extend Your Meta Optimization</span>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Ready to publish? Generate universal HTML &amp; framework meta tags with the{" "}
+                <Link
+                  href="/tools/open-graph-meta-generator"
+                  className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-0.5"
+                >
+                  <span>Meta Tag Generator</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>{" "}
+                or test social cards across feeds using our{" "}
+                <Link
+                  href="/tools/twitter-card-preview"
+                  className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-0.5"
+                >
+                  <span>Twitter Card Previewer</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+                .
+              </p>
             </div>
           </div>
         </div>
