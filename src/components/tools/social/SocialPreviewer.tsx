@@ -20,6 +20,7 @@ import {
   FileCode,
   Sliders,
   CheckCheck,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
@@ -135,6 +136,57 @@ export function SocialPreviewer({
   const [activePreset, setActivePreset] = useState<string>("SaaS Platform");
   const [copiedCode, setCopiedCode] = useState(false);
   const [viewDevice, setViewDevice] = useState<"desktop" | "mobile">("desktop");
+
+  // Live URL inspection state
+  const [inspectUrl, setInspectUrl] = useState("");
+  const [isInspecting, setIsInspecting] = useState(false);
+  const [inspectError, setInspectError] = useState<string | null>(null);
+  const [inspectSuccess, setInspectSuccess] = useState<string | null>(null);
+
+  const handleInspectUrl = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const target = inspectUrl.trim();
+    if (!target) return;
+
+    setIsInspecting(true);
+    setInspectError(null);
+    setInspectSuccess(null);
+
+    try {
+      const res = await fetch(`/api/scrape-meta?url=${encodeURIComponent(target)}`);
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Failed to fetch live metadata from URL.");
+      }
+
+      const { data } = json;
+      if (data.title) setTitle(data.title);
+      if (data.description) setDescription(data.description);
+      if (data.url) setUrl(data.url);
+      if (data.siteName) setSiteName(data.siteName);
+      if (data.image) setImageUrl(data.image);
+
+      setActivePreset("");
+
+      const resolvedHost = (() => {
+        try {
+          return new URL(data.url || target).hostname;
+        } catch {
+          return target;
+        }
+      })();
+
+      setInspectSuccess(`Successfully imported social card meta from ${resolvedHost}`);
+      setTimeout(() => setInspectSuccess(null), 4000);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to inspect URL.";
+      setInspectError(message);
+      setTimeout(() => setInspectError(null), 5000);
+    } finally {
+      setIsInspecting(false);
+    }
+  };
 
   // Diagnostic state for image validation
   const [imgDimensions, setImgDimensions] = useState<{
@@ -276,22 +328,79 @@ export function SocialPreviewer({
         color: "text-emerald-500",
       };
     }
-    if (width < 600 || height < 315) {
+
+    if (isOptimalRes && !isOptimalRatio) {
       return {
-        status: "warning",
-        text: `Low Res: ${width}x${height}px (Min 1200x630px recommended)`,
+        status: "ratio-warning",
+        text: `Non-standard ratio: ${width}x${height}px (${ratio.toFixed(2)}:1, ideal 1.91:1)`,
         color: "text-amber-500",
       };
     }
+
+    if (!isOptimalRes && isOptimalRatio) {
+      return {
+        status: "res-warning",
+        text: `Low resolution: ${width}x${height}px (Recommended min: 1200x630px)`,
+        color: "text-amber-500",
+      };
+    }
+
     return {
-      status: "good",
-      text: `${width}x${height}px (${ratio.toFixed(2)}:1 Ratio)`,
-      color: "text-indigo-500",
+      status: "suboptimal",
+      text: `Suboptimal: ${width}x${height}px (Target 1200x630px, 1.91:1 ratio)`,
+      color: "text-amber-500",
     };
   }, [imageUrl, imgDimensions]);
 
   return (
     <div className="space-y-8">
+      {/* Live URL Auto-Fill Bar */}
+      <div className="p-4 rounded-2xl border border-indigo-100 dark:border-indigo-950/70 bg-gradient-to-r from-indigo-50/50 via-white to-purple-50/40 dark:from-indigo-950/20 dark:via-slate-900/60 dark:to-purple-950/10 shadow-sm space-y-3">
+        <form onSubmit={handleInspectUrl} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+          <div className="relative flex-1">
+            <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-indigo-500" />
+            <input
+              type="text"
+              value={inspectUrl}
+              onChange={(e) => setInspectUrl(e.target.value)}
+              placeholder="Auto-fill from live URL (e.g. https://your-website.com)"
+              className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono transition-all"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={isInspecting || !inspectUrl.trim()}
+            className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:pointer-events-none text-white text-xs font-semibold shadow-sm shadow-indigo-500/20 transition-all shrink-0"
+          >
+            {isInspecting ? (
+              <>
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                <span>Fetching Tags...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>Fetch Meta Tags</span>
+              </>
+            )}
+          </button>
+        </form>
+
+        {inspectError && (
+          <div className="flex items-center gap-2 text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 p-2.5 rounded-xl border border-rose-200 dark:border-rose-900/40">
+            <AlertCircle className="h-4 w-4 shrink-0" />
+            <span>{inspectError}</span>
+          </div>
+        )}
+
+        {inspectSuccess && (
+          <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-900/40">
+            <CheckCircle2 className="h-4 w-4 shrink-0" />
+            <span>{inspectSuccess}</span>
+          </div>
+        )}
+      </div>
+
       {/* Preset Selector Bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-sm">
         <div className="flex flex-wrap items-center gap-2">

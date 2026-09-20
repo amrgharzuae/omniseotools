@@ -1,5 +1,18 @@
 # Changelog
 
+## [2026-09-20] - Sprint 12: Live URL Metadata Fetcher & Auto-Fill
+### Added
+- Created `src/app/api/scrape-meta/route.ts`:
+  - Secure Edge/Serverless Route Handler accepting `GET /api/scrape-meta?url=<target_url>`.
+  - Comprehensive SSRF protection blocking localhost, link-local metadata addresses (`169.254.169.254`), and private IPv4/IPv6 CIDR ranges.
+  - Strict 5-second fetch timeout budget via `AbortSignal.timeout(5000)` and 500KB response truncation guard.
+  - Robust regex HTML entity decoder and metadata extractor resolving `<title>`, `og:title`, `og:description`, `og:image`, `og:site_name`, `canonical`, and `twitter:*` tags with relative URL normalization.
+- Injected Live URL Inspection & Auto-Fill input bars across:
+  - `src/components/tools/developer/MetaTagGenerator.tsx`
+  - `src/components/tools/social/SocialPreviewer.tsx`
+- Added responsive loading states (`Loader2`), inline error toasts, and success notices with automatic form state population.
+- Verified clean build and full static generation across all 245 production routes with 0 errors.
+
 ## [2026-09-20] - Sprint 11: Astro & SvelteKit Code Export Expansion
 ### Added
 - Expanded `src/lib/formatters/metaFormatters.ts` with dedicated Astro and SvelteKit formatters:
