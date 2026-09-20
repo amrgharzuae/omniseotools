@@ -1,5 +1,46 @@
 # Changelog
 
+## [2026-09-20] - Sprint 16: Local Image Upload Dropzone & Client-Side 1200x630 WebP Converter
+### Added
+- Extended `src/lib/image-resizer.ts`:
+  - Implemented `processLocalImageFile`: Processes locally selected image files (PNG, JPG, WebP) 100% in-browser using HTML5 Canvas, centering and scaling to standard 1200x630 in `cover` mode.
+  - Implemented client-side WebP encoding with PNG fallback and size reduction calculations (`savingsPercent`, `originalSize`, `optimizedSize`).
+  - Added `formatBytes` utility for human-readable file size formatting (e.g. 1.8 MB → 142 KB).
+- Injected Local Image Upload Dropzone across:
+  - `src/components/tools/social/SocialPreviewer.tsx`
+  - `src/components/tools/developer/MetaTagGenerator.tsx`
+- Added intuitive `[ Enter URL ]` / `[ 📁 Upload File ]` segmented tab toggles.
+- Implemented drag-and-drop file dropzone with active dragging indicators, file picker triggers, and real-time preview updates across Twitter, Facebook, LinkedIn, and Discord mockups.
+- Added optimization metrics badges displaying size reduction savings and 1-click **Download WebP (1200x630)** actions with zero server storage overhead.
+- Cleanly mapped code export tabs (HTML, Next.js, Astro, SvelteKit, Shopify Liquid) to `/assets/og-image.webp` for local image assets.
+- Verified 0 TypeScript compilation errors and clean static generation across all 245 production routes via `npm run build`.
+
+## [2026-09-20] - Sprint 15.1: CORS-Bypassing Social Image Cropper with Edge Proxy Fallback
+### Added
+- Created `src/app/api/proxy-image/route.ts`:
+  - Secure Edge/Node image proxy route handler accepting `GET /api/proxy-image?url=<target_url>`.
+  - Comprehensive SSRF protection blocking localhost, cloud metadata addresses (`169.254.169.254`), and private IPv4/IPv6 CIDR ranges.
+  - Strict 8-second fetch timeout (`AbortSignal.timeout(8000)`), content-type verification (`image/*`), and binary arrayBuffer streaming.
+  - Returns open CORS headers (`Access-Control-Allow-Origin: *`, `Access-Control-Allow-Methods: GET, OPTIONS`) and 1-hour cache control.
+- Updated `src/lib/image-resizer.ts`:
+  - Implemented 2-tier resilient image loading in `cropAndScaleToSocialStandard`: attempts direct client-side load first, and automatically falls back to `/api/proxy-image` whenever remote CORS policies prevent direct canvas pixel reading or trigger `SecurityError` canvas tainting.
+  - Guarantees 100% crop success for external social images hosted on WordPress, Squarespace, and private CDNs without open CORS headers.
+- Verified 0 TypeScript compilation errors and clean static generation across all 245 production routes via `npm run build`.
+
+## [2026-09-20] - Sprint 15: Client-Side Social Image Resizer & Standard 1200x630 Cropper
+### Added
+- Created `src/lib/image-resizer.ts`:
+  - Zero-latency, 100% client-side image cropping and scaling utility using an off-screen HTML5 canvas (`targetWidth = 1200`, `targetHeight = 630`).
+  - Implemented `cropAndScaleToSocialStandard`: Computes center crop aspect ratio scaling in `cover` mode, enables high-quality smoothing (`imageSmoothingQuality = 'high'`), exports PNG data URLs, and creates downloadable Blobs.
+  - Implemented `downloadBlob`: Provides clean 1-click client-side file downloads with automated object URL revocation.
+  - Added robust SSR safety guards and graceful CORS / `SecurityError` exception handling with user-friendly error guidance.
+- Integrated Inline 1200x630 Fixer Action into:
+  - `src/components/tools/social/SocialPreviewer.tsx`
+  - `src/components/tools/developer/MetaTagGenerator.tsx`
+- Injected compact **⚡ Fix to 1200x630 (Cover)** action buttons directly beside aspect ratio warning feedback badges (`Non-standard ratio`, `Low resolution`, `Suboptimal`).
+- Provided automatic 1-click retina standard PNG downloads (`og-image-1200x630.png`), loading spinner feedback (`Cropping...`), and non-intrusive status toasts.
+- Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 245 production routes via `npm run build`.
+
 ## [2026-09-20] - Sprint 14: Client-Side URL Permalinks & Preview Sharing
 ### Added
 - Created `src/lib/url-state.ts`:

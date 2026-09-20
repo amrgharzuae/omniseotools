@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import {
   Code2,
   Sparkles,
@@ -16,6 +16,10 @@ import {
   CheckCircle2,
   Loader2,
   AlertCircle,
+  Crop,
+  UploadCloud,
+  Upload,
+  Download,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
@@ -33,6 +37,13 @@ import {
   decodeStateFromHash,
   ShareableMetaState,
 } from "@/lib/url-state";
+import {
+  cropAndScaleToSocialStandard,
+  downloadBlob,
+  processLocalImageFile,
+  formatBytes,
+  LocalImageOptimizationResult,
+} from "@/lib/image-resizer";
 
 interface MetaTagGeneratorProps {
   toolSlug?: string;
@@ -211,12 +222,36 @@ export function MetaTagGenerator({
     }
   };
 
+  const [imageInputMode, setImageInputMode] = useState<"url" | "upload">("url");
+  const [localOptimizedInfo, setLocalOptimizedInfo] = useState<LocalImageOptimizationResult | null>(null);
+  const [isUploadingLocal, setIsUploadingLocal] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleLocalFileUpload = async (file: File) => {
+    if (!file) return;
+    setIsUploadingLocal(true);
+    try {
+      const result = await processLocalImageFile(file, 1200, 630, 0.85);
+      setImageUrl(result.dataUrl);
+      setLocalOptimizedInfo(result);
+    } catch (err: unknown) {
+      console.error("Failed to process local image:", err);
+      const message = err instanceof Error ? err.message : "Failed to process image file.";
+      setCropToast({ message, type: "error" });
+      setTimeout(() => setCropToast(null), 4000);
+    } finally {
+      setIsUploadingLocal(false);
+    }
+  };
+
   const loadPreset = (preset: SamplePreset) => {
     setTitle(preset.title);
     setDescription(preset.description);
     setUrl(preset.url);
     setSiteName(preset.siteName);
     setImageUrl(preset.imageUrl);
+    setLocalOptimizedInfo(null);
     setOgType(preset.ogType);
     setTwitterCard(preset.twitterCard);
     setTwitterHandle(preset.twitterHandle);
@@ -230,6 +265,123 @@ export function MetaTagGenerator({
     setSiteName("");
     setImageUrl("");
     setTwitterHandle("");
+    setLocalOptimizedInfo(null);
+  };
+
+  // Image Dimension Diagnostics
+  const [imgDimensions, setImgDimensions] = useState<{
+    width: number;
+    height: number;
+    ratio: number;
+    loaded: boolean;
+    error: boolean;
+  }>({
+    width: 0,
+    height: 0,
+    ratio: 0,
+    loaded: false,
+    error: false,
+  });
+
+  useEffect(() => {
+    if (!imageUrl) {
+      setImgDimensions({ width: 0, height: 0, ratio: 0, loaded: false, error: false });
+      return;
+    }
+
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      setImgDimensions({
+        width: w,
+        height: h,
+        ratio: h > 0 ? parseFloat((w / h).toFixed(2)) : 0,
+        loaded: true,
+        error: false,
+      });
+    };
+    img.onerror = () => {
+      setImgDimensions({ width: 0, height: 0, ratio: 0, loaded: false, error: true });
+    };
+  }, [imageUrl]);
+
+  const imageStatus = useMemo(() => {
+    if (!imageUrl) return { status: "missing", text: "No image provided", color: "text-amber-500" };
+    if (imgDimensions.error) return { status: "error", text: "Image failed to load (check URL/CORS)", color: "text-rose-500" };
+    if (!imgDimensions.loaded) return { status: "loading", text: "Analyzing dimensions...", color: "text-slate-400" };
+
+    const { width, height, ratio } = imgDimensions;
+    const isOptimalRatio = ratio >= 1.85 && ratio <= 1.95;
+    const isOptimalRes = width >= 1200 && height >= 630;
+
+    if (isOptimalRes && isOptimalRatio) {
+      return {
+        status: "perfect",
+        text: `Optimal: ${width}x${height}px (${ratio.toFixed(2)}:1 Ratio)`,
+        color: "text-emerald-500",
+      };
+    }
+
+    if (isOptimalRes && !isOptimalRatio) {
+      return {
+        status: "ratio-warning",
+        text: `Non-standard ratio: ${width}x${height}px (${ratio.toFixed(2)}:1, ideal 1.91:1)`,
+        color: "text-amber-500",
+      };
+    }
+
+    if (!isOptimalRes && isOptimalRatio) {
+      return {
+        status: "res-warning",
+        text: `Low resolution: ${width}x${height}px (Recommended min: 1200x630px)`,
+        color: "text-amber-500",
+      };
+    }
+
+    return {
+      status: "suboptimal",
+      text: `Suboptimal: ${width}x${height}px (Target 1200x630px, 1.91:1 ratio)`,
+      color: "text-amber-500",
+    };
+  }, [imageUrl, imgDimensions]);
+
+  const [isCropping, setIsCropping] = useState(false);
+  const [cropToast, setCropToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+
+  const handleFixDimensions = async () => {
+    if (!imageUrl || isCropping) return;
+    setIsCropping(true);
+    setCropToast(null);
+
+    try {
+      const result = await cropAndScaleToSocialStandard(imageUrl, 1200, 630, "cover");
+      downloadBlob(result.blob, "og-image-1200x630.png");
+      setCropToast({
+        message: "1200x630 standard image downloaded! Ready to host.",
+        type: "success",
+      });
+      setTimeout(() => setCropToast(null), 4500);
+    } catch (err: unknown) {
+      console.error("Failed to crop image:", err);
+      const isCors =
+        err instanceof Error &&
+        (err.message.includes("CORS") ||
+          err.message.includes("SecurityError") ||
+          err.message.includes("cross-origin"));
+      setCropToast({
+        message: isCors
+          ? "Cannot auto-crop due to remote host CORS policy. Try uploading directly or saving locally."
+          : err instanceof Error
+          ? err.message
+          : "Failed to auto-crop image.",
+        type: "error",
+      });
+      setTimeout(() => setCropToast(null), 5000);
+    } finally {
+      setIsCropping(false);
+    }
   };
 
   const currentFormData = useMemo<MetaFormData>(() => ({
@@ -237,7 +389,7 @@ export function MetaTagGenerator({
     description,
     url,
     siteName,
-    imageUrl,
+    imageUrl: imageUrl.startsWith("data:") ? "/assets/og-image.webp" : imageUrl,
     ogType,
     twitterCard,
     twitterHandle,
@@ -463,18 +615,195 @@ export function MetaTagGenerator({
               />
             </div>
 
-            {/* Social Image URL */}
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                OG Image URL (1200x630)
-              </label>
-              <input
-                type="url"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="https://example.com/assets/og-image.jpg"
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"
-              />
+            {/* Image Input Section (URL or Local Upload) */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <span>OG Image</span>
+                  <span className="text-[11px] text-slate-400 font-normal">og:image (1200x630)</span>
+                </label>
+                <div className="flex items-center p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-[11px] font-medium">
+                  <button
+                    type="button"
+                    onClick={() => setImageInputMode("url")}
+                    className={cn(
+                      "px-2 py-0.5 rounded-md transition-all cursor-pointer",
+                      imageInputMode === "url"
+                        ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold"
+                        : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                    )}
+                  >
+                    Enter URL
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setImageInputMode("upload")}
+                    className={cn(
+                      "px-2 py-0.5 rounded-md transition-all flex items-center gap-1 cursor-pointer",
+                      imageInputMode === "upload"
+                        ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold"
+                        : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                    )}
+                  >
+                    <Upload className="h-3 w-3" />
+                    Upload File
+                  </button>
+                </div>
+              </div>
+
+              {imageInputMode === "url" ? (
+                <div className="space-y-2">
+                  <input
+                    type="url"
+                    value={imageUrl}
+                    onChange={(e) => {
+                      setImageUrl(e.target.value);
+                      setLocalOptimizedInfo(null);
+                    }}
+                    placeholder="https://example.com/assets/og-image.jpg"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"
+                  />
+
+                  {/* Live Image Diagnostic Feedback & Inline 1200x630 Fixer */}
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 text-[11px]">
+                      {imageStatus.status === "perfect" ? (
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                      ) : imageStatus.status === "error" ? (
+                        <AlertCircle className="h-3.5 w-3.5 text-rose-500 shrink-0" />
+                      ) : (
+                        <AlertCircle className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                      )}
+                      <span className={cn("font-medium", imageStatus.color)}>
+                        {imageStatus.text}
+                      </span>
+                    </div>
+
+                    {(imageStatus.status === "ratio-warning" ||
+                      imageStatus.status === "res-warning" ||
+                      imageStatus.status === "suboptimal") && (
+                      <button
+                        type="button"
+                        onClick={handleFixDimensions}
+                        disabled={isCropping}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 transition-all disabled:opacity-50 shrink-0 cursor-pointer"
+                        title="Auto-crop and scale to standard 1200x630 (1.91:1) cover image"
+                      >
+                        {isCropping ? (
+                          <>
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                            <span>Cropping...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Crop className="h-3 w-3" />
+                            <span>Fix to 1200x630 (Cover)</span>
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setIsDragging(true);
+                    }}
+                    onDragLeave={(e) => {
+                      e.preventDefault();
+                      setIsDragging(false);
+                    }}
+                    onDrop={async (e) => {
+                      e.preventDefault();
+                      setIsDragging(false);
+                      const file = e.dataTransfer.files?.[0];
+                      if (file) await handleLocalFileUpload(file);
+                    }}
+                    onClick={() => fileInputRef.current?.click()}
+                    className={cn(
+                      "relative flex flex-col items-center justify-center p-5 rounded-2xl border-2 border-dashed transition-all cursor-pointer text-center",
+                      isDragging
+                        ? "border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/20"
+                        : "border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-600 bg-slate-50 dark:bg-slate-800/40"
+                    )}
+                  >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/gif,image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) await handleLocalFileUpload(file);
+                        e.target.value = "";
+                      }}
+                    />
+
+                    {isUploadingLocal ? (
+                      <div className="flex flex-col items-center gap-1.5 py-2">
+                        <Loader2 className="h-6 w-6 text-indigo-500 animate-spin" />
+                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                          Auto-cropping & Converting to 1200x630 WebP...
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-1.5 py-1">
+                        <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+                          <UploadCloud className="h-5 w-5" />
+                        </div>
+                        <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                          Drag & drop banner or <span className="text-indigo-600 dark:text-indigo-400 underline">Browse Files</span>
+                        </p>
+                        <p className="text-[10px] text-slate-400">
+                          PNG, JPG, WEBP • 100% Client-Side Private Processing
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {localOptimizedInfo && (
+                    <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40 text-[11px]">
+                      <div className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300">
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
+                        <span className="font-medium">
+                          ✓ 1200x630 WebP: {formatBytes(localOptimizedInfo.originalSize)} → {formatBytes(localOptimizedInfo.optimizedSize)} ({localOptimizedInfo.savingsPercent}% smaller)
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          downloadBlob(localOptimizedInfo.blob, "og-image-1200x630.webp");
+                        }}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-all shrink-0 cursor-pointer"
+                      >
+                        <Download className="h-3 w-3" />
+                        <span>Download WebP</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {cropToast && (
+                <div
+                  className={cn(
+                    "flex items-center gap-1.5 text-[11px] p-2.5 rounded-xl border transition-all",
+                    cropToast.type === "success"
+                      ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/40"
+                      : "text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/40"
+                  )}
+                >
+                  {cropToast.type === "success" ? (
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                  ) : (
+                    <AlertCircle className="h-3.5 w-3.5 shrink-0 text-rose-500" />
+                  )}
+                  <span>{cropToast.message}</span>
+                </div>
+              )}
             </div>
 
             {/* Site Name & OG Type */}
