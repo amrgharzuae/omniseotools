@@ -26,6 +26,7 @@ import {
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
 import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
+import { EmbedBadgeModal } from "@/components/tools/EmbedBadgeModal";
 import {
   calculateTitlePixels,
   calculateDescPixels,
@@ -501,7 +502,14 @@ export function SERPPreviewer({
 
               <div className="flex items-center gap-2">
                 {!isEmbedded && (
-                  <EmbedToolModal slug={currentSlug} toolName={currentToolName} />
+                  <>
+                    <EmbedBadgeModal
+                      score={ctrAnalysis.score}
+                      toolSlug={currentSlug}
+                      buttonVariant="outline"
+                    />
+                    <EmbedToolModal slug={currentSlug} toolName={currentToolName} />
+                  </>
                 )}
                 <button
                   onClick={exportHtmlTags}

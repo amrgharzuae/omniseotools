@@ -32,6 +32,7 @@ import {
 import { cn } from "@/lib/utils";
 import { formatSnippetWithAttribution } from "@/lib/snippet-attribution";
 import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
+import { EmbedBadgeModal } from "@/components/tools/EmbedBadgeModal";
 import {
   MetaFormData,
   toHtml,
@@ -293,6 +294,35 @@ export function SocialPreviewer({
       }
     }
   };
+
+  // Dynamic current state hash for permalink backlink
+  const currentHashState = useMemo(() => {
+    return encodeStateToHash({
+      title,
+      description,
+      url,
+      image: imageUrl,
+      siteName,
+      cardType: twitterCard,
+      theme: discordColor,
+    });
+  }, [title, description, url, imageUrl, siteName, twitterCard, discordColor]);
+
+  // Calculate dynamic SEO completeness / audit score
+  const auditScore = useMemo(() => {
+    let score = 0;
+    if (title.trim().length >= 10) score += 25;
+    else if (title.trim().length > 0) score += 15;
+
+    if (description.trim().length >= 30 && description.trim().length <= 165) score += 25;
+    else if (description.trim().length > 0) score += 15;
+
+    if (imageUrl.trim().length > 0) score += 25;
+    if (url.trim().length > 0) score += 15;
+    if (siteName.trim().length > 0) score += 10;
+
+    return Math.max(score, 10);
+  }, [title, description, imageUrl, url, siteName]);
 
   // Diagnostic state for image validation
   const [imgDimensions, setImgDimensions] = useState<{
@@ -593,7 +623,13 @@ export function SocialPreviewer({
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <EmbedBadgeModal
+            score={auditScore}
+            toolSlug={currentSlug}
+            hashState={currentHashState}
+          />
+
           <button
             onClick={handleSharePreview}
             className={cn(
@@ -1382,7 +1418,15 @@ export function SocialPreviewer({
 
             <div className="flex items-center gap-2">
               {!isEmbedded && (
-                <EmbedToolModal slug={currentSlug} toolName={currentToolName} />
+                <>
+                  <EmbedBadgeModal
+                    score={auditScore}
+                    toolSlug={currentSlug}
+                    hashState={currentHashState}
+                    buttonVariant="outline"
+                  />
+                  <EmbedToolModal slug={currentSlug} toolName={currentToolName} />
+                </>
               )}
               <button
                 onClick={copyToClipboard}

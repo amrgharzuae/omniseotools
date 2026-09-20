@@ -1,5 +1,27 @@
 # Changelog
 
+## [2026-09-20] - Sprint 18: Dynamic SVG Audit Badge Endpoint & Markdown/HTML Embed Drawer
+### Added
+- **Dynamic Vector SVG Badge API Endpoint (`src/app/api/badge/route.ts`):**
+  - High-performance Edge route handler accepting `label`, `status`, `score`, and `theme` (`dark`, `flat`, `emerald`).
+  - Crisp Shields.io-style vector SVG badge generation with system font stack, rounded rect clipping, and XML entity escaping.
+  - Automatic 3-tier score color-coding: Emerald Green (`#10b981` for scores 90–100), Amber Yellow (`#f59e0b` for 70–89), and Rose Red (`#f43f5e` for <70).
+  - Dynamic character-width geometry calculation preventing text clipping across varying label lengths.
+  - Edge caching (`Cache-Control: public, max-age=86400, s-maxage=86400, stale-while-revalidate=43200`) and open CORS headers.
+- **Embed Badge Modal Component (`src/components/tools/EmbedBadgeModal.tsx`):**
+  - Clean modal/drawer dialog featuring live SVG badge rendering, theme selector, score customization, and dual snippet export tabs:
+    1. **Markdown (for GitHub READMEs):** `[![SEO Audit](https://omniseotools.com/api/badge?score=...&status=Verified)](https://omniseotools.com/tools/...#s=...)`
+    2. **HTML (for Website Footers & Docs):** `<a href="..." target="_blank" rel="noopener noreferrer"><img src="..." alt="SEO Audit Score" /></a>`
+  - 1-click clipboard copy buttons with instant "Copied!" feedback and checkmark animations.
+- **Tool UI Integration:**
+  - Integrated "Embed Badge" trigger buttons beside "Share Preview" and "Export Code" across:
+    - `src/components/tools/social/SocialPreviewer.tsx`
+    - `src/components/tools/developer/MetaTagGenerator.tsx`
+    - `src/components/tools/serp/SERPPreviewer.tsx`
+  - Dynamically calculates real-time audit completeness scores based on title length, description optimization, image resolution, canonical URLs, and brand handles.
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 256 production routes via `npm run build`.
+
 ## [2026-09-20] - Sprint 17.1: Registered Campaign UTM Builder into Central Tool Directory Catalog
 ### Added
 - **Central Tools Registry Synchronization:**
