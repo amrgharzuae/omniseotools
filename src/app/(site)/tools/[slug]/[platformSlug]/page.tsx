@@ -34,6 +34,7 @@ import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCal
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 interface PlatformToolPageProps {
   params: Promise<{
@@ -221,31 +222,33 @@ export default async function PlatformToolPage({
 
         {/* 3. Interactive Tool Widget */}
         <section className="mt-2" id="tool-interactive" aria-label="Interactive Tool">
-          {tool.slug === "twitter-card-preview" ? (
-            <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "linkedin-link-preview" ? (
-            <SocialPreviewer defaultPlatform="linkedin" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "facebook-open-graph-debugger" ? (
-            <SocialPreviewer defaultPlatform="facebook" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "discord-embed-generator" ? (
-            <SocialPreviewer defaultPlatform="discord" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "meta-title-pixel-checker" ? (
-            <SERPPreviewer mode="title-pixel" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "meta-description-length-counter" ? (
-            <SERPPreviewer mode="description-counter" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "google-serp-simulator" ? (
-            <SERPPreviewer mode="full-simulator" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "flesch-kincaid-calculator" ? (
-            <ReadabilityCalculator />
-          ) : tool.slug === "keyword-density-checker" ? (
-            <KeywordDensity />
-          ) : tool.slug === "open-graph-meta-generator" ? (
-            <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "open-graph-preview" ? (
-            <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
-          ) : (
-            <DynamicToolGenerator tool={tool} platform={platform} />
-          )}
+          <ToolErrorBoundary toolSlug={tool.slug} toolName={`${tool.name} for ${platform.name}`}>
+            {tool.slug === "twitter-card-preview" ? (
+              <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "linkedin-link-preview" ? (
+              <SocialPreviewer defaultPlatform="linkedin" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "facebook-open-graph-debugger" ? (
+              <SocialPreviewer defaultPlatform="facebook" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "discord-embed-generator" ? (
+              <SocialPreviewer defaultPlatform="discord" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "meta-title-pixel-checker" ? (
+              <SERPPreviewer mode="title-pixel" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "meta-description-length-counter" ? (
+              <SERPPreviewer mode="description-counter" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "google-serp-simulator" ? (
+              <SERPPreviewer mode="full-simulator" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "flesch-kincaid-calculator" ? (
+              <ReadabilityCalculator />
+            ) : tool.slug === "keyword-density-checker" ? (
+              <KeywordDensity />
+            ) : tool.slug === "open-graph-meta-generator" ? (
+              <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "open-graph-preview" ? (
+              <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
+            ) : (
+              <DynamicToolGenerator tool={tool} platform={platform} />
+            )}
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

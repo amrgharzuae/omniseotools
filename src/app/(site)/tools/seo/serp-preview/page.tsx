@@ -4,6 +4,7 @@ import { serpPreviewTool } from "@/config/tools/seo/serp-preview";
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { SerpPreviewTool } from "@/components/tools/serp/SerpPreviewTool";
 import { ToolContent, SERP_FAQS } from "./components/ToolContent";
 
@@ -96,7 +97,12 @@ export default function SerpPreviewPage() {
 
         {/* Interactive Tool Widget (Dual-Mode: Gemini AI & Manual Preview) */}
         <section className="mt-4" aria-label="Interactive Google SERP Simulator">
-          <SerpPreviewTool />
+          <ToolErrorBoundary
+            toolSlug="serp-preview"
+            toolName="Google SERP Simulator & Snippet Optimizer"
+          >
+            <SerpPreviewTool />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

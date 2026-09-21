@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MicroFeedbackDrawer } from "@/components/feedback/MicroFeedbackDrawer";
 
 export default function SiteLayout({
   children,
@@ -14,6 +15,7 @@ export default function SiteLayout({
         {children}
       </main>
       <Footer />
+      <MicroFeedbackDrawer />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { openGraphPreviewTool } from "@/config/tools/social/open-graph-preview";
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { OpenGraphPreviewTool } from "@/components/tools/social/OpenGraphPreviewTool";
 import { ToolContent, OG_FAQS } from "./components/ToolContent";
 
@@ -97,7 +98,12 @@ export default function OpenGraphPreviewPage() {
 
         {/* Interactive Tool Widget (Twitter, Facebook, LinkedIn, Discord) */}
         <section className="mt-4" aria-label="Interactive Open Graph Card Simulator">
-          <OpenGraphPreviewTool />
+          <ToolErrorBoundary
+            toolSlug="open-graph-preview"
+            toolName="Open Graph & Social Media Preview Simulator"
+          >
+            <OpenGraphPreviewTool />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

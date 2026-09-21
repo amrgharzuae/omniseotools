@@ -1,5 +1,34 @@
 # Changelog
 
+## [2026-09-23] - Sprint 21: Platform Health, Component Error Boundaries & Micro-Feedback System
+### Added & Enhanced
+- **Resilient Component-Level Error Boundaries (`src/components/common/ToolErrorBoundary.tsx`):**
+  - Implemented React error boundary component wrapping all interactive tool widgets across dynamic (`/tools/[slug]`, `/tools/[slug]/[platformSlug]`) and standalone routes (`/tools/social/open-graph-preview`, `/tools/marketing/utm-campaign-builder`, `/tools/seo/url-slug-generator`, `/tools/seo/serp-preview`, `/tools/developer/robots-txt-generator`, `/tools/content/keyword-density-analyzer`).
+  - Isolated failure boundaries prevent widget-level runtime exceptions from crashing the parent page shell (header, navigation, editorial guides, FAQs, comparison matrix, and footer remain 100% intact).
+  - Fallback UI provides sanitized error previews, a 1-click **"Reset Tool"** action (clearing local state / localStorage and re-mounting the component via key increments), and a **"Report This Bug"** button that pre-populates diagnostics into the feedback drawer.
+- **Route-Level Next.js App Router Error Handlers (`src/app/(site)/tools/[slug]/error.tsx` & `src/app/error.tsx`):**
+  - Styled branded fallback templates with automatic diagnostic error reporting triggers and navigation recovery shortcuts.
+- **Floating Micro-Feedback System (`src/components/feedback/MicroFeedbackDrawer.tsx`):**
+  - Client component rendered globally in `src/app/(site)/layout.tsx` with a non-intrusive floating pill trigger (`[Feedback & Bug Report]`) in the bottom-right corner.
+  - Automatically collapses into an icon-only button on mobile viewports to prevent obstruction of primary tool action buttons.
+  - Category selector tabs: **[Bug Report]**, **[Tool Suggestion]**, **[General Feedback]** with dynamic contextual placeholders.
+  - Collapsible auto-captured diagnostics inspector displaying current URL, tool slug, viewport screen resolution, user agent, and error stack trace (if triggered via error boundary).
+  - Global event listener (`open-micro-feedback`) and helper (`openFeedbackDrawer`) for programmatic activation from error boundaries or interactive widgets.
+- **Dedicated Backend Feedback Route (`src/app/api/feedback/route.ts`):**
+  - Rate-limited API route (5 submissions/min/IP) with strict input validation (5–2000 characters).
+  - Multi-channel dispatch engine supporting Resend Email API (`RESEND_API_KEY`), custom Webhooks (`FEEDBACK_WEBHOOK_URL`), and graceful structured console logging in development environments.
+  - Strict security and CORS headers returning `{ success: true, message: 'Feedback received' }`.
+- **System Operational Status Pill & Diagnostic Monitor (`src/components/common/SystemStatusPill.tsx`):**
+  - Real-time status pill with pulsing green indicator embedded directly into `src/components/layout/Footer.tsx`.
+  - Interactive status drawer / modal performing real-time health checks on:
+    - *Open Graph Scraper & Proxy Engine*
+    - *Dynamic Vector SVG Badge API*
+    - *Static MDX Blog Engine*
+    - *Client-Side Image Resizer & Canvas Engine*
+    - *Client Route Latency & Edge Connectivity*
+- **Build Verification:**
+  - Confirmed 0 TypeScript errors and 100% clean SSG generation across all 260 production routes via `npm run build`.
+
 ## [2026-09-22] - Sprint 20: Blog Post #2 - Why GA4 Strips UTM Parameters on SPA Route Transitions
 ### Added & Enhanced
 - **Second Production Technical Blog Post (`src/content/blog/why-ga4-strips-utm-parameters-spa.mdx`):**

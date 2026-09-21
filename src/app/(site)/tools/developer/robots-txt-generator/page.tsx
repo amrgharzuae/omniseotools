@@ -4,6 +4,7 @@ import { robotsTxtGeneratorTool } from "@/config/tools/developer/robots-txt-gene
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { RobotsGeneratorClient } from "./components/RobotsGeneratorClient";
 import { ToolContent, ROBOTS_FAQS } from "./components/ToolContent";
 
@@ -96,7 +97,12 @@ export default function RobotsTxtGeneratorPage() {
 
         {/* Interactive Robots.txt Builder Client */}
         <section className="mt-4" aria-label="Interactive Robots.txt Generator">
-          <RobotsGeneratorClient />
+          <ToolErrorBoundary
+            toolSlug="robots-txt-generator"
+            toolName="Robots.txt Generator & AI Crawler Blocker"
+          >
+            <RobotsGeneratorClient />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

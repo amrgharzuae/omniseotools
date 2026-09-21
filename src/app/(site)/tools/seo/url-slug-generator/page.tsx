@@ -4,6 +4,7 @@ import { urlSlugGeneratorTool } from "@/config/tools/seo/url-slug-generator";
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { SlugGeneratorClient } from "./components/SlugGeneratorClient";
 import { ToolContent, SLUG_FAQS } from "./components/ToolContent";
 
@@ -95,7 +96,12 @@ export default function UrlSlugGeneratorPage() {
 
         {/* Interactive Slug Generator Widget */}
         <section className="mt-4" aria-label="Interactive SEO URL Slug Generator">
-          <SlugGeneratorClient />
+          <ToolErrorBoundary
+            toolSlug="url-slug-generator"
+            toolName="SEO URL Slug Generator"
+          >
+            <SlugGeneratorClient />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

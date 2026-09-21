@@ -33,11 +33,12 @@ import { AdSlot } from "@/components/ads/AdSlot";
 // Interactive Tool Components
 import { SocialPreviewer } from "@/components/tools/social/SocialPreviewer";
 import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
+import { UtmCampaignBuilderTool } from "@/components/tools/marketing/UtmCampaignBuilderTool";
+import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
+import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
 import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
-import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
-import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
-import { UtmCampaignBuilderTool } from "@/components/tools/marketing/UtmCampaignBuilderTool";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Eye,
@@ -184,31 +185,33 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
 
         {/* 3. Interactive Tool Widget */}
         <section className="mt-4" id="tool-interactive">
-          {tool.slug === "twitter-card-preview" || tool.slug === "twitter-card-previewer" ? (
-            <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "utm-campaign-builder" || tool.slug === "utm-builder" || tool.slug === "campaign-utm-builder" ? (
-            <UtmCampaignBuilderTool />
-          ) : tool.slug === "linkedin-link-preview" ? (
-            <SocialPreviewer defaultPlatform="linkedin" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "facebook-open-graph-debugger" ? (
-            <SocialPreviewer defaultPlatform="facebook" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "discord-embed-generator" ? (
-            <SocialPreviewer defaultPlatform="discord" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "meta-title-pixel-checker" ? (
-            <SERPPreviewer mode="title-pixel" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "meta-description-length-counter" ? (
-            <SERPPreviewer mode="description-counter" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "google-serp-simulator" || tool.slug === "serp-simulator" || tool.slug === "serp-preview" ? (
-            <SERPPreviewer mode="full-simulator" toolSlug={tool.slug} toolName={tool.name} />
-          ) : tool.slug === "flesch-kincaid-calculator" ? (
-            <ReadabilityCalculator />
-          ) : tool.slug === "keyword-density-checker" ? (
-            <KeywordDensity />
-          ) : tool.slug === "open-graph-meta-generator" ? (
-            <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
-          ) : (
-            <DynamicToolGenerator tool={tool} />
-          )}
+          <ToolErrorBoundary toolSlug={tool.slug} toolName={tool.name}>
+            {tool.slug === "twitter-card-preview" || tool.slug === "twitter-card-previewer" ? (
+              <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "utm-campaign-builder" || tool.slug === "utm-builder" || tool.slug === "campaign-utm-builder" ? (
+              <UtmCampaignBuilderTool />
+            ) : tool.slug === "linkedin-link-preview" ? (
+              <SocialPreviewer defaultPlatform="linkedin" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "facebook-open-graph-debugger" ? (
+              <SocialPreviewer defaultPlatform="facebook" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "discord-embed-generator" ? (
+              <SocialPreviewer defaultPlatform="discord" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "meta-title-pixel-checker" ? (
+              <SERPPreviewer mode="title-pixel" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "meta-description-length-counter" ? (
+              <SERPPreviewer mode="description-counter" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "google-serp-simulator" || tool.slug === "serp-simulator" || tool.slug === "serp-preview" ? (
+              <SERPPreviewer mode="full-simulator" toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "flesch-kincaid-calculator" ? (
+              <ReadabilityCalculator />
+            ) : tool.slug === "keyword-density-checker" ? (
+              <KeywordDensity />
+            ) : tool.slug === "open-graph-meta-generator" ? (
+              <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : (
+              <DynamicToolGenerator tool={tool} />
+            )}
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

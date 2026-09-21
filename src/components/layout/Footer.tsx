@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
 import { Logo } from "@/components/ui/Logo";
 import { Shield, Sparkles, Share2, Search, FileText, Server } from "lucide-react";
+import { SystemStatusPill } from "@/components/common/SystemStatusPill";
 
 export function Footer() {
   return (
@@ -213,9 +214,13 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-200 dark:border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+            <span>•</span>
+            <SystemStatusPill />
+          </div>
           <p className="flex items-center gap-1">
-            Engineered for speed, privacy & 100% crawlable search indexing
+            Engineered for speed, privacy &amp; 100% crawlable search indexing
           </p>
         </div>
 

@@ -4,6 +4,7 @@ import { utmCampaignBuilderTool } from "@/config/tools/marketing/utm-campaign-bu
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { UtmBuilderClient } from "./components/UtmBuilderClient";
 import { ToolContent, UTM_FAQS } from "./components/ToolContent";
 
@@ -95,7 +96,12 @@ export default function UtmCampaignBuilderPage() {
 
         {/* Interactive Tool Widget (GA4 UTM Builder with QR Code Generator) */}
         <section className="mt-4" aria-label="Interactive GA4 Campaign URL Builder">
-          <UtmBuilderClient />
+          <ToolErrorBoundary
+            toolSlug="utm-campaign-builder"
+            toolName="Campaign UTM Builder & GA4 URL Generator"
+          >
+            <UtmBuilderClient />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

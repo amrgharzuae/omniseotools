@@ -4,6 +4,7 @@ import { keywordDensityAnalyzerTool } from "@/config/tools/content/keyword-densi
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { DensityAnalyzerClient } from "./components/DensityAnalyzerClient";
 import { ToolContent, DENSITY_FAQS } from "./components/ToolContent";
 
@@ -96,7 +97,12 @@ export default function KeywordDensityAnalyzerPage() {
 
         {/* Interactive Density Analyzer Widget */}
         <section className="mt-4" aria-label="Interactive Keyword Density Analyzer">
-          <DensityAnalyzerClient />
+          <ToolErrorBoundary
+            toolSlug="keyword-density-analyzer"
+            toolName="Keyword Density Analyzer & Frequency Counter"
+          >
+            <DensityAnalyzerClient />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

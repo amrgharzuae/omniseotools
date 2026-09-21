@@ -23,6 +23,7 @@ import {
 import platformsData from "@/data/utm-platforms.json";
 import { UtmBuilderClient } from "../components/UtmBuilderClient";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 interface PlatformPageProps {
   params: Promise<{
@@ -179,13 +180,18 @@ export default async function UtmPlatformPage({ params }: PlatformPageProps) {
 
         {/* Pre-Populated Interactive UTM Builder */}
         <section className="mt-4" aria-label={`Interactive ${platform.name} UTM Builder`}>
-          <UtmBuilderClient
-            initialSource={platform.defaultSource}
-            initialMedium={platform.defaultMedium}
-            initialCampaign={platform.defaultCampaign}
-            initialSourcePlatform={platform.sourcePlatform}
-            initialPreset={platform.name}
-          />
+          <ToolErrorBoundary
+            toolSlug={`utm-campaign-builder-${platform.slug}`}
+            toolName={`${platform.name} UTM Campaign URL Builder`}
+          >
+            <UtmBuilderClient
+              initialSource={platform.defaultSource}
+              initialMedium={platform.defaultMedium}
+              initialCampaign={platform.defaultCampaign}
+              initialSourcePlatform={platform.sourcePlatform}
+              initialPreset={platform.name}
+            />
+          </ToolErrorBoundary>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}
