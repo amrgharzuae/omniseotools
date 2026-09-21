@@ -2,6 +2,7 @@ import { ToolDefinition } from "@/types/tool";
 import { ToolCategoryId } from "@/types/category";
 import { openGraphPreviewTool } from "./tools/social/open-graph-preview";
 import { utmCampaignBuilderTool } from "./tools/marketing/utm-campaign-builder";
+import { arabicUrlDecoderTool } from "./tools/marketing/arabic-url-decoder";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2325,7 +2326,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 21. Social Meta & OpenGraph Card Simulator
   openGraphPreviewTool,
   // 22. Campaign UTM Builder
-  utmCampaignBuilderTool
+  utmCampaignBuilderTool,
+  // 23. Arabic & UTF-8 URL Decoder
+  arabicUrlDecoderTool
 ];
 
 // Helper Query Methods
@@ -2350,6 +2353,9 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "campaign-utm-builder"
   ) {
     return utmCampaignBuilderTool;
+  }
+  if (normalized === "arabic-url-decoder" || normalized === "arabic-decoder" || normalized === "utf8-url-decoder") {
+    return arabicUrlDecoderTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

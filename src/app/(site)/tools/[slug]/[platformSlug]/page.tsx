@@ -34,6 +34,7 @@ import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCal
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
 import { FaviconGeneratorTool } from "@/components/tools/developer/FaviconGeneratorTool";
+import { ArabicUrlDecoder } from "@/components/tools/ArabicUrlDecoder";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
@@ -246,6 +247,8 @@ export default async function PlatformToolPage({
               <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "favicon-meta-generator" || tool.slug === "favicon-generator" ? (
               <FaviconGeneratorTool toolSlug={tool.slug} toolName={tool.name} platform={platform} />
+            ) : tool.slug === "arabic-url-decoder" || tool.slug === "arabic-decoder" ? (
+              <ArabicUrlDecoder toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "open-graph-preview" ? (
               <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
             ) : (

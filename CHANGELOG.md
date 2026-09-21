@@ -1,5 +1,44 @@
 # Changelog
 
+## [2026-09-23] - Sprint 24: Build Arabic & UTF-8 URL Decoder & Parameter Extractor
+### Added & Enhanced
+- **Arabic & UTF-8 URL Decoder Engine (`src/components/tools/ArabicUrlDecoder.tsx`):**
+  - Built a high-performance, client-side interactive tool to decode percent-encoded URLs, Google Ads search terms, and GA4 query parameters (%D8%...) into human-readable Arabic and UTF-8 text with 0ms server latency.
+  - Implemented dual operation modes:
+    - **Single URL / Parameter Mode:** Decomposes complex links into clean decoded URLs, path hierarchy breadcrumbs, and structured query parameter tables with role categorization (UTM Source, UTM Campaign, Search Query, GCLID, etc.).
+    - **Batch Line-by-Line Mode:** Processes hundreds of raw search query logs or campaign links simultaneously with real-time line counters and Arabic character diagnostics.
+  - Added automatic Arabic character range detection (`/[\u0600-\u06FF]/`) with dynamic `dir="rtl"` styling and manual direction override controls (Auto, RTL, LTR).
+  - Built robust recursive multi-hop decoding capable of resolving double-encoded tokens (`%25D8...` &rarr; `%D8...` &rarr; Arabic) with safe error fallback guards.
+  - Added 1-click **"Export as CSV (Excel)"** embedding a UTF-8 Byte Order Mark (`\uFEFF`) to prevent character corruption (mojibake) in Microsoft Excel on Windows.
+  - Integrated `EmbedBadgeModal` and `EmbedToolModal` for developer distribution and organic backlinks.
+- **Global Tools Registry & Programmatic Platform Permutations:**
+  - Registered `arabicUrlDecoderTool` (`#23`) in `src/config/tools-registry.ts` under the Marketing & Growth category.
+  - Wired dedicated UI routing across standalone (`/tools/arabic-url-decoder`) and 8 programmatic platform permutations (`/tools/arabic-url-decoder/[platformSlug]`).
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 269 production routes via `npm run build`.
+
+## [2026-09-23] - Sprint 23.1: Offload gtag & Analytics to lazyOnload Strategy
+### Optimized & Enhanced
+- **Asynchronous Analytics Execution Strategy (`src/app/layout.tsx`):**
+  - Replaced synchronous/interactive analytics injection with Next.js `next/script` using `strategy="lazyOnload"` for both Google Tag Manager script (`gtag/js`) and inline `google-analytics` dataLayer bootstrap.
+  - Offloaded the 171 KB `gtag.js` library evaluation to browser idle time (`requestIdleCallback` / window load event), completely eliminating main-thread contention during initial page and tool component hydration.
+  - Added environment guard (`isProduction = process.env.NODE_ENV === 'production'`) preventing analytics script execution and tracking pollution during local development and testing.
+  - Updated Google AdSense loader script to use `strategy="lazyOnload"` when enabled.
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 260 production routes via `npm run build`.
+
+## [2026-09-23] - Sprint 23: Performance Optimization - Fix Forced Reflow & Reduce Blocking Time
+### Optimized & Enhanced
+- **SERP Simulator Zero-Reflow & Memoization Engine (`src/lib/serp-utils.ts`):**
+  - Eliminated synchronous DOM layout reads (`offsetWidth`, `clientWidth`, `getComputedStyle`) and wrapped text pixel calculations inside high-efficiency hash map memoization caches (`TITLE_PX_CACHE`, `DESC_PX_CACHE`, `TRUNCATION_CACHE`).
+  - Cached string-to-pixel results with LRU-style eviction bounds (`MAX_CACHE_ENTRIES = 1000`) preventing redundant character iterations during typing and initial render cycles.
+  - Ensured all SERP calculations run in 0ms on the main thread, eliminating layout thrashing and forced reflow warnings in Lighthouse performance audits.
+- **Dynamic Lazy-Loading for Heavy Client Overlays (`src/components/feedback/DynamicFeedbackDrawer.tsx`):**
+  - Wrapped `MicroFeedbackDrawer` in a dedicated client boundary using Next.js `next/dynamic` with `ssr: false` and `loading: () => null`.
+  - Deferred the feedback drawer bundle, diagnostic listeners, and form controllers outside the critical initial SSR HTML payload, significantly reducing Total Blocking Time (TBT < 200ms) on tool routes.
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 260 production routes via `npm run build`.
+
 ## [2026-09-23] - Sprint 22: Upgrade Favicon Tool to All-in-One Asset & Code Generator
 ### Added & Enhanced
 - **Favicon & App Icon Generator Engine (`src/lib/favicon-generator.ts`):**

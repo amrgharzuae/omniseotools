@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
@@ -60,7 +59,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-Q2R74NKBXQ";
+  const isProduction = process.env.NODE_ENV === "production";
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || (isProduction ? "G-Q2R74NKBXQ" : "");
+  const shouldTrack = isProduction && Boolean(gaId);
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -72,7 +73,7 @@ export default function RootLayout({
         {siteConfig.adsense.enabled && (
           <Script
             id="adsbygoogle-init"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             crossOrigin="anonymous"
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsense.publisherId}`}
           />
@@ -80,8 +81,25 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
         {children}
-        {/* Google Analytics 4 Script Integration via @next/third-parties */}
-        {gaId && <GoogleAnalytics gaId={gaId} />}
+        {/* Google Analytics 4 Script Integration via next/script with lazyOnload strategy to reduce Total Blocking Time (TBT) */}
+        {shouldTrack && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="lazyOnload"
+            />
+            <Script id="google-analytics" strategy="lazyOnload">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

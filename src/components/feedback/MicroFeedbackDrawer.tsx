@@ -476,3 +476,5 @@ export function MicroFeedbackDrawer() {
     </>
   );
 }
+
+export default MicroFeedbackDrawer;

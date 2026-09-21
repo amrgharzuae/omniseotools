@@ -39,6 +39,7 @@ import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator"
 import { FaviconGeneratorTool } from "@/components/tools/developer/FaviconGeneratorTool";
 import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
+import { ArabicUrlDecoder } from "@/components/tools/ArabicUrlDecoder";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -211,6 +212,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "favicon-meta-generator" || tool.slug === "favicon-generator" ? (
               <FaviconGeneratorTool toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "arabic-url-decoder" || tool.slug === "arabic-decoder" ? (
+              <ArabicUrlDecoder toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

@@ -24,41 +24,84 @@ const CHAR_WIDTH_14PX_ARIAL: Record<string, number> = {
   " ": 4, "-": 5, "|": 4, ":": 4, ";": 4, ".": 4, ",": 4, "!": 4, "?": 8, "(": 5, ")": 5, "/": 4, "&": 10, "%": 13, "+": 8
 };
 
+// High-performance memoization caches for zero-reflow execution
+const TITLE_PX_CACHE = new Map<string, number>();
+const DESC_PX_CACHE = new Map<string, number>();
+const TRUNCATION_CACHE = new Map<string, { text: string; truncated: boolean }>();
+const MAX_CACHE_ENTRIES = 1000;
+
 export function calculateTitlePixels(text: string): number {
   if (!text) return 0;
+  const cached = TITLE_PX_CACHE.get(text);
+  if (cached !== undefined) return cached;
+
   let total = 0;
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
     total += CHAR_WIDTH_20PX_ARIAL[char] || 11;
   }
+
+  if (TITLE_PX_CACHE.size >= MAX_CACHE_ENTRIES) {
+    TITLE_PX_CACHE.clear();
+  }
+  TITLE_PX_CACHE.set(text, total);
   return total;
 }
 
 export function calculateDescPixels(text: string): number {
   if (!text) return 0;
+  const cached = DESC_PX_CACHE.get(text);
+  if (cached !== undefined) return cached;
+
   let total = 0;
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
     total += CHAR_WIDTH_14PX_ARIAL[char] || 7.5;
   }
-  return Math.round(total);
+  const result = Math.round(total);
+
+  if (DESC_PX_CACHE.size >= MAX_CACHE_ENTRIES) {
+    DESC_PX_CACHE.clear();
+  }
+  DESC_PX_CACHE.set(text, result);
+  return result;
 }
 
+export function truncateToPixels(
+  text: string,
+  maxPx: number,
+  isTitle = true
+): { text: string; truncated: boolean } {
+  if (!text) return { text: "", truncated: false };
 
-export function truncateToPixels(text: string, maxPx: number, isTitle = true): { text: string; truncated: boolean } {
+  const cacheKey = `${isTitle ? "t" : "d"}:${maxPx}:${text}`;
+  const cached = TRUNCATION_CACHE.get(cacheKey);
+  if (cached) return cached;
+
   const calc = isTitle ? calculateTitlePixels : calculateDescPixels;
   if (calc(text) <= maxPx) {
-    return { text, truncated: false };
+    const res = { text, truncated: false };
+    if (TRUNCATION_CACHE.size >= MAX_CACHE_ENTRIES) TRUNCATION_CACHE.clear();
+    TRUNCATION_CACHE.set(cacheKey, res);
+    return res;
   }
+
   let current = "";
   for (let i = 0; i < text.length; i++) {
     const next = current + text[i];
     if (calc(next + " ...") > maxPx) {
-      return { text: current.trim() + " ...", truncated: true };
+      const res = { text: current.trim() + " ...", truncated: true };
+      if (TRUNCATION_CACHE.size >= MAX_CACHE_ENTRIES) TRUNCATION_CACHE.clear();
+      TRUNCATION_CACHE.set(cacheKey, res);
+      return res;
     }
     current = next;
   }
-  return { text: current.trim() + " ...", truncated: true };
+
+  const res = { text: current.trim() + " ...", truncated: true };
+  if (TRUNCATION_CACHE.size >= MAX_CACHE_ENTRIES) TRUNCATION_CACHE.clear();
+  TRUNCATION_CACHE.set(cacheKey, res);
+  return res;
 }
 
 export interface CtrTip {
