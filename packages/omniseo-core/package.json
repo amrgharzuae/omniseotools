@@ -1,6 +1,6 @@
 {
   "name": "omniseo-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lightweight client-side utility for SERP pixel measurements, Open Graph tag generation, and Flesch-Kincaid readability scoring.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
