@@ -51,7 +51,7 @@ export function generateToolSchema({
 export function generateFAQSchema(
   faqs?: FAQItem[]
 ): Record<string, any> | null {
-  if (!faqs || faqs.length === 0) {
+  if (!faqs || !Array.isArray(faqs) || faqs.length === 0) {
     return null;
   }
 
@@ -69,13 +69,67 @@ export function generateFAQSchema(
   };
 }
 
+export interface TechArticleSchemaParams {
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  author: {
+    name: string;
+    role?: string;
+  };
+  canonicalUrl: string;
+  tags?: string[];
+}
+
+/**
+ * Generates Schema.org TechArticle structured data for technical blog posts
+ */
+export function generateTechArticleSchema({
+  headline,
+  description,
+  datePublished,
+  dateModified,
+  author,
+  canonicalUrl,
+  tags,
+}: TechArticleSchemaParams): Record<string, any> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline,
+    description,
+    datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      "@type": "Person",
+      name: author?.name || "OmniSEO Engineering Team",
+      ...(author?.role ? { jobTitle: author.role } : {}),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "OmniSEO Tools",
+      url: "https://omniseotools.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://omniseotools.com/icon.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    ...(Array.isArray(tags) && tags.length > 0 ? { keywords: tags.join(", ") } : {}),
+  };
+}
+
 /**
  * Generates Schema.org BreadcrumbList structured data with 1-based sequential positioning
  */
 export function generateBreadcrumbSchema(
   items: BreadcrumbItem[]
 ): Record<string, any> | null {
-  if (!items || items.length === 0) {
+  if (!items || !Array.isArray(items) || items.length === 0) {
     return null;
   }
 

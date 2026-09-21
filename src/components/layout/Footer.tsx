@@ -179,17 +179,10 @@ export function Footer() {
               </span>
               <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
                 <Link
-                  href="/privacy-policy"
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  href="/blog"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold text-emerald-600 dark:text-emerald-400 transition-colors"
                 >
-                  Privacy Policy
-                </Link>
-                <span>•</span>
-                <Link
-                  href="/terms"
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
-                  Terms
+                  Blog & Guides
                 </Link>
                 <span>•</span>
                 <Link
@@ -197,6 +190,20 @@ export function Footer() {
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
                   About
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/privacy-policy"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
+                  Privacy
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/terms"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
+                  Terms
                 </Link>
               </div>
             </div>

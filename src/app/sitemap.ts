@@ -1,11 +1,13 @@
 import { MetadataRoute } from "next";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
+import { getAllPosts } from "@/lib/blog";
 
 const BASE_URL = "https://omniseotools.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const blogPosts = getAllPosts();
 
   // 1. Homepage
   const homePage: MetadataRoute.Sitemap = [
@@ -62,7 +64,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // 5. Legal & Compliance Informational Pages
+  // 5. Technical Blog Directory & Static Articles
+  const blogPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    ...blogPosts.map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.date),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  // 6. Legal & Compliance Informational Pages
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/privacy-policy`,
@@ -89,8 +107,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...toolPages,
     ...platformPages,
     ...programmaticPlatformPages,
+    ...blogPages,
     ...legalPages,
   ];
 }
-
-

@@ -57,7 +57,7 @@ export const openGraphPreviewTool: ToolDefinition = {
       },
       {
         "heading": "The Golden Image Standard: 1200x630 Pixels (1.91:1 Aspect Ratio)",
-        "content": "<p>The single most important technical requirement for social cards is image sizing. All major platforms optimize for a <strong>1.91:1 aspect ratio</strong>:</p><ul><li><strong>Recommended Resolution:</strong> <code>1200 x 630 pixels</code> (Minimum <code>600 x 315 pixels</code>).</li><li><strong>File Size Limit:</strong> Keep images under 5MB (under 1MB recommended for fast crawler response).</li><li><strong>Supported Formats:</strong> PNG, JPG, WebP, and static GIF.</li><li><strong>Safety Padding:</strong> Keep essential text and logos centered within the inner 1000x500px safe zone to prevent edge cropping on mobile feeds.</li></ul>",
+        "content": "<p>The single most important technical requirement for social cards is image sizing. All major platforms optimize for a <strong>1.91:1 aspect ratio</strong>:</p><ul><li><strong>Recommended Resolution:</strong> <code>1200 x 630 pixels</code> (Minimum <code>600 x 315 pixels</code>).</li><li><strong>File Size Limit:</strong> Keep images under 5MB (under 1MB recommended for fast crawler response).</li><li><strong>Supported Formats:</strong> PNG, JPG, WebP, and static GIF.</li><li><strong>Safety Padding:</strong> Keep essential text and logos centered within the inner 1000x500px safe zone to prevent edge cropping on mobile feeds.</li></ul><p>Facing aspect ratio clipping on social feeds? Read our guide: <a href='/blog/fixing-linkedin-discord-og-image-cropping' class='text-emerald-600 dark:text-emerald-400 underline font-semibold'>Why Your Open Graph Image Crops on LinkedIn &amp; Discord (And How to Fix It)</a>.</p>",
         "keyTakeaways": [
           "Always design featured social graphics at 1200x630px.",
           "Avoid placing logos or crucial text near the outer 10% edges.",
@@ -87,7 +87,7 @@ export const openGraphPreviewTool: ToolDefinition = {
   "faqs": [
     {
       "question": "What is the best image size for OpenGraph and Twitter cards in 2026?",
-      "answer": "The recommended image resolution is 1200 x 630 pixels (1.91:1 aspect ratio). This standard resolution displays crisply across Twitter (X), Facebook, LinkedIn, Discord, and iMessage without clipping."
+      "answer": "The recommended image resolution is 1200 x 630 pixels (1.91:1 aspect ratio). This standard resolution displays crisply across Twitter (X), Facebook, LinkedIn, Discord, and iMessage without clipping. Facing aspect ratio clipping? Read our guide: <a href='/blog/fixing-linkedin-discord-og-image-cropping' class='text-emerald-600 dark:text-emerald-400 underline font-medium'>Why Your Open Graph Image Crops on LinkedIn &amp; Discord (And How to Fix It)</a>."
     },
     {
       "question": "What is the difference between summary and summary_large_image for Twitter?",

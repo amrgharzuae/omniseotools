@@ -100,6 +100,13 @@ export function Header() {
               {cat.name}
             </Link>
           ))}
+
+          <Link
+            href="/blog"
+            className="px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+          >
+            Blog
+          </Link>
         </nav>
 
         {/* Right Action Buttons */}
@@ -139,6 +146,13 @@ export function Header() {
             className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Explore All Tools
+          </Link>
+          <Link
+            href="/blog"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-900"
+          >
+            Engineering Blog
           </Link>
 
           {/* Mobile Categories */}

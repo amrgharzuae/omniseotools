@@ -1,0 +1,242 @@
+---
+title: "Why Your Open Graph Image Crops on LinkedIn & Discord (And How to Fix It in Next.js)"
+description: "Resolve social preview image clipping, 1.91:1 vs 1:1 aspect ratio mismatches, CORS edge canvas timeouts, and configure dynamic Next.js App Router metadata."
+date: "2026-09-21"
+author:
+  name: "OmniSEO Engineering"
+  role: "Technical SEO & Core Infrastructure"
+tags: ["Next.js", "Open Graph", "Social SEO", "TypeScript", "Debugging"]
+readingTime: "6 min read"
+featuredTool: "open-graph-meta-generator"
+---
+
+When shipping a web application or content hub, few things are as frustrating as deploying a custom-designed social share banner only to see it awkwardly cropped on LinkedIn, stretched on Twitter/X, or condensed into a distorted thumbnail square on Discord.
+
+Social platforms do not parse your `<meta property="og:image">` tags identically. While Facebook, Twitter, and LinkedIn share the standard **1.91:1 landscape aspect ratio (1200 × 630 pixels)**, other platforms like Discord, WhatsApp, and iMessage apply dynamic heuristics based on image dimensions, file size budgets, and cached user-agent scraping rules.
+
+In this deep-dive guide, we will uncover the exact root causes of social image cropping, establish a universal "Safe Zone" canvas template, and implement dynamic, automated `@vercel/og` image generation in the Next.js App Router.
+
+<ToolCallout 
+  toolSlug="open-graph-meta-generator" 
+  title="Test Your Live URL in the Sandbox" 
+  description="Inspect multi-platform crawlers and see real-time render simulations across Twitter, LinkedIn, Facebook, and Discord." 
+  actionText="Launch Social Preview Sandbox" 
+/>
+
+---
+
+## Section 1: The Multi-Platform Aspect Ratio Trap
+
+Every crawler relies on its own rendering engine to display link cards in user feeds. Here is the canonical breakdown of how major platforms parse Open Graph images:
+
+| Platform | Card Mode | Render Dimensions | Expected Ratio | Fallback Behavior |
+| :--- | :--- | :--- | :--- | :--- |
+| **LinkedIn** | Native Feed Banner | `1200 × 627 px` | `1.91:1` | Centers & crops 24px top/bottom margins |
+| **Twitter / X** | `summary_large_image` | `1200 × 630 px` | `1.91:1` / `16:9` | Crops horizontal edges; defaults to `summary` if < 300px |
+| **Facebook** | Large Preview Card | `1200 × 630 px` | `1.91:1` | Center crops; minimum requirement is `200 × 200 px` |
+| **Discord** | Embed Card Banner | `1200 × 630 px` | `1.91:1` | Flips to square thumbnail if ratio is < 1.5:1 |
+| **Slack** | Inline Unfurl Card | `1200 × 630 px` | `1.91:1` | Displays inline expandable card preview |
+
+### The Universal Safe Zone Rule
+
+LinkedIn's crawler enforces an internal viewport of **1200 × 627 pixels**, while Twitter and Facebook expect **1200 × 630 pixels**. When you upload a standard 16:9 graphic (`1920 × 1080` or `1200 × 675`), LinkedIn calculates a vertical offset and slices **24 pixels directly off the top and bottom**.
+
+To guarantee 100% visibility across all social scrapers, always design on a **1200 × 630 canvas** and confine all critical typography, logos, and UI elements to the inner safe content area (**960 × 504 pixels** for ultra-safe cross-platform delivery, inside the **1080 × 510 pixel 10% buffer zone**).
+
+<SafeZoneDiagram />
+
+> **The 10% Safe Margin Formula:** Always generate Open Graph images at **1200 × 630 pixels**, and preserve 60px buffer margins on the top and bottom boundaries so your **960 × 504 core message area** is never clipped.
+
+---
+
+## Section 2: Dynamic Next.js App Router Setup
+
+In the Next.js App Router, you can export a type-safe `generateMetadata` function that provides explicit image dimensions to search engine scrapers:
+
+```typescript
+import type { Metadata } from "next";
+
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const canonicalUrl = `https://omniseotools.com/blog/${slug}`;
+  const ogImageUrl = `https://omniseotools.com/blog/${slug}/opengraph-image`;
+
+  return {
+    title: "Why Your Open Graph Image Crops on LinkedIn & Discord | OmniSEO",
+    description: "Resolve social preview image clipping, 1.91:1 vs 1:1 aspect ratio mismatches, and configure dynamic Next.js App Router metadata.",
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: "Why Your Open Graph Image Crops on LinkedIn & Discord",
+      description: "Fix common social media preview image bugs with 1.91:1 safe zone guidelines.",
+      url: canonicalUrl,
+      siteName: "OmniSEO Tools",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Open Graph Safe Zone Guide",
+          type: "image/png",
+        },
+      ],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Why Your Open Graph Image Crops on LinkedIn & Discord",
+      description: "Master the 1.91:1 aspect ratio and Next.js App Router dynamic metadata.",
+      images: [ogImageUrl],
+    },
+  };
+}
+```
+
+---
+
+## Section 3: The Silent Culprit: Missing Image Content-Type Headers
+
+Many social crawlers (notably LinkedIn and Discord bot user-agents) will drop your image preview entirely if the remote server fails to return explicit binary MIME headers or takes longer than **3 seconds** to respond.
+
+Here is an enterprise-grade Edge route handler using `@vercel/og` that sets explicit `image/png` content-types and aggressive caching:
+
+```typescript
+import { ImageResponse } from "next/og";
+
+export const runtime = "edge";
+export const alt = "Technical Article Preview";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          backgroundColor: "#020617",
+          backgroundImage: "linear-gradient(135deg, #020617 0%, #0B0F19 50%, #111827 100%)",
+          padding: "60px 70px",
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        {/* Top Header Badge */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div
+            style={{
+              backgroundColor: "#10b981",
+              color: "#ffffff",
+              padding: "6px 16px",
+              borderRadius: 9999,
+              fontSize: 16,
+              fontWeight: 700,
+              textTransform: "uppercase",
+            }}
+          >
+            Engineering Guide
+          </div>
+          <span style={{ color: "#94a3b8", fontSize: 18 }}>
+            omniseotools.com/blog
+          </span>
+        </div>
+
+        {/* Central Safe-Zone Headline */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <h1
+            style={{
+              fontSize: 52,
+              fontWeight: 900,
+              color: "#ffffff",
+              lineHeight: 1.15,
+              margin: 0,
+            }}
+          >
+            Why Your Open Graph Image Crops on Social Media
+          </h1>
+          <p style={{ fontSize: 22, color: "#94a3b8", margin: 0 }}>
+            Master the 1.91:1 aspect ratio, safe margin padding, and Next.js App Router dynamic metadata.
+          </p>
+        </div>
+
+        {/* Footer Attribution */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderTop: "1px solid #1e293b",
+            paddingTop: 24,
+          }}
+        >
+          <span style={{ color: "#10b981", fontWeight: 700, fontSize: 20 }}>
+            OmniSEO Tools
+          </span>
+          <span style={{ color: "#64748b", fontSize: 16 }}>
+            100% Free Developer Utilities
+          </span>
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+      headers: {
+        "content-type": "image/png",
+        "cache-control": "public, max-age=31536000, immutable",
+      },
+    }
+  );
+}
+```
+
+---
+
+## Section 4: Lateral Tool Bridges
+
+Accelerate your social workflow with zero-latency browser utilities:
+
+<ToolCallout 
+  toolSlug="twitter-card-previewer" 
+  title="Validate Twitter & Large Card Formats" 
+  description="Inspect raw response headers and ensure summary_large_image matches pixel bounds." 
+  actionText="Open Twitter Card Validator" 
+/>
+
+<ToolCallout 
+  toolSlug="campaign-utm-builder" 
+  title="Tag Your Social Distribution Links" 
+  description="Track referral traffic from Discord, LinkedIn, and Twitter directly in GA4 with clean parameters." 
+  actionText="Generate Campaign UTM Links" 
+/>
+
+---
+
+## Section 5: Frequently Asked Technical Questions
+
+<FaqAccordion 
+  title="Frequently Asked Technical Questions"
+  items={[
+    {
+      question: "Why does LinkedIn show a grey fallback box instead of my Open Graph image?",
+      answer: "LinkedIn displays a grey box if the remote image server takes longer than <strong>3 seconds</strong> to respond (common with cold serverless functions), if the image dimensions are below <strong>200 x 200 pixels</strong>, or if the server response lacks a valid <code>image/*</code> Content-Type header."
+    },
+    {
+      question: "Why is SVG not supported for Open Graph social media cards?",
+      answer: "Social media crawlers (LinkedIn, Twitter, Facebook, Discord) do not execute full browser JavaScript or vector rendering engines inside their scraper sandboxes. SVG vectors can also contain arbitrary scripts, presenting a security risk. Crawlers only accept binary raster formats: <strong>PNG, JPG, or WebP</strong>."
+    },
+    {
+      question: "How do I force LinkedIn, Twitter, and Discord to bust cached preview images?",
+      answer: "Social platforms cache scraped images for <strong>7 to 30 days</strong>. To force an immediate refresh: (1) Use the official <a href='https://www.linkedin.com/post-inspector/' target='_blank' rel='noopener noreferrer' class='text-emerald-600 dark:text-emerald-400 font-semibold underline'>LinkedIn Post Inspector</a> to re-scrape; (2) In Discord, append a unique query parameter to your link (e.g. <code>https://example.com/post?v=2</code>) which Discord treats as a distinct cache key."
+    }
+  ]}
+/>

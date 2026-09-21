@@ -853,6 +853,21 @@ export function MetaTagGenerator({
                   <span>{cropToast.message}</span>
                 </div>
               )}
+
+              {/* Contextual Deep Dive Guide Link */}
+              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 text-[11px] text-slate-600 dark:text-slate-300">
+                <Sparkles className="h-4 w-4 text-indigo-500 shrink-0" />
+                <p className="leading-snug">
+                  Facing aspect ratio clipping on social feeds? Read our guide:{" "}
+                  <Link
+                    href="/blog/fixing-linkedin-discord-og-image-cropping"
+                    className="text-indigo-600 dark:text-indigo-400 font-semibold underline hover:text-indigo-700 dark:hover:text-indigo-300"
+                  >
+                    Why Your Open Graph Image Crops on LinkedIn &amp; Discord (And How to Fix It)
+                  </Link>
+                  .
+                </p>
+              </div>
             </div>
 
             {/* Site Name & OG Type */}

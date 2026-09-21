@@ -62,11 +62,12 @@ export const utmCampaignBuilderTool: ToolDefinition = {
       },
       {
         heading: "Best Practices for Clean Campaign Tracking",
-        content: "<p>Because web URLs and analytics platforms are strictly case-sensitive, inconsistent naming will fracture your analytics data into fragmented duplicate rows:</p><ul><li><strong>Always Enforce Lowercase:</strong> <code>utm_source=Facebook</code>, <code>utm_source=facebook</code>, and <code>utm_source=FACEBOOK</code> create three separate reporting rows in GA4. Always enforce all-lowercase values.</li><li><strong>Use Hyphens or Underscores Instead of Spaces:</strong> Spaces in parameters get converted into messy <code>%20</code> escape strings. Standardize on hyphens (<code>summer-sale</code>) or underscores (<code>summer_sale</code>).</li><li><strong>Avoid Duplicate Tracking:</strong> Do not append manual UTM parameters if an ad platform already injects native auto-tagging (such as Google Ads GCLID) unless your CRM requires fallback parameter parsing.</li><li><strong>Never Use UTM Parameters on Internal Links:</strong> Adding UTM parameters to internal site links (e.g., homepage banners) resets the visitor's original acquisition session and destroys multi-touch attribution.</li></ul>",
+        content: "<p>Because web URLs and analytics platforms are strictly case-sensitive, inconsistent naming will fracture your analytics data into fragmented duplicate rows:</p><ul><li><strong>Always Enforce Lowercase:</strong> <code>utm_source=Facebook</code>, <code>utm_source=facebook</code>, and <code>utm_source=FACEBOOK</code> create three separate reporting rows in GA4. Always enforce all-lowercase values.</li><li><strong>Use Hyphens or Underscores Instead of Spaces:</strong> Spaces in parameters get converted into messy <code>%20</code> escape strings. Standardize on hyphens (<code>summer-sale</code>) or underscores (<code>summer_sale</code>).</li><li><strong>Avoid Duplicate Tracking:</strong> Do not append manual UTM parameters if an ad platform already injects native auto-tagging (such as Google Ads GCLID) unless your CRM requires fallback parameter parsing.</li><li><strong>Never Use UTM Parameters on Internal Links:</strong> Adding UTM parameters to internal site links (e.g., homepage banners) resets the visitor's original acquisition session and destroys multi-touch attribution.</li></ul><p>Running a Next.js or React SPA? Avoid attribution loss caused by client-side navigation. Read our engineering breakdown: <a href='/blog/why-ga4-strips-utm-parameters-spa' class='text-emerald-600 dark:text-emerald-400 font-semibold underline'>Why GA4 Strips UTM Parameters on SPA Route Transitions</a>.</p>",
         keyTakeaways: [
           "Always enforce lowercase parameters across all marketing teams.",
           "Standardize delimiters: use hyphens or underscores, never spaces.",
           "Never place UTM tags on internal navigation or internal banners.",
+          "Prevent SPA client transitions from stripping UTM query strings before analytics tags fire."
         ],
       },
     ],
@@ -80,7 +81,7 @@ export const utmCampaignBuilderTool: ToolDefinition = {
     {
       question: "How does GA4 record UTM parameters?",
       answer:
-        "When a visitor lands on a website via a link with UTM parameters, Google Analytics 4 automatically extracts utm_source, utm_medium, utm_campaign, utm_term, and utm_content from the URL string. GA4 matches these values against its Default Channel Grouping regex rules (e.g., mapping utm_medium=cpc to Paid Search or utm_medium=email to Email) and records them in session-scoped and user-scoped attribution dimensions.",
+        "When a visitor lands on a website via a link with UTM parameters, Google Analytics 4 automatically extracts utm_source, utm_medium, utm_campaign, utm_term, and utm_content from the URL string. GA4 matches these values against its Default Channel Grouping regex rules (e.g., mapping utm_medium=cpc to Paid Search or utm_medium=email to Email) and records them in session-scoped and user-scoped attribution dimensions. Learn how to prevent SPA client transitions from stripping these parameters in our guide: <a href='/blog/why-ga4-strips-utm-parameters-spa' class='text-emerald-600 dark:text-emerald-400 font-semibold underline'>Why GA4 Strips UTM Parameters on SPA Route Transitions</a>.",
     },
     {
       question: "Can I shorten campaign URLs safely?",

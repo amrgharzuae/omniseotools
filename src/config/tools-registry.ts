@@ -91,7 +91,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
       },
       {
         question: "How do I clear Twitter's cached preview for an updated URL?",
-        answer: "Twitter caches metadata aggressively for up to 7 days. To force an immediate refresh, append a unique versioning query parameter to your link (e.g., https://yoursite.com/page?v=2026) or compose a draft tweet with the URL in TweetDeck / X Web Composer to trigger a fresh Twitterbot crawl."
+        answer: "Twitter caches metadata aggressively for up to 7 days. To force an immediate refresh, append a unique versioning query parameter to your link (e.g., https://yoursite.com/page?v=2026) or compose a draft tweet with the URL in TweetDeck / X Web Composer to trigger a fresh Twitterbot crawl. Learn how edge response times and aspect ratios impact social scrapers in our <a href=\"/blog/fixing-linkedin-discord-og-image-cropping\" class=\"text-emerald-600 dark:text-emerald-400 font-semibold underline\">Open Graph &amp; Twitter Card Debugging Guide</a>."
       }
     ]
   },
@@ -926,7 +926,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
       },
       {
         question: "What is the optimal size for an og:image?",
-        answer: "The recommended resolution is 1200 x 630 pixels (a 1.91:1 aspect ratio) with a file size under 5MB. This guarantees crisp rendering on high-resolution mobile and desktop displays."
+        answer: "The recommended resolution is 1200 x 630 pixels (a 1.91:1 aspect ratio) with a file size under 5MB. This guarantees crisp rendering on high-resolution mobile and desktop displays. Facing aspect ratio clipping on social feeds? Read our guide: <a href=\"/blog/fixing-linkedin-discord-og-image-cropping\" class=\"text-emerald-600 dark:text-emerald-400 font-semibold underline\">Why Your Open Graph Image Crops on LinkedIn &amp; Discord (And How to Fix It)</a>."
       },
       {
         question: "Should I include canonical tags alongside Open Graph tags?",

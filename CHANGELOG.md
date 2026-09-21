@@ -1,5 +1,83 @@
 # Changelog
 
+## [2026-09-22] - Sprint 20: Blog Post #2 - Why GA4 Strips UTM Parameters on SPA Route Transitions
+### Added & Enhanced
+- **Second Production Technical Blog Post (`src/content/blog/why-ga4-strips-utm-parameters-spa.mdx`):**
+  - Published comprehensive technical tracking guide: *"Why GA4 Strips UTM Parameters on SPA Route Transitions (And How to Fix It)"*.
+  - Frontmatter configured with type-safe metadata (`title`, `description`, `date: "2026-09-22"`, `author`, `tags`, `readingTime: "7 min read"`, `featuredTool: "campaign-utm-builder"`).
+  - Diagnostic breakdown explaining the client-side navigation race condition between premature `router.replace()` URL sanitization and asynchronous GA4 Enhanced Measurement `page_view` dispatch.
+  - Comparative vulnerability matrix evaluating Next.js App Router, Astro View Transitions, Remix/React Router v7, and Nuxt 3.
+  - Battle-tested TypeScript Client Component (`UtmSessionPersister.tsx`) capturing inbound UTM keys into `sessionStorage` and pushing attribution to Google Tag Manager / `dataLayer`.
+  - GA4 / GTM configuration recipes showing how to construct session-aware `page_location` overrides.
+  - Embedded primary `<ToolCallout />` for Campaign UTM Builder and lateral bridges for Open Graph Meta Generator and Google SERP Simulator.
+  - Interactive FAQ Accordion (`<FaqAccordion />`) explaining session-scoped attribution persistence, `router.replace()` mechanics, and `sessionStorage` vs cookie trade-offs.
+- **Bidirectional Reverse Conversion Feedback Loop:**
+  - **Campaign UTM Builder (`src/app/(site)/tools/marketing/utm-campaign-builder/components/ToolContent.tsx` & `src/config/tools/marketing/utm-campaign-builder.ts`):**
+    - Added prominent SPA client routing attribution alert box in the Best Practices section: *"Running a Next.js or React SPA? Avoid attribution loss caused by client-side navigation. Read our engineering breakdown: [Why GA4 Strips UTM Parameters on SPA Route Transitions](/blog/why-ga4-strips-utm-parameters-spa)."*
+    - Added dedicated Engineering Deep Dive card in the related utilities grid.
+    - Updated tool registry `editorialGuide` and `faqs` linking directly to the new guide.
+- **Sitemap & Build Verification:**
+  - Prerendered SSG route `/blog/why-ga4-strips-utm-parameters-spa` automatically indexed in `src/app/sitemap.ts` (`priority: 0.8`).
+  - Confirmed 0 TypeScript errors and 100% clean SSG generation across all 259 production routes via `npm run build`.
+
+## [2026-09-21] - Sprint 19.2: Seed Pilot Blog Post & Establish Tool Feedback Loop
+### Added & Enhanced
+- **First Production Technical Blog Post (`src/content/blog/fixing-linkedin-discord-og-image-cropping.mdx`):**
+  - Published in-depth technical post: *"Why Your Open Graph Image Crops on LinkedIn & Discord (And How to Fix It in Next.js)"* targeting diagnostic queries.
+  - Features exact frontmatter (`title`, `description`, `date`, `author`, `tags`, `readingTime: "6 min read"`, `featuredTool: "open-graph-meta-generator"`).
+  - Embedded primary `<ToolCallout />` widget for live Open Graph sandbox testing.
+  - Multi-platform aspect ratio comparison matrix (LinkedIn, Twitter/X, Facebook, Discord, Slack) and visual `<SafeZoneDiagram />` explaining 10% / 60px buffer margin and 960x504 critical content area.
+  - Production TypeScript Next.js 15 App Router `generateMetadata` implementation with explicit pixel bounds (`width: 1200`, `height: 630`).
+  - Edge route `@vercel/og` ImageResponse code snippet with explicit binary MIME types (`image/png`) and immutable `Cache-Control` headers.
+  - Lateral tool bridges embedding `<ToolCallout />` widgets for Twitter Card Previewer (`twitter-card-previewer`) and Campaign UTM Builder (`campaign-utm-builder`).
+  - FAQ Accordion with Schema.org `FAQPage` compliance addressing LinkedIn grey fallback boxes, SVG limitations, and cache-busting query versioning.
+- **Bidirectional Reverse Conversion Feedback Loop (Tools -> Blog):**
+  - **Open Graph Meta Generator (`src/components/tools/developer/MetaTagGenerator.tsx`, `src/config/tools-registry.ts`, `src/config/tools/social/open-graph-preview.ts`, `ToolContent.tsx`):**
+    - Added contextual "Deep Dive Guide" card beneath image inputs and in tool registry FAQs: *"Facing aspect ratio clipping on social feeds? Read our guide: [Why Your Open Graph Image Crops on LinkedIn & Discord (And How to Fix It)](/blog/fixing-linkedin-discord-og-image-cropping)."*
+  - **Twitter Card Previewer (`src/config/tools-registry.ts`):**
+    - Added contextual reference link in cache-busting FAQ: *"Learn how edge response times and aspect ratios impact social scrapers in our [Open Graph & Twitter Card Debugging Guide](/blog/fixing-linkedin-discord-og-image-cropping)."*
+- **Sitemap & Build Verification:**
+  - Automated SSG registration of `/blog/fixing-linkedin-discord-og-image-cropping` in `src/app/sitemap.ts`.
+  - Confirmed 0 TypeScript errors and 100% clean SSG generation across all 258 production routes via `npm run build`.
+
+## [2026-09-21] - Sprint 19.1: Fix MDX Prose Typography & Safe Zone Diagram Architecture
+### Fixed & Enhanced
+- **Safe Zone Interactive Visual Diagram (`src/components/blog/SafeZoneDiagram.tsx`):**
+  - Replaced ASCII text diagram with a responsive, high-contrast visual canvas component showcasing the 1200x630 pixel canvas, 1.91:1 aspect ratio, 60px top/bottom buffer margins, and the central 1080x510 critical content safe zone.
+  - Added platform compatibility indicators (LinkedIn 1200x627, Twitter Large Card 1.91:1, Facebook 1200x630, Discord >1.5:1).
+- **MDX Prose Typography & Layout Engine (`src/components/blog/MDXComponents.tsx`):**
+  - Created centralized `MDXComponents` mapping for continuous, unbroken typography flow inside `@tailwindcss/typography` (`prose prose-slate dark:prose-invert max-w-none`).
+  - Standardized code fences so `<pre>` containers are exclusively utilized for genuine code snippets (with copy actions and language badges), preventing markdown text boxes from being misrendered as code blocks.
+  - Styled semantic elements: responsive table wrappers with horizontal scroll safety (`table`, `thead`, `th`, `td`) and styled blockquotes (`blockquote`).
+- **Pilot Editorial Content Refinement (`src/content/blog/fixing-linkedin-discord-og-image-cropping.mdx`):**
+  - Updated pilot article to embed `<SafeZoneDiagram />` and standard TypeScript code blocks for fluid reading experience.
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 258 production routes via `npm run build`.
+
+## [2026-09-21] - Sprint 19: Zero-Maintenance Static MDX Blog Infrastructure & TechArticle Schema
+### Added
+- **Static MDX Content Engine (`src/lib/blog.ts`):**
+  - Zero-database, statically generated (SSG) developer blog layer utilizing `gray-matter` for type-safe frontmatter extraction, `reading-time` for automated reading length calculation, and Next.js App Router dynamic route compilation.
+  - Implemented `getAllPosts()`, `getPostBySlug()`, and `getAllPostSlugs()` with chronological sorting and defensive frontmatter fallbacks.
+- **Interactive Embedded MDX Components:**
+  - `src/components/blog/ToolCallout.tsx`: High-converting sandbox launcher card embedded in technical guides with direct 1-click links to `/tools/[slug]`.
+  - `src/components/blog/CodeBlock.tsx`: Syntax-styled pre/code block with filename indicator, language badges, and 1-click clipboard copy feedback.
+  - `src/components/blog/FaqAccordion.tsx`: Accessible interactive Q&A accordion automatically injecting valid Schema.org `FAQPage` JSON-LD structured data.
+- **Route & Layout Implementation:**
+  - **Blog Index Directory (`src/app/(site)/blog/page.tsx`):** Developer-focused index listing published articles with reading time badges, author metadata, topic tags, and XML sitemap link.
+  - **Single Article Route (`src/app/(site)/blog/[slug]/page.tsx`):** Prerendered SSG page with `@tailwindcss/typography` styling (`prose prose-slate dark:prose-invert`), author bio card, and contextual programmatic tool CTAs.
+  - **Dynamic Edge Social Cards (`src/app/(site)/blog/[slug]/opengraph-image.tsx`):** Edge-rendered `ImageResponse` (`@vercel/og`) dynamically generating 1200x630 branded social cards for article sharing.
+- **Structured Data Automation (`src/lib/schema-generator.ts`):**
+  - Added `generateTechArticleSchema()` producing valid Schema.org `TechArticle` structured data (`headline`, `description`, `datePublished`, `dateModified`, `author`, `publisher`, `mainEntityOfPage`, `keywords`).
+  - Integrated composite `TechArticle` + `BreadcrumbList` schemas across all article routes.
+- **Initial Pilot Article (`src/content/blog/fixing-linkedin-discord-og-image-cropping.mdx`):**
+  - Published comprehensive technical guide: *"Why Your Open Graph Image Crops on LinkedIn & Discord (And How to Fix It in Next.js)"* covering aspect ratio thresholds (1.91:1 vs 1:1), 60px safe margin rules, Next.js 15 App Router `ImageResponse` code examples, cache invalidation workflows, and embedded interactive tool callouts.
+- **Sitemap & Navigation Integration:**
+  - Updated `src/app/sitemap.ts` to automatically index `/blog` (`priority: 0.8`) and all static `/blog/[slug]` articles (`priority: 0.8, changeFrequency: 'weekly'`).
+  - Added direct links to "Blog" in desktop navigation, mobile drawer (`Header.tsx`), and global directory grid (`Footer.tsx`).
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 258 production routes via `npm run build`.
+
 ## [2026-09-20] - Sprint 18: Dynamic SVG Audit Badge Endpoint & Markdown/HTML Embed Drawer
 ### Added
 - **Dynamic Vector SVG Badge API Endpoint (`src/app/api/badge/route.ts`):**

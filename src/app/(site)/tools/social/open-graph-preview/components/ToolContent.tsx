@@ -621,6 +621,40 @@ export default function Page() {
               </Link>
             </div>
           </div>
+
+          {/* Linked Card: Engineering Deep Dive Blog Post */}
+          <div className="md:col-span-2 rounded-3xl border border-indigo-500/30 bg-gradient-to-br from-indigo-50/40 via-white to-slate-50 dark:from-indigo-950/20 dark:via-slate-900/60 dark:to-slate-950 p-6 space-y-4 shadow-sm hover:border-indigo-500 transition-all group">
+            <div className="flex items-center justify-between">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                <FileCode className="h-5 w-5" />
+              </div>
+              <span className="rounded-md bg-indigo-100 dark:bg-indigo-950/80 px-2.5 py-0.5 text-xs font-bold text-indigo-700 dark:text-indigo-300">
+                Engineering Guide
+              </span>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                Why Your Open Graph Image Crops on LinkedIn &amp; Discord (And How to Fix It)
+              </h3>
+              <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Facing aspect ratio clipping on social feeds? Learn why LinkedIn crops 24px off 16:9 images, master the 1.91:1 safe zone formula, and implement dynamic Next.js App Router metadata generation.
+              </p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-[11px] font-mono text-indigo-600 dark:text-indigo-400 font-semibold">
+                /blog/fixing-linkedin-discord-og-image-cropping
+              </span>
+              <Link
+                href="/blog/fixing-linkedin-discord-og-image-cropping"
+                className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-0.5 transition-transform"
+              >
+                <span>Read Full Engineering Guide</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </article>
