@@ -2198,27 +2198,30 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 20. Favicon Meta Generator
+  // 20. Favicon & App Icon Generator
   {
     id: "favicon-meta-generator",
     slug: "favicon-meta-generator",
-    name: "Favicon Meta Tag Generator",
-    title: "Favicon & PWA App Icon Meta Generator (All Devices)",
-    metaTitle: "Favicon & PWA App Icon Meta Generator (All Devices)",
-    metaDescription: "Generate complete favicon links, Apple Touch Icons, Web App Manifests, and theme colors for all browsers, iOS, Android, and Windows.",
-    h1: "Favicon & Web App Icon Meta Generator",
-    tagline: "Generate comprehensive favicon links, Apple Touch Icons, Web App Manifests, and theme colors for all browsers.",
-    shortDescription: "Generate complete favicon, Apple touch icon, Android PWA manifest, and Windows tile HTML meta tag bundles.",
+    name: "Favicon & App Icon Generator",
+    title: "Favicon & App Icon Generator (All Devices & Modern PWAs)",
+    metaTitle: "Favicon & App Icon Generator — Convert Images to Web Icons & PWA Manifests",
+    metaDescription: "Upload any PNG, JPG, or SVG image to generate 16x16, 32x32, Apple Touch Icons (180x180), Android PWA icons (192x192, 512x512), and downloadable .zip asset bundles with instant HTML & Next.js App Router code.",
+    h1: "Favicon & App Icon Generator",
+    tagline: "Upload a single high-resolution image to resize, package, and generate complete favicon asset bundles, PWA manifests, and multi-framework code.",
+    shortDescription: "Generate multi-size favicons, Apple Touch icons, Android PWA manifests, and downloadable .zip packages with 1-click HTML & Next.js code exports.",
     category: "developer",
     icon: "Sparkles",
-    badge: "New",
+    badge: "Updated",
     keywords: [
-      "favicon meta generator",
+      "favicon generator",
+      "app icon generator",
+      "favicon zip bundle generator",
       "apple touch icon generator",
       "favicon html generator",
       "pwa manifest icon tags",
       "theme-color meta generator",
-      "website favicon tags builder"
+      "website favicon tags builder",
+      "nextjs favicon generator"
     ],
     status: "active",
     featured: true,

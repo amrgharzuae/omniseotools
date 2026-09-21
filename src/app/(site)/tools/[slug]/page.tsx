@@ -36,6 +36,7 @@ import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
 import { UtmCampaignBuilderTool } from "@/components/tools/marketing/UtmCampaignBuilderTool";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
+import { FaviconGeneratorTool } from "@/components/tools/developer/FaviconGeneratorTool";
 import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
@@ -208,6 +209,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <KeywordDensity />
             ) : tool.slug === "open-graph-meta-generator" ? (
               <MetaTagGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "favicon-meta-generator" || tool.slug === "favicon-generator" ? (
+              <FaviconGeneratorTool toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}
