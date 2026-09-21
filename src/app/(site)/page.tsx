@@ -22,6 +22,7 @@ import {
   Lock,
   Code2,
   HelpCircle,
+  Languages,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -39,6 +40,7 @@ const ICON_MAP: Record<string, any> = {
   Code2: Code2,
   SlidersHorizontal,
   Globe,
+  Languages,
   Lock,
   Layers,
   Sparkles,

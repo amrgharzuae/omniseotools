@@ -22,7 +22,8 @@ import {
   TrendingUp,
   FileText,
   Layers,
-  Wrench
+  Wrench,
+  Languages,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -39,6 +40,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Code2,
   SlidersHorizontal,
   Globe,
+  Languages,
   Lock,
   Layers,
   Sparkles,

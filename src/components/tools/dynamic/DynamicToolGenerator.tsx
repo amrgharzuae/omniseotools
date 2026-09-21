@@ -161,7 +161,7 @@ export const viewport: Viewport = {
     }
 
     // 4. Hreflang Tag Generator
-    if (tool.slug === "hreflang-tag-generator") {
+    if (tool.slug === "hreflang-tag-generator" || tool.slug === "hreflang-tags-generator") {
       const defaultUrl = s.defaultUrl || "https://example.com/";
       const enUrl = s.enUrl || "https://example.com/en/";
       const esUrl = s.esUrl || "https://example.com/es/";

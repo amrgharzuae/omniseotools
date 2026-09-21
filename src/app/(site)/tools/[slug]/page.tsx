@@ -14,6 +14,8 @@ import {
   Link2,
   Type,
   BarChart3,
+  Globe,
+  Languages,
 } from "lucide-react";
 import { getProgrammaticToolBySlug, getAllProgrammaticTools, getToolsByCategory } from "@/config/tools-registry";
 import { CATEGORIES, getCategoryBySlug } from "@/config/categories";
@@ -49,6 +51,9 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Link2,
   Type,
   BarChart3,
+  Globe,
+  Languages,
+  Sparkles,
 };
 
 interface ToolPageProps {
