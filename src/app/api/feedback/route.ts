@@ -187,11 +187,59 @@ export async function POST(request: NextRequest) {
     // 4. Dispatch via Webhook if FEEDBACK_WEBHOOK_URL is configured
     if (process.env.FEEDBACK_WEBHOOK_URL) {
       try {
-        await fetch(process.env.FEEDBACK_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(feedbackRecord),
-        });
+        const isDiscord = process.env.FEEDBACK_WEBHOOK_URL.includes("discord.com/api/webhooks");
+
+        if (isDiscord) {
+          const categoryColors = {
+            bug: 15680324, // Red (#ef4444)
+            feature: 3899126, // Blue (#3b82f6)
+            general: 1096065, // Emerald (#10b981)
+          };
+
+          const discordPayload = {
+            username: "OmniSEO Feedback Bot",
+            avatar_url: "https://omniseotools.com/icon.png",
+            embeds: [
+              {
+                title: "New Feedback Received: " + feedbackRecord.category.toUpperCase(),
+                color: categoryColors[feedbackRecord.category] || 7041400,
+                description: feedbackRecord.message,
+                fields: [
+                  { name: "Page URL", value: feedbackRecord.pageUrl || "N/A", inline: false },
+                  { name: "Reporter Email", value: feedbackRecord.email || "Anonymous", inline: true },
+                  { name: "Tool Slug", value: feedbackRecord.diagnostics?.toolSlug || "None", inline: true },
+                  { name: "Screen Resolution", value: feedbackRecord.diagnostics?.screenResolution || "Unknown", inline: true },
+                  ...(feedbackRecord.diagnostics?.errorStack
+                    ? [{ name: "Error Stack", value: feedbackRecord.diagnostics.errorStack.slice(0, 1000), inline: false }]
+                    : []),
+                ],
+                footer: { text: "OmniSEO Diagnostics • " + new Date().toISOString() },
+              },
+            ],
+          };
+
+          const res = await fetch(process.env.FEEDBACK_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(discordPayload),
+          });
+
+          if (!res.ok) {
+            console.error("Discord Webhook dispatch failed:", res.status, await res.text());
+          }
+        } else {
+          // Standard raw JSON payload fallback for generic webhooks
+          const res = await fetch(process.env.FEEDBACK_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(feedbackRecord),
+          });
+
+          if (!res.ok) {
+            console.error("[Feedback API] Generic Webhook dispatch failed:", res.status, await res.text());
+          }
+        }
+
         dispatchedVia = dispatchedVia === "resend" ? "resend+webhook" : "webhook";
       } catch (webhookErr) {
         console.error("[Feedback API] Webhook dispatch failed:", webhookErr);

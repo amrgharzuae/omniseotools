@@ -1,5 +1,23 @@
 # Changelog
 
+## [2026-09-23] - Sprint 21.1: Fix Discord Webhook Payload Formatting & Enhance Form Validation
+### Fixed & Enhanced
+- **Discord-Compliant Webhook Embed Dispatcher (`src/app/api/feedback/route.ts`):**
+  - Added auto-detection for Discord webhook endpoints (`FEEDBACK_WEBHOOK_URL` containing `discord.com/api/webhooks`).
+  - Structured rich Discord embeds with category-coded hex colors (`bug: 15680324 (#ef4444)`, `feature: 3899126 (#3b82f6)`, `general: 1096065 (#10b981)`).
+  - Included detailed diagnostic fields: Page URL, Reporter Email, Tool Slug, Screen Resolution, and truncated Error Stack Trace (up to 1,000 chars) with bot username and avatar branding.
+  - Added error response logging (`console.error("Discord Webhook dispatch failed:", res.status, await res.text())`) on non-200 webhook status codes.
+  - Maintained raw JSON payload forwarding fallback for generic non-Discord endpoints.
+- **Micro-Feedback Drawer Character Count & Validation UI (`src/components/feedback/MicroFeedbackDrawer.tsx`):**
+  - Integrated real-time character validation state: `trimmedLength = message.trim().length` and `isValid = trimmedLength >= 5 && trimmedLength <= 2000`.
+  - Added visual text helper indicator beneath the message textarea:
+    - `0/5`: `"Minimum 5 characters required (0/5)"` (`text-zinc-500 text-xs`).
+    - `1-4/5`: `"Minimum 5 characters required (N/5)"` (`text-amber-500 text-xs font-medium`).
+    - `5-2000`: `"N/2000 characters"` (`text-zinc-400 text-xs`).
+  - Enforced button disable state (`disabled={!isValid || isSubmitting}`) with `disabled:opacity-50 disabled:cursor-not-allowed transition-opacity` styling and client-side guard in `handleSubmit`.
+- **Build Verification:**
+  - Verified 0 TypeScript compilation errors and 100% clean SSG generation across all 260 production routes via `npm run build`.
+
 ## [2026-09-23] - Sprint 21: Platform Health, Component Error Boundaries & Micro-Feedback System
 ### Added & Enhanced
 - **Resilient Component-Level Error Boundaries (`src/components/common/ToolErrorBoundary.tsx`):**

@@ -139,10 +139,13 @@ export function MicroFeedbackDrawer() {
     }, 300);
   };
 
+  const trimmedLength = message.trim().length;
+  const isValid = trimmedLength >= 5 && trimmedLength <= 2000;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim().length < 5) {
-      setErrorMessage("Please enter at a least 5 characters in your message.");
+    if (!isValid) {
+      setErrorMessage("Please enter at least 5 characters in your message.");
       return;
     }
 
@@ -341,14 +344,9 @@ export function MicroFeedbackDrawer() {
 
                   {/* Message Field */}
                   <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                        Message <span className="text-rose-500">*</span>
-                      </label>
-                      <span className="text-[10px] font-mono text-slate-400">
-                        {message.length} / 2000
-                      </span>
-                    </div>
+                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                      Message <span className="text-rose-500">*</span>
+                    </label>
                     <textarea
                       required
                       rows={4}
@@ -358,6 +356,23 @@ export function MicroFeedbackDrawer() {
                       maxLength={2000}
                       className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none leading-relaxed"
                     />
+                    <div className="flex items-center justify-between">
+                      {trimmedLength === 0 && (
+                        <span className="text-zinc-500 text-xs">
+                          Minimum 5 characters required (0/5)
+                        </span>
+                      )}
+                      {trimmedLength > 0 && trimmedLength < 5 && (
+                        <span className="text-amber-500 text-xs font-medium">
+                          Minimum 5 characters required ({trimmedLength}/5)
+                        </span>
+                      )}
+                      {trimmedLength >= 5 && (
+                        <span className="text-zinc-400 text-xs">
+                          {trimmedLength}/2000 characters
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Optional Email */}
@@ -432,8 +447,8 @@ export function MicroFeedbackDrawer() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={isSubmitting || message.trim().length < 5}
-                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white py-3 text-xs font-bold shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
+                    disabled={!isValid || isSubmitting}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity text-white py-3 text-xs font-bold shadow-md shadow-emerald-500/20 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>
