@@ -1,5 +1,29 @@
 # Changelog
 
+## [2026-09-23] - Sprint 27: Build & Reposition Bulk Canonical Normalizer & Auditor (Tool #27)
+### Added & Enhanced
+- **Bulk Canonical Normalizer & Auditor Engine (`src/components/tools/technical/CanonicalTagGenerator.tsx`):**
+  - Built and repositioned an interactive, zero-latency 100% client-side bulk canonical URL normalizer and hygiene audit engine targeting distinct bulk SEO search intents without cannibalizing `/tools/canonical-url-builder`.
+  - **Batch-First Processing & Live Normalization Engine:**
+    - Default **Batch Mode** supporting bulk input for up to 25 URLs simultaneously with interactive audit table, row-level status diagnostics, 1-click **"Copy All Canonicals"**, and **"Export CSV (Excel BOM)"** download.
+    - Single URL mode with live normalization, modification diff summary, and hygiene score meter.
+  - **Comprehensive Normalization & SEO Hygiene Rules:**
+    - Automated Tracking Parameter Stripping removing 35+ marketing/ad keys (`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`, `ttclid`, `twclid`, `yclid`, `mc_eid`, `ref`, `source`, `sessionid`, etc.).
+    - Enforce Lowercase Path rule normalising uppercase directory and file paths to prevent duplicate content variations.
+    - Configurable Trailing Slash Policy (Enforce Trailing Slash, Remove Trailing Slash, or Keep Original) ignoring file extensions.
+    - Force HTTPS Protocol upgrade and optional WWW subdomain policy.
+    - Automated URL Hash / Fragment (`#section`) stripping.
+    - Root Pagination cleaner (`?p=1`, `?page=1`, `/page/1/` &rarr; canonical root).
+  - **Sticky Output & Real-Time Preview Panel:**
+    - Multi-format code generation: HTML5 `<link rel="canonical" href="..." />`, RFC 5988 HTTP `Link` response header (for PDF whitepapers and documents), Next.js 14/15 App Router `Metadata.alternates.canonical` TypeScript export, and Nginx / Apache server header configs.
+    - Prominent Live Hygiene Audit Banner evaluating batch-wide and single URL completeness scores (0–100), flagging relative URLs, non-HTTPS protocols, remaining query strings, and listing all automated transformations applied.
+    - 1-click **"Copy Snippet"** with animated feedback tooltip, 1-click **"Download Text"**, and direct link to Google Rich Results test.
+- **Dedicated Route & Registry Integration:**
+  - Registered `canonicalTagGeneratorTool` (`#27`) in `src/config/tools-registry.ts` under Technical SEO as "Bulk Canonical Normalizer & Auditor".
+  - Created dedicated client tool page at `src/app/(site)/tools/canonical-tag-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/canonical-tag-generator`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 27 tools.
+
 ## [2026-09-23] - Sprint 26: Build Article & BlogPosting Schema Generator (Tool #26)
 ### Added & Enhanced
 - **Article & BlogPosting Schema Generator Engine (`src/components/tools/technical/ArticleSchemaGenerator.tsx`):**

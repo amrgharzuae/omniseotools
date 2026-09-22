@@ -46,6 +46,7 @@ import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { ArabicUrlDecoder } from "@/components/tools/ArabicUrlDecoder";
 import { RobotsTxtGeneratorValidator } from "@/components/tools/technical/RobotsTxtGeneratorValidator";
 import { ArticleSchemaGenerator } from "@/components/tools/technical/ArticleSchemaGenerator";
+import { CanonicalTagGenerator } from "@/components/tools/technical/CanonicalTagGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -229,6 +230,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <RobotsTxtGeneratorValidator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "article-schema-generator" || tool.slug === "blogposting-schema-generator" ? (
               <ArticleSchemaGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "canonical-tag-generator" || tool.slug === "canonical-url-auditor" || tool.slug === "canonical-url-builder" ? (
+              <CanonicalTagGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

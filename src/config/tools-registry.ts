@@ -6,6 +6,7 @@ import { arabicUrlDecoderTool } from "./tools/marketing/arabic-url-decoder";
 import { hreflangTagsGeneratorTool } from "./tools/international/hreflang-tags-generator";
 import { robotsTxtGeneratorValidatorTool } from "./tools/technical/robots-txt-generator-validator";
 import { articleSchemaGeneratorTool } from "./tools/technical/article-schema-generator";
+import { canonicalTagGeneratorTool } from "./tools/technical/canonical-tag-generator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -1107,11 +1108,11 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 12. Canonical Tag Generator
+  // 12. Canonical URL Builder
   {
-    id: "canonical-tag-generator",
-    slug: "canonical-tag-generator",
-    name: "Canonical Tag Generator",
+    id: "canonical-url-builder",
+    slug: "canonical-url-builder",
+    name: "Canonical URL Builder",
     title: "Canonical URL Tag Generator (Duplicate Content Fixer)",
     metaTitle: "Canonical URL Tag Generator (Duplicate Content Fixer)",
     metaDescription: "Generate clean rel=\"canonical\" link tags and Next.js alternates metadata to eliminate duplicate content issues and consolidate SEO signals.",
@@ -2337,7 +2338,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 25. Robots.txt Generator & Validator
   robotsTxtGeneratorValidatorTool,
   // 26. Article & BlogPosting Schema Generator
-  articleSchemaGeneratorTool
+  articleSchemaGeneratorTool,
+  // 27. Canonical Tag Generator & Auditor
+  canonicalTagGeneratorTool
 ];
 
 // Helper Query Methods
@@ -2387,6 +2390,14 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "article-schema-jsonld"
   ) {
     return articleSchemaGeneratorTool;
+  }
+  if (
+    normalized === "canonical-tag-generator" ||
+    normalized === "canonical-url-auditor" ||
+    normalized === "canonical-tag-auditor" ||
+    normalized === "canonical-generator"
+  ) {
+    return canonicalTagGeneratorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

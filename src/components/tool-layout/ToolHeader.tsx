@@ -28,7 +28,7 @@ export function ToolHeader({ tool }: ToolHeaderProps) {
 
         <div className="flex flex-wrap items-center gap-3 mb-3">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {tool.name}
+            {tool.h1 || tool.name}
           </h1>
           {tool.badge && (
             <span className="inline-flex items-center gap-1 rounded-md bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">
@@ -39,7 +39,7 @@ export function ToolHeader({ tool }: ToolHeaderProps) {
         </div>
 
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
-          {tool.shortDescription}
+          {tool.tagline || tool.shortDescription}
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400">
