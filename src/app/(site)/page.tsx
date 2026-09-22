@@ -25,6 +25,8 @@ import {
   Languages,
   Bot,
   FileCode,
+  FileText,
+  Newspaper,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -45,6 +47,8 @@ const ICON_MAP: Record<string, any> = {
   Languages,
   Bot,
   FileCode,
+  FileText,
+  Newspaper,
   Lock,
   Layers,
   Sparkles,

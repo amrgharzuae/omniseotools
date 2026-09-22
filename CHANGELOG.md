@@ -1,5 +1,27 @@
 # Changelog
 
+## [2026-09-23] - Sprint 26: Build Article & BlogPosting Schema Generator (Tool #26)
+### Added & Enhanced
+- **Article & BlogPosting Schema Generator Engine (`src/components/tools/technical/ArticleSchemaGenerator.tsx`):**
+  - Built a 100% client-side, zero-latency Schema.org structured data generator for Google-compliant `Article`, `BlogPosting`, and `NewsArticle` JSON-LD markup.
+  - **Interactive Visual Builder & Configuration:**
+    - Subtype selector toggling between `BlogPosting` (tutorials, essays & blog posts), `Article` (general publications), and `NewsArticle` (journalism, top stories eligibility).
+    - Core metadata manager: Headline with real-time character counter and 40–110 optimal character indicators, Canonical URL with HTTPS assertion, description excerpt, section taxonomy, and ISO 639-1 language tags.
+    - Google-recommended multi-aspect ratio image manager (16:9 banner, 4:3 card, 1:1 square) with 1-click auto-fill from primary hero image.
+    - ISO 8601 date controller with "Set to Today" and "Sync with Published" shortcut actions.
+    - E-E-A-T Author entity builder supporting `Person` and `Organization` typing, author bio/profile URLs, and job title expertise signals.
+    - Publisher entity manager asserting publisher name, website URL, and logo ImageObject requirements for Google Discover and Top Stories eligibility.
+    - Quick-start 1-click presets: "Tech Blog Post", "News Publication", and "Company Announcement".
+  - **Sticky Output & Real-Time Preview Panel:**
+    - Real-time formatted code outputs: Raw HTML `<script type="application/ld+json">`, Next.js App Router TypeScript component (`dangerouslySetInnerHTML`), and interactive SERP rich snippet simulation card with thumbnail previews and author byline.
+    - Live validation status banner computing a 0–100 completeness score with itemized diagnostics checklist (green/amber/red indicators).
+    - 1-click **"Copy Snippet"** with animated feedback tooltip, 1-click **"Download JSON"**, and direct **"Validate with Google"** action opening the Rich Results Test tool.
+- **Dedicated Route & Registry Integration:**
+  - Registered `articleSchemaGeneratorTool` (`#26`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/article-schema-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/article-schema-generator`) and programmatic platform permutations.
+  - Updated global tool counter badges, sitemaps, and directories to 26 tools.
+
 ## [2026-09-23] - Sprint 25: Build Robots.txt Generator & Validator Web Interface (Tool #25)
 ### Added & Enhanced
 - **Robots.txt Generator & Live Syntax Validator Engine (`src/components/tools/technical/RobotsTxtGeneratorValidator.tsx`):**

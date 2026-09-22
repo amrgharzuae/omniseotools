@@ -26,6 +26,7 @@ import {
   Languages,
   Bot,
   FileCode,
+  Newspaper,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -50,6 +51,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Sparkles,
   TrendingUp,
   FileText,
+  Newspaper,
   Wrench,
 };
 
