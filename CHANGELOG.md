@@ -1,5 +1,33 @@
 # Changelog
 
+## [2026-09-23] - Sprint 25: Build Robots.txt Generator & Validator Web Interface (Tool #25)
+### Added & Enhanced
+- **Robots.txt Generator & Live Syntax Validator Engine (`src/components/tools/technical/RobotsTxtGeneratorValidator.tsx`):**
+  - Built an interactive, zero-latency dual-mode REP / RFC 9309 generator and syntax validator powered by `omniseo-core` (`parseRobotsTxt`, `validateRobotsTxt`, `generateRobotsTxt`).
+  - **Mode A (Visual Rule Builder):**
+    - Multi-Rule User-agent block builder with add/remove rule block controls.
+    - Quick user-agent chip suggestions (`*`, `Googlebot`, `Bingbot`, `GPTBot`, `ClaudeBot`, `AhrefsBot`, `SemrushBot`, `Applebot-Extended`, `Bytespider`).
+    - Granular Disallow and Allow path managers with instant add/remove controls and preset chips (`/admin/`, `/private/`, `/api/`, `/checkout/`, `/cart/`, `/*.pdf$`).
+    - Numeric Crawl-Delay input with crawler compatibility tooltips.
+    - Full XML Sitemap and canonical Host directive managers.
+    - 1-click preset templates: "Allow All", "Disallow All (Staging Lock)", "Block Bad Bots", "Allow Googlebot Only", "Standard Web", "Block AI Scrapers".
+  - **Mode B (Syntax Validator & Tester):**
+    - Raw robots.txt editor with sample template loaders and live linting against RFC 9309 standards.
+    - Live multi-tier status badge: Green (Valid), Amber (Warnings/Non-standard directives), Red (Errors).
+    - Line-by-line diagnostic feedback panel displaying exact line numbers and actionable fix suggestions.
+    - "Import into Visual Builder" action to seamlessly deserialize raw text into builder state.
+    - **Interactive Live Path Tester:** 0ms simulation testing whether target URLs are permitted or blocked for specific user-agents with matching directive explanations.
+  - **Sticky Output & Preview Panel:**
+    - Real-time syntax-highlighted code output with line numbering.
+    - 1-click **"Copy Code"** with animated feedback tooltip.
+    - 1-click **"Download .txt"** file export triggering standard `robots.txt` download.
+    - Integrated `EmbedBadgeModal` and URL state permalink sharing.
+- **Dedicated Route & Registry Integration:**
+  - Registered `robotsTxtGeneratorValidatorTool` (`#25`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/robots-txt-generator-validator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/robots-txt-generator-validator`) and all 8 programmatic platform permutations (`/tools/robots-txt-generator-validator/[platformSlug]`).
+  - Updated global tool counter badges and directories to 25 tools.
+
 ## [2026-09-23] - Sprint 24: Build Arabic & UTF-8 URL Decoder & Parameter Extractor
 ### Added & Enhanced
 - **Arabic & UTF-8 URL Decoder Engine (`src/components/tools/ArabicUrlDecoder.tsx`):**

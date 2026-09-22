@@ -103,7 +103,7 @@ export default function BlogIndexPage() {
                 className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-all"
               >
                 <Terminal className="h-3.5 w-3.5" />
-                <span>All 22+ Tools</span>
+                <span>All 25 Tools</span>
               </Link>
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function BlogIndexPage() {
               href="/tools"
               className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow transition-all"
             >
-              <span>Explore All 22+ Utilities</span>
+              <span>Explore All 25 Utilities</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

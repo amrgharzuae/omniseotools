@@ -16,6 +16,8 @@ import {
   BarChart3,
   Globe,
   Languages,
+  Bot,
+  FileCode,
 } from "lucide-react";
 import { getProgrammaticToolBySlug, getAllProgrammaticTools, getToolsByCategory } from "@/config/tools-registry";
 import { CATEGORIES, getCategoryBySlug } from "@/config/categories";
@@ -42,6 +44,7 @@ import { FaviconGeneratorTool } from "@/components/tools/developer/FaviconGenera
 import { ReadabilityCalculator } from "@/components/tools/content/ReadabilityCalculator";
 import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { ArabicUrlDecoder } from "@/components/tools/ArabicUrlDecoder";
+import { RobotsTxtGeneratorValidator } from "@/components/tools/technical/RobotsTxtGeneratorValidator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -53,6 +56,8 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   BarChart3,
   Globe,
   Languages,
+  Bot,
+  FileCode,
   Sparkles,
 };
 
@@ -219,6 +224,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <FaviconGeneratorTool toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "arabic-url-decoder" || tool.slug === "arabic-decoder" ? (
               <ArabicUrlDecoder toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "robots-txt-generator-validator" || tool.slug === "robots-validator" ? (
+              <RobotsTxtGeneratorValidator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

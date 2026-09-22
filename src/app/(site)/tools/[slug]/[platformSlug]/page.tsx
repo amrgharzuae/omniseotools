@@ -2,7 +2,11 @@ import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight, Sparkles, CheckCircle2, Server } from "lucide-react";
+import { ChevronRight, Sparkles, CheckCircle2, Server, Globe,
+  Languages,
+  Bot,
+  FileCode,
+} from "lucide-react";
 import {
   getAllProgrammaticTools,
   getProgrammaticToolBySlug,
@@ -21,10 +25,11 @@ import {
 } from "@/lib/schema-generator";
 import { PlatformGuide } from "@/components/platform/PlatformGuide";
 import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
+import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { PlatformSwitcher } from "@/components/platform/PlatformSwitcher";
+import { PlatformCodeBlock } from "@/components/platform/PlatformCodeBlock";
 import { PlatformAffiliateSlot } from "@/components/platform/PlatformAffiliateSlot";
 import { ComparisonMatrix } from "@/components/seo/ComparisonMatrix";
-import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
 
 // Interactive Tool Components
@@ -35,6 +40,7 @@ import { KeywordDensity } from "@/components/tools/content/KeywordDensity";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
 import { FaviconGeneratorTool } from "@/components/tools/developer/FaviconGeneratorTool";
 import { ArabicUrlDecoder } from "@/components/tools/ArabicUrlDecoder";
+import { RobotsTxtGeneratorValidator } from "@/components/tools/technical/RobotsTxtGeneratorValidator";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
@@ -249,6 +255,8 @@ export default async function PlatformToolPage({
               <FaviconGeneratorTool toolSlug={tool.slug} toolName={tool.name} platform={platform} />
             ) : tool.slug === "arabic-url-decoder" || tool.slug === "arabic-decoder" ? (
               <ArabicUrlDecoder toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "robots-txt-generator-validator" || tool.slug === "robots-validator" ? (
+              <RobotsTxtGeneratorValidator toolSlug={tool.slug} toolName={tool.name} platform={platform} />
             ) : tool.slug === "open-graph-preview" ? (
               <SocialPreviewer defaultPlatform="twitter" toolSlug={tool.slug} toolName={tool.name} />
             ) : (

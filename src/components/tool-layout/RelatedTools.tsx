@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ToolDefinition } from "@/types/tool";
 import { getAllTools } from "@/config/tools-registry";
-import { Sparkles, ArrowRight, Eye, Share2, ShieldAlert, Link2, Type, BarChart3, FileText, Code2 } from "lucide-react";
+import { Sparkles, ArrowRight, Eye, Share2, ShieldAlert, Link2, Type, BarChart3, FileText, Code2, Globe, Languages, Bot, FileCode } from "lucide-react";
 
 interface RelatedToolsProps {
   currentTool: ToolDefinition;
@@ -17,6 +17,11 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   BarChart3,
   FileText,
   Code2,
+  Globe,
+  Languages,
+  Bot,
+  FileCode,
+  Sparkles,
 };
 
 export function RelatedTools({ currentTool }: RelatedToolsProps) {

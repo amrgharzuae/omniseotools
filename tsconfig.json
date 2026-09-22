@@ -25,6 +25,12 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "omniseo-core": [
+        "./packages/omniseo-core/src/index.ts"
+      ],
+      "omniseo-core/*": [
+        "./packages/omniseo-core/src/*"
       ]
     }
   },

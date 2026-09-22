@@ -27,14 +27,19 @@ import {
   Globe,
   Lock,
   HelpCircle,
+  Languages,
+  Bot,
+  FileCode,
 } from "lucide-react";
 import {
+  PLATFORMS_REGISTRY,
   getAllPlatforms,
   getPlatformBySlug,
 } from "@/config/platforms-registry";
 import {
-  getAllProgrammaticTools,
   TOOLS_REGISTRY,
+  getAllProgrammaticTools,
+  getToolsByCategory,
 } from "@/config/tools-registry";
 import { siteConfig } from "@/config/site";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -42,9 +47,12 @@ import {
   generateBreadcrumbSchema,
   generateFAQSchema,
 } from "@/lib/schema-generator";
+import { PlatformSwitcher } from "@/components/platform/PlatformSwitcher";
 import { PlatformCodeBlock } from "@/components/platform/PlatformCodeBlock";
-import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
 import { PlatformAffiliateSlot } from "@/components/platform/PlatformAffiliateSlot";
+import { PlatformGuide } from "@/components/platform/PlatformGuide";
+import { PlatformFAQ } from "@/components/platform/PlatformFAQ";
+import { ComparisonMatrix } from "@/components/seo/ComparisonMatrix";
 import { AdSlot } from "@/components/ads/AdSlot";
 
 interface PlatformPageProps {
@@ -64,6 +72,9 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Code2,
   SlidersHorizontal,
   Globe,
+  Languages,
+  Bot,
+  FileCode,
   Lock,
   Layers,
   HelpCircle,

@@ -4,6 +4,7 @@ import { openGraphPreviewTool } from "./tools/social/open-graph-preview";
 import { utmCampaignBuilderTool } from "./tools/marketing/utm-campaign-builder";
 import { arabicUrlDecoderTool } from "./tools/marketing/arabic-url-decoder";
 import { hreflangTagsGeneratorTool } from "./tools/international/hreflang-tags-generator";
+import { robotsTxtGeneratorValidatorTool } from "./tools/technical/robots-txt-generator-validator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2331,7 +2332,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 23. Arabic & UTF-8 URL Decoder
   arabicUrlDecoderTool,
   // 24. Hreflang & Multi-Language Tag Generator
-  hreflangTagsGeneratorTool
+  hreflangTagsGeneratorTool,
+  // 25. Robots.txt Generator & Validator
+  robotsTxtGeneratorValidatorTool
 ];
 
 // Helper Query Methods
@@ -2366,6 +2369,13 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "hreflang-generator"
   ) {
     return hreflangTagsGeneratorTool;
+  }
+  if (
+    normalized === "robots-txt-generator-validator" ||
+    normalized === "robots-validator" ||
+    normalized === "robots-txt-validator"
+  ) {
+    return robotsTxtGeneratorValidatorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
