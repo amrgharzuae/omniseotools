@@ -49,6 +49,7 @@ import { ArticleSchemaGenerator } from "@/components/tools/technical/ArticleSche
 import { CanonicalTagGenerator } from "@/components/tools/technical/CanonicalTagGenerator";
 import { XmlSitemapGenerator } from "@/components/tools/technical/XmlSitemapGenerator";
 import { RedirectRuleGenerator } from "@/components/tools/technical/RedirectRuleGenerator";
+import { OgImageSafeZonePreviewer } from "@/components/tools/social/OgImageSafeZonePreviewer";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -238,6 +239,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <XmlSitemapGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "redirect-rule-generator" || tool.slug === "redirect-generator" || tool.slug === "regex-redirect-generator" ? (
               <RedirectRuleGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "open-graph-image-safe-zone" || tool.slug === "og-image-safe-zone" || tool.slug === "social-image-safe-zone" ? (
+              <OgImageSafeZonePreviewer toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

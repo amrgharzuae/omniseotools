@@ -1,5 +1,33 @@
 # Changelog
 
+## [2026-09-23] - Sprint 30: Build OG & Twitter Card Image Safe-Zone Previewer (Tool #30)
+### Added & Enhanced
+- **OG & Twitter Card Image Safe-Zone Previewer Engine (`src/components/tools/social/OgImageSafeZonePreviewer.tsx`):**
+  - Built an interactive, zero-latency 100% client-side image safe-zone simulator, aspect ratio validator, and multi-platform card previewer.
+  - **Interactive Image Ingestion & Resolution Diagnostics:**
+    - Drag-and-drop file upload zone, local file picker (PNG, JPEG, WebP, SVG, AVIF, GIF), sample image preset loader, and remote URL loader via CORS image proxy fallback.
+    - Real-time resolution, aspect ratio (1.91:1, 2:1, 1:1, etc.), and file size analyzers with visual status badges (Green / Amber / Red warnings for low-res < 1200x630 or heavy payloads > 5MB).
+    - Image transform controls: Zoom slider (50%–250%), horizontal/vertical pan offset adjustments (-50% to +50%), and fit mode toggles (Cover vs. Contain).
+  - **Safe-Zone Overlay & Grid Guides:**
+    - 60px safe margin buffer overlay highlighting the critical 1080x510 central safe zone to prevent text truncation across mobile cards.
+    - Rule of Thirds alignment grid toggle for visual balance and focal point composition.
+    - Simulated mobile app UI overlays (close buttons, share pills, bottom navigation chrome, author avatars) across iOS and Android client viewports.
+    - Desktop vs. Mobile viewport toggles.
+  - **Multi-Platform Preview Suite:**
+    - **Facebook Post:** 1.91:1 banner (1200x630) with simulated link card title, snippet, and domain footer.
+    - **Twitter / X Card Large:** `summary_large_image` (1200x600 / 2:1 and 1200x630 / 1.91:1) card with headline overlay and rounded corners.
+    - **Twitter / X Card Small:** `summary` (1:1 / 600x600) square thumbnail layout with side-by-side title and metadata.
+    - **LinkedIn Feed:** 1200x627 layout highlighting LinkedIn's subtle top/bottom vertical crop behavior.
+    - **WhatsApp / Messenger:** Chat bubble link attachment mockup with compressed thumbnail preview.
+  - **Export & Download Suite:**
+    - 1-click **"Download 1200x630 (PNG)"** and **"Download 1200x630 (WebP)"** canvas renderers with center cropping, zoom/pan transforms, and high-DPI scaling.
+    - Integrated `EmbedBadgeModal` for developer distribution and organic backlinks.
+- **Dedicated Route & Registry Integration:**
+  - Registered `ogImageSafeZoneTool` (`#30`) in `src/config/tools-registry.ts` under Social Media.
+  - Created dedicated client tool page at `src/app/(site)/tools/open-graph-image-safe-zone/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/open-graph-image-safe-zone`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 30 tools.
+
 ## [2026-09-23] - Sprint 29: Build Redirect Rule & Regex Mapper (Tool #29)
 ### Added & Enhanced
 - **Redirect Rule & Regex Mapper Engine (`src/components/tools/technical/RedirectRuleGenerator.tsx`):**

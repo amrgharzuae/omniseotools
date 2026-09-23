@@ -9,6 +9,7 @@ import { articleSchemaGeneratorTool } from "./tools/technical/article-schema-gen
 import { canonicalTagGeneratorTool } from "./tools/technical/canonical-tag-generator";
 import { xmlSitemapGeneratorTool } from "./tools/technical/xml-sitemap-generator";
 import { redirectRuleGeneratorTool } from "./tools/technical/redirect-rule-generator";
+import { ogImageSafeZoneTool } from "./tools/social/open-graph-image-safe-zone";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2346,7 +2347,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 28. XML Sitemap Generator & Validator
   xmlSitemapGeneratorTool,
   // 29. Redirect Rule & Regex Mapper
-  redirectRuleGeneratorTool
+  redirectRuleGeneratorTool,
+  // 30. OG & Twitter Card Image Safe-Zone Previewer
+  ogImageSafeZoneTool
 ];
 
 // Helper Query Methods
@@ -2423,6 +2426,15 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "redirects-generator"
   ) {
     return redirectRuleGeneratorTool;
+  }
+  if (
+    normalized === "open-graph-image-safe-zone" ||
+    normalized === "og-image-safe-zone" ||
+    normalized === "social-image-safe-zone" ||
+    normalized === "twitter-card-image-previewer" ||
+    normalized === "og-safe-zone"
+  ) {
+    return ogImageSafeZoneTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
