@@ -25,6 +25,7 @@ import {
   TrendingUp,
   Shuffle,
   Tag,
+  Zap,
 } from "lucide-react";
 import { getProgrammaticToolBySlug, getAllProgrammaticTools, getToolsByCategory } from "@/config/tools-registry";
 import { CATEGORIES, getCategoryBySlug } from "@/config/categories";
@@ -58,6 +59,7 @@ import { XmlSitemapGenerator } from "@/components/tools/technical/XmlSitemapGene
 import { RedirectRuleGenerator } from "@/components/tools/technical/RedirectRuleGenerator";
 import { OgImageSafeZonePreviewer } from "@/components/tools/social/OgImageSafeZonePreviewer";
 import { ProductSchemaGenerator } from "@/components/tools/technical/ProductSchemaGenerator";
+import { ResourceHintGenerator } from "@/components/tools/technical/ResourceHintGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -79,6 +81,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle,
   Tag,
   Sparkles,
+  Zap,
 };
 
 interface ToolPageProps {
@@ -258,6 +261,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <OgImageSafeZonePreviewer toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "product-schema-generator" || tool.slug === "product-schema" || tool.slug === "offer-schema-generator" ? (
               <ProductSchemaGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "resource-hint-generator" || tool.slug === "resource-hints-generator" || tool.slug === "preconnect-generator" ? (
+              <ResourceHintGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

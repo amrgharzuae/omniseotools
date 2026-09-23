@@ -61,6 +61,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Crop,
   Shuffle,
   Tag,
+  Zap,
 };
 
 export default function ToolsDirectoryPage() {

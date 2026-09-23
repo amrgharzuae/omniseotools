@@ -29,6 +29,7 @@ import {
   Lock,
   Layers,
   Search,
+  Zap,
 } from "lucide-react";
 
 export interface RelatedToolsProps {
@@ -63,6 +64,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Lock,
   Layers,
   Search,
+  Zap,
 };
 
 // High-Intent Workflow Clusters (Deterministic SEO & Engineering Journeys)
@@ -255,16 +257,24 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
     "robots-txt-generator-validator",
   ],
   "meta-viewport-generator": [
+    "resource-hint-generator",
     "favicon-meta-generator",
     "security-headers-meta-generator",
     "open-graph-meta-generator",
-    "meta-robots-builder",
   ],
   "security-headers-meta-generator": [
+    "resource-hint-generator",
     "favicon-meta-generator",
     "meta-viewport-generator",
-    "meta-robots-builder",
     "robots-txt-generator-validator",
+  ],
+
+  // 8. Core Web Vitals & Resource Hints Cluster
+  "resource-hint-generator": [
+    "meta-viewport-generator",
+    "security-headers-meta-generator",
+    "robots-txt-generator-validator",
+    "xml-sitemap-generator",
   ],
 };
 
@@ -364,7 +374,7 @@ export function RelatedTools({
           href="/tools"
           className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors self-start sm:self-auto"
         >
-          <span>Browse All 31 Utilities</span>
+          <span>Browse All 32 Utilities</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>

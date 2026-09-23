@@ -62,6 +62,7 @@ const ICON_MAP: Record<string, any> = {
   TrendingUp,
   Shuffle,
   Tag,
+  Zap,
 };
 
 export default function HomePage() {

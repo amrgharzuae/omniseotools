@@ -1,5 +1,41 @@
 # Changelog
 
+## [2026-09-23] - Sprint 32: Build Resource Hint & Preconnect Generator (Tool #32)
+### Added & Enhanced
+- **Resource Hint & Preconnect Generator Engine (`src/components/tools/technical/ResourceHintGenerator.tsx`):**
+  - Built an interactive, zero-latency 100% client-side resource hint tag generator and Core Web Vitals optimization linter.
+  - **Interactive Resource Hint Configuration:**
+    - **Supported Directive Types:** `preload` (high-priority critical assets), `preconnect` (early origin socket/TLS handshake), `dns-prefetch` (early DNS resolution fallback), `prefetch` (low-priority speculative future navigation), and `modulepreload` (ES module scripts).
+    - **Dynamic Resource Rows:** Multi-row asset builder with add, duplicate, remove, and clear actions.
+    - **Granular Link Attributes:**
+      - Direct resource path / external origin input with validation.
+      - Contextual `as` attribute selector (`font`, `style`, `script`, `image`, `fetch`, `document`) with auto-enable on `preload` and `prefetch`.
+      - Optional MIME type helper (`font/woff2`, `image/webp`, `image/avif`, `text/css`, etc.).
+      - Crossorigin policy manager (`none`, `anonymous`, `use-credentials`) with auto-selection and tooltip guidance for web fonts.
+      - Modern `fetchpriority` selector (`high`, `low`, `auto`) for LCP priority tuning.
+      - Media query attribute input (e.g. `(max-width: 768px)`) for responsive image and stylesheet preloads.
+    - **1-Click High-Impact Presets:**
+      - *Google Fonts Optimization:* Dual preconnect to `https://fonts.googleapis.com` and `https://fonts.gstatic.com` with `crossorigin`.
+      - *Critical Web Font Preload:* Inter WOFF2 preload with `as="font" type="font/woff2" crossorigin="anonymous"`.
+      - *Hero Image (LCP) Preload:* High-priority hero image preload with `as="image"` and `fetchpriority="high"`.
+      - *Third-Party CDN Preconnect:* Paired `dns-prefetch` and `preconnect` hints for high-latency external CDNs.
+  - **Output Panel & Multi-Framework Exporters:**
+    - **HTML (`<head>`):** Formatted, indented `<link rel="..." href="..." />` tags ready for copy/download.
+    - **Next.js 14/15 (App Router / Metadata):** Complete `Metadata` TypeScript export with `other` / `archives` link descriptors.
+    - **HTTP Link Headers (RFC 5988):** Standard `Link:` header snippets ready for Nginx `add_header`, Apache, or `vercel.json` custom headers.
+    - 1-click **"Copy Snippet"** with visual feedback, **"Download HTML Snippet"**, and integrated `EmbedBadgeModal`.
+  - **Real-Time Core Web Vitals Safety Analyzer:**
+    - Visual Core Web Vitals score meter (0%–100%) and itemized linter checks:
+      - Double-download bug prevention: Flags missing `crossorigin="anonymous"` on preloaded web fonts.
+      - Network bandwidth contention warning: Warns if more than 3-4 critical preloads compete for initial render bandwidth.
+      - Origin protocol check: Verifies `https://` on preconnect origins.
+      - DNS fallback recommendation: Prompts pairing `dns-prefetch` with `preconnect` for legacy browser support.
+- **Dedicated Route & Registry Integration:**
+  - Registered `resourceHintGeneratorTool` (`#32`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/resource-hint-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/resource-hint-generator`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 32 tools.
+
 ## [2026-09-23] - Sprint 31: Build Product & Offer Schema Generator (Tool #31)
 ### Added & Enhanced
 - **Product & Offer Schema Generator Engine (`src/components/tools/technical/ProductSchemaGenerator.tsx`):**

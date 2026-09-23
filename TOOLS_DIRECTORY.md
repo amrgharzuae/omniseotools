@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 31**
+**Total Active Tools: 32**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -41,6 +41,7 @@
 | 29 | Redirect Rule & Regex Mapper | `redirect-rule-generator` | `/tools/redirect-rule-generator` | Technical SEO | Live / Production |
 | 30 | OG & Twitter Card Image Safe-Zone Previewer | `open-graph-image-safe-zone` | `/tools/open-graph-image-safe-zone` | Social Media | Live / Production |
 | 31 | Product & Offer Schema Generator | `product-schema-generator` | `/tools/product-schema-generator` | Technical SEO | Live / Production |
+| 32 | Resource Hint & Preconnect Generator | `resource-hint-generator` | `/tools/resource-hint-generator` | Technical SEO | Live / Production |
 
 ---
 
@@ -48,14 +49,14 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 11 | 35.5% |
-| Social Media | 6 | 19.4% |
-| Web & Developer | 3 | 9.7% |
-| SERP & Snippets | 3 | 9.7% |
-| Marketing & Growth | 2 | 6.5% |
-| International SEO | 2 | 6.5% |
-| Content & Copy | 2 | 6.5% |
-| **Total** | **31** | **100%** |
+| Technical SEO | 12 | 37.5% |
+| Social Media | 6 | 18.8% |
+| Web & Developer | 3 | 9.4% |
+| SERP & Snippets | 3 | 9.4% |
+| Marketing & Growth | 2 | 6.3% |
+| International SEO | 2 | 6.3% |
+| Content & Copy | 2 | 6.3% |
+| **Total** | **32** | **100%** |
 
 
 
