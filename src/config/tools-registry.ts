@@ -12,6 +12,7 @@ import { redirectRuleGeneratorTool } from "./tools/technical/redirect-rule-gener
 import { ogImageSafeZoneTool } from "./tools/social/open-graph-image-safe-zone";
 import { productSchemaGeneratorTool } from "./tools/technical/product-schema-generator";
 import { resourceHintGeneratorTool } from "./tools/technical/resource-hint-generator";
+import { svgToDataUriTool } from "./tools/technical/svg-to-data-uri";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2355,7 +2356,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 31. Product & Offer Schema Generator
   productSchemaGeneratorTool,
   // 32. Resource Hint & Preconnect Generator
-  resourceHintGeneratorTool
+  resourceHintGeneratorTool,
+  // 33. SVG to Base64 & Data URI Optimizer
+  svgToDataUriTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2461,6 +2464,15 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "dns-prefetch-generator"
   ) {
     return resourceHintGeneratorTool;
+  }
+  if (
+    normalized === "svg-to-data-uri" ||
+    normalized === "svg-to-base64" ||
+    normalized === "svg-data-uri-generator" ||
+    normalized === "svg-optimizer" ||
+    normalized === "svg-to-css"
+  ) {
+    return svgToDataUriTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

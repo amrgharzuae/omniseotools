@@ -1,5 +1,34 @@
 # Changelog
 
+## [2026-09-23] - Sprint 33: Build SVG to Base64 & CSS Data URI Optimizer (Tool #33)
+### Added & Enhanced
+- **SVG to Base64 & CSS Data URI Optimizer Engine (`src/components/tools/technical/SvgToDataUriOptimizer.tsx`):**
+  - Built an interactive, zero-latency 100% client-side SVG minifier, sanitizer, and multi-target code converter.
+  - **Interactive Inputs & Optimization Pipeline:**
+    - Dual drag-and-drop file upload zone (accepts `.svg` files) and raw SVG XML textarea with live byte/character counters.
+    - 3 one-click sample presets: Clean Checkmark Icon, Warning Badge, and Hero Geometric Background Pattern.
+    - Minification pipeline: Strips XML declarations (`<?xml ...?>`), DOCTYPE headers, XML/HTML comments, and editor metadata (Inkscape, Sodipodi, Adobe Illustrator, Sketch, Serif namespaces).
+    - Responsive dimension normalizer: Strips hardcoded `width`/`height` while preserving or auto-synthesizing `viewBox` coordinates.
+    - CSS-safe encoding engine: Escapes `#` to `%23`, handles quote nesting, and percent-encodes `<`, `>`, and `%` characters.
+    - Dynamic color override: Color picker and hex input to replace fill and stroke colors before encoding.
+  - **Live Render Preview & Quality Inspection:**
+    - Real-time SVG rendering with 4 checkered background patterns (Light Grid, Dark Grid, Solid White, Solid Dark) to verify alpha transparency.
+    - Interactive zoom controls (50% to 250%) and responsive container scaling.
+  - **Multi-Format Code Exporters:**
+    - **CSS (background-image):** `background-image: url("data:image/svg+xml,...");` (URL-encoded format ~30% smaller than Base64).
+    - **Base64 Data URI:** `data:image/svg+xml;base64,...` format.
+    - **HTML <img> Tag:** `<img src="data:image/svg+xml,..." alt="..." />`.
+    - **React / Next.js JSX:** Clean, typed TSX component with camelCase attributes (`viewBox`, `fillRule`, `clipRule`, `strokeWidth`, `strokeLinecap`, `strokeLinejoin`, etc.) and props spreading.
+    - **Minified SVG:** Clean raw XML ready for 1-click clipboard copy or `.svg` file download.
+  - **Core Web Vitals & Inlining Performance Auditor:**
+    - Analyzes payload size against the 2KB / 4KB inlining sweet spot for optimal LCP and zero-CLS page rendering.
+    - Warns developers when SVGs exceed 8KB, recommending external CDN caching with immutable headers.
+- **Dedicated Route & Registry Integration:**
+  - Registered `svgToDataUriTool` (`#33`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/svg-to-data-uri/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/svg-to-data-uri`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 33 tools.
+
 ## [2026-09-23] - Sprint 32: Build Resource Hint & Preconnect Generator (Tool #32)
 ### Added & Enhanced
 - **Resource Hint & Preconnect Generator Engine (`src/components/tools/technical/ResourceHintGenerator.tsx`):**

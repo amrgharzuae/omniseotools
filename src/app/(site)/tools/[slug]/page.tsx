@@ -60,6 +60,7 @@ import { RedirectRuleGenerator } from "@/components/tools/technical/RedirectRule
 import { OgImageSafeZonePreviewer } from "@/components/tools/social/OgImageSafeZonePreviewer";
 import { ProductSchemaGenerator } from "@/components/tools/technical/ProductSchemaGenerator";
 import { ResourceHintGenerator } from "@/components/tools/technical/ResourceHintGenerator";
+import { SvgToDataUriOptimizer } from "@/components/tools/technical/SvgToDataUriOptimizer";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -263,6 +264,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <ProductSchemaGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "resource-hint-generator" || tool.slug === "resource-hints-generator" || tool.slug === "preconnect-generator" ? (
               <ResourceHintGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "svg-to-data-uri" || tool.slug === "svg-to-base64" || tool.slug === "svg-data-uri-generator" || tool.slug === "svg-optimizer" ? (
+              <SvgToDataUriOptimizer toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}
