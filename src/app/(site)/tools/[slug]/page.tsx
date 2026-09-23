@@ -48,6 +48,7 @@ import { RobotsTxtGeneratorValidator } from "@/components/tools/technical/Robots
 import { ArticleSchemaGenerator } from "@/components/tools/technical/ArticleSchemaGenerator";
 import { CanonicalTagGenerator } from "@/components/tools/technical/CanonicalTagGenerator";
 import { XmlSitemapGenerator } from "@/components/tools/technical/XmlSitemapGenerator";
+import { RedirectRuleGenerator } from "@/components/tools/technical/RedirectRuleGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -235,6 +236,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <CanonicalTagGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "xml-sitemap-generator" || tool.slug === "xml-sitemap-validator" || tool.slug === "sitemap-generator" || tool.slug === "sitemap-validator" ? (
               <XmlSitemapGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "redirect-rule-generator" || tool.slug === "redirect-generator" || tool.slug === "regex-redirect-generator" ? (
+              <RedirectRuleGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

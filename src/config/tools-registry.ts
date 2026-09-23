@@ -8,6 +8,7 @@ import { robotsTxtGeneratorValidatorTool } from "./tools/technical/robots-txt-ge
 import { articleSchemaGeneratorTool } from "./tools/technical/article-schema-generator";
 import { canonicalTagGeneratorTool } from "./tools/technical/canonical-tag-generator";
 import { xmlSitemapGeneratorTool } from "./tools/technical/xml-sitemap-generator";
+import { redirectRuleGeneratorTool } from "./tools/technical/redirect-rule-generator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2343,7 +2344,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 27. Canonical Tag Generator & Auditor
   canonicalTagGeneratorTool,
   // 28. XML Sitemap Generator & Validator
-  xmlSitemapGeneratorTool
+  xmlSitemapGeneratorTool,
+  // 29. Redirect Rule & Regex Mapper
+  redirectRuleGeneratorTool
 ];
 
 // Helper Query Methods
@@ -2410,6 +2413,16 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "sitemap-xml-generator"
   ) {
     return xmlSitemapGeneratorTool;
+  }
+  if (
+    normalized === "redirect-rule-generator" ||
+    normalized === "redirect-generator" ||
+    normalized === "regex-redirect-generator" ||
+    normalized === "htaccess-redirect-generator" ||
+    normalized === "nginx-redirect-generator" ||
+    normalized === "redirects-generator"
+  ) {
+    return redirectRuleGeneratorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

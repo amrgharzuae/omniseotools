@@ -1,5 +1,31 @@
 # Changelog
 
+## [2026-09-23] - Sprint 29: Build Redirect Rule & Regex Mapper (Tool #29)
+### Added & Enhanced
+- **Redirect Rule & Regex Mapper Engine (`src/components/tools/technical/RedirectRuleGenerator.tsx`):**
+  - Built an interactive, zero-latency 100% client-side redirect generator and real-time path match evaluator for SEO migrations and server configuration management.
+  - **Interactive Rule Builder & Configuration:**
+    - HTTP Status Code selector: `301 Moved Permanently` (SEO equity consolidation), `308 Permanent Redirect` (HTTP method preservation), `302 Found` (temporary), and `307 Temporary Redirect`.
+    - Match Mode selector:
+      - **Simple Exact Path:** Direct 1-to-1 path mapping (`/old-page` &rarr; `/new-page`).
+      - **Wildcard / Parameter Mode:** Next.js route parameter syntax (`/blog/:slug*` &rarr; `/articles/:slug*`).
+      - **RegEx Pattern Mode:** Full regular expressions with capture groups (`^/products/([0-9]+)$` &rarr; `/items/$1`).
+    - Directives toggles: Case-insensitive matching (`[NC]` / `(?i)`) and Query String Preservation (`[QSA]` / `$is_args$args`).
+    - 1-click preset templates: "Folder Migration", "Remove Trailing Slash", "Strip .html Extension", "Product ID Pattern", and "HTTP to HTTPS & WWW Canonical".
+  - **Live Path Simulation Engine (0ms):**
+    - Evaluates arbitrary sample URLs in real time with client-side regex evaluation and parameter substitution.
+    - Status indicators: Green (Matched with computed destination URL preview), Amber (No Match with explanatory diagnostics), and Red (RegEx syntax error alerts with line details).
+    - Diagnostic lint checks: Infinite loop prevention (source === destination), unescaped regex dot alerts, and temporary 302/307 link equity warnings.
+  - **Sticky Multi-Server Output & Code Generation Panel:**
+    - Multi-server export tabs: Next.js (`next.config.mjs` `redirects()`), Nginx (`rewrite ... permanent;`), Apache (`.htaccess` `RewriteRule`), and Cloudflare (Bulk Redirects CSV / Page Rules).
+    - 1-click **"Copy Config Snippet"** with visual checkmark feedback and 1-click **"Download Config File"** (.htaccess, nginx-redirects.conf, next.config.mjs, cloudflare-bulk-redirects.csv).
+    - Integrated `EmbedBadgeModal` for developer distribution and organic backlinks.
+- **Dedicated Route & Registry Integration:**
+  - Registered `redirectRuleGeneratorTool` (`#29`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/redirect-rule-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/redirect-rule-generator`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 29 tools.
+
 ## [2026-09-23] - Sprint 28: Build XML Sitemap Generator & Validator (Tool #28)
 ### Added & Enhanced
 - **XML Sitemap Generator & Live Syntax Validator Engine (`src/components/tools/technical/XmlSitemapGenerator.tsx`):**
