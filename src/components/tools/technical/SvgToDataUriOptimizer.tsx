@@ -25,35 +25,40 @@ export interface SvgToDataUriOptimizerProps {
   toolName?: string;
 }
 
-// Quick Sample Presets
+// Pure Sanitization Helper
+export function sanitizeSvgString(svgString: string): string {
+  if (!svgString) return "";
+  let clean = svgString
+    .replace(/<\?xml[\s\S]*?\?>/gi, "")
+    .replace(/<!--[\s\S]*?-->/gi, "")
+    .replace(/<!DOCTYPE[\s\S]*?>/gi, "")
+    .trim();
+
+  // Find root <svg and </svg>
+  const start = clean.search(/<svg\b/i);
+  const end = clean.search(/<\/svg>/i);
+  if (start !== -1 && end !== -1) {
+    clean = clean.substring(start, end + 6);
+  }
+  return clean.trim();
+}
+
+// Quick Sample Presets with 100% Inline Raw Strings (No external files)
 const SAMPLE_PRESETS = [
   {
     id: "checkmark",
     name: "Checkmark Icon",
     description: "Clean modern circular checkmark vector",
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
   <polyline points="22 4 12 14.01 9 11.01"></polyline>
-</svg>`,
-  },
-  {
-    id: "svgrepo-badge",
-    name: "SVG Repo Sample",
-    description: "Complex SVG with XML declaration, comments, and 800px dimensions",
-    svg: `<?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M2 17L12 22L22 17" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M2 12L12 17L22 12" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
   },
   {
     id: "warning-badge",
     name: "Warning Badge",
     description: "Two-tone warning triangle badge with viewBox",
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
   <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
   <line x1="12" y1="9" x2="12" y2="13" stroke="#d97706" stroke-width="2"></line>
   <line x1="12" y1="17" x2="12.01" y2="17" stroke="#d97706" stroke-width="2"></line>
@@ -151,7 +156,6 @@ export function SvgToDataUriOptimizer({
     if (!rawSvg.trim()) {
       return {
         optimizedSvg: "",
-        previewDataUri: "",
         cssDataUri: "",
         cssDeclaration: "",
         base64DataUri: "",
@@ -163,21 +167,17 @@ export function SvgToDataUriOptimizer({
         percentSavings: 0,
         gzipEstimateBytes: 0,
         isValidSvg: false,
-        error: "Please enter or upload valid SVG markup.",
+        error: "Upload or paste an SVG to preview",
       };
     }
 
     try {
-      let text = rawSvg.trim();
+      // Clean and sanitize raw SVG
+      let svg = sanitizeSvgString(rawSvg);
 
-      // Extract content between <svg and </svg>
-      const svgStart = text.search(/<svg\b/i);
-      const svgEnd = text.search(/<\/svg>/i);
-
-      if (svgStart === -1 || svgEnd === -1) {
+      if (!svg.startsWith("<svg") || !svg.endsWith("</svg>")) {
         return {
           optimizedSvg: "",
-          previewDataUri: "",
           cssDataUri: "",
           cssDeclaration: "",
           base64DataUri: "",
@@ -189,30 +189,22 @@ export function SvgToDataUriOptimizer({
           percentSavings: 0,
           gzipEstimateBytes: 0,
           isValidSvg: false,
-          error: "Invalid SVG: Missing opening <svg> or closing </svg> element.",
+          error: "Invalid SVG: Missing valid <svg> root element.",
         };
       }
 
-      // Slice exact SVG root block
-      let svg = text.substring(svgStart, svgEnd + 6);
-
-      // 1. Mandatory Sanitization (Always strip XML decl, DOCTYPE, and comments)
-      svg = svg.replace(/<\?xml[\s\S]*?\?>/gi, "");
-      svg = svg.replace(/<!DOCTYPE[\s\S]*?>/gi, "");
-      svg = svg.replace(/<!--[\s\S]*?-->/g, "");
-
-      // 2. Editor Metadata and Namespace Cleanup
+      // 1. Editor Metadata and Namespace Cleanup
       svg = svg.replace(/\s+(xmlns:inkscape|xmlns:sodipodi|xmlns:sketch|xmlns:serif|xmlns:dc|xmlns:cc|xmlns:rdf|xmlns:vectornator)="[^"]*"/gi, "");
       svg = svg.replace(/\s+(inkscape:[a-z0-9-]+|sodipodi:[a-z0-9-]+|sketch:[a-z0-9-]+|serif:[a-z0-9-]+|vectornator:[a-z0-9-]+)="[^"]*"/gi, "");
       svg = svg.replace(/<(sodipodi|inkscape|metadata)[\s\S]*?<\/(sodipodi|inkscape|metadata)>/gi, "");
       svg = svg.replace(/<(sodipodi|inkscape|metadata)[^>]*\/>/gi, "");
 
-      // 3. Ensure xmlns="http://www.w3.org/2000/svg"
+      // 2. Ensure xmlns="http://www.w3.org/2000/svg"
       if (!/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/i.test(svg)) {
         svg = svg.replace(/<svg\b/i, '<svg xmlns="http://www.w3.org/2000/svg"');
       }
 
-      // 4. ViewBox Extraction & Responsive Dimension Normalization
+      // 3. ViewBox Extraction & Responsive Dimension Normalization
       const rootTagMatch = svg.match(/<svg\b([^>]*)>/i);
       if (rootTagMatch) {
         const rootAttrs = rootTagMatch[1];
@@ -236,7 +228,7 @@ export function SvgToDataUriOptimizer({
         }
       }
 
-      // 5. Minification (Whitespace Collapse)
+      // 4. Minification (Whitespace Collapse)
       if (minifyMarkup) {
         // Remove spaces between tags
         svg = svg.replace(/>\s+</g, "><");
@@ -245,16 +237,13 @@ export function SvgToDataUriOptimizer({
         svg = svg.trim();
       }
 
-      // 6. Dynamic Color Override
+      // 5. Dynamic Color Override
       if (colorOverrideEnabled && colorOverride) {
         svg = svg.replace(/fill=["'](?!none|transparent|currentColor)([^"']+)["']/gi, `fill="${colorOverride}"`);
         svg = svg.replace(/stroke=["'](?!none|transparent|currentColor)([^"']+)["']/gi, `stroke="${colorOverride}"`);
       }
 
-      // 7. Generate 100% Reliable Preview Data URI
-      const previewDataUri = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-
-      // 8. Generate URL-Encoded CSS Data URI
+      // 6. Generate URL-Encoded CSS Data URI
       let cssSvg = svg;
       if (fixCssUnsafe) {
         cssSvg = cssSvg.replace(/"/g, "'");
@@ -270,7 +259,7 @@ export function SvgToDataUriOptimizer({
       const cssDataUri = `data:image/svg+xml,${cssSvg}`;
       const cssDeclaration = `background-image: url("${cssDataUri}");`;
 
-      // 9. Generate Base64 Data URI
+      // 7. Generate Base64 Data URI
       let base64String = "";
       try {
         base64String = window.btoa(unescape(encodeURIComponent(svg)));
@@ -279,10 +268,10 @@ export function SvgToDataUriOptimizer({
       }
       const base64DataUri = base64String ? `data:image/svg+xml;base64,${base64String}` : "";
 
-      // 10. Generate HTML <img> Tag
+      // 8. Generate HTML <img> Tag
       const imgTag = `<img src="${cssDataUri}" alt="Optimized Vector" width="100%" height="auto" />`;
 
-      // 11. Generate React / Next.js JSX Component
+      // 9. Generate React / Next.js JSX Component
       let jsxBody = svg;
       const attrMap: Record<string, string> = {
         "fill-rule": "fillRule",
@@ -331,7 +320,6 @@ export function SvgIcon(props: React.SVGProps<SVGSVGElement>) {
 
       return {
         optimizedSvg: svg,
-        previewDataUri,
         cssDataUri,
         cssDeclaration,
         base64DataUri,
@@ -348,7 +336,6 @@ export function SvgIcon(props: React.SVGProps<SVGSVGElement>) {
     } catch (err: any) {
       return {
         optimizedSvg: "",
-        previewDataUri: "",
         cssDataUri: "",
         cssDeclaration: "",
         base64DataUri: "",
@@ -771,37 +758,28 @@ export function SvgIcon(props: React.SVGProps<SVGSVGElement>) {
               </div>
             </div>
 
-            {/* Visual Canvas (Responsive image container with object-fit: contain) */}
+            {/* Visual Canvas (Responsive pure in-memory SVG container) */}
             <div
-              className={`relative flex min-h-[220px] max-h-[300px] w-full items-center justify-center overflow-hidden rounded-xl border border-slate-200/80 dark:border-slate-800/80 p-6 transition-all ${previewBgClass}`}
+              className={`relative flex min-h-[220px] max-h-[300px] w-full items-center justify-center overflow-hidden rounded-xl border border-slate-200/80 dark:border-slate-800/80 transition-all ${previewBgClass}`}
             >
-              {optimizedData.isValidSvg && optimizedData.previewDataUri ? (
+              {optimizedData.isValidSvg && optimizedData.optimizedSvg ? (
                 <div
                   style={{
                     transform: `scale(${previewZoom / 100})`,
                     transformOrigin: "center",
                   }}
-                  className="transition-transform duration-150 max-w-full max-h-full flex items-center justify-center"
-                >
-                  <img
-                    src={optimizedData.previewDataUri}
-                    alt="Live SVG Render"
-                    className="max-h-[220px] max-w-full w-auto h-auto object-contain block mx-auto pointer-events-none drop-shadow-xs"
-                    style={{
-                      maxHeight: "220px",
-                      maxWidth: "100%",
-                      width: "auto",
-                      height: "auto",
-                      display: "block",
-                      margin: "0 auto",
-                      objectFit: "contain",
-                    }}
-                  />
-                </div>
+                  className="flex items-center justify-center w-full h-full min-h-[220px] p-4 overflow-hidden [&_svg]:max-w-full [&_svg]:max-h-[200px] [&_svg]:w-auto [&_svg]:h-auto [&_svg]:block [&_svg]:mx-auto transition-transform duration-150"
+                  dangerouslySetInnerHTML={{ __html: optimizedData.optimizedSvg }}
+                />
               ) : (
-                <div className="text-center text-slate-400 text-xs flex flex-col items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-amber-500" />
-                  <span>{optimizedData.error || "No valid SVG detected"}</span>
+                <div className="flex flex-col items-center justify-center gap-2 p-6 text-center text-slate-400 text-xs">
+                  <FileCode className="h-8 w-8 text-slate-300 dark:text-slate-600 mb-1" />
+                  <span className="font-medium text-slate-600 dark:text-slate-400">
+                    Upload or paste an SVG to preview
+                  </span>
+                  <span className="text-[11px] text-slate-400">
+                    Supports .svg files, SVG Repo XML, and inline markup
+                  </span>
                 </div>
               )}
             </div>
