@@ -7,6 +7,7 @@ import { hreflangTagsGeneratorTool } from "./tools/international/hreflang-tags-g
 import { robotsTxtGeneratorValidatorTool } from "./tools/technical/robots-txt-generator-validator";
 import { articleSchemaGeneratorTool } from "./tools/technical/article-schema-generator";
 import { canonicalTagGeneratorTool } from "./tools/technical/canonical-tag-generator";
+import { xmlSitemapGeneratorTool } from "./tools/technical/xml-sitemap-generator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2340,7 +2341,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 26. Article & BlogPosting Schema Generator
   articleSchemaGeneratorTool,
   // 27. Canonical Tag Generator & Auditor
-  canonicalTagGeneratorTool
+  canonicalTagGeneratorTool,
+  // 28. XML Sitemap Generator & Validator
+  xmlSitemapGeneratorTool
 ];
 
 // Helper Query Methods
@@ -2398,6 +2401,15 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "canonical-generator"
   ) {
     return canonicalTagGeneratorTool;
+  }
+  if (
+    normalized === "xml-sitemap-generator" ||
+    normalized === "xml-sitemap-validator" ||
+    normalized === "sitemap-generator" ||
+    normalized === "sitemap-validator" ||
+    normalized === "sitemap-xml-generator"
+  ) {
+    return xmlSitemapGeneratorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

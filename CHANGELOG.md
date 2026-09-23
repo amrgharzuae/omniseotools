@@ -1,5 +1,30 @@
 # Changelog
 
+## [2026-09-23] - Sprint 28: Build XML Sitemap Generator & Validator (Tool #28)
+### Added & Enhanced
+- **XML Sitemap Generator & Live Syntax Validator Engine (`src/components/tools/technical/XmlSitemapGenerator.tsx`):**
+  - Built an interactive, zero-latency 100% client-side XML Sitemap Generator and DOMParser-powered Syntax Validator/Linter compliant with Sitemaps.org Protocol 0.9 and Google search requirements.
+  - **Generator Mode (Bulk URL Processor):**
+    - Multi-line textarea supporting bulk URL batch inputs (up to 200+ URLs) with real-time URL counters and line cleaners.
+    - Global directives configurator: `<changefreq>` selector (always, hourly, daily, weekly, monthly, yearly, never), `<priority>` slider (0.1 to 1.0), and `<lastmod>` date picker with 1-click "Set Today" shortcut.
+    - 1-click preset templates: "Standard Site" (root 1.0, subpages 0.8, monthly changefreq), "E-Commerce / Blog" (daily changefreq, category weighting).
+    - Advanced formatting switches: Smart Root Hierarchy (root gets 1.0 priority), Force HTTPS Protocol upgrade, Automated XML Entity Escaping (`&` &rarr; `&amp;`, `'` &rarr; `&apos;`, `"` &rarr; `&quot;`), and individual tag inclusion toggles.
+  - **Validator / Linter Mode (DOMParser Engine):**
+    - Raw XML input parser utilizing native browser `DOMParser` with 0ms execution time and zero server data transmission.
+    - Itemized compliance audits: XML syntax errors (`parsererror`), namespace validation (`http://www.sitemaps.org/schemas/sitemap/0.9`), root element validation (`<urlset>` / `<sitemapindex>`), insecure `http://` detection, relative URL path alerts, unescaped ampersand checkers, W3C Datetime / ISO 8601 `<lastmod>` validation, duplicate URL detection, and Google 50,000 URL / 50MB limits monitoring.
+    - 1-click "Import into Generator" feature deserializing parsed XML into builder state.
+    - Sample loaders for valid XML, faulty XML with errors, and sitemap index files.
+  - **Sticky Output & Code Generation Panel:**
+    - Dual code viewer tabs: Standard formatted `sitemap.xml` and Next.js 14/15 App Router `app/sitemap.ts` dynamic TypeScript export implementing `MetadataRoute.Sitemap`.
+    - 1-click **"Copy Code"** with visual feedback animation and 1-click **"Download sitemap.xml"** blob file download.
+    - Live physical limits meter tracking URL count and payload size against Google's 50k / 50MB thresholds.
+    - Integrated `EmbedBadgeModal` for developer distribution and organic backlinks.
+- **Dedicated Route & Registry Integration:**
+  - Registered `xmlSitemapGeneratorTool` (`#28`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/xml-sitemap-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/xml-sitemap-generator`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 28 tools.
+
 ## [2026-09-23] - Sprint 27: Build & Reposition Bulk Canonical Normalizer & Auditor (Tool #27)
 ### Added & Enhanced
 - **Bulk Canonical Normalizer & Auditor Engine (`src/components/tools/technical/CanonicalTagGenerator.tsx`):**

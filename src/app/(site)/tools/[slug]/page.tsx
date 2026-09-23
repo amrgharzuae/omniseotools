@@ -47,6 +47,7 @@ import { ArabicUrlDecoder } from "@/components/tools/ArabicUrlDecoder";
 import { RobotsTxtGeneratorValidator } from "@/components/tools/technical/RobotsTxtGeneratorValidator";
 import { ArticleSchemaGenerator } from "@/components/tools/technical/ArticleSchemaGenerator";
 import { CanonicalTagGenerator } from "@/components/tools/technical/CanonicalTagGenerator";
+import { XmlSitemapGenerator } from "@/components/tools/technical/XmlSitemapGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -232,6 +233,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <ArticleSchemaGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "canonical-tag-generator" || tool.slug === "canonical-url-auditor" || tool.slug === "canonical-url-builder" ? (
               <CanonicalTagGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "xml-sitemap-generator" || tool.slug === "xml-sitemap-validator" || tool.slug === "sitemap-generator" || tool.slug === "sitemap-validator" ? (
+              <XmlSitemapGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}
