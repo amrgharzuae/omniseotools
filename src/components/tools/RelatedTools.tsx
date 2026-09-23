@@ -71,10 +71,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 const WORKFLOW_CLUSTERS: Record<string, string[]> = {
   // 1. Crawl & Indexing Cluster
   "robots-txt-generator-validator": [
+    "llms-txt-generator",
     "xml-sitemap-generator",
     "redirect-rule-generator",
     "canonical-tag-generator",
-    "meta-robots-builder",
   ],
   "xml-sitemap-generator": [
     "robots-txt-generator-validator",
@@ -284,6 +284,14 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
     "meta-viewport-generator",
     "open-graph-image-safe-zone",
   ],
+
+  // 10. AI Crawler & LLMs.txt Cluster
+  "llms-txt-generator": [
+    "robots-txt-generator-validator",
+    "xml-sitemap-generator",
+    "schema-markup-generator",
+    "resource-hint-generator",
+  ],
 };
 
 export function RelatedTools({
@@ -382,7 +390,7 @@ export function RelatedTools({
           href="/tools"
           className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors self-start sm:self-auto"
         >
-          <span>Browse All 33 Utilities</span>
+          <span>Browse All 34 Utilities</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>

@@ -1,5 +1,39 @@
 # Changelog
 
+## [2026-09-23] - Sprint 34: Build LLMs.txt & AI Crawler Directive Generator (Tool #34)
+### Added & Enhanced
+- **LLMs.txt & AI Crawler Directive Generator Engine (`src/components/tools/technical/LlmsTxtGenerator.tsx`):**
+  - Built an interactive, zero-latency 100% client-side generator for `/llms.txt` and `/llms-full.txt` AI context files, paired with a granular robots.txt AI bot permissions matrix.
+  - **4 Strategy Presets:**
+    - *Permissive AI Access:* Allows all AI search & training agents with structured /llms.txt documentation links.
+    - *Search-Only Access:* Allows search & citation bots (`OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`) while disallowing foundation model training scrapers (`GPTBot`, `ClaudeBot`, `CCBot`, `ByteSpider`).
+    - *Strict Privacy / No AI Training:* Blocks all known AI training bots via robots.txt rules while preserving standard Googlebot/Bingbot search indexing.
+    - *Developer Doc Hub:* Pre-fills structured Markdown sections (Core APIs, Developer Guides, Schema Specs, SDKs, Full Archive).
+  - **Dual Tab Interactive Builder:**
+    - **Tab 1: /llms.txt Markdown Builder:** Project title, mandatory blockquote overview (`>`), extended context paragraph, link to `/llms-full.txt`, and dynamic section/item manager with drag-and-drop / add / remove / edit capabilities.
+    - **Tab 2: AI Bot robots.txt Permissions Matrix:** Filter chips (All, Search, Training), bulk allow/disallow actions, custom path restrictions, optional crawl-delay, and individual bot permission toggles for 11 major AI agents:
+      - OpenAI: `GPTBot` (training), `ChatGPT-User` (browsing), `OAI-SearchBot` (ChatGPT Search).
+      - Anthropic: `ClaudeBot` / `anthropic-ai`.
+      - Perplexity: `PerplexityBot`.
+      - Google: `Google-Extended` (Gemini training opt-out).
+      - Common Crawl: `CCBot`.
+      - ByteDance: `ByteSpider`.
+      - Apple: `Applebot-Extended`.
+      - Meta: `Meta-ExternalAgent` / `FacebookBot`.
+      - Cohere: `cohere-ai`.
+  - **Multi-Format Code Exporters:**
+    - **/llms.txt:** Standard, clean Markdown syntax following the official `/llms.txt` specification.
+    - **robots.txt Snippet:** Grouped User-agent blocks ready to paste directly into existing robots.txt files.
+    - **Next.js App Router Route Handler:** `app/llms.txt/route.ts` TypeScript handler returning `Response` with `Content-Type: text/plain; charset=utf-8` and edge CDN caching headers.
+    - **Cloudflare / Vercel / Nginx Headers:** Static hosting configuration rules.
+  - **Real-Time Compliance & Best Practice Validator:**
+    - Live checks for blockquote overview presence, link syntax validation, Google-Extended vs Googlebot clarity advisory, AI search engine referral traffic flow, and token/byte count estimators.
+- **Dedicated Route & Registry Integration:**
+  - Registered `llmsTxtGeneratorTool` (`#34`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/llms-txt-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/llms-txt-generator`) and programmatic platform permutations.
+  - Updated `RelatedTools.tsx` workflow clusters and incremented global tool counter to 34 tools.
+
 ## [2026-09-23] - Sprint 33: Build SVG to Base64 & CSS Data URI Optimizer (Tool #33)
 ### Added & Enhanced
 - **SVG to Base64 & CSS Data URI Optimizer Engine (`src/components/tools/technical/SvgToDataUriOptimizer.tsx`):**

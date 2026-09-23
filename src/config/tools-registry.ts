@@ -13,6 +13,7 @@ import { ogImageSafeZoneTool } from "./tools/social/open-graph-image-safe-zone";
 import { productSchemaGeneratorTool } from "./tools/technical/product-schema-generator";
 import { resourceHintGeneratorTool } from "./tools/technical/resource-hint-generator";
 import { svgToDataUriTool } from "./tools/technical/svg-to-data-uri";
+import { llmsTxtGeneratorTool } from "./tools/technical/llms-txt-generator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2358,7 +2359,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 32. Resource Hint & Preconnect Generator
   resourceHintGeneratorTool,
   // 33. SVG to Base64 & Data URI Optimizer
-  svgToDataUriTool
+  svgToDataUriTool,
+  // 34. LLMs.txt & AI Crawler Directive Generator
+  llmsTxtGeneratorTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2473,6 +2476,16 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "svg-to-css"
   ) {
     return svgToDataUriTool;
+  }
+  if (
+    normalized === "llms-txt-generator" ||
+    normalized === "llms-txt" ||
+    normalized === "llms-generator" ||
+    normalized === "ai-crawler-robots" ||
+    normalized === "ai-robots-txt-generator" ||
+    normalized === "llms-full-txt-generator"
+  ) {
+    return llmsTxtGeneratorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
