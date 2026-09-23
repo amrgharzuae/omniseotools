@@ -187,6 +187,13 @@ export function Footer() {
                 </Link>
                 <span>•</span>
                 <Link
+                  href="/recipes"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold text-emerald-600 dark:text-emerald-400 transition-colors"
+                >
+                  Developer Recipes
+                </Link>
+                <span>•</span>
+                <Link
                   href="/about"
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >

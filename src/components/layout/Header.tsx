@@ -9,7 +9,6 @@ import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 import { 
   Sparkles, 
-  Search, 
   Menu, 
   X, 
   Layers, 
@@ -29,15 +28,15 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center shrink-0">
           <Logo size={36} />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[13px] xl:text-sm font-medium text-slate-600 dark:text-slate-300">
           <Link
             href="/#tools"
-            className="px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+            className="px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors whitespace-nowrap"
           >
             All Tools
           </Link>
@@ -51,7 +50,7 @@ export function Header() {
             <button
               onClick={() => setPlatformsOpen(!platformsOpen)}
               type="button"
-              className="flex items-center gap-1 px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+              className="flex items-center gap-1 px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors whitespace-nowrap"
               aria-expanded={platformsOpen}
               aria-haspopup="true"
             >
@@ -95,15 +94,22 @@ export function Header() {
             <Link
               key={cat.id}
               href={`/#category-${cat.id}`}
-              className="px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+              className="px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors whitespace-nowrap"
             >
               {cat.name}
             </Link>
           ))}
 
           <Link
+            href="/recipes"
+            className="px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors whitespace-nowrap"
+          >
+            Recipes
+          </Link>
+
+          <Link
             href="/blog"
-            className="px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+            className="px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-lg hover:text-emerald-600 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors whitespace-nowrap"
           >
             Blog
           </Link>
@@ -111,16 +117,9 @@ export function Header() {
 
         {/* Right Action Buttons */}
         <div className="hidden sm:flex items-center gap-3">
-          <a
-            href="/#tools"
-            className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 px-3 py-1.5 text-xs text-slate-500 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
-          >
-            <Search className="h-3.5 w-3.5" />
-            <span>Search 20+ utilities...</span>
-          </a>
           <Link
             href="/tools/google-serp-simulator"
-            className="flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition-all"
+            className="flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-all whitespace-nowrap"
           >
             <Flame className="h-3.5 w-3.5" />
             <span>Try SERP Tool</span>
@@ -130,7 +129,7 @@ export function Header() {
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900"
+          className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6 text-slate-700 dark:text-slate-200" />}
@@ -139,7 +138,7 @@ export function Header() {
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 pt-2 pb-6 space-y-3">
+        <div className="lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 pt-2 pb-6 space-y-3">
           <Link
             href="/#tools"
             onClick={() => setMobileMenuOpen(false)}
@@ -153,6 +152,13 @@ export function Header() {
             className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Engineering Blog
+          </Link>
+          <Link
+            href="/recipes"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-900"
+          >
+            Developer Recipes
           </Link>
 
           {/* Mobile Categories */}

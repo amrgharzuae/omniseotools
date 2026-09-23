@@ -1,5 +1,20 @@
 # Changelog
 
+## [2026-09-23] - Sprint 36: Build Programmatic Developer Recipes Engine & Seed 3 Technical Guides
+### Added & Enhanced
+- **Programmatic Developer Recipes Engine (`src/config/recipes-data.ts`, `src/app/(site)/recipes/page.tsx`, `src/app/(site)/recipes/[slug]/page.tsx`):**
+  - Architected a scalable long-tail programmatic SEO recipe system that bridges high-volume developer error queries directly to interactive OmniSEO client tools.
+  - Built interactive `<RecipeSolutionViewer />` client component with 1-click clipboard copy, config download (.mjs, .html, .txt), and contextual tool launch bridges.
+  - Created responsive directory hub at `/recipes` with real-time category filtering (Next.js & React, Core Web Vitals, AI & Crawlers, Server & Nginx) and keyword search.
+  - Implemented dual Schema.org `TechArticle` and `FAQPage` JSON-LD graphs across all static detail routes (`generateStaticParams`).
+- **3 High-Intent Seeded Technical Recipes:**
+  - *Next.js Trailing Slash Redirect (`/recipes/nextjs-trailing-slash-redirect`):* Fixes 308 redirect loops in Next.js App Router with clean `next.config.mjs` rules and middleware patterns; linked to Tool #29 (Redirect Rule & Regex Mapper).
+  - *Fix Web Font Preload Double Download (`/recipes/fix-font-preload-double-download`):* Solves duplicate Chrome font requests by enforcing mandatory `crossorigin="anonymous"` and `@font-face` alignment; linked to Tool #32 (Resource Hint Generator).
+  - *Configure GPTBot & CCBot in robots.txt (`/recipes/configure-gptbot-ccbot-robots-txt`):* Establishes a selective AI policy allowing citation search bots (`OAI-SearchBot`, `PerplexityBot`) while disallowing foundation model training scrapers (`GPTBot`, `CCBot`, `ByteSpider`, `Google-Extended`); linked to Tool #34 (LLMs.txt Generator).
+- **Navigation & Sitemap Integration:**
+  - Added "Recipes" link to desktop Header, mobile navigation drawer, and Footer policies.
+  - Dynamically registered `/recipes` hub and all programmatic `/recipes/[slug]` routes in `src/app/sitemap.ts`.
+
 ## [2026-09-23] - Sprint 35: Build Content Security Policy (CSP) & Security Header Builder (Tool #35)
 ### Added & Enhanced
 - **Content Security Policy (CSP) & Security Header Builder Engine (`src/components/tools/technical/CspHeaderBuilder.tsx`):**

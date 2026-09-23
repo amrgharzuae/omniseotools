@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
 import { getAllPosts } from "@/lib/blog";
+import { RECIPES_DATA } from "@/config/recipes-data";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -80,7 +81,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  // 6. Legal & Compliance Informational Pages
+  // 6. Developer Recipes & Error Guides
+  const recipePages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/recipes`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    ...RECIPES_DATA.map((recipe) => ({
+      url: `${BASE_URL}/recipes/${recipe.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  // 7. Legal & Compliance Informational Pages
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/privacy-policy`,
@@ -108,6 +125,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...platformPages,
     ...programmaticPlatformPages,
     ...blogPages,
+    ...recipePages,
     ...legalPages,
   ];
 }

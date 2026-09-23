@@ -2436,6 +2436,7 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
   }
   if (
     normalized === "redirect-rule-generator" ||
+    normalized === "redirect-regex-mapper" ||
     normalized === "redirect-generator" ||
     normalized === "regex-redirect-generator" ||
     normalized === "htaccess-redirect-generator" ||
