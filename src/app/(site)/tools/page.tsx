@@ -27,6 +27,10 @@ import {
   Bot,
   FileCode,
   Newspaper,
+  ShoppingBag,
+  Crop,
+  Shuffle,
+  Tag,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -53,6 +57,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   FileText,
   Newspaper,
   Wrench,
+  ShoppingBag,
+  Crop,
+  Shuffle,
+  Tag,
 };
 
 export default function ToolsDirectoryPage() {

@@ -27,6 +27,11 @@ import {
   FileCode,
   FileText,
   Newspaper,
+  ShoppingBag,
+  Crop,
+  TrendingUp,
+  Shuffle,
+  Tag,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -52,6 +57,11 @@ const ICON_MAP: Record<string, any> = {
   Lock,
   Layers,
   Sparkles,
+  ShoppingBag,
+  Crop,
+  TrendingUp,
+  Shuffle,
+  Tag,
 };
 
 export default function HomePage() {

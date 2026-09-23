@@ -1,5 +1,27 @@
 # Changelog
 
+## [2026-09-23] - Sprint 31: Build Product & Offer Schema Generator (Tool #31)
+### Added & Enhanced
+- **Product & Offer Schema Generator Engine (`src/components/tools/technical/ProductSchemaGenerator.tsx`):**
+  - Built an interactive, zero-latency 100% client-side structured data generator and Google Rich Results compliance auditor for e-commerce stores, SaaS licenses, and online merchants.
+  - **Interactive Product & Offer Form Controls:**
+    - **Core Product Information:** Product title, rich commercial description, multi-image URL manager with dynamic list insertion/removal, and brand entity declaration.
+    - **Universal Commercial Identifiers:** Direct input and formatting for SKU, GTIN-13 (EAN), GTIN-8, UPC, MPN, and ISBN (for publications) for Google Merchant Center matching.
+    - **Pricing & Offer Terms:** Decimal price formatting, 10+ ISO 4217 currencies (USD, EUR, GBP, AED, SAR, CAD, AUD, JPY, INR, CHF), price expiration date picker, stock availability selector (`InStock`, `OutOfStock`, `PreOrder`, `BackOrder`, `InStoreOnly`, `Discontinued`), item condition (`NewCondition`, `RefurbishedCondition`, `UsedCondition`, `DamagedCondition`), and seller organization name.
+    - **Aggregate Rating & Reviews:** Toggleable customer rating builder with average score, best/worst rating bounds, total rating count, and written review count.
+    - **Shipping & Return Policies (Google 2026 Merchant Free Listings):** Monetary shipping rates, destination countries, delivery handling and transit day ranges, return policy windows (e.g. 30 days), fee rules (`FreeReturn`), and return methods (`ReturnByMail`, `ReturnInStore`).
+    - **1-Click E-Commerce Presets:** Physical Product (Sony Headphones In Stock), Digital Software License (OmniSEO Analytics Pro), and Refurbished/Sale Deal (Apple MacBook Pro M3 Max).
+  - **Output Panel & Live Google Rich Snippet Simulator:**
+    - **Google Search Rich Results Preview Card:** Real-time visual mockup rendering gold star ratings (★★★★★ 4.8), dynamic price badge, stock indicator pills (green In Stock / red Out of Stock), free delivery tags, and breadcrumb hierarchies.
+    - **Multi-Format Code Exporters:** Formatted `<script type="application/ld+json">` snippet with syntax styling and Next.js 14/15 App Router TypeScript export.
+    - **Google Rich Results Compliance Checklist:** Real-time percentage meter (0%–100%) and itemized attribute audit flagging missing mandatory properties (`name`, `image`, `price`, `priceCurrency`) and recommended merchant enhancements (`sku`/`gtin`, `brand`, `aggregateRating`, `availability`, `shipping`).
+    - **Action Buttons & Badges:** 1-click **"Copy Code"**, 1-click **"Download .json"**, direct link to Google's Rich Results Test tool, and integrated `EmbedBadgeModal`.
+- **Dedicated Route & Registry Integration:**
+  - Registered `productSchemaGeneratorTool` (`#31`) in `src/config/tools-registry.ts` under Technical SEO.
+  - Created dedicated client tool page at `src/app/(site)/tools/product-schema-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Wired dynamic routing across standalone (`/tools/product-schema-generator`) and programmatic platform permutations.
+  - Incremented global tool counter badges, sitemaps, and directories to 31 tools.
+
 ## [2026-09-23] - Sprint 30: Build OG & Twitter Card Image Safe-Zone Previewer (Tool #30)
 ### Added & Enhanced
 - **OG & Twitter Card Image Safe-Zone Previewer Engine (`src/components/tools/social/OgImageSafeZonePreviewer.tsx`):**

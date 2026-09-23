@@ -10,6 +10,7 @@ import { canonicalTagGeneratorTool } from "./tools/technical/canonical-tag-gener
 import { xmlSitemapGeneratorTool } from "./tools/technical/xml-sitemap-generator";
 import { redirectRuleGeneratorTool } from "./tools/technical/redirect-rule-generator";
 import { ogImageSafeZoneTool } from "./tools/social/open-graph-image-safe-zone";
+import { productSchemaGeneratorTool } from "./tools/technical/product-schema-generator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2349,8 +2350,12 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 29. Redirect Rule & Regex Mapper
   redirectRuleGeneratorTool,
   // 30. OG & Twitter Card Image Safe-Zone Previewer
-  ogImageSafeZoneTool
+  ogImageSafeZoneTool,
+  // 31. Product & Offer Schema Generator
+  productSchemaGeneratorTool
 ];
+
+export const tools = TOOLS_REGISTRY;
 
 // Helper Query Methods
 export function getAllProgrammaticTools(): ToolDefinition[] {
@@ -2435,6 +2440,15 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "og-safe-zone"
   ) {
     return ogImageSafeZoneTool;
+  }
+  if (
+    normalized === "product-schema-generator" ||
+    normalized === "product-schema" ||
+    normalized === "offer-schema-generator" ||
+    normalized === "ecommerce-schema-generator" ||
+    normalized === "product-jsonld"
+  ) {
+    return productSchemaGeneratorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

@@ -18,6 +18,13 @@ import {
   Languages,
   Bot,
   FileCode,
+  FileText,
+  Newspaper,
+  ShoppingBag,
+  Crop,
+  TrendingUp,
+  Shuffle,
+  Tag,
 } from "lucide-react";
 import { getProgrammaticToolBySlug, getAllProgrammaticTools, getToolsByCategory } from "@/config/tools-registry";
 import { CATEGORIES, getCategoryBySlug } from "@/config/categories";
@@ -50,6 +57,7 @@ import { CanonicalTagGenerator } from "@/components/tools/technical/CanonicalTag
 import { XmlSitemapGenerator } from "@/components/tools/technical/XmlSitemapGenerator";
 import { RedirectRuleGenerator } from "@/components/tools/technical/RedirectRuleGenerator";
 import { OgImageSafeZonePreviewer } from "@/components/tools/social/OgImageSafeZonePreviewer";
+import { ProductSchemaGenerator } from "@/components/tools/technical/ProductSchemaGenerator";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -63,6 +71,13 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Languages,
   Bot,
   FileCode,
+  FileText,
+  Newspaper,
+  ShoppingBag,
+  Crop,
+  TrendingUp,
+  Shuffle,
+  Tag,
   Sparkles,
 };
 
@@ -241,6 +256,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <RedirectRuleGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "open-graph-image-safe-zone" || tool.slug === "og-image-safe-zone" || tool.slug === "social-image-safe-zone" ? (
               <OgImageSafeZonePreviewer toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "product-schema-generator" || tool.slug === "product-schema" || tool.slug === "offer-schema-generator" ? (
+              <ProductSchemaGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

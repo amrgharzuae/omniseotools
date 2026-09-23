@@ -1,5 +1,6 @@
 export {
   TOOLS_REGISTRY,
+  tools,
   getAllTools,
   getToolBySlug,
   getToolsByCategory,
