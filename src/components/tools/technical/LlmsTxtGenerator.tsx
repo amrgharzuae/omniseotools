@@ -195,7 +195,7 @@ const PRESET_PERMISSIVE: {
 } = {
   title: "OmniSEO Tools Documentation",
   summary:
-    "OmniSEO Tools is a 100% free, client-side web utility platform providing 34+ high-performance tools for technical SEO, SERP simulation, and structured data generation.",
+    "OmniSEO Tools is a 100% free, client-side web utility platform providing 35+ high-performance tools for technical SEO, SERP simulation, and structured data generation.",
   description:
     "All tools run strictly in the browser with zero server data storage. This documentation provides structured schema references, canonical URL specifications, and programmatic API guidelines for AI agents.",
   hasFullTxt: true,

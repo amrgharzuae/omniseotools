@@ -1,5 +1,26 @@
 # Changelog
 
+## [2026-09-23] - Sprint 35: Build Content Security Policy (CSP) & Security Header Builder (Tool #35)
+### Added & Enhanced
+- **Content Security Policy (CSP) & Security Header Builder Engine (`src/components/tools/technical/CspHeaderBuilder.tsx`):**
+  - Built an interactive, zero-latency 100% client-side visual builder and compliance linter for Content Security Policy Level 3 and modern HTTP security headers.
+  - **4 Strategy Presets:**
+    - *Strict Next.js / React:* Enforces restrictive `default-src 'self'`, `object-src 'none'`, `frame-ancestors 'none'`, 2-year HSTS with subdomains and preload, nosniff, and granular Permissions-Policy.
+    - *Google Analytics & Tag Manager:* Injects required origin endpoints for `googletagmanager.com` and `google-analytics.com` across script-src, img-src, and connect-src.
+    - *Stripe Checkout & Payments:* Injects `js.stripe.com`, `api.stripe.com`, and `checkout.stripe.com` across script-src, frame-src, connect-src, and Permissions-Policy.
+    - *Permissive Dev / HMR Staging:* Configures relaxed localhost, WebSockets (`ws:`, `wss:`), `unsafe-eval` for Fast Refresh, and Report-Only monitoring.
+  - **Dual Tab Interactive Control Center:**
+    - **Tab A: CSP Directives:** Fine-grained token switches (`'self'`, `'unsafe-inline'`, `'unsafe-eval'`, `'none'`, `https:`, `data:`, `blob:`, `'strict-dynamic'`), 1-click popular service chips (Google Fonts, Unsplash, AWS S3, Cloudflare, Sentry, YouTube), custom domain input with wildcard support, and global enforcement flags (`upgrade-insecure-requests`, `block-all-mixed-content`, `report-only`, `report-uri`).
+    - **Tab B: Additional Security Headers:** Strict-Transport-Security (HSTS duration selector, includeSubDomains, preload checklist), X-Content-Type-Options (`nosniff`), X-Frame-Options (`DENY`, `SAMEORIGIN`), Referrer-Policy, Permissions-Policy (camera, microphone, geolocation, interest-cohort, payment, usb, fullscreen), Cross-Origin Isolation (COOP, COEP, CORP), and X-XSS-Protection `0`.
+  - **Real-Time Security Grade & Compliance Linter:**
+    - Live letter grading (A+ to F) and numerical security score (0 to 100) with diagnostic checklist catching `'unsafe-inline'` XSS vectors, missing `default-src` fallbacks, `object-src` gaps, domain syntax typos, and HSTS preload eligibility.
+  - **8 Multi-Target Code Exporters:**
+    - Raw HTTP Headers, Next.js App Router `next.config.mjs`, Next.js App Router dynamic nonce `middleware.ts`, Vercel `vercel.json`, Nginx `add_header`, Cloudflare `_headers`, Apache `.htaccess`, and HTML `<meta>` tag with client-side capability warnings.
+- **Dedicated Route & Registry Integration:**
+  - Registered `cspHeaderBuilderTool` (`#35`) in `src/config/tools-registry.ts` under Technical / Developer category.
+  - Created dedicated client tool page at `src/app/(site)/tools/csp-header-builder/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Updated `TOOLS_DIRECTORY.md`, `RelatedTools.tsx`, `PROJECT_STATUS.md`, and dynamic sitemap.
+
 ## [2026-09-23] - Sprint 34: Build LLMs.txt & AI Crawler Directive Generator (Tool #34)
 ### Added & Enhanced
 - **LLMs.txt & AI Crawler Directive Generator Engine (`src/components/tools/technical/LlmsTxtGenerator.tsx`):**

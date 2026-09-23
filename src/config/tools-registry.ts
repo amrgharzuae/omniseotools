@@ -14,6 +14,7 @@ import { productSchemaGeneratorTool } from "./tools/technical/product-schema-gen
 import { resourceHintGeneratorTool } from "./tools/technical/resource-hint-generator";
 import { svgToDataUriTool } from "./tools/technical/svg-to-data-uri";
 import { llmsTxtGeneratorTool } from "./tools/technical/llms-txt-generator";
+import { cspHeaderBuilderTool } from "./tools/technical/csp-header-builder";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2361,7 +2362,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 33. SVG to Base64 & Data URI Optimizer
   svgToDataUriTool,
   // 34. LLMs.txt & AI Crawler Directive Generator
-  llmsTxtGeneratorTool
+  llmsTxtGeneratorTool,
+  // 35. Content Security Policy (CSP) & Header Builder
+  cspHeaderBuilderTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2486,6 +2489,15 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "llms-full-txt-generator"
   ) {
     return llmsTxtGeneratorTool;
+  }
+  if (
+    normalized === "csp-header-builder" ||
+    normalized === "csp-builder" ||
+    normalized === "content-security-policy-builder" ||
+    normalized === "csp-generator" ||
+    normalized === "security-headers-builder"
+  ) {
+    return cspHeaderBuilderTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

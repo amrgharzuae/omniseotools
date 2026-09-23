@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 34**
+**Total Active Tools: 35**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -44,6 +44,7 @@
 | 32 | Resource Hint & Preconnect Generator | `resource-hint-generator` | `/tools/resource-hint-generator` | Technical SEO | Live / Production |
 | 33 | SVG to Base64 & Data URI Optimizer | `svg-to-data-uri` | `/tools/svg-to-data-uri` | Technical SEO | Live / Production |
 | 34 | LLMs.txt & AI Crawler Directive Generator | `llms-txt-generator` | `/tools/llms-txt-generator` | Technical SEO | Live / Production |
+| 35 | Content Security Policy (CSP) & Header Builder | `csp-header-builder` | `/tools/csp-header-builder` | Web & Developer | Live / Production |
 
 ---
 
@@ -51,14 +52,14 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 14 | 41.2% |
-| Social Media | 6 | 17.6% |
-| Web & Developer | 3 | 8.8% |
-| SERP & Snippets | 3 | 8.8% |
-| Marketing & Growth | 2 | 5.9% |
-| International SEO | 2 | 5.9% |
-| Content & Copy | 2 | 5.9% |
-| **Total** | **34** | **100%** |
+| Technical SEO | 14 | 40.0% |
+| Social Media | 6 | 17.1% |
+| Web & Developer | 4 | 11.4% |
+| SERP & Snippets | 3 | 8.6% |
+| Marketing & Growth | 2 | 5.7% |
+| International SEO | 2 | 5.7% |
+| Content & Copy | 2 | 5.7% |
+| **Total** | **35** | **100%** |
 
 
 

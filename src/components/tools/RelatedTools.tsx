@@ -263,21 +263,29 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
     "open-graph-meta-generator",
   ],
   "security-headers-meta-generator": [
+    "csp-header-builder",
     "resource-hint-generator",
     "favicon-meta-generator",
     "meta-viewport-generator",
+  ],
+
+  // 8. Content Security Policy & Web Security Cluster
+  "csp-header-builder": [
+    "security-headers-meta-generator",
+    "resource-hint-generator",
+    "meta-viewport-generator",
     "robots-txt-generator-validator",
   ],
 
-  // 8. Core Web Vitals & Resource Hints Cluster
+  // 9. Core Web Vitals & Resource Hints Cluster
   "resource-hint-generator": [
     "svg-to-data-uri",
+    "csp-header-builder",
     "meta-viewport-generator",
     "security-headers-meta-generator",
-    "robots-txt-generator-validator",
   ],
 
-  // 9. Vector & Asset Optimization Cluster
+  // 10. Vector & Asset Optimization Cluster
   "svg-to-data-uri": [
     "resource-hint-generator",
     "favicon-meta-generator",
@@ -285,7 +293,7 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
     "open-graph-image-safe-zone",
   ],
 
-  // 10. AI Crawler & LLMs.txt Cluster
+  // 11. AI Crawler & LLMs.txt Cluster
   "llms-txt-generator": [
     "robots-txt-generator-validator",
     "xml-sitemap-generator",
@@ -390,7 +398,7 @@ export function RelatedTools({
           href="/tools"
           className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors self-start sm:self-auto"
         >
-          <span>Browse All 34 Utilities</span>
+          <span>Browse All 35 Utilities</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
