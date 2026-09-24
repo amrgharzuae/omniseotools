@@ -1,5 +1,21 @@
 # Changelog
 
+## [2026-09-24] - Sprint 38: Build PPC Negative Keyword List Scrubber & Match-Type Formatter (Tool #38)
+### Added & Enhanced
+- **PPC Negative Keyword List Scrubber Engine (`src/lib/ppc-keyword-scrubber.ts`, `src/components/tools/marketing/PpcNegativeKeywordScrubber.tsx`):**
+  - Engineered a 100% client-side, zero-latency PPC keyword cleaner, deduplicator, illegal character sanitizer, and match-type formatter.
+  - **Match-Type Formatting Options:** Supports Negative Phrase (`-"keyword"`), Negative Exact (`-[keyword]`), Negative Broad (`-keyword`), and standard targeting match types (Broad, Phrase `"keyword"`, Exact `[keyword]`).
+  - **Quick Preset Packs:** 4 curated starter lists for instant loading: E-Commerce Negative Pack (22 items), B2B SaaS Pack (21 items), Job Seekers (17 items), and Informational Non-Buyer queries (13 items).
+  - **Configurable Sanitization Rules:** Real-time deduplication, lowercase normalization, whitespace trimming, stripping Google Ads illegal upload characters (`@%*^~()=<>\!?;:|{}+#$\``), stripping stray punctuation & quotes, alphabetical sorting (A-Z), and optional number removal.
+  - **Live Metrics Dashboard:** Real-time calculation of original vs. cleaned keyword counts, duplicate terms purged, illegal symbols stripped, and average word length per query.
+  - **Google Ads Limit Linter:** Flags any negative keywords exceeding Google Ads upload limits (>10 words or >80 characters) with specific warning diagnostics.
+  - **Multi-Tab Preview & Export:** Formatted output with line-numbered monospace view, all-match-types multi-column comparison grid, 1-click clipboard copying, `.TXT` download, and ready-to-import `.CSV` export formatted for Google Ads Editor and Microsoft Advertising Editor.
+- **Dedicated Route & Registry Integration:**
+  - Registered `ppcNegativeKeywordScrubberTool` (`#38`) in `src/config/tools-registry.ts` under "Marketing & Growth" category (`category: "marketing"`).
+  - Created dedicated App Router page at `src/app/(site)/tools/ppc-negative-keyword-scrubber/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Updated `TOOLS_DIRECTORY.md`, `PROJECT_STATUS.md`, and dynamic sitemap.
+
+
 ## [2026-09-24] - Sprint 37: Build Unicode & Punycode (IDN) Domain Converter & Inspector (Tool #37)
 ### Added & Enhanced
 - **Unicode & Punycode (IDN) Conversion Engine (`src/lib/punycode.ts`, `src/components/tools/developer/IdnPunycodeConverter.tsx`):**

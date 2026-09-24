@@ -17,6 +17,7 @@ import { llmsTxtGeneratorTool } from "./tools/technical/llms-txt-generator";
 import { cspHeaderBuilderTool } from "./tools/technical/csp-header-builder";
 import { gscRegexFilterBuilderTool } from "./tools/seo/gsc-regex-filter-builder";
 import { idnPunycodeConverterTool } from "./tools/developer/idn-punycode-converter";
+import { ppcNegativeKeywordScrubberTool } from "./tools/marketing/ppc-negative-keyword-scrubber";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2370,7 +2371,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 36. Google Search Console Regex Filter Builder
   gscRegexFilterBuilderTool,
   // 37. Unicode & Punycode (IDN) Converter
-  idnPunycodeConverterTool
+  idnPunycodeConverterTool,
+  // 38. PPC Negative Keyword List Scrubber & Match-Type Formatter
+  ppcNegativeKeywordScrubberTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2530,6 +2533,18 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-37"
   ) {
     return idnPunycodeConverterTool;
+  }
+  if (
+    normalized === "ppc-negative-keyword-scrubber" ||
+    normalized === "ppc-keyword-scrubber" ||
+    normalized === "negative-keyword-scrubber" ||
+    normalized === "ppc-negative-keywords" ||
+    normalized === "negative-keyword-formatter" ||
+    normalized === "ppc-match-type-formatter" ||
+    normalized === "negative-keyword-tool" ||
+    normalized === "tool-38"
+  ) {
+    return ppcNegativeKeywordScrubberTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
