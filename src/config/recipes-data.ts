@@ -2,7 +2,9 @@ export type RecipeCategory =
   | "Next.js & React"
   | "Core Web Vitals"
   | "AI & Crawlers"
-  | "Server & Nginx";
+  | "Server & Nginx"
+  | "SEO & Search Console"
+  | "International SEO";
 
 export interface RecipeImplementationStep {
   title: string;
@@ -862,6 +864,393 @@ export async function generateMetadata({ params }) {
         question: "How do I ensure sitemap.xml URLs match my canonical URLs in Next.js?",
         answer:
           "In your app/sitemap.ts generation function, dynamically construct URLs using the exact same path formatting function or metadataBase origin used in your page generateMetadata functions to guarantee 100% alignment.",
+      },
+    ],
+  },
+
+  // 11. GSC Filter Question Intent Regex
+  {
+    slug: "gsc-filter-question-intent-regex",
+    title: "How to Filter Question & FAQ Keywords in Google Search Console Using RE2 Regex",
+    description:
+      "Extract high-intent question and FAQ queries (who, what, where, how) in Google Search Console using RE2-compliant regular expressions. Segment informational search intent without syntax errors.",
+    category: "SEO & Search Console",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "gsc-regex-filter-builder",
+    relatedToolName: "Google Search Console Regex Filter Builder",
+    relatedToolCta: "Build Custom GSC Query Regex in Tool #36",
+    problemSummary:
+      "Standard GSC filters only support single strings. Finding informational question queries (who, what, where, how) requires RE2-compliant regular expressions that do not crash Google's filter engine.",
+    errorSnippet:
+      "Invalid regular expression: lookahead assertion not supported in RE2",
+    solutionSnippet: `^(who|what|where|when|why|how|can|does|is|are)\\b.*`,
+    snippetLanguage: "plaintext",
+    implementationSteps: [
+      {
+        title: "1. Access Performance Report in Search Console",
+        explanation:
+          "Log into Google Search Console, select your target domain or URL prefix property, and open the Performance report for Search Results.",
+      },
+      {
+        title: "2. Add Custom Regex Query Filter",
+        explanation:
+          "Click '+ New' at the top filter bar, choose 'Query...', switch the filter mode dropdown from 'Queries containing' to 'Custom (regex)', and ensure 'Matches regex' is selected.",
+      },
+      {
+        title: "3. Apply RE2 Anchored Question Expression",
+        explanation:
+          "Paste ^(who|what|where|when|why|how|can|does|is|are)\\b.* into the query box. The caret (^) ensures queries starting with interrogative question words are captured while \\b prevents matching words like 'cancel' or 'isolate'.",
+      },
+      {
+        title: "4. Analyze Informational Clicks and CTRs",
+        explanation:
+          "Sort queries by Impressions to discover high-volume FAQ opportunities and identify pages that need schema markup or dedicated FAQ sections.",
+      },
+    ],
+    commonPitfalls: [
+      "Using standard PCRE lookahead syntax like (?=...) which is unsupported by Google's RE2 engine and causes filter validation failures.",
+      "Omitting the word boundary (\\b) after question stems, causing false positive matches on words like 'carpet' (car), 'cancel' (can), or 'island' (is).",
+      "Forgetting that GSC performance queries are lowercased by default, making uppercase assertions redundant unless using case-insensitive flags in URL filters.",
+      "Not capturing mid-sentence questions (e.g., 'guide on how to fix') which require unanchored regex patterns like \\b(who|what|where|how)\\b.",
+    ],
+    faqItems: [
+      {
+        question: "How do I filter questions that appear in the middle of search queries in GSC?",
+        answer:
+          "Remove the start-of-line anchor (^) and use word boundaries around the interrogative stems: \\b(who|what|where|when|why|how|can|does|is|are)\\b.*. This matches queries like 'guide on how to convert punycode' or 'tutorial what is re2 regex'.",
+      },
+      {
+        question: "Are regular expressions in Google Search Console case-sensitive?",
+        answer:
+          "Search queries in GSC are stored in lowercase, so query regex filters operate case-insensitively in practice. However, Page URL filters in GSC are strictly case-sensitive unless you prepend the RE2 case-insensitive modifier (?i).",
+      },
+      {
+        question: "How can I export and cluster GSC question queries for content optimization?",
+        answer:
+          "Apply the RE2 question filter in GSC, click 'Export' (Google Sheets or CSV), and import the dataset into a spreadsheet or Python script. Group questions by root interrogative keyword (how vs what vs can) to build targeted FAQ schema modules.",
+      },
+    ],
+  },
+
+  // 12. International Domain Punycode Hreflang Sitemap
+  {
+    slug: "international-domain-punycode-hreflang-sitemap",
+    title: "Fixing Invalid URL Syntax for Internationalized Domains (IDN) in XML Sitemaps",
+    description:
+      "Resolve Google Search Console XML sitemap schema validation errors for Internationalized Domain Names (IDNs). Convert Arabic, Cyrillic, and umlaut domains into RFC 3492 ASCII Punycode (xn--).",
+    category: "International SEO",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "idn-punycode-converter",
+    relatedToolName: "Unicode & Punycode (IDN) Converter",
+    relatedToolCta: "Convert IDNs to Punycode in Tool #37",
+    problemSummary:
+      "Submitting non-ASCII native Unicode domains (e.g., Arabic, Cyrillic, or German umlaut URLs) directly inside XML sitemap loc tags causes XML schema validation errors or crawler drops.",
+    errorSnippet:
+      "Google Search Console: Invalid URL in XML sitemap / Error: Illegal character in URL",
+    solutionSnippet: `<!-- INCORRECT (Triggers XML schema parser error on non-ASCII characters) -->
+<url>
+  <loc>https://münchen-hotel.de/angebote</loc>
+</url>
+
+<!-- CORRECT (PUNYCODE RFC 3492 Hostname + Percent-Encoded UTF-8 Path) -->
+<url>
+  <loc>https://xn--mnchen-hotel-dlb.de/angebote</loc>
+  <xhtml:link 
+    rel="alternate" 
+    hreflang="de" 
+    href="https://xn--mnchen-hotel-dlb.de/angebote" />
+  <xhtml:link 
+    rel="alternate" 
+    hreflang="ar" 
+    href="https://xn--mgbaam7a8h.xn--mgbc5a4d/offers" />
+</url>`,
+    snippetLanguage: "xml",
+    implementationSteps: [
+      {
+        title: "1. Convert IDN Hostnames to RFC 3492 Punycode (xn--)",
+        explanation:
+          "Pass non-ASCII domain labels through an RFC 3492 IDNA algorithm. Convert 'münchen-hotel.de' to 'xn--mnchen-hotel-dlb.de' or Arabic 'امارات.موقع' to 'xn--mgbh0fb.xn--mgbaam7a8h'.",
+      },
+      {
+        title: "2. Percent-Encode Non-ASCII URL Path and Query Segments",
+        explanation:
+          "Punycode applies strictly to domain hostnames (RFC 5891). Path segments, directory names, and query parameters must be percent-encoded (%20, %D9%85, etc.) rather than Punycode-encoded.",
+      },
+      {
+        title: "3. Update Sitemaps and Hreflang Tags Uniformly",
+        explanation:
+          "Ensure all <loc> entries, xhtml:link hreflang targets, and HTML <link rel='canonical'> tags use the exact ASCII Punycode hostname.",
+      },
+      {
+        title: "4. Validate Sitemaps Against the W3C XML Schema",
+        explanation:
+          "Test your generated sitemap.xml with xmllint or an online sitemap validator to ensure no unescaped UTF-8 code points remain in <loc> elements.",
+      },
+    ],
+    commonPitfalls: [
+      "Punycode-encoding URL paths or slugs (e.g., https://example.com/xn--foo) instead of standard UTF-8 percent-encoding (%D8%A3...). Punycode is only valid for hostnames.",
+      "Mismatched canonical URLs where the HTML head uses native Unicode (münchen.de) while the XML sitemap specifies Punycode (xn--mnchen-3ya.de).",
+      "Submitting unencoded Arabic or Cyrillic characters in XML <loc> tags, causing search engines to reject the entire sitemap file with an XML parsing exception.",
+      "Using older Punycode conversion algorithms that mangle emoji domains or supplemental plane 1 Unicode characters.",
+    ],
+    faqItems: [
+      {
+        question: "Why do search engines require Punycode in XML sitemaps if browsers display Unicode?",
+        answer:
+          "The XML Sitemap protocol specification (sitemaps.org) mandates that all URLs must follow RFC 3986 (URI Generic Syntax) and RFC 3492. Because raw non-ASCII characters violate URI syntax rules, XML parsers and search bots require ASCII Compatible Encoding (ACE / xn--) for hostnames.",
+      },
+      {
+        question: "Should hreflang tags use the Punycode version or the native Unicode domain?",
+        answer:
+          "Hreflang annotations must strictly use the canonical ASCII Punycode hostname (e.g., href='https://xn--mnchen-hotel-dlb.de/'). While modern browsers visually decode Punycode in the address bar, search bots evaluate hreflang clusters at the raw HTTP and DNS transport layer.",
+      },
+      {
+        question: "How do SSL/TLS certificates work with Internationalized Domain Names (IDNs)?",
+        answer:
+          "Certificate Authorities (CAs) issue SSL/TLS certificates using the ASCII Punycode representation in the Common Name (CN) and Subject Alternative Name (SAN) fields (e.g., SAN: xn--mnchen-3ya.de). Browsers automatically map the certificate to the visual native script when users browse via HTTPS.",
+      },
+    ],
+  },
+
+  // 13. Next.js Hydration Mismatch Browser Extension
+  {
+    slug: "nextjs-hydration-mismatch-browser-extension",
+    title: "Fixing Next.js Hydration Failed Errors Caused by Chrome Extensions",
+    description:
+      "Eliminate React Hydration Error #418 and #423 in Next.js App Router triggered by Chrome browser extensions like Grammarly or password managers modifying DOM nodes before hydration.",
+    category: "Next.js & React",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "csp-header-builder",
+    relatedToolName: "Content Security Policy (CSP) & Header Builder",
+    relatedToolCta: "Generate Clean CSP Policies in Tool #35",
+    problemSummary:
+      "Browser extensions (Grammarly, password managers, dark mode extensions) inject custom attributes or HTML nodes into <body> before hydration completes, throwing React Hydration error #418 or #423.",
+    errorSnippet:
+      "Hydration failed because the initial UI does not match what was rendered on the server. Warning: Extra attributes from the server: data-new-gr-c-s-check-loaded, data-gr-ext-installed",
+    solutionSnippet: `// app/layout.tsx
+import type { Metadata } from 'next';
+import './globals.css';
+
+export const metadata: Metadata = {
+  title: 'My Next.js Application',
+  description: 'Clean SSR Hydration without extension warnings',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    // suppressHydrationWarning on <html> and <body> ignores extension-injected attributes
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-slate-900 text-slate-100 antialiased"
+      >
+        {children}
+      </body>
+    </html>
+  );
+}`,
+    snippetLanguage: "typescript",
+    implementationSteps: [
+      {
+        title: "1. Identify the Injected Extension Attributes",
+        explanation:
+          "Inspect the browser developer console for warnings specifying injected attributes such as 'data-new-gr-c-s-check-loaded' (Grammarly), 'data-lastpass-root', or 'cz-shortcut-listen' (ColorZilla).",
+      },
+      {
+        title: "2. Apply suppressHydrationWarning to Root <html> and <body>",
+        explanation:
+          "Add suppressHydrationWarning to both <html> and <body> elements in app/layout.tsx. React only suppresses warnings 1 level deep on these tags, allowing your internal UI tree to maintain strict validation.",
+      },
+      {
+        title: "3. Isolate Client-Side Only DOM State",
+        explanation:
+          "If rendering browser-dependent data (e.g., navigator.userAgent, window.innerWidth, or localStorage theme toggles), initialize with a null/fallback SSR state and update inside useEffect or using next/dynamic with ssr: false.",
+      },
+      {
+        title: "4. Test with Clean Browser Profile",
+        explanation:
+          "Verify the fix by opening an Incognito / Private window with all extensions disabled to ensure no genuine component hydration bugs remain.",
+      },
+    ],
+    commonPitfalls: [
+      "Applying suppressHydrationWarning indiscriminately to deep child components instead of the root layout wrapper, hiding actual application logic bugs.",
+      "Rendering Date.now() or Math.random() directly during server rendering, which always produces mismatched HTML between server and client.",
+      "Placing block-level elements (<p><div></div></p>) inside paragraph tags, causing the browser HTML parser to restructure the DOM before React hydrates.",
+      "Assuming hydration warnings only affect development mode; severe hydration mismatches force React to discard server-rendered HTML and re-render the entire DOM on the client, degrading Interaction to Next Paint (INP).",
+    ],
+    faqItems: [
+      {
+        question: "Does a React hydration mismatch error impact my website's SEO ranking?",
+        answer:
+          "Hydration errors occur client-side after the server HTML is already delivered. Googlebot crawls the raw SSR HTML response, so basic extension-related hydration warnings do not prevent indexing. However, if a severe mismatch triggers a full client re-render, it degrades Core Web Vitals (INP and LCP), which indirectly affects search rankings.",
+      },
+      {
+        question: "What is the difference between suppressHydrationWarning and dynamic imports with ssr: false?",
+        answer:
+          "suppressHydrationWarning tells React to ignore attribute mismatches on that specific DOM node during hydration without disabling server-side rendering. In contrast, next/dynamic with { ssr: false } completely disables server rendering for that component, emitting empty markup on the server until client JavaScript runs.",
+      },
+      {
+        question: "Why does suppressHydrationWarning only work one level deep?",
+        answer:
+          "React intentionally limits suppressHydrationWarning to shallow attribute comparisons on the target element. It does not silence mismatches in text content or child elements, ensuring critical layout and state bugs in child components are not hidden.",
+      },
+    ],
+  },
+
+  // 14. GSC Exclude Brand Traffic Regex
+  {
+    slug: "gsc-exclude-brand-traffic-regex",
+    title: "How to Exclude Brand Searches in Google Search Console with RE2 Regex",
+    description:
+      "Filter out branded keyword queries, typos, and common spacing variations in Google Search Console using RE2 regex to measure true non-brand organic search performance.",
+    category: "SEO & Search Console",
+    readingTime: "3 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "gsc-regex-filter-builder",
+    relatedToolName: "Google Search Console Regex Filter Builder",
+    relatedToolCta: "Build Non-Brand Regex in Tool #36",
+    problemSummary:
+      "Measuring pure non-branded organic growth is impossible with basic GSC filters when users search brand spelling variations, misspellings, or compound brand names.",
+    errorSnippet:
+      "GSC Performance report skewed by branded navigation queries and typo variations",
+    solutionSnippet: `(?i)(brandname|brand\\s*name|brndname|brand-name)`,
+    snippetLanguage: "plaintext",
+    implementationSteps: [
+      {
+        title: "1. Compile Brand Names, Typos, and Spacing Variants",
+        explanation:
+          "List all permutations of your company name: full brand, spaced words ('brand name'), hyphenated ('brand-name'), common phonetic typos ('brndname', 'bandname'), and executive names.",
+      },
+      {
+        title: "2. Construct the RE2 Alternation Pattern",
+        explanation:
+          "Combine the variations into an unanchored grouped alternation: (?i)(brandname|brand\\s*name|brndname|brand-name). The \\s* matches optional whitespace between compound words.",
+      },
+      {
+        title: "3. Configure GSC Query Negative Filter",
+        explanation:
+          "In Google Search Console > Performance > Search results, click '+ New' > Query... > 'Custom (regex)', select 'Doesn't match regex' from the dropdown, and paste your compiled pattern.",
+      },
+      {
+        title: "4. Benchmark True Non-Branded SEO Growth",
+        explanation:
+          "Save the filtered report view. Compare impressions, average CTR, and top ranking URLs to identify organic content opportunities that drive discovery traffic rather than navigational queries.",
+      },
+    ],
+    commonPitfalls: [
+      "Forgetting the (?i) case-insensitive modifier in RE2 patterns, causing capitalized brand searches or CamelCase names to leak through.",
+      "Using overly short brand acronyms (e.g., 'gap' or 'target') without word boundaries (\\b), accidentally filtering out valid non-brand terms like 'closing the gap' or 'target audience'.",
+      "Using 'Matches regex' instead of 'Doesn't match regex' when the goal is to isolate non-branded search traffic.",
+      "Failing to account for localized spelling differences or international brand suffixes (e.g., 'Brand UK', 'Brand Deutschland').",
+    ],
+    faqItems: [
+      {
+        question: "Why is isolating non-brand search traffic essential for SEO performance tracking?",
+        answer:
+          "Brand queries reflect brand awareness, offline marketing, and direct consumer intent rather than content optimization or technical SEO. Excluding branded queries isolates pure organic discovery keywords, providing an accurate measure of SEO content ROI and non-brand keyword rankings.",
+      },
+      {
+        question: "How do I handle short brand names that conflict with common English dictionary words?",
+        answer:
+          "Use strict word boundary assertions (\\b) around short brand names. For example, for a brand named 'Apex', use \\bapex\\b rather than apex alone so queries like 'capex calculation' are not mistakenly excluded.",
+      },
+      {
+        question: "Can I save my non-branded regex filter in Google Search Console?",
+        answer:
+          "GSC does not have a native 'Save Filter' feature, but all active filters are stored in the browser URL parameters. Bookmark the filtered URL or export the data to Looker Studio (formerly Data Studio) with a persistent regex filter parameter.",
+      },
+    ],
+  },
+
+  // 15. Vercel Redirect Loop Trailing Slash Next.js
+  {
+    slug: "vercel-redirect-loop-trailing-slash-nextjs",
+    title: "Fixing Infinite 308 Redirect Loops Between Vercel and Next.js Trailing Slashes",
+    description:
+      "Resolve infinite 308 redirect loops between Vercel Edge routing rules and Next.js App Router trailingSlash settings. Configure skipTrailingSlashRedirect and avoid edge proxy conflicts.",
+    category: "Server & Nginx",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "redirect-regex-mapper",
+    relatedToolName: "Redirect & Regex URL Mapper",
+    relatedToolCta: "Debug Redirect Rules in Tool #29",
+    problemSummary:
+      "Conflicts between vercel.json cleanUrls/trailingSlash settings and next.config.mjs trailingSlash cause edge routers and Next.js servers to bounce requests endlessly with 308 status codes.",
+    errorSnippet:
+      "ERR_TOO_MANY_REDIRECTS / 308 Permanent Redirect loop between /about and /about/",
+    solutionSnippet: `// next.config.mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // 1. Enforce strict no-trailing-slash policy across Next.js
+  trailingSlash: false,
+
+  // 2. Prevent internal Next.js router from competing with Vercel Edge routing
+  skipTrailingSlashRedirect: true,
+
+  // 3. Define explicit single-direction canonical redirects
+  async redirects() {
+    return [
+      {
+        source: '/:path+/',
+        destination: '/:path+',
+        permanent: true, // HTTP 308
+      },
+    ];
+  },
+};
+
+export default nextConfig;`,
+    snippetLanguage: "javascript",
+    implementationSteps: [
+      {
+        title: "1. Clean Up vercel.json Edge Configuration",
+        explanation:
+          "Remove conflicting 'cleanUrls: true' or 'trailingSlash: true' keys from vercel.json. Next.js handles route canonicalization natively on Vercel.",
+      },
+      {
+        title: "2. Configure next.config.mjs with skipTrailingSlashRedirect",
+        explanation:
+          "Set trailingSlash: false and add skipTrailingSlashRedirect: true in next.config.mjs to bypass automatic internal redirect races on edge routes.",
+      },
+      {
+        title: "3. Align Middleware Path Processing",
+        explanation:
+          "If using middleware.ts, ensure rewrite or redirect logic strips trailing slashes before invoking NextResponse.next() to avoid ping-pong loops.",
+      },
+      {
+        title: "4. Verify HTTP Status Codes with cURL",
+        explanation:
+          "Execute curl -IL https://yourdomain.com/about/ in your terminal. Verify exactly one 308 redirect occurs directly to https://yourdomain.com/about with a 200 OK final response.",
+      },
+    ],
+    commonPitfalls: [
+      "Enabling trailingSlash in vercel.json while simultaneously configuring trailingSlash: false in next.config.mjs.",
+      "Having third-party reverse proxies (Cloudflare Page Rules, Fastly, AWS CloudFront) rewrite /about to /about/ while Next.js rewrites /about/ to /about.",
+      "Testing redirects in Chrome without clearing the HTTP 308 cache; browsers cache 308 permanent redirects aggressively on disk.",
+      "Applying redirects to internal _next/static, _next/image, or API routes, breaking hydration and image optimization.",
+    ],
+    faqItems: [
+      {
+        question: "Why does a 308 Permanent Redirect loop break Google Search Console indexing?",
+        answer:
+          "Googlebot follows up to 5 redirect hops before aborting crawl execution. When a cyclical 308 loop occurs, Googlebot marks the URL as 'Page with redirect' error, drops it from the search index, and stops indexing downstream canonical links.",
+      },
+      {
+        question: "How do I test redirect chains without browser cache interference?",
+        answer:
+          "Use command-line curl with follow-redirects: curl -IL https://yourdomain.com/about/. This outputs the complete HTTP status sequence (e.g., 308 -> 200) and headers (Location, Server, Cache-Control) without local browser caching.",
+      },
+      {
+        question: "What does skipTrailingSlashRedirect do in Next.js?",
+        answer:
+          "skipTrailingSlashRedirect is a Next.js configuration flag that disables Next.js's built-in automatic redirect handling for trailing slashes. This allows custom middleware, edge functions, or hosting platforms (like Vercel or Cloudflare) to manage URL normalization without competing internal redirects.",
       },
     ],
   },

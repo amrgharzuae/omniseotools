@@ -2,28 +2,18 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { Recipe } from "@/config/recipes-data";
-import {
-  Sparkles,
-  ArrowRight,
-  Clock,
-  Calendar,
-  BookOpen,
-  Search,
-  CheckCircle2,
-  Filter,
-  Layers,
-  Code2,
-  Terminal,
-} from "lucide-react";
+import { Recipe, RecipeCategory } from "@/config/recipes-data";
+import { Clock, BookOpen, Search, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RecipesDirectoryClientProps {
   recipes: Recipe[];
 }
 
-const CATEGORIES: Array<"All" | "Next.js & React" | "Core Web Vitals" | "AI & Crawlers" | "Server & Nginx"> = [
+const CATEGORIES: Array<"All" | RecipeCategory> = [
   "All",
+  "SEO & Search Console",
+  "International SEO",
   "Next.js & React",
   "Core Web Vitals",
   "AI & Crawlers",
