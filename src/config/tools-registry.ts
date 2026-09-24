@@ -16,6 +16,7 @@ import { svgToDataUriTool } from "./tools/technical/svg-to-data-uri";
 import { llmsTxtGeneratorTool } from "./tools/technical/llms-txt-generator";
 import { cspHeaderBuilderTool } from "./tools/technical/csp-header-builder";
 import { gscRegexFilterBuilderTool } from "./tools/seo/gsc-regex-filter-builder";
+import { idnPunycodeConverterTool } from "./tools/developer/idn-punycode-converter";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2367,7 +2368,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 35. Content Security Policy (CSP) & Header Builder
   cspHeaderBuilderTool,
   // 36. Google Search Console Regex Filter Builder
-  gscRegexFilterBuilderTool
+  gscRegexFilterBuilderTool,
+  // 37. Unicode & Punycode (IDN) Converter
+  idnPunycodeConverterTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2515,6 +2518,18 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-36"
   ) {
     return gscRegexFilterBuilderTool;
+  }
+  if (
+    normalized === "idn-punycode-converter" ||
+    normalized === "punycode-converter" ||
+    normalized === "idn-converter" ||
+    normalized === "unicode-punycode-converter" ||
+    normalized === "unicode-to-punycode" ||
+    normalized === "punycode-to-unicode" ||
+    normalized === "punycode" ||
+    normalized === "tool-37"
+  ) {
+    return idnPunycodeConverterTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

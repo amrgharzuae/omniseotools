@@ -1,5 +1,24 @@
 # Changelog
 
+## [2026-09-24] - Sprint 37: Build Unicode & Punycode (IDN) Domain Converter & Inspector (Tool #37)
+### Added & Enhanced
+- **Unicode & Punycode (IDN) Conversion Engine (`src/lib/punycode.ts`, `src/components/tools/developer/IdnPunycodeConverter.tsx`):**
+  - Engineered a zero-dependency, 100% client-side RFC 3492 / RFC 5891 Punycode and Internationalized Domain Name (IDN) bidirectional encoding & decoding engine.
+  - **Full Script & Format Support:** Native support for Arabic RTL domain names (`دبي.امارات`), German/Nordic umlauts (`münchen.de`), Spanish accents (`diseño-web.es`), Cyrillic (`россия.рф`), CJK characters, emoji domains (`i❤️coding.ws`), full URLs with protocols/paths/queries, and email addresses (`user@domain`).
+  - **Dual Conversion Modes:**
+    - *Single Domain & URL Inspector:* Live bidirectional input with automatic format detection (Punycode `xn--` vs Native Unicode) and 1-click clipboard copy.
+    - *Bulk Batch Converter:* Multiline processor supporting up to 50+ domains simultaneously with 1-click "Copy All ASCII", "Copy All Unicode", and Excel-compatible UTF-8 BOM CSV export.
+  - **Security & Homograph Phishing Risk Analyzer:**
+    - Scans every character code point to detect multi-script spoofing attacks (e.g. replacing Latin 'a' with Cyrillic 'а' U+0430 to mimic `pаypal.com`).
+    - Displays high-visibility risk level badges (*Safe*, *Medium Risk*, *High Risk Spoof Attack*) and an interactive character-by-character Unicode code point matrix.
+  - **DNS RFC Octet & Length Validator:**
+    - Verifies RFC 1035 physical DNS byte constraints: per-label limit (63 octets max) and total FQDN limit (253 octets max) with visual progress gauges and hyphen position checks.
+- **Dedicated Route & Registry Integration:**
+  - Registered `idnPunycodeConverterTool` (`#37`) in `src/config/tools-registry.ts` under "Web & Developer" category (`category: "developer"`).
+  - Created dedicated App Router page at `src/app/(site)/tools/idn-punycode-converter/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Updated `TOOLS_DIRECTORY.md`, `PROJECT_STATUS.md`, and dynamic sitemap.
+
+
 ## [2026-09-24] - Sprint 36: Build Google Search Console RE2 Regex Filter Builder & Tester (Tool #36)
 ### Added & Enhanced
 - **Google Search Console Regex Filter Builder Engine (`src/components/tools/seo/GscRegexFilterBuilder.tsx`):**
