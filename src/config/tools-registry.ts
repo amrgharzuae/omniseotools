@@ -18,6 +18,7 @@ import { cspHeaderBuilderTool } from "./tools/technical/csp-header-builder";
 import { gscRegexFilterBuilderTool } from "./tools/seo/gsc-regex-filter-builder";
 import { idnPunycodeConverterTool } from "./tools/developer/idn-punycode-converter";
 import { ppcNegativeKeywordScrubberTool } from "./tools/marketing/ppc-negative-keyword-scrubber";
+import { urlSlugSanitizerTool } from "./tools/content/url-slug-sanitizer";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2373,7 +2374,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 37. Unicode & Punycode (IDN) Converter
   idnPunycodeConverterTool,
   // 38. PPC Negative Keyword List Scrubber & Match-Type Formatter
-  ppcNegativeKeywordScrubberTool
+  ppcNegativeKeywordScrubberTool,
+  // 39. Bulk URL Slug & Anchor Text Sanitizer
+  urlSlugSanitizerTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2545,6 +2548,17 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-38"
   ) {
     return ppcNegativeKeywordScrubberTool;
+  }
+  if (
+    normalized === "url-slug-sanitizer" ||
+    normalized === "bulk-url-slug-sanitizer" ||
+    normalized === "slug-sanitizer" ||
+    normalized === "anchor-text-sanitizer" ||
+    normalized === "bulk-slug-generator" ||
+    normalized === "seo-slug-sanitizer" ||
+    normalized === "tool-39"
+  ) {
+    return urlSlugSanitizerTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

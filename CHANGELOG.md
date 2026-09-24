@@ -1,5 +1,21 @@
 # Changelog
 
+## [2026-09-24] - Sprint 39: Build Bulk URL Slug & Anchor Text Sanitizer (Tool #39)
+### Added & Enhanced
+- **Bulk URL Slug & Anchor Text Sanitizer Engine (`src/lib/url-slug-sanitizer.ts`, `src/components/tools/content/UrlSlugSanitizer.tsx`):**
+  - Engineered a 100% client-side, zero-latency bulk headline, article title, and e-commerce product name slug sanitizer.
+  - **4 Output Formats:** Generates Clean URL Slugs, Canonical Full URLs with configurable base domain prefixes, Markdown Anchor Links (`[Title](/slug)`), and HTML Anchor Tags (`<a href="/slug">Title</a>`).
+  - **Diacritic & Unicode Transliteration:** Automatically converts European and Latin accents/umlauts (`é` → `e`, `ü` → `ue`, `ñ` → `n`, `ß` → `ss`, `æ` → `ae`, `œ` → `oe`, `ø` → `o`, `ł` → `l`) to clean ASCII equivalents.
+  - **Automated English Stop-Word Filter:** Strips 70+ filler words (*a, the, in, on, of, for, with, is, and, to, etc.*) to shorten URLs while preserving core keyword context, with fallback protection against empty slugs.
+  - **Smart Word-Boundary Truncation:** Allows configurable max character caps (20-150 chars) that truncate at word boundaries to prevent half-cut words.
+  - **Live Metrics Dashboard:** Computes real-time statistics for total titles processed, average slug character length, stop words purged, and special symbols stripped.
+  - **Multi-Tab Preview & 5-Column CSV Exporter:** Monospace line-numbered display, all-formats comparative table view, 1-click clipboard copying, `.TXT` download, and `.CSV` export.
+- **Dedicated Route & Registry Integration:**
+  - Registered `urlSlugSanitizerTool` (`#39`) in `src/config/tools-registry.ts` under "Content & Copy" category (`category: "content"`).
+  - Created dedicated App Router page at `src/app/(site)/tools/url-slug-sanitizer/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Updated `TOOLS_DIRECTORY.md`, `PROJECT_STATUS.md`, and dynamic sitemap.
+
+
 ## [2026-09-24] - Sprint 38: Build PPC Negative Keyword List Scrubber & Match-Type Formatter (Tool #38)
 ### Added & Enhanced
 - **PPC Negative Keyword List Scrubber Engine (`src/lib/ppc-keyword-scrubber.ts`, `src/components/tools/marketing/PpcNegativeKeywordScrubber.tsx`):**

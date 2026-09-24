@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 38**
+**Total Active Tools: 39**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -48,6 +48,7 @@
 | 36 | Google Search Console Regex Filter Builder | `gsc-regex-filter-builder` | `/tools/gsc-regex-filter-builder` | SEO Tools | Live / Production |
 | 37 | Unicode & Punycode (IDN) Converter | `idn-punycode-converter` | `/tools/idn-punycode-converter` | Web & Developer | Live / Production |
 | 38 | PPC Negative Keyword List Scrubber & Match-Type Formatter | `ppc-negative-keyword-scrubber` | `/tools/ppc-negative-keyword-scrubber` | Marketing & Growth | Live / Production |
+| 39 | Bulk URL Slug & Anchor Text Sanitizer | `url-slug-sanitizer` | `/tools/url-slug-sanitizer` | Content & Copy | Live / Production |
 
 ---
 
@@ -55,15 +56,15 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 14 | 36.8% |
-| Social Media | 6 | 15.8% |
-| Web & Developer | 5 | 13.2% |
-| Marketing & Growth | 3 | 7.9% |
-| SERP & Snippets | 3 | 7.9% |
-| International SEO | 2 | 5.3% |
-| Content & Copy | 2 | 5.3% |
+| Technical SEO | 14 | 35.9% |
+| Social Media | 6 | 15.4% |
+| Web & Developer | 5 | 12.8% |
+| Marketing & Growth | 3 | 7.7% |
+| Content & Copy | 3 | 7.7% |
+| SERP & Snippets | 3 | 7.7% |
+| International SEO | 2 | 5.1% |
 | SEO Tools | 1 | 2.6% |
-| **Total** | **38** | **100%** |
+| **Total** | **39** | **100%** |
 
 
 
