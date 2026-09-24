@@ -15,6 +15,7 @@ import { resourceHintGeneratorTool } from "./tools/technical/resource-hint-gener
 import { svgToDataUriTool } from "./tools/technical/svg-to-data-uri";
 import { llmsTxtGeneratorTool } from "./tools/technical/llms-txt-generator";
 import { cspHeaderBuilderTool } from "./tools/technical/csp-header-builder";
+import { gscRegexFilterBuilderTool } from "./tools/seo/gsc-regex-filter-builder";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2364,7 +2365,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 34. LLMs.txt & AI Crawler Directive Generator
   llmsTxtGeneratorTool,
   // 35. Content Security Policy (CSP) & Header Builder
-  cspHeaderBuilderTool
+  cspHeaderBuilderTool,
+  // 36. Google Search Console Regex Filter Builder
+  gscRegexFilterBuilderTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2499,6 +2502,19 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "security-headers-builder"
   ) {
     return cspHeaderBuilderTool;
+  }
+  if (
+    normalized === "gsc-regex-filter-builder" ||
+    normalized === "gsc-regex-builder" ||
+    normalized === "google-search-console-regex-filter-builder" ||
+    normalized === "gsc-regex-generator" ||
+    normalized === "gsc-filter-builder" ||
+    normalized === "gsc-regex" ||
+    normalized === "gsc-regex-tester" ||
+    normalized === "re2-regex-builder" ||
+    normalized === "tool-36"
+  ) {
+    return gscRegexFilterBuilderTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

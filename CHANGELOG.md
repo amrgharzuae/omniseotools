@@ -1,5 +1,29 @@
 # Changelog
 
+## [2026-09-24] - Sprint 36: Build Google Search Console RE2 Regex Filter Builder & Tester (Tool #36)
+### Added & Enhanced
+- **Google Search Console Regex Filter Builder Engine (`src/components/tools/seo/GscRegexFilterBuilder.tsx`):**
+  - Engineered an interactive, 100% client-side RE2-compliant regular expression builder, validator, and real-time query/URL testing sandbox specifically tuned for Google Search Console's Performance reports.
+  - **6 Strategy & Filter Modes:**
+    - *Question & FAQ Mining:* Generates `^(who|what|where|when|why|how|does|can|is|are|did|should|could)\b` patterns with toggles for start-of-query anchor (`^`), word boundary (`\b`), and custom interrogative stems to isolate Featured Snippets and People Also Ask (PAA) opportunities.
+    - *Brand vs. Non-Brand Traffic Segmentation:* Converts comma/newline brand stems and typos into `(?i)\b(brand|brand\s+typo)\b` with flexible whitespace normalizers and explicit instructions for setting GSC match type to 'Doesn't match regex' for non-branded clicks.
+    - *Intent & Commercial Modifiers:* Pre-checked, categorized intent blocks for Transactional (buy, price, cost, deal, coupon, discount), Commercial Investigation (best, vs, alternative, review, top), Informational (guide, tutorial, how to, tips), and Local Proximity (near me, nearby, in city).
+    - *Word Count / Long-Tail Extractor:* Visually tunes minimum, maximum, exact, or ranged word counts into standard RE2 space-separation formulas (`^(\S+\s+){4,}\S+$` or `([^" "]*\s){4,}?`) to segment short head terms vs ultra-long-tail queries.
+    - *Page / Subfolder & File Filter:* Builds URL directory paths (`/blog/`, `/products/`), directory depth rules (recursive vs direct children), query parameter inclusion/exclusion (`\?.*` vs `^[^?]+$`), file extension filtering (`\.(html|pdf)$`), and trailing slash audit filters (`[^/]$`).
+    - *Custom RE2 Expression & Linter:* Direct regex editor with comprehensive RE2 engine audits.
+  - **Real-Time RE2 Syntax Validator & Linter:**
+    - Scans regex patterns character-by-character to detect forbidden lookaheads `(?=...)`, `(?!...)`, lookbehinds `(?<=...)`, `(?<!...)`, backreferences `\1`, and possessive quantifiers `*+`, preventing generic 'Invalid regular expression' errors in Google Search Console.
+  - **Live Real-Time Testing Sandbox:**
+    - Interactive textarea for pasting sample queries or URLs from GSC exports with 1-click sample loaders ("Load Sample Queries", "Load Sample URLs").
+    - Real-time row-by-row matching with visual emerald highlight bars, match count badges (e.g. "7 of 10 matched (70%)"), and filter views (All, Retained, Filtered Out).
+  - **GSC Export & Guidance:**
+    - Formatted regex output box with 1-click clipboard copy, filter dimension indicators (`Query` vs `Page`), match type settings (`Matches regex` vs `Doesn't match regex`), and an interactive 3-step Search Console application walkthrough.
+- **Dedicated Route & Registry Integration:**
+  - Registered `gscRegexFilterBuilderTool` (`#36`) in `src/config/tools-registry.ts` under "SEO Tools" category (`category: "seo"`).
+  - Created dedicated App Router page at `src/app/(site)/tools/gsc-regex-filter-builder/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Updated `TOOLS_DIRECTORY.md`, `PROJECT_STATUS.md`, and dynamic sitemap.
+
+
 ## [2026-09-23] - Sprint 36: Build Programmatic Developer Recipes Engine & Seed 3 Technical Guides
 ### Added & Enhanced
 - **Programmatic Developer Recipes Engine (`src/config/recipes-data.ts`, `src/app/(site)/recipes/page.tsx`, `src/app/(site)/recipes/[slug]/page.tsx`):**
