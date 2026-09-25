@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 39**
+**Total Active Tools: 40**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -31,7 +31,7 @@
 | 19 | FAQ Schema Generator | `faq-schema-generator` | `/tools/faq-schema-generator` | Technical SEO | Live / Production |
 | 20 | Favicon & App Icon Generator | `favicon-meta-generator` | `/tools/favicon-meta-generator` | Web & Developer | Live / Production |
 | 21 | Social Meta & OpenGraph Card Simulator | `open-graph-preview` | `/tools/open-graph-preview` | Social Media | Live / Production |
-| 22 | Campaign UTM Builder | `utm-campaign-builder` | `/tools/utm-campaign-builder` | Marketing & Growth | Live / Production |
+| 22 | UTM Campaign Builder | `utm-campaign-builder` | `/tools/utm-campaign-builder` | Marketing & Growth | Live / Production |
 | 23 | Arabic & UTF-8 URL Decoder | `arabic-url-decoder` | `/tools/arabic-url-decoder` | Marketing & Growth | Live / Production |
 | 24 | Hreflang & Multi-Language Tag Generator | `hreflang-tags-generator` | `/tools/hreflang-tags-generator` | International SEO | Live / Production |
 | 25 | Robots.txt Generator & Validator | `robots-txt-generator-validator` | `/tools/robots-txt-generator-validator` | Technical SEO | Live / Production |
@@ -49,6 +49,7 @@
 | 37 | Unicode & Punycode (IDN) Converter | `idn-punycode-converter` | `/tools/idn-punycode-converter` | Web & Developer | Live / Production |
 | 38 | PPC Negative Keyword List Scrubber & Match-Type Formatter | `ppc-negative-keyword-scrubber` | `/tools/ppc-negative-keyword-scrubber` | Marketing & Growth | Live / Production |
 | 39 | Bulk URL Slug & Anchor Text Sanitizer | `url-slug-sanitizer` | `/tools/url-slug-sanitizer` | Content & Copy | Live / Production |
+| 40 | Bulk UTM Matrix & Multi-Channel Tagging Generator | `bulk-utm-matrix-generator` | `/tools/bulk-utm-matrix-generator` | Marketing & Growth | Live / Production |
 
 ---
 
@@ -56,15 +57,15 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 14 | 35.9% |
-| Social Media | 6 | 15.4% |
-| Web & Developer | 5 | 12.8% |
-| Marketing & Growth | 3 | 7.7% |
-| Content & Copy | 3 | 7.7% |
-| SERP & Snippets | 3 | 7.7% |
-| International SEO | 2 | 5.1% |
-| SEO Tools | 1 | 2.6% |
-| **Total** | **39** | **100%** |
+| Technical SEO | 14 | 35.0% |
+| Social Media | 6 | 15.0% |
+| Web & Developer | 5 | 12.5% |
+| Marketing & Growth | 4 | 10.0% |
+| Content & Copy | 3 | 7.5% |
+| SERP & Snippets | 3 | 7.5% |
+| International SEO | 2 | 5.0% |
+| SEO Tools | 1 | 2.5% |
+| **Total** | **40** | **100%** |
 
 
 

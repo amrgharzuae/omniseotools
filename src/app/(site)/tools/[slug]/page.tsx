@@ -46,6 +46,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { SocialPreviewer } from "@/components/tools/social/SocialPreviewer";
 import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
 import { UtmCampaignBuilderTool } from "@/components/tools/marketing/UtmCampaignBuilderTool";
+import { BulkUtmMatrixGenerator } from "@/components/tools/marketing/BulkUtmMatrixGenerator";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
 import { MetaTagGenerator } from "@/components/tools/developer/MetaTagGenerator";
 import { FaviconGeneratorTool } from "@/components/tools/developer/FaviconGeneratorTool";
@@ -269,6 +270,8 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
               <SvgToDataUriOptimizer toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "llms-txt-generator" || tool.slug === "llms-txt" || tool.slug === "llms-generator" || tool.slug === "ai-crawler-robots" ? (
               <LlmsTxtGenerator toolSlug={tool.slug} toolName={tool.name} />
+            ) : tool.slug === "bulk-utm-matrix-generator" || tool.slug === "utm-matrix-generator" || tool.slug === "bulk-utm-builder" ? (
+              <BulkUtmMatrixGenerator toolSlug={tool.slug} toolName={tool.name} />
             ) : (
               <DynamicToolGenerator tool={tool} />
             )}

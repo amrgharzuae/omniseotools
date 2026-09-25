@@ -507,6 +507,30 @@ export function UtmCampaignBuilderTool() {
 
       </div>
 
+      {/* Explanatory / SEO Content Section */}
+      <section className="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 text-slate-600 dark:text-slate-400">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
+          Why Use an Automated UTM Campaign Builder?
+        </h2>
+        <p className="mb-4 text-sm leading-relaxed">
+          Consistent link tracking is critical for clean attribution across Google Analytics 4 (GA4), Meta Ads, and marketing newsletters. Our client-side <strong>UTM campaign builder</strong> standardizes parameter casing, replaces spaces with hyphens, and validates URLs directly in your browser.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <h3 className="font-medium text-slate-950 dark:text-slate-100 text-sm mb-1">Standardized Attribution</h3>
+            <p className="text-xs">Eliminate uppercase split issues and enforce uniform campaign naming conventions across your entire team.</p>
+          </div>
+          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <h3 className="font-medium text-slate-950 dark:text-slate-100 text-sm mb-1">Zero Data Storage</h3>
+            <p className="text-xs">Unlike server-side tools, your campaign parameters, landing pages, and proprietary ad identifiers are never stored or tracked.</p>
+          </div>
+          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <h3 className="font-medium text-slate-950 dark:text-slate-100 text-sm mb-1">Multi-Channel Presets</h3>
+            <p className="text-xs">Instantly load recommended tag conventions for Google Ads, Facebook, TikTok, LinkedIn, and email campaigns.</p>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

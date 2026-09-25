@@ -11,10 +11,12 @@ import { ToolContent, UTM_FAQS } from "./components/ToolContent";
 const CANONICAL_URL = "https://omniseotools.com/tools/marketing/utm-campaign-builder";
 
 export const metadata: Metadata = {
-  title: "Campaign UTM Builder & Google Analytics URL Generator | OmniSEO",
+  title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
   description:
-    "Free zero-latency Campaign URL builder for Google Analytics 4 (GA4). Generate trackable campaign links with utm_source, utm_medium, utm_campaign, and custom parameters.",
+    "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
   keywords: [
+    "campaign builder",
+    "utm campaign builder",
     "utm builder",
     "campaign url builder",
     "google analytics campaign url builder",
@@ -26,18 +28,18 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Campaign UTM Builder & Google Analytics URL Generator | OmniSEO",
+    title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
     description:
-      "Free zero-latency Campaign URL builder for Google Analytics 4 (GA4). Generate trackable campaign links with utm_source, utm_medium, utm_campaign, and custom parameters.",
+      "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
     url: CANONICAL_URL,
     type: "website",
     siteName: "OmniSEOTools",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Campaign UTM Builder & Google Analytics URL Generator | OmniSEO",
+    title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
     description:
-      "Free zero-latency Campaign URL builder for Google Analytics 4 (GA4). Generate trackable campaign links with utm_source, utm_medium, utm_campaign, and custom parameters.",
+      "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
   },
 };
 
@@ -48,12 +50,12 @@ export default function UtmCampaignBuilderPage() {
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        name: "OmniSEOtools GA4 Campaign URL Builder",
+        name: "OmniSEOtools UTM Campaign Builder",
         operatingSystem: "All",
         applicationCategory: "BusinessApplication",
         url: CANONICAL_URL,
         description:
-          "Free Google Analytics 4 Campaign URL Builder to generate, sanitize, and validate UTM marketing tracking links with one-click presets and instant QR code generation.",
+          "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
         offers: {
           "@type": "Offer",
           price: "0.00",
@@ -98,7 +100,7 @@ export default function UtmCampaignBuilderPage() {
         <section className="mt-4" aria-label="Interactive GA4 Campaign URL Builder">
           <ToolErrorBoundary
             toolSlug="utm-campaign-builder"
-            toolName="Campaign UTM Builder & GA4 URL Generator"
+            toolName="UTM Campaign Builder & URL Tracker"
           >
             <UtmBuilderClient />
           </ToolErrorBoundary>

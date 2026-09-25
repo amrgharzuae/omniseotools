@@ -19,6 +19,7 @@ import { gscRegexFilterBuilderTool } from "./tools/seo/gsc-regex-filter-builder"
 import { idnPunycodeConverterTool } from "./tools/developer/idn-punycode-converter";
 import { ppcNegativeKeywordScrubberTool } from "./tools/marketing/ppc-negative-keyword-scrubber";
 import { urlSlugSanitizerTool } from "./tools/content/url-slug-sanitizer";
+import { bulkUtmMatrixGeneratorTool } from "./tools/marketing/bulk-utm-matrix-generator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2376,7 +2377,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 38. PPC Negative Keyword List Scrubber & Match-Type Formatter
   ppcNegativeKeywordScrubberTool,
   // 39. Bulk URL Slug & Anchor Text Sanitizer
-  urlSlugSanitizerTool
+  urlSlugSanitizerTool,
+  // 40. Bulk UTM Matrix & Multi-Channel Tagging Generator
+  bulkUtmMatrixGeneratorTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2559,6 +2562,16 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-39"
   ) {
     return urlSlugSanitizerTool;
+  }
+  if (
+    normalized === "bulk-utm-matrix-generator" ||
+    normalized === "utm-matrix-generator" ||
+    normalized === "bulk-utm-generator" ||
+    normalized === "bulk-utm-builder" ||
+    normalized === "utm-matrix" ||
+    normalized === "tool-40"
+  ) {
+    return bulkUtmMatrixGeneratorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

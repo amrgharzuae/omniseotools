@@ -229,9 +229,15 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
     "canonical-tag-generator",
   ],
   "utm-campaign-builder": [
+    "bulk-utm-matrix-generator",
     "arabic-url-decoder",
     "social-share-link-generator",
     "hreflang-tags-generator",
+  ],
+  "bulk-utm-matrix-generator": [
+    "utm-campaign-builder",
+    "ppc-negative-keyword-scrubber",
+    "url-slug-sanitizer",
     "google-serp-simulator",
   ],
 

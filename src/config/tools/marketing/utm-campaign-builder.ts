@@ -3,22 +3,24 @@ import { ToolDefinition } from "@/types/tool";
 export const utmCampaignBuilderTool: ToolDefinition = {
   id: "utm-campaign-builder",
   slug: "utm-campaign-builder",
-  name: "Campaign UTM Builder",
-  title: "Campaign UTM Builder & Google Analytics URL Generator | OmniSEO",
-  metaTitle: "Campaign UTM Builder & Google Analytics URL Generator | OmniSEO",
+  name: "UTM Campaign Builder",
+  title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
+  metaTitle: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
   metaDescription:
-    "Free zero-latency Campaign URL builder for Google Analytics 4 (GA4). Generate trackable campaign links with utm_source, utm_medium, utm_campaign, and custom parameters.",
-  h1: "Campaign UTM Builder & Google Analytics URL Generator",
+    "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
+  h1: "UTM Campaign Builder & URL Tracker",
   tagline:
-    "Generate custom campaign URLs with GA4 UTM tracking parameters, instant validation, and 1-click clipboard copying.",
+    "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
   shortDescription:
-    "Generate custom campaign URLs with GA4 UTM tracking parameters, instant validation, and 1-click clipboard copying.",
+    "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
   category: "marketing",
   icon: "Link2",
   badge: "Popular",
   featured: true,
   status: "active",
   keywords: [
+    "campaign builder",
+    "utm campaign builder",
     "utm builder",
     "campaign url builder",
     "google analytics campaign url builder",

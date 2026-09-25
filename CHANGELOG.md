@@ -1,5 +1,20 @@
 # Changelog
 
+## [2026-09-25] - Sprint 40: Build Bulk UTM Matrix & Multi-Channel Tagging Generator (Tool #40)
+### Added & Enhanced
+- **Bulk UTM Matrix Engine (`src/lib/bulk-utm-matrix.ts`, `src/components/tools/marketing/BulkUtmMatrixGenerator.tsx`):**
+  - Engineered a 100% client-side, zero-latency multi-channel UTM matrix generator for marketing teams and agencies.
+  - **Cartesian Matrix Multiplication:** Generates the complete product matrix of multiple destination URLs (up to 50 URLs) against selected marketing channels simultaneously.
+  - **Pre-Configured Channel Presets:** Built-in standard GA4 tag mappings for Google Ads Search (`source=google`, `medium=cpc`), Meta/Facebook Ads (`source=facebook`, `medium=paid_social`), TikTok Ads (`source=tiktok`, `medium=paid_social`), LinkedIn Ads (`source=linkedin`, `medium=paid_social`), Email Newsletter (`source=newsletter`, `medium=email`), and Organic Social/Linktree (`source=linktree`, `medium=social_profile`).
+  - **Sanitization & Normalization Controls:** Lowercase enforcement, space-to-hyphen replacement, automatic stripping of pre-existing UTM tags to prevent duplicate parameter collisions, and URI query parameter encoding.
+  - **Live Metrics Dashboard:** Real-time counters for Base URLs, Active Channels, and Total Tagged URLs Generated.
+  - **Multi-Tab Preview & Export Suite:** Interactive table view with individual row copying, raw monospace text preview, formatted CSV data preview, 1-click clipboard copying, `.TXT` download, and Google Ads Editor / Meta Ads Manager ready CSV export.
+- **Dedicated Route & Registry Integration:**
+  - Registered `bulkUtmMatrixGeneratorTool` (`#40`) in `src/config/tools-registry.ts` under "Marketing & Growth" (`category: "marketing"`).
+  - Created dedicated App Router page at `src/app/(site)/tools/bulk-utm-matrix-generator/page.tsx` with Schema.org `WebApplication` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Linked bidirectionally with Tool #22 (`/tools/utm-campaign-builder`) in `RelatedTools.tsx` and in-tool callouts.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 40) and `PROJECT_STATUS.md`.
+
 ## [2026-09-24] - Sprint 39: Build Bulk URL Slug & Anchor Text Sanitizer (Tool #39)
 ### Added & Enhanced
 - **Bulk URL Slug & Anchor Text Sanitizer Engine (`src/lib/url-slug-sanitizer.ts`, `src/components/tools/content/UrlSlugSanitizer.tsx`):**
