@@ -11,10 +11,13 @@ import { ToolContent, UTM_FAQS } from "./components/ToolContent";
 const CANONICAL_URL = "https://omniseotools.com/tools/marketing/utm-campaign-builder";
 
 export const metadata: Metadata = {
-  title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
+  title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
   description:
-    "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
+    "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
   keywords: [
+    "Campaign URL Builder",
+    "Google Analytics URL Builder Tool",
+    "GA4 UTM Parameter Generator",
     "campaign builder",
     "utm campaign builder",
     "utm builder",
@@ -28,34 +31,34 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
+    title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
     description:
-      "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
+      "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
     url: CANONICAL_URL,
     type: "website",
     siteName: "OmniSEOTools",
   },
   twitter: {
     card: "summary_large_image",
-    title: "UTM Campaign Builder: Free URL & Tracking Parameter Generator",
+    title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
     description:
-      "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
+      "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
   },
 };
 
 export default function UtmCampaignBuilderPage() {
-  // Graph JSON-LD containing SoftwareApplication and FAQPage schemas
+  // Graph JSON-LD containing WebApplication and FAQPage schemas
   const structuredDataGraph = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "SoftwareApplication",
-        name: "OmniSEOtools UTM Campaign Builder",
+        "@type": "WebApplication",
+        name: "Campaign URL Builder",
         operatingSystem: "All",
-        applicationCategory: "BusinessApplication",
+        applicationCategory: "SEOApplication",
         url: CANONICAL_URL,
         description:
-          "Generate clean Google Analytics 4 and ad tracking links with our free UTM campaign builder. Easily format source, medium, and campaign parameters with zero tracking.",
+          "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
         offers: {
           "@type": "Offer",
           price: "0.00",
@@ -96,11 +99,11 @@ export default function UtmCampaignBuilderPage() {
         {/* Top Zero-CLS AdSlot Container */}
         <AdSlot slotType="leaderboard" className="my-6" />
 
-        {/* Interactive Tool Widget (GA4 UTM Builder with QR Code Generator) */}
+        {/* Interactive Tool Widget (GA4 UTM Builder with Presets & QR Code Generator) */}
         <section className="mt-4" aria-label="Interactive GA4 Campaign URL Builder">
           <ToolErrorBoundary
             toolSlug="utm-campaign-builder"
-            toolName="UTM Campaign Builder & URL Tracker"
+            toolName="Campaign URL Builder & Google Analytics URL Generator"
           >
             <UtmBuilderClient />
           </ToolErrorBoundary>

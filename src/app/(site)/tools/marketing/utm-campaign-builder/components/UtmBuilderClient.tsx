@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
 import {
@@ -15,6 +15,7 @@ import {
   Sparkles,
   CheckCircle2,
   AlertCircle,
+  AlertTriangle,
   Layers,
   ArrowRight,
   ShieldCheck,
@@ -22,10 +23,13 @@ import {
   Globe,
   Tag,
   Share2,
+  Info,
+  SlidersHorizontal,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ChannelPreset {
+  id: string;
   name: string;
   badge: string;
   source: string;
@@ -36,7 +40,8 @@ interface ChannelPreset {
 
 const CHANNEL_PRESETS: ChannelPreset[] = [
   {
-    name: "Google Ads Search",
+    id: "google-ads",
+    name: "Google Ads",
     badge: "Paid Search",
     source: "google",
     medium: "cpc",
@@ -44,28 +49,40 @@ const CHANNEL_PRESETS: ChannelPreset[] = [
     platform: "Google Ads",
   },
   {
-    name: "Meta Paid Social",
+    id: "meta-ads",
+    name: "Meta / Facebook Ads",
     badge: "Paid Social",
     source: "facebook",
-    medium: "paid-social",
-    campaignDefault: "prospecting_video_q3",
+    medium: "paid_social",
+    campaignDefault: "prospecting_feed_2026",
     platform: "Meta Ads",
   },
   {
+    id: "tiktok-ads",
+    name: "TikTok Ads",
+    badge: "Paid Social",
+    source: "tiktok",
+    medium: "paid_social",
+    campaignDefault: "viral_video_promo",
+    platform: "TikTok Ads",
+  },
+  {
+    id: "linkedin-ads",
+    name: "LinkedIn Ads",
+    badge: "Paid Social",
+    source: "linkedin",
+    medium: "paid_social",
+    campaignDefault: "b2b_leadgen_2026",
+    platform: "LinkedIn Ads",
+  },
+  {
+    id: "email-newsletter",
     name: "Email Newsletter",
     badge: "Email",
     source: "newsletter",
     medium: "email",
-    campaignDefault: "weekly_roundup_august",
-    platform: "Klaviyo",
-  },
-  {
-    name: "LinkedIn Organic",
-    badge: "Organic Social",
-    source: "linkedin",
-    medium: "social",
-    campaignDefault: "thought_leadership_post",
-    platform: "LinkedIn",
+    campaignDefault: "weekly_digest_2026",
+    platform: "Newsletter",
   },
 ];
 
@@ -73,29 +90,31 @@ const SOURCE_SUGGESTIONS = [
   "google",
   "facebook",
   "instagram",
+  "tiktok",
   "linkedin",
   "newsletter",
   "twitter",
-  "tiktok",
   "youtube",
   "reddit",
   "affiliate",
-  "partner",
+  "bing",
+  "pinterest",
 ];
 
 const MEDIUM_SUGGESTIONS = [
   "cpc",
-  "paid-social",
+  "paid_social",
   "email",
   "social",
   "affiliate",
   "referral",
   "banner",
+  "display",
   "video",
   "organic",
 ];
 
-interface UtmBuilderClientProps {
+export interface UtmBuilderClientProps {
   initialUrl?: string;
   initialSource?: string;
   initialMedium?: string;
@@ -108,15 +127,15 @@ interface UtmBuilderClientProps {
 }
 
 export function UtmBuilderClient({
-  initialUrl = "https://omniseotools.com/tools/seo/serp-preview",
+  initialUrl = "https://omniseotools.com/pricing",
   initialSource = "google",
   initialMedium = "cpc",
   initialCampaign = "summer_growth_2026",
-  initialTerm = "serp preview simulator",
-  initialContent = "hero_cta_button",
-  initialId = "camp_104",
-  initialSourcePlatform = "Google Ads",
-  initialPreset = "Google Ads Search",
+  initialTerm = "",
+  initialContent = "",
+  initialId = "",
+  initialSourcePlatform = "",
+  initialPreset = "Google Ads",
 }: UtmBuilderClientProps = {}) {
   const [url, setUrl] = useState(initialUrl);
   const [source, setSource] = useState(initialSource);
@@ -127,20 +146,32 @@ export function UtmBuilderClient({
   const [id, setId] = useState(initialId);
   const [sourcePlatform, setSourcePlatform] = useState(initialSourcePlatform);
 
-  const [autoSanitize, setAutoSanitize] = useState(true);
+  // Sanitization Toggles (checked by default)
+  const [autoLowercase, setAutoLowercase] = useState(true);
+  const [replaceSpaces, setReplaceSpaces] = useState(true);
+  const [cleanSpecialChars, setCleanSpecialChars] = useState(true);
+
   const [copiedUrl, setCopiedUrl] = useState(false);
+  const [copiedParams, setCopiedParams] = useState(false);
   const [activePreset, setActivePreset] = useState<string>(initialPreset);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const [showQrCode, setShowQrCode] = useState(true);
 
-  // Helper sanitizer: trim, lower-case, replace spaces with underscores/hyphens
+  // Helper sanitizer function based on active toggles
   const sanitize = (val: string) => {
-    if (!autoSanitize) return val.trim();
-    return val
-      .trim()
-      .toLowerCase()
-      .replace(/[\s\t\n]+/g, "_")
-      .replace(/[^a-z0-9_\-\.\:\/]/gi, "");
+    if (!val) return "";
+    let res = val.trim();
+    if (autoLowercase) {
+      res = res.toLowerCase();
+    }
+    if (replaceSpaces) {
+      res = res.replace(/[\s\t\n]+/g, "-");
+    }
+    if (cleanSpecialChars) {
+      // Remove unsafe characters while allowing standard URL chars
+      res = res.replace(/[^a-zA-Z0-9_\-\.\:\/]/g, "");
+    }
+    return res;
   };
 
   const cleanUrl = url.trim();
@@ -152,9 +183,23 @@ export function UtmBuilderClient({
   const cleanId = sanitize(id);
   const cleanPlatform = sanitize(sourcePlatform);
 
+  // Live Validation Warning detection:
+  // Detect uppercase or spaces in raw input when respective toggles are disabled
+  const rawCombined = `${source} ${medium} ${campaign} ${term} ${content} ${id} ${sourcePlatform}`;
+  
+  const hasUppercaseWhenOff = useMemo(() => {
+    if (autoLowercase) return false;
+    return /[A-Z]/.test(rawCombined);
+  }, [autoLowercase, rawCombined]);
+
+  const hasSpacesWhenOff = useMemo(() => {
+    if (replaceSpaces) return false;
+    return /\s/.test(source) || /\s/.test(medium) || /\s/.test(campaign) || /\s/.test(term) || /\s/.test(content) || /\s/.test(id);
+  }, [replaceSpaces, source, medium, campaign, term, content, id]);
+
   // Construct valid URL with query parameters
-  const fullGeneratedUrl = useMemo(() => {
-    if (!cleanUrl) return "";
+  const { fullGeneratedUrl, queryString, isValidUrl } = useMemo(() => {
+    if (!cleanUrl) return { fullGeneratedUrl: "", queryString: "", isValidUrl: false };
 
     try {
       const normalizedBase =
@@ -174,9 +219,12 @@ export function UtmBuilderClient({
       if (cleanPlatform) params.set("utm_source_platform", cleanPlatform);
 
       parsed.search = params.toString();
-      return parsed.toString();
+      const finalUrl = parsed.toString();
+      const qs = params.toString() ? `?${params.toString()}` : "";
+
+      return { fullGeneratedUrl: finalUrl, queryString: qs, isValidUrl: true };
     } catch {
-      // Fallback query assembly
+      // Fallback query assembly for non-standard base URLs
       const queryParts: string[] = [];
       if (cleanSource) queryParts.push(`utm_source=${encodeURIComponent(cleanSource)}`);
       if (cleanMedium) queryParts.push(`utm_medium=${encodeURIComponent(cleanMedium)}`);
@@ -187,7 +235,10 @@ export function UtmBuilderClient({
       if (cleanPlatform) queryParts.push(`utm_source_platform=${encodeURIComponent(cleanPlatform)}`);
 
       const sep = cleanUrl.includes("?") ? "&" : "?";
-      return queryParts.length > 0 ? `${cleanUrl}${sep}${queryParts.join("&")}` : cleanUrl;
+      const finalUrl = queryParts.length > 0 ? `${cleanUrl}${sep}${queryParts.join("&")}` : cleanUrl;
+      const qs = queryParts.length > 0 ? `?${queryParts.join("&")}` : "";
+
+      return { fullGeneratedUrl: finalUrl, queryString: qs, isValidUrl: false };
     }
   }, [
     cleanUrl,
@@ -216,8 +267,8 @@ export function UtmBuilderClient({
       },
       errorCorrectionLevel: "M",
     })
-      .then((url) => {
-        setQrDataUrl(url);
+      .then((qrUrl) => {
+        setQrDataUrl(qrUrl);
       })
       .catch(() => {
         setQrDataUrl("");
@@ -229,6 +280,13 @@ export function UtmBuilderClient({
     navigator.clipboard.writeText(fullGeneratedUrl);
     setCopiedUrl(true);
     setTimeout(() => setCopiedUrl(false), 2000);
+  };
+
+  const handleCopyParams = () => {
+    if (!queryString) return;
+    navigator.clipboard.writeText(queryString);
+    setCopiedParams(true);
+    setTimeout(() => setCopiedParams(false), 2000);
   };
 
   const handleApplyPreset = (preset: ChannelPreset) => {
@@ -243,7 +301,18 @@ export function UtmBuilderClient({
     }
   };
 
-  const handleReset = () => {
+  const handleResetCustom = () => {
+    setActivePreset("Custom");
+    setSource("");
+    setMedium("");
+    setCampaign("");
+    setTerm("");
+    setContent("");
+    setId("");
+    setSourcePlatform("");
+  };
+
+  const handleFullReset = () => {
     setUrl("https://yourdomain.com/landing-page");
     setSource("");
     setMedium("");
@@ -268,70 +337,162 @@ export function UtmBuilderClient({
   const isFormValid = !!cleanUrl && !!cleanSource && !!cleanMedium && !!cleanCampaign;
 
   return (
-    <div className="space-y-8">
-      {/* 1-CLICK CHANNEL PRESET STRIP */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span>1-Click Channel Presets (GA4 Standardized)</span>
-          </label>
+    <div className="space-y-8" id="utm-builder-app">
+      {/* ========================================================================= */}
+      {/* 1-CLICK PLATFORM PRESETS BAR (Top of Tool)                               */}
+      {/* ========================================================================= */}
+      <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-5 sm:p-6 shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800/80 pb-3.5">
+          <div className="flex items-center gap-2">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400">
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                1-Click Platform Presets
+              </span>
+              <span className="hidden sm:inline-block ml-2 text-[11px] text-slate-500 dark:text-slate-400">
+                (GA4 Standardized Naming Conventions)
+              </span>
+            </div>
+          </div>
 
-          {/* Auto-Sanitize Toggle */}
           <button
             type="button"
-            onClick={() => setAutoSanitize(!autoSanitize)}
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all border",
-              autoSanitize
-                ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
-                : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700"
-            )}
+            onClick={handleResetCustom}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
           >
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span>Auto-Sanitize (Lowercase &amp; Hyphens): {autoSanitize ? "ON" : "OFF"}</span>
+            <RotateCcw className="h-3 w-3" />
+            <span>Reset / Custom</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* Preset Cards Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
           {CHANNEL_PRESETS.map((preset) => {
             const isSelected = activePreset === preset.name;
             return (
               <button
-                key={preset.name}
+                key={preset.id}
                 type="button"
                 onClick={() => handleApplyPreset(preset)}
                 className={cn(
-                  "flex flex-col items-start gap-1 p-3.5 rounded-2xl border text-left transition-all cursor-pointer group",
+                  "flex flex-col items-start gap-1 p-3 rounded-2xl border text-left transition-all cursor-pointer group relative",
                   isSelected
-                    ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30 shadow-sm ring-1 ring-emerald-500/30"
-                    : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-slate-300 dark:hover:border-slate-700"
+                    ? "border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 shadow-sm ring-2 ring-emerald-500/20"
+                    : "border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900"
                 )}
               >
                 <div className="flex items-center justify-between w-full">
-                  <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate">
                     {preset.name}
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                    {preset.badge}
-                  </span>
+                  {isSelected && (
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  )}
                 </div>
-                <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  <span>source: <strong className="text-emerald-600 dark:text-emerald-400">{preset.source}</strong></span>
-                  <span>•</span>
-                  <span>medium: <strong className="text-emerald-600 dark:text-emerald-400">{preset.medium}</strong></span>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate w-full">
+                  <span>{preset.source}</span>
+                  <span className="mx-1 text-slate-300 dark:text-slate-600">/</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{preset.medium}</span>
                 </div>
               </button>
             );
           })}
         </div>
+
+        {/* ========================================================================= */}
+        {/* SANITIZATION TOGGLES (Auto-Lowercase, Replace Spaces, Clean Chars)        */}
+        {/* ========================================================================= */}
+        <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <SlidersHorizontal className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>Sanitization Controls:</span>
+            </span>
+
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              {/* Toggle 1: Auto-Lowercase */}
+              <label className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border cursor-pointer select-none transition-all",
+                autoLowercase
+                  ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-500/30"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700"
+              )}>
+                <input
+                  type="checkbox"
+                  checked={autoLowercase}
+                  onChange={(e) => setAutoLowercase(e.target.checked)}
+                  className="rounded text-emerald-600 focus:ring-emerald-500 h-3.5 w-3.5"
+                />
+                <span>Auto-Lowercase</span>
+              </label>
+
+              {/* Toggle 2: Replace Spaces with Hyphens */}
+              <label className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border cursor-pointer select-none transition-all",
+                replaceSpaces
+                  ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-500/30"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700"
+              )}>
+                <input
+                  type="checkbox"
+                  checked={replaceSpaces}
+                  onChange={(e) => setReplaceSpaces(e.target.checked)}
+                  className="rounded text-emerald-600 focus:ring-emerald-500 h-3.5 w-3.5"
+                />
+                <span>Replace Spaces with Hyphens (-)</span>
+              </label>
+
+              {/* Toggle 3: Clean Special Characters / URI Encode */}
+              <label className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border cursor-pointer select-none transition-all",
+                cleanSpecialChars
+                  ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-500/30"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700"
+              )}>
+                <input
+                  type="checkbox"
+                  checked={cleanSpecialChars}
+                  onChange={(e) => setCleanSpecialChars(e.target.checked)}
+                  className="rounded text-emerald-600 focus:ring-emerald-500 h-3.5 w-3.5"
+                />
+                <span>Clean Special Chars &amp; URI</span>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* MAIN TWO-COLUMN WORKBENCH */}
+      {/* ========================================================================= */}
+      {/* LIVE VALIDATION WARNING (When Toggles Are OFF)                            */}
+      {/* ========================================================================= */}
+      {(hasUppercaseWhenOff || hasSpacesWhenOff) && (
+        <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-950/30 p-4 space-y-1.5 shadow-sm text-xs text-amber-800 dark:text-amber-300">
+          <div className="flex items-center gap-2 font-bold">
+            <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
+            <span>Live GA4 Attribution Notice</span>
+          </div>
+          {hasUppercaseWhenOff && (
+            <p className="leading-relaxed">
+              Warning: GA4 treats uppercase and lowercase as separate sources (e.g., &apos;Facebook&apos; vs &apos;facebook&apos;). Enabling <strong>Auto-Lowercase</strong> prevents reporting fragmentation.
+            </p>
+          )}
+          {hasSpacesWhenOff && (
+            <p className="leading-relaxed">
+              Warning: Spaces in UTM parameters create <code className="font-mono bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded">%20</code> escape characters that can disrupt analytics reporting.
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MAIN TWO-COLUMN WORKBENCH                                                 */}
+      {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* LEFT COLUMN: Input Fields (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
-          {/* Base URL Card */}
+          {/* Destination URL Card */}
           <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
@@ -347,7 +508,7 @@ export function UtmBuilderClient({
 
             <div className="space-y-1.5">
               <label htmlFor="target-url" className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                Website Destination URL
+                Landing Page URL
               </label>
               <div className="relative">
                 <input
@@ -360,7 +521,7 @@ export function UtmBuilderClient({
                 />
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                The exact page landing address where visitors will arrive after clicking your campaign link.
+                The exact destination landing page where visitors arrive after clicking your campaign link.
               </p>
             </div>
           </div>
@@ -399,12 +560,15 @@ export function UtmBuilderClient({
               />
               <div className="flex flex-wrap gap-1.5 pt-1">
                 <span className="text-[10px] text-slate-400 self-center mr-1">Quick:</span>
-                {SOURCE_SUGGESTIONS.slice(0, 6).map((s) => (
+                {SOURCE_SUGGESTIONS.slice(0, 8).map((s) => (
                   <button
                     key={s}
                     type="button"
-                    onClick={() => setSource(s)}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-emerald-950 hover:text-emerald-700 transition-colors"
+                    onClick={() => {
+                      setSource(s);
+                      setActivePreset("Custom");
+                    }}
+                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-emerald-950 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
                   >
                     {s}
                   </button>
@@ -420,7 +584,7 @@ export function UtmBuilderClient({
                   <code className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">utm_medium</code>
                   <span className="text-rose-500 font-bold">*</span>
                 </label>
-                <span className="text-[11px] text-slate-400">e.g. cpc, paid-social, email</span>
+                <span className="text-[11px] text-slate-400">e.g. cpc, paid_social, email</span>
               </div>
               <input
                 id="utm-medium"
@@ -432,12 +596,15 @@ export function UtmBuilderClient({
               />
               <div className="flex flex-wrap gap-1.5 pt-1">
                 <span className="text-[10px] text-slate-400 self-center mr-1">Quick:</span>
-                {MEDIUM_SUGGESTIONS.slice(0, 6).map((m) => (
+                {MEDIUM_SUGGESTIONS.slice(0, 8).map((m) => (
                   <button
                     key={m}
                     type="button"
-                    onClick={() => setMedium(m)}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-emerald-950 hover:text-emerald-700 transition-colors"
+                    onClick={() => {
+                      setMedium(m);
+                      setActivePreset("Custom");
+                    }}
+                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-emerald-950 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
                   >
                     {m}
                   </button>
@@ -453,7 +620,7 @@ export function UtmBuilderClient({
                   <code className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">utm_campaign</code>
                   <span className="text-rose-500 font-bold">*</span>
                 </label>
-                <span className="text-[11px] text-slate-400">e.g. black_friday_2026</span>
+                <span className="text-[11px] text-slate-400">e.g. summer_growth_2026</span>
               </div>
               <input
                 id="utm-campaign"
@@ -466,17 +633,17 @@ export function UtmBuilderClient({
             </div>
           </div>
 
-          {/* Optional Granular & GA4 Specialized Parameters */}
+          {/* Optional Granular Parameters */}
           <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <Sliders className="h-4 w-4 text-blue-600" />
                 <span className="text-sm font-bold text-slate-900 dark:text-white">
-                  Advanced &amp; GA4 Granular Fields
+                  Optional Granular Tracking
                 </span>
               </div>
               <span className="text-[11px] text-slate-400 font-semibold">
-                Optional
+                Keywords, A/B Testing &amp; IDs
               </span>
             </div>
 
@@ -492,7 +659,7 @@ export function UtmBuilderClient({
                   type="text"
                   value={term}
                   onChange={(e) => setTerm(e.target.value)}
-                  placeholder="paid search keyword"
+                  placeholder="e.g. running_shoes"
                   className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 p-2.5 text-xs text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none transition-colors"
                 />
               </div>
@@ -508,7 +675,7 @@ export function UtmBuilderClient({
                   type="text"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder="variant_a_header"
+                  placeholder="e.g. hero_cta_blue"
                   className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 p-2.5 text-xs text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none transition-colors"
                 />
               </div>
@@ -516,7 +683,7 @@ export function UtmBuilderClient({
               {/* Campaign ID */}
               <div className="space-y-1.5">
                 <label htmlFor="utm-id" className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
-                  <span>GA4 Campaign ID</span>
+                  <span>Campaign ID</span>
                   <code className="text-[10px] font-mono text-slate-400">utm_id</code>
                 </label>
                 <input
@@ -524,7 +691,7 @@ export function UtmBuilderClient({
                   type="text"
                   value={id}
                   onChange={(e) => setId(e.target.value)}
-                  placeholder="camp_104"
+                  placeholder="e.g. camp_104"
                   className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 p-2.5 text-xs text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none transition-colors"
                 />
               </div>
@@ -540,7 +707,7 @@ export function UtmBuilderClient({
                   type="text"
                   value={sourcePlatform}
                   onChange={(e) => setSourcePlatform(e.target.value)}
-                  placeholder="Google Ads"
+                  placeholder="e.g. Google Ads"
                   className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 p-2.5 text-xs text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none transition-colors"
                 />
               </div>
@@ -548,7 +715,7 @@ export function UtmBuilderClient({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Live URL Output, QR Code & Actions (5 cols) */}
+        {/* RIGHT COLUMN: Live Output, QR Code & Actions (5 cols) */}
         <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
           {/* Main Output Card */}
           <div className="rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 shadow-md space-y-5">
@@ -556,27 +723,27 @@ export function UtmBuilderClient({
               <div className="flex items-center gap-2">
                 <Zap className="h-4 w-4 text-emerald-600" />
                 <span className="text-sm font-bold text-slate-900 dark:text-white">
-                  Generated Tracking URL
+                  Generated Campaign URL
                 </span>
               </div>
               <button
                 type="button"
-                onClick={handleReset}
-                className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                onClick={handleFullReset}
+                className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
               >
                 <RotateCcw className="h-3 w-3" />
-                <span>Reset</span>
+                <span>Reset All</span>
               </button>
             </div>
 
             {/* Rendered URL Box */}
-            <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 space-y-3">
+            <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 space-y-3 shadow-inner">
               <div className="max-h-36 overflow-y-auto break-all font-mono text-xs text-slate-800 dark:text-slate-200 leading-relaxed select-all">
                 {fullGeneratedUrl || "https://yourdomain.com/?utm_source=google&utm_medium=cpc&utm_campaign=summer"}
               </div>
 
               {/* Parameter Badges */}
-              <div className="flex flex-wrap gap-1.5 pt-1 border-t border-slate-200/60 dark:border-slate-800">
+              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-200/60 dark:border-slate-800">
                 {cleanSource && (
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
                     source: {cleanSource}
@@ -599,7 +766,7 @@ export function UtmBuilderClient({
             {!isFormValid && (
               <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 p-3 rounded-xl border border-amber-500/20">
                 <AlertCircle className="h-4 w-4 shrink-0" />
-                <span>Please specify Destination URL, Source, Medium, and Campaign name to complete the tracking URL.</span>
+                <span>Please provide Destination URL, Source, Medium, and Campaign name.</span>
               </div>
             )}
 
@@ -619,7 +786,7 @@ export function UtmBuilderClient({
                 {copiedUrl ? (
                   <>
                     <Check className="h-4 w-4" />
-                    <span>Copied to Clipboard!</span>
+                    <span>Copied Full URL to Clipboard!</span>
                   </>
                 ) : (
                   <>
@@ -629,40 +796,44 @@ export function UtmBuilderClient({
                 )}
               </button>
 
-              {fullGeneratedUrl && (
-                <a
-                  href={fullGeneratedUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={handleCopyParams}
+                  disabled={!queryString}
+                  className="flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                 >
-                  <span>Test Link in New Tab</span>
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              )}
+                  {copiedParams ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
+                  <span>{copiedParams ? "Copied Query!" : "Copy Params Only"}</span>
+                </button>
+
+                {fullGeneratedUrl && (
+                  <a
+                    href={fullGeneratedUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <span>Test Link</span>
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                )}
+              </div>
             </div>
 
-            {/* Lateral Cross-Linking Callout Banner */}
-            <div className="rounded-2xl border border-indigo-500/20 bg-indigo-50/50 dark:bg-indigo-950/30 p-4 space-y-2 text-xs">
-              <div className="flex items-center gap-1.5 font-bold text-indigo-700 dark:text-indigo-300">
-                <Sparkles className="h-4 w-4 text-indigo-500" />
-                <span>Testing campaign distribution?</span>
+            {/* Direct Interlinking Callout Banner */}
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/30 p-4 space-y-2 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-300">
+                <Sparkles className="h-4 w-4 text-emerald-600" />
+                <span>Bulk Campaign Tagging</span>
               </div>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                Preview how this link renders on Twitter, Facebook, and LinkedIn using our{" "}
+                Need to tag multiple landing pages at once? Try the{" "}
                 <Link
-                  href="/tools/twitter-card-preview"
-                  className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-0.5"
+                  href="/tools/bulk-utm-matrix-generator"
+                  className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-0.5"
                 >
-                  <span>Twitter Card Previewer</span>
-                  <ArrowRight className="h-3 w-3" />
-                </Link>{" "}
-                or verify snippet length with the{" "}
-                <Link
-                  href="/tools/google-serp-simulator"
-                  className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-0.5"
-                >
-                  <span>Google SERP Simulator</span>
+                  <span>Bulk UTM Matrix Generator</span>
                   <ArrowRight className="h-3 w-3" />
                 </Link>
                 .
@@ -682,7 +853,7 @@ export function UtmBuilderClient({
               <button
                 type="button"
                 onClick={() => setShowQrCode(!showQrCode)}
-                className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-semibold"
+                className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-semibold cursor-pointer"
               >
                 {showQrCode ? "Hide" : "Show"}
               </button>
@@ -700,7 +871,7 @@ export function UtmBuilderClient({
                       />
                     </div>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                      Scan with any smartphone camera to test mobile UTM attribution.
+                      Scan with any camera app to verify mobile GA4 UTM attribution.
                     </p>
 
                     <button
@@ -722,30 +893,6 @@ export function UtmBuilderClient({
           </div>
         </div>
       </div>
-
-      {/* Explanatory / SEO Content Section */}
-      <section className="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 text-slate-600 dark:text-slate-400">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
-          Why Use an Automated UTM Campaign Builder?
-        </h2>
-        <p className="mb-4 text-sm leading-relaxed">
-          Consistent link tracking is critical for clean attribution across Google Analytics 4 (GA4), Meta Ads, and marketing newsletters. Our client-side <strong>UTM campaign builder</strong> standardizes parameter casing, replaces spaces with hyphens, and validates URLs directly in your browser.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <h3 className="font-medium text-slate-950 dark:text-slate-100 text-sm mb-1">Standardized Attribution</h3>
-            <p className="text-xs">Eliminate uppercase split issues and enforce uniform campaign naming conventions across your entire team.</p>
-          </div>
-          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <h3 className="font-medium text-slate-950 dark:text-slate-100 text-sm mb-1">Zero Data Storage</h3>
-            <p className="text-xs">Unlike server-side tools, your campaign parameters, landing pages, and proprietary ad identifiers are never stored or tracked.</p>
-          </div>
-          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <h3 className="font-medium text-slate-950 dark:text-slate-100 text-sm mb-1">Multi-Channel Presets</h3>
-            <p className="text-xs">Instantly load recommended tag conventions for Google Ads, Facebook, TikTok, LinkedIn, and email campaigns.</p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
