@@ -1254,6 +1254,110 @@ export default nextConfig;`,
       },
     ],
   },
+
+  // 16. Fix GA4 UTM Casing Fragmentation
+  {
+    slug: "fix-ga4-utm-source-capitalization-fragmentation",
+    title: "How to Fix GA4 UTM Casing Fragmentation (Uppercase vs Lowercase)",
+    description:
+      "Learn how to resolve fragmented source/medium traffic in Google Analytics 4 caused by mixed-case UTM parameters, with automated regex fixes and client-side sanitization.",
+    category: "SEO & Search Console",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "bulk-utm-matrix-generator",
+    relatedToolName: "Bulk UTM Matrix & Multi-Channel Tagging Generator",
+    relatedToolCta: "Enforce Lowercase UTMs in Bulk (Tool #34)",
+    problemSummary:
+      "Google Analytics 4 is strictly case-sensitive. When campaigns use mixed casing like utm_source=Facebook and utm_source=facebook, GA4 splits attribution into two separate rows and breaks Default Channel Grouping rules, causing high-value ad traffic to get dumped into the 'Unassigned' channel bucket.",
+    errorSnippet:
+      "GA4 Traffic Acquisition Report Fragmented Rows:\n- Session source / medium: Facebook / Paid_Social -> Channel Group: Unassigned (1,420 sessions)\n- Session source / medium: facebook / paid_social -> Channel Group: Paid Social (4,890 sessions)\n-> Result: Attribution split, distorted ROI calculations, and broken automated conversion reporting.",
+    solutionSnippet: `// Pure TypeScript Client-Side UTM Sanitizer
+export function sanitizeUtmUrl(rawUrl: string): string {
+  const url = new URL(rawUrl);
+  const keys = Array.from(url.searchParams.keys());
+  keys.forEach((k) => {
+    if (k.toLowerCase().startsWith("utm_")) {
+      const v = url.searchParams.get(k) || "";
+      url.searchParams.delete(k);
+      url.searchParams.set(k.toLowerCase(), v.toLowerCase().trim().replace(/\\s+/g, "-"));
+    }
+  });
+  return url.toString();
+}
+
+// Next.js Edge Middleware Redirect (middleware.ts)
+import { NextResponse, type NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  let hasUppercaseUtm = false;
+
+  for (const [key, value] of request.nextUrl.searchParams.entries()) {
+    if (key.toLowerCase().startsWith("utm_")) {
+      const lowerKey = key.toLowerCase();
+      const lowerVal = value.toLowerCase().trim().replace(/\\s+/g, "-");
+
+      if (key !== lowerKey || value !== lowerVal) {
+        url.searchParams.delete(key);
+        url.searchParams.set(lowerKey, lowerVal);
+        hasUppercaseUtm = true;
+      }
+    }
+  }
+
+  if (hasUppercaseUtm) {
+    return NextResponse.redirect(url, 301); // 301 Permanent Redirect
+  }
+
+  return NextResponse.next();
+}`,
+    snippetLanguage: "typescript",
+    implementationSteps: [
+      {
+        title: "1. Identify Fragmented Rows in GA4",
+        explanation:
+          "Navigate to Reports > Acquisition > Traffic Acquisition in GA4 and set primary dimension to Session source / medium. Filter by regex '(?i)facebook|google' to isolate mixed-case duplicate entries.",
+      },
+      {
+        title: "2. Standardize Naming Conventions",
+        explanation:
+          "Enforce all-lowercase values across utm_source, utm_medium, and utm_campaign in team tracking sheets and ad platforms, replacing spaces with hyphens.",
+      },
+      {
+        title: "3. Automate URL Sanitization",
+        explanation:
+          "Use client-side enforcement to auto-lowercase URL query parameters prior to pushing ad links live, or implement edge middleware to rewrite casing automatically.",
+      },
+      {
+        title: "4. Historical Data Note",
+        explanation:
+          "GA4 does not retroactively rewrite historic data; fixes apply only to newly collected sessions. Use Custom Channel Groups or Looker Studio LOWER() calculations for historical views.",
+      },
+    ],
+    commonPitfalls: [
+      "Tagging internal site navigation with UTMs, which destroys original session acquisition attribution.",
+      "Unencoded spaces in UTM values becoming %20 or + in analytics tables.",
+      "Mixing kebab-case (summer-sale) and snake_case (summer_sale) across ad managers.",
+      "Re-sharing existing campaign links without stripping pre-existing uppercase UTM parameters.",
+    ],
+    faqItems: [
+      {
+        question: "Why does GA4 separate uppercase and lowercase UTM tags?",
+        answer:
+          "Google Analytics 4 is strictly case-sensitive in its backend data ingestion pipeline. It treats strings like 'Facebook', 'facebook', and 'FACEBOOK' as separate source values, and capitalized values fail Default Channel Grouping regex rules.",
+      },
+      {
+        question: "Can you merge historical split sessions in GA4?",
+        answer:
+          "No. GA4 does not retroactively rewrite historical session logs. However, you can unify historical views by creating a Custom Channel Group in Admin settings using case-insensitive regex rules, or by applying LOWER(Session source / medium) in Looker Studio or BigQuery.",
+      },
+      {
+        question: "What is the recommended GA4 casing convention?",
+        answer:
+          "The universal enterprise best practice is strict all-lowercase alphanumeric strings (e.g., utm_source=facebook, utm_medium=paid_social, utm_campaign=summer_sale_2026) with hyphen or underscore delimiters and zero spaces.",
+      },
+    ],
+  },
 ];
 
 export function getAllRecipes(): Recipe[] {
