@@ -114,6 +114,12 @@ const MEDIUM_SUGGESTIONS = [
   "organic",
 ];
 
+export interface UtmDynamicMacro {
+  token: string;
+  param: string;
+  description: string;
+}
+
 export interface UtmBuilderClientProps {
   initialUrl?: string;
   initialSource?: string;
@@ -124,6 +130,7 @@ export interface UtmBuilderClientProps {
   initialId?: string;
   initialSourcePlatform?: string;
   initialPreset?: string;
+  dynamicMacros?: UtmDynamicMacro[];
 }
 
 export function UtmBuilderClient({
@@ -136,6 +143,7 @@ export function UtmBuilderClient({
   initialId = "",
   initialSourcePlatform = "",
   initialPreset = "Google Ads",
+  dynamicMacros = [],
 }: UtmBuilderClientProps = {}) {
   const [url, setUrl] = useState(initialUrl);
   const [source, setSource] = useState(initialSource);
@@ -145,6 +153,7 @@ export function UtmBuilderClient({
   const [content, setContent] = useState(initialContent);
   const [id, setId] = useState(initialId);
   const [sourcePlatform, setSourcePlatform] = useState(initialSourcePlatform);
+  const [macroInserted, setMacroInserted] = useState<string>("");
 
   // Sanitization Toggles (checked by default)
   const [autoLowercase, setAutoLowercase] = useState(true);
@@ -168,10 +177,30 @@ export function UtmBuilderClient({
       res = res.replace(/[\s\t\n]+/g, "-");
     }
     if (cleanSpecialChars) {
-      // Remove unsafe characters while allowing standard URL chars
-      res = res.replace(/[^a-zA-Z0-9_\-\.\:\/]/g, "");
+      // Remove unsafe characters while allowing standard URL chars and macro brackets
+      res = res.replace(/[^a-zA-Z0-9_\-\.\:\/\{\}]/g, "");
     }
     return res;
+  };
+
+  const handleInsertMacro = (macro: UtmDynamicMacro) => {
+    if (macro.param === "utm_campaign") {
+      setCampaign((prev) => (prev ? `${prev}_${macro.token}` : macro.token));
+    } else if (macro.param === "utm_term") {
+      setTerm((prev) => (prev ? `${prev}_${macro.token}` : macro.token));
+    } else if (macro.param === "utm_content") {
+      setContent((prev) => (prev ? `${prev}_${macro.token}` : macro.token));
+    } else if (macro.param === "utm_id") {
+      setId(macro.token);
+    } else if (macro.param === "utm_source") {
+      setSource(macro.token);
+    } else if (macro.param === "utm_source_platform") {
+      setSourcePlatform(macro.token);
+    } else {
+      setCampaign((prev) => (prev ? `${prev}_${macro.token}` : macro.token));
+    }
+    setMacroInserted(macro.token);
+    setTimeout(() => setMacroInserted(""), 2500);
   };
 
   const cleanUrl = url.trim();
@@ -462,6 +491,41 @@ export function UtmBuilderClient({
             </div>
           </div>
         </div>
+
+        {/* ========================================================================= */}
+        {/* 1-CLICK DYNAMIC MACROS BAR (Platform-Specific Tokens)                     */}
+        {/* ========================================================================= */}
+        {dynamicMacros && dynamicMacros.length > 0 && (
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 space-y-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <Sparkles className="h-3.5 w-3.5 text-blue-500" />
+                <span>1-Click Dynamic Macros (Click to Insert):</span>
+              </span>
+              {macroInserted && (
+                <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 animate-pulse flex items-center gap-1">
+                  <Check className="h-3 w-3" /> Inserted {macroInserted}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {dynamicMacros.map((macro, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleInsertMacro(macro)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-blue-200 dark:border-blue-900/50 bg-blue-50/60 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 text-xs font-mono font-bold hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:border-blue-400 transition-all cursor-pointer shadow-xs"
+                  title={`Insert ${macro.token} into ${macro.param} (${macro.description})`}
+                >
+                  <span>{macro.token}</span>
+                  <span className="text-[10px] font-sans font-normal text-blue-500 dark:text-blue-400">
+                    &rarr; {macro.param.replace("utm_", "")}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ========================================================================= */}

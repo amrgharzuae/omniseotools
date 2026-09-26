@@ -3,6 +3,7 @@ import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
 import { getAllPosts } from "@/lib/blog";
 import { RECIPES_DATA } from "@/config/recipes-data";
+import { UTM_PLATFORMS } from "@/config/utm-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -65,7 +66,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // 5. Technical Blog Directory & Static Articles
+  // 5. Tool-Specific Sub-Routes (e.g. UTM Campaign Builder Platform Presets)
+  const utmPlatformSubRoutes: MetadataRoute.Sitemap = UTM_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/utm-campaign-builder/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/blog`,
@@ -81,7 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  // 6. Developer Recipes & Error Guides
+  // 7. Developer Recipes & Error Guides
   const recipePages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/recipes`,
@@ -97,7 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  // 7. Legal & Compliance Informational Pages
+  // 8. Legal & Compliance Informational Pages
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/privacy-policy`,
@@ -124,6 +133,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...toolPages,
     ...platformPages,
     ...programmaticPlatformPages,
+    ...utmPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,
