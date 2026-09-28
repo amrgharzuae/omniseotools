@@ -45,6 +45,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 // Interactive Tool Components
 import { SocialPreviewer } from "@/components/tools/social/SocialPreviewer";
 import { SERPPreviewer } from "@/components/tools/serp/SERPPreviewer";
+import { SerpPreviewTool } from "@/components/tools/serp/SerpPreviewTool";
 import { UtmCampaignBuilderTool } from "@/components/tools/marketing/UtmCampaignBuilderTool";
 import { BulkUtmMatrixGenerator } from "@/components/tools/marketing/BulkUtmMatrixGenerator";
 import { DynamicToolGenerator } from "@/components/tools/dynamic/DynamicToolGenerator";
@@ -239,7 +240,7 @@ export default async function ProgrammaticToolPage({ params }: ToolPageProps) {
             ) : tool.slug === "meta-description-length-counter" ? (
               <SERPPreviewer mode="description-counter" toolSlug={tool.slug} toolName={tool.name} />
             ) : tool.slug === "google-serp-simulator" || tool.slug === "serp-simulator" || tool.slug === "serp-preview" ? (
-              <SERPPreviewer mode="full-simulator" toolSlug={tool.slug} toolName={tool.name} />
+              <SerpPreviewTool />
             ) : tool.slug === "flesch-kincaid-calculator" ? (
               <ReadabilityCalculator />
             ) : tool.slug === "keyword-density-checker" ? (

@@ -6,9 +6,9 @@ import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { SerpPreviewTool } from "@/components/tools/serp/SerpPreviewTool";
-import { ToolContent, SERP_FAQS } from "./components/ToolContent";
+import { ToolContent, SERP_FAQS } from "@/app/(site)/tools/seo/serp-preview/components/ToolContent";
 
-const CANONICAL_URL = "https://omniseotools.com/tools/seo/serp-preview";
+const CANONICAL_URL = "https://omniseotools.com/tools/google-serp-simulator";
 
 export const metadata: Metadata = {
   title: "Google SERP Simulator - Search Result Snippet Preview Tool | OmniSEO Tools",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SerpPreviewPage() {
+export default function GoogleSerpSimulatorPage() {
   const structuredDataGraph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -78,13 +78,13 @@ export default function SerpPreviewPage() {
           {
             "@type": "ListItem",
             position: 2,
-            name: "SEO Tools",
-            item: "https://omniseotools.com/#category-seo",
+            name: "SERP & Snippets",
+            item: "https://omniseotools.com/#category-serp",
           },
           {
             "@type": "ListItem",
             position: 3,
-            name: "SERP Preview",
+            name: "Google SERP Simulator",
             item: CANONICAL_URL,
           },
         ],
@@ -105,7 +105,7 @@ export default function SerpPreviewPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Structured Data (JSON-LD Graph) */}
+      {/* Structured Data (JSON-LD Graph: WebApplication + BreadcrumbList + FAQPage) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredDataGraph) }}
@@ -121,7 +121,7 @@ export default function SerpPreviewPage() {
         {/* Interactive Tool Widget (Dual-Mode: Gemini AI & Manual Preview) */}
         <section className="mt-4" aria-label="Interactive Google SERP Simulator">
           <ToolErrorBoundary
-            toolSlug="serp-preview"
+            toolSlug="google-serp-simulator"
             toolName="Google SERP Simulator & Snippet Optimizer"
           >
             <SerpPreviewTool />

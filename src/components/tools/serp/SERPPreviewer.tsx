@@ -195,7 +195,7 @@ export function SERPPreviewer({
       </div>
 
       {/* Main Studio Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Inputs Column */}
         <div className="lg:col-span-5 space-y-6">
@@ -390,7 +390,7 @@ export function SERPPreviewer({
         </div>
 
         {/* Right Simulation Column */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-6 lg:sticky lg:top-6 lg:self-start max-h-[calc(100vh-3rem)] overflow-y-auto pr-1">
           <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 shadow-sm">
             
             {/* View Switcher Header */}

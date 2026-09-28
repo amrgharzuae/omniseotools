@@ -584,20 +584,24 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     id: "google-serp-simulator",
     slug: "google-serp-simulator",
     name: "Google SERP Simulator",
-    title: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
-    metaTitle: "Google SERP Simulator & Snippet Optimizer Tool | OmniSEO",
-    metaDescription: "Simulate Google Search desktop and mobile SERP results. Test pixel widths, title cutoffs, and meta descriptions before deploying.",
-    h1: "Google SERP Simulator & Snippet Optimizer Tool",
-    tagline: "Simulate live Google desktop and mobile search results with rich snippets, star ratings, and real-time pixel metrics.",
-    shortDescription: "Simulate Google desktop and mobile search results, test rich snippet star ratings, publish dates, sitelinks, and audit CTR scores.",
+    title: "Google SERP Simulator - Search Result Snippet Preview Tool | OmniSEO Tools",
+    metaTitle: "Google SERP Simulator - Search Result Snippet Preview Tool | OmniSEO Tools",
+    metaDescription: "Preview how your meta title, description, and URL appear on Google Search. Features real-time pixel truncation checking for Desktop (600px) and Mobile (960px).",
+    h1: "Google SERP Simulator & Snippet Optimizer",
+    tagline: "Simulate authentic Google desktop and mobile search snippets in real time. Validate exact pixel boundaries client-side.",
+    shortDescription: "Preview how your meta title, description, and URL appear on Google Search. Features real-time pixel truncation checking for Desktop (600px) and Mobile (960px).",
     category: "serp",
     icon: "Eye",
     badge: "Popular",
     keywords: [
-      "serp simulator",
       "google serp simulator",
+      "google search snippet preview",
+      "meta title pixel counter",
+      "serp simulator",
       "serp preview tool",
-      "search snippet preview"
+      "search snippet preview",
+      "meta description pixel counter",
+      "google title truncation tool"
     ],
     status: "active",
     featured: true,
@@ -612,7 +616,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
       },
       {
         name: "Switch Desktop & Mobile",
-        text: "Toggle between desktop 600px and mobile 580px viewports to verify snippet presentation."
+        text: "Toggle between Desktop Preview (600px container) and Mobile Preview (card UI with 24px favicon) to verify snippet presentation."
       },
       {
         name: "Audit CTR Score",
@@ -653,12 +657,20 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     },
     faqs: [
       {
-        question: "How does the SERP simulator calculate pixel widths?",
-        answer: "Our simulator calculates the exact cumulative pixel width of each character using Google's official 20px Arial font metrics for titles and 14px Arial metrics for descriptions, mirroring Google's actual rendering engine."
+        question: "Why does Google rewrite my meta title in search results?",
+        answer: "Google algorithms rewrite meta titles when the provided title tag exceeds 600px, contains repetitive keyword stuffing, lacks brand context, or fails to closely match the specific search intent of the user query. Google may append your site name, substitute your page's H1 heading, or pull anchor text from inbound links."
       },
       {
-        question: "How do I get star ratings to appear in my Google search snippet?",
-        answer: "You must add valid Schema.org structured data (such as AggregateRating on Product, SoftwareApplication, or Course schemas) to your webpage's HTML. Once Google recrawls and validates your schema, star ratings can appear in SERPs."
+        question: "What is the maximum pixel width for Google meta descriptions?",
+        answer: "Google's maximum desktop meta description width is approximately 960 pixels (around 155 to 160 characters). On mobile screens, Google truncates meta descriptions earlier at approximately 680 pixels (around 120 to 130 characters). Keeping descriptions between 500px and 920px ensures maximum readability across all devices."
+      },
+      {
+        question: "Does having star ratings guarantee rich snippets in Google?",
+        answer: "No. Adding AggregateRating Schema.org structured data makes your page eligible for star ratings in Google search results, but Google's algorithmic systems evaluate your domain authority, topical relevancy, and schema compliance before choosing to display rich snippet stars."
+      },
+      {
+        question: "How does the SERP simulator calculate pixel widths?",
+        answer: "Our simulator calculates the exact cumulative pixel width of each character using Google's official 20px Arial font metrics for titles and 14px Arial metrics for descriptions, mirroring Google's actual rendering engine."
       },
       {
         question: "Why does my search snippet show the wrong date on Google?",
