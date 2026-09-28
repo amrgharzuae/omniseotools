@@ -77,20 +77,39 @@ const PRESET_EXAMPLES = [
   },
 ];
 
-export function SerpPreviewTool() {
+export interface SerpPreviewToolProps {
+  initialTitle?: string;
+  initialDescription?: string;
+  initialUrl?: string;
+  initialSiteName?: string;
+  initialQuery?: string;
+  platformName?: string;
+  separatorHint?: string;
+}
+
+export function SerpPreviewTool({
+  initialTitle,
+  initialDescription,
+  initialUrl,
+  initialSiteName,
+  initialQuery,
+  platformName,
+  separatorHint,
+}: SerpPreviewToolProps = {}) {
   // Main Navigation Option: "generate" = AI + Preview, "preview" = Direct Simulator
   const [selectedOption, setSelectedOption] = useState<"generate" | "preview">("preview");
 
   // Core Snippet Data (Live preview state)
   const [title, setTitle] = useState(
-    "Google SERP Simulator & Snippet Optimizer | OmniSEO Tools"
+    initialTitle || "Google SERP Simulator & Snippet Optimizer | OmniSEO Tools"
   );
   const [description, setDescription] = useState(
-    "Preview how your meta title, description, and URL appear on Google Search. Features real-time canvas pixel truncation checking for Desktop and Mobile viewports."
+    initialDescription ||
+      "Preview how your meta title, description, and URL appear on Google Search. Features real-time canvas pixel truncation checking for Desktop and Mobile viewports."
   );
-  const [url, setUrl] = useState("https://omniseotools.com/tools/google-serp-simulator");
-  const [siteName, setSiteName] = useState("OmniSEO Tools");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [url, setUrl] = useState(initialUrl || "https://omniseotools.com/tools/google-serp-simulator");
+  const [siteName, setSiteName] = useState(initialSiteName || "OmniSEO Tools");
+  const [searchQuery, setSearchQuery] = useState(initialQuery || "");
 
   // Rich Snippet Toggles
   const [includeRating, setIncludeRating] = useState(true);
@@ -565,6 +584,17 @@ export function SerpPreviewTool() {
                 <span>Reset</span>
               </button>
             </div>
+
+            {/* Platform Preset Banner */}
+            {separatorHint && (
+              <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-300 text-xs border border-emerald-200/80 dark:border-emerald-800/60">
+                <Sparkles className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <div className="leading-snug">
+                  <span className="font-bold">{platformName || "CMS"} Preset Active:</span>{" "}
+                  <span className="font-mono text-[11px] text-emerald-700 dark:text-emerald-400">{separatorHint}</span>
+                </div>
+              </div>
+            )}
 
             {/* Presets Bar */}
             <div className="flex flex-wrap items-center gap-1.5 pb-1">

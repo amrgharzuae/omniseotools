@@ -1,0 +1,478 @@
+import React from "react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import {
+  Globe,
+  Sparkles,
+  Layers,
+  Table,
+  HelpCircle,
+  ArrowRight,
+  ChevronRight,
+  ShieldCheck,
+  Tag,
+  Code2,
+  Share2,
+  CheckCircle2,
+  Flame,
+  Search,
+  ExternalLink,
+  Sliders,
+  Zap,
+  Check,
+  Info,
+  ListOrdered,
+  Store,
+  BookOpen,
+  Layout,
+} from "lucide-react";
+import {
+  SERP_PLATFORMS,
+  getSerpPlatformBySlug,
+  getAllSerpPlatforms,
+} from "@/config/serp-platforms";
+import { SerpPreviewTool } from "@/components/tools/serp/SerpPreviewTool";
+import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
+import { RelatedTools } from "@/components/tool-layout/RelatedTools";
+import { serpPreviewTool } from "@/config/tools/seo/serp-preview";
+
+interface PlatformPageProps {
+  params: Promise<{
+    platform: string;
+  }>;
+}
+
+export async function generateStaticParams() {
+  return SERP_PLATFORMS.map((p) => ({
+    platform: p.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: PlatformPageProps): Promise<Metadata> {
+  const { platform: slug } = await params;
+  const platform = getSerpPlatformBySlug(slug);
+
+  if (!platform) {
+    return {
+      title: "CMS Platform Not Found | OmniSEO Tools",
+    };
+  }
+
+  const canonicalUrl = `https://omniseotools.com/tools/google-serp-simulator/${platform.slug}`;
+
+  return {
+    title: platform.title,
+    description: platform.metaDescription,
+    keywords: [
+      `${platform.shortName.toLowerCase()} serp simulator`,
+      `${platform.shortName.toLowerCase()} title pixel checker`,
+      `${platform.shortName.toLowerCase()} google search preview`,
+      `${platform.shortName.toLowerCase()} meta description counter`,
+      `${platform.shortName.toLowerCase()} liquid seo title`,
+      "google serp simulator",
+      "meta title pixel counter",
+      "search snippet preview",
+    ],
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: platform.title,
+      description: platform.metaDescription,
+      url: canonicalUrl,
+      type: "website",
+      siteName: "OmniSEO Tools",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: platform.title,
+      description: platform.metaDescription,
+    },
+  };
+}
+
+export default async function SerpPlatformPage({ params }: PlatformPageProps) {
+  const { platform: slug } = await params;
+  const platform = getSerpPlatformBySlug(slug);
+
+  if (!platform) {
+    notFound();
+  }
+
+  const canonicalUrl = `https://omniseotools.com/tools/google-serp-simulator/${platform.slug}`;
+  const allPlatforms = getAllSerpPlatforms();
+
+  const structuredDataGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        name: platform.h1,
+        operatingSystem: "All",
+        applicationCategory: "SEOApplication",
+        url: canonicalUrl,
+        description: platform.metaDescription,
+        offers: {
+          "@type": "Offer",
+          price: "0.00",
+          priceCurrency: "USD",
+        },
+        author: {
+          "@type": "Organization",
+          name: "OmniSEO Tools",
+          url: "https://omniseotools.com",
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://omniseotools.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "SERP & Snippets",
+            item: "https://omniseotools.com/#category-serp",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Google SERP Simulator",
+            item: "https://omniseotools.com/tools/google-serp-simulator",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: platform.shortName,
+            item: canonicalUrl,
+          },
+        ],
+      },
+      {
+        "@type": "HowTo",
+        name: `How to Optimize ${platform.shortName} Meta Titles & Snippets for Google SERPs`,
+        description: `Step-by-step tutorial to configure and test pixel-safe title tags in ${platform.shortName} against Google's 600px desktop truncation limit.`,
+        step: platform.howToSteps.map((step, idx) => ({
+          "@type": "HowToStep",
+          position: idx + 1,
+          name: step.name,
+          text: step.text,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: platform.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
+      {/* Structured Data (JSON-LD Graph: WebApplication + BreadcrumbList + HowTo + FAQPage) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredDataGraph) }}
+      />
+
+      {/* Hero Header */}
+      <div className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 pt-8 pb-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumb Trail */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-4 flex-wrap">
+            <Link href="/" className="hover:text-emerald-600 transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="h-3 w-3 text-slate-400" />
+            <Link href="/tools" className="hover:text-emerald-600 transition-colors">
+              Tools
+            </Link>
+            <ChevronRight className="h-3 w-3 text-slate-400" />
+            <Link href="/tools/google-serp-simulator" className="hover:text-emerald-600 transition-colors">
+              Google SERP Simulator
+            </Link>
+            <ChevronRight className="h-3 w-3 text-slate-400" />
+            <span className="font-semibold text-slate-900 dark:text-white">
+              {platform.shortName}
+            </span>
+          </nav>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 shadow-sm">
+                  <Store className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                      {platform.h1}
+                    </h1>
+                    <span className="hidden sm:inline-flex rounded-md bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
+                      {platform.cmsName}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    {platform.tagline}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Switch Pills */}
+            <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 self-start md:self-auto">
+              <span className="text-[11px] font-semibold text-slate-400 px-2">CMS:</span>
+              {allPlatforms.map((p) => {
+                const isActive = p.slug === platform.slug;
+                return (
+                  <Link
+                    key={p.slug}
+                    href={`/tools/google-serp-simulator/${p.slug}`}
+                    className={`px-2.5 py-1 rounded-xl text-xs font-semibold transition-all ${
+                      isActive
+                        ? "bg-emerald-600 text-white shadow-sm"
+                        : "text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800"
+                    }`}
+                  >
+                    {p.shortName}
+                  </Link>
+                );
+              })}
+              <Link
+                href="/tools/google-serp-simulator"
+                className="px-2.5 py-1 rounded-xl text-xs font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
+                Universal
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 pb-16">
+        {/* Top Zero-CLS AdSlot Container */}
+        <AdSlot slotType="leaderboard" className="my-6" />
+
+        {/* Interactive Tool Widget Initialized with Platform Defaults */}
+        <section className="mt-4" aria-label={`${platform.name} SERP Simulator & Snippet Optimizer`}>
+          <ToolErrorBoundary
+            toolSlug={`google-serp-simulator-${platform.slug}`}
+            toolName={`${platform.name} SERP Simulator`}
+          >
+            <SerpPreviewTool
+              initialTitle={platform.defaultTitle}
+              initialDescription={platform.defaultDescription}
+              initialUrl={platform.defaultUrl}
+              initialSiteName={platform.defaultSiteName}
+              initialQuery={platform.defaultQuery}
+              platformName={platform.shortName}
+              separatorHint={platform.separatorHint}
+            />
+          </ToolErrorBoundary>
+        </section>
+
+        {/* Mid-Content In-Feed AdSlot */}
+        <AdSlot slotType="in-feed" className="my-10" />
+
+        {/* Platform-Specific Educational Content & Guide */}
+        <article className="mt-12 space-y-12 text-slate-700 dark:text-slate-300">
+          {/* 1. Direct Answer Callout Box */}
+          <div className="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-50/50 via-white to-slate-50 dark:from-emerald-950/20 dark:via-slate-900/80 dark:to-slate-950 p-6 sm:p-7 space-y-3 shadow-sm">
+            <div className="flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold text-xs">
+                <Info className="h-4 w-4" />
+              </div>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                Direct Answer: {platform.name} Default Snippet Behavior
+              </h2>
+            </div>
+            <p className="text-sm sm:text-base font-medium text-slate-900 dark:text-white leading-relaxed">
+              {platform.directAnswer}
+            </p>
+          </div>
+
+          {/* 2. Core Educational Section */}
+          <section className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+                <BookOpen className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  {platform.educationalH2}
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Technical deep dive into {platform.name} metadata structure and Google rendering
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed space-y-4"
+              dangerouslySetInnerHTML={{ __html: platform.educationalContent }}
+            />
+          </section>
+
+          {/* 3. Actionable How-To Steps */}
+          <section className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+                <ListOrdered className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  How to Configure {platform.shortName} Meta Tags (Step-by-Step)
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Four proven steps to prevent title truncation and maximize organic CTR in {platform.name}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3.5">
+              <ol className="list-decimal space-y-3.5 pl-0">
+                {platform.howToSteps.map((step, idx) => (
+                  <li
+                    key={idx}
+                    className="list-none flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 shadow-sm"
+                  >
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-extrabold text-sm">
+                      {idx + 1}
+                    </div>
+                    <div className="space-y-1 flex-1">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                        {step.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {step.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          {/* 4. Platform FAQs */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+                <HelpCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  {platform.shortName} SERP Snippet Optimization FAQ
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Frequently asked questions regarding {platform.name} search snippet customization
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              {platform.faqs.map((faq, index) => (
+                <details
+                  key={index}
+                  className="group rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-5 transition-all open:ring-1 open:ring-emerald-500/20"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                    <span>{faq.question}</span>
+                    <span className="ml-4 shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 p-1 text-slate-500 group-open:rotate-180 transition-transform">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <p className="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          {/* 5. Cross-Platform Navigation Matrix */}
+          <section className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
+                <Layout className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                  CMS-Specific SERP Simulators
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Switch CMS presets to simulate title truncation rules across major website builders
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              {allPlatforms.map((p) => {
+                const isCurrent = p.slug === platform.slug;
+                return (
+                  <Link
+                    key={p.slug}
+                    href={`/tools/google-serp-simulator/${p.slug}`}
+                    className={`p-4 rounded-2xl border transition-all ${
+                      isCurrent
+                        ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30 shadow-sm"
+                        : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-emerald-500/50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white">
+                        {p.name}
+                      </span>
+                      {isCurrent && (
+                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">
+                          Current
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2">
+                      {p.metaDescription}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="pt-2 text-center text-xs text-slate-500 dark:text-slate-400">
+              Looking for general testing? Use the{" "}
+              <Link
+                href="/tools/google-serp-simulator"
+                className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+              >
+                Universal Google SERP Simulator
+              </Link>
+              .
+            </div>
+          </section>
+        </article>
+
+        {/* Related Tools Internal Linking Mesh */}
+        <div className="mt-12">
+          <RelatedTools currentTool={serpPreviewTool} />
+        </div>
+
+        {/* Bottom AdSlot Container */}
+        <AdSlot slotType="leaderboard" className="mt-12" />
+      </div>
+    </div>
+  );
+}

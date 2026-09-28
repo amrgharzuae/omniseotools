@@ -4,6 +4,7 @@ import { PLATFORMS_REGISTRY } from "@/config/platforms-registry";
 import { getAllPosts } from "@/lib/blog";
 import { RECIPES_DATA } from "@/config/recipes-data";
 import { UTM_PLATFORMS } from "@/config/utm-platforms";
+import { SERP_PLATFORMS } from "@/config/serp-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -74,6 +75,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5b. Google SERP Simulator Platform Presets (Shopify, WordPress, Squarespace)
+  const serpPlatformSubRoutes: MetadataRoute.Sitemap = SERP_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/google-serp-simulator/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -134,6 +143,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...platformPages,
     ...programmaticPlatformPages,
     ...utmPlatformSubRoutes,
+    ...serpPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,
