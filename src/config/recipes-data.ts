@@ -1358,6 +1358,99 @@ export function middleware(request: NextRequest) {
       },
     ],
   },
+
+  // 17. How to Fix Google Rewriting Meta Titles
+  {
+    slug: "how-to-fix-google-rewriting-meta-titles",
+    title: "Why Google Rewrites Your Title Tags & How to Fix It",
+    description:
+      "Diagnose why Google rewrites, truncates, or replaces your meta titles in search results. Learn the 5 rewrite triggers, the decision pipeline, and how to protect your click-through rates.",
+    category: "SEO & Search Console",
+    readingTime: "5 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "google-serp-simulator",
+    relatedToolName: "Google SERP Simulator & Title Pixel Checker",
+    relatedToolCta: "Test Title Tag Pixels in Simulator",
+    problemSummary:
+      "Google's search snippet algorithm dynamically rewrites or overrides HTML <title> tags on over 60% of search queries. When a title tag exceeds 600px desktop limits (~580px mobile), contains repetitive boilerplate branding, fails to reflect the search query intent, or conflicts directly with the on-page <h1> heading, Google replaces it with on-page headings, anchor text, or automated brand fragments, frequently damaging organic click-through rates (CTR).",
+    errorSnippet:
+      "<!-- HTML Source Title -->\n<title>Top SEO Tools 2026 | Best Keyword Tracker | Site Audits - MyBrand</title>\n\n<!-- Google SERP Output (Rewritten & Truncated) -->\nGoogle Title: Top SEO Tools 2026 - MyBrand\nSnippet Override: H1 \"Free SEO Audit Software\" used instead of title tag.",
+    solutionSnippet: `<!-- 1. Optimized HTML Head Structure (<600px Desktop / <580px Mobile) -->
+<head>
+  <title>Google SERP Simulator &amp; Snippet Preview Tool | OmniSEO</title>
+  <meta name="description" content="Simulate Google desktop and mobile search snippets with real-time canvas pixel counters and CMS brand presets." />
+</head>
+
+<!-- 2. On-Page H1 Harmonization (Matches Title Promise) -->
+<main>
+  <h1>Google SERP Simulator &amp; Snippet Preview Tool</h1>
+  <p>Test your title tags and meta descriptions against exact Google pixel boundaries.</p>
+</main>
+
+<!-- 3. Next.js App Router Metadata Implementation -->
+export const metadata: Metadata = {
+  title: "Google SERP Simulator & Snippet Preview Tool | OmniSEO",
+  description: "Simulate Google desktop and mobile search snippets with real-time canvas pixel counters.",
+  alternates: {
+    canonical: "https://omniseotools.com/tools/google-serp-simulator",
+  },
+  openGraph: {
+    title: "Google SERP Simulator & Snippet Preview Tool",
+    description: "Simulate Google desktop and mobile search snippets.",
+  },
+};`,
+    snippetLanguage: "html",
+    implementationSteps: [
+      {
+        title: "1. Audit Exact Pixel Width",
+        explanation:
+          "Measure character pixel dimensions rather than raw character counts using Google's Arial font metrics. Keep desktop titles between 450px and 580px to prevent algorithmic truncation and forced ellipsis generation.",
+      },
+      {
+        title: "2. Harmonize <title> and <h1> Headings",
+        explanation:
+          "Ensure the core promise and primary keyword of your HTML <title> tag directly reflect the main on-page <h1> heading. Google frequently substitutes the <h1> when it detects topical divergence.",
+      },
+      {
+        title: "3. Control Brand Suffix Appending",
+        explanation:
+          "Standardize brand separator tokens ('-' or '|') and remove automated duplicate store suffixes in CMS templates (such as Shopify theme.liquid or Squarespace site title settings) to prevent repetitive branding.",
+      },
+      {
+        title: "4. Inspect Raw HTML vs. Client DOM",
+        explanation:
+          "Verify that client-side JavaScript hydration does not mutate or inject secondary title strings after initial server-side rendering, ensuring Googlebot indexes identical HTML metadata.",
+      },
+      {
+        title: "5. Use Google Search Console URL Inspection",
+        explanation:
+          "After updating title tags and on-page headings, submit revised URLs via GSC URL Inspection to request priority re-crawling and verify that Google's index renders the intended snippet.",
+      },
+    ],
+    commonPitfalls: [
+      "Relying solely on character counts (e.g., '60 characters') instead of precise pixel widths, as wide capital letters (W, M) overflow earlier.",
+      "Stacking multiple pipe separators with duplicate keywords (e.g., 'SEO Tool | Best SEO Tool | Free Tool').",
+      "Using sitewide boilerplate templates that produce identical title prefixes across thousands of product or category pages.",
+      "Leaving default CMS brand suffixes active, resulting in doubled brand names (e.g., 'Brand Name - Category - Brand Name').",
+    ],
+    faqItems: [
+      {
+        question: "Can you use a robots meta tag to stop Google from rewriting titles?",
+        answer:
+          "No. There is no robots meta tag directive or HTTP header that forces Google to use your exact <title> tag. Directives like 'nosnippet' and 'max-snippet' only control meta descriptions and search snippet text lengths, not title generation.",
+      },
+      {
+        question: "Does Google rewriting your title hurt your rankings?",
+        answer:
+          "Google's title rewrite itself does not directly lower your algorithmic search rankings, as ranking calculations evaluate the full page content. However, poorly rewritten, abrupt, or inaccurate snippet titles significantly hurt organic click-through rates (CTR), reducing search traffic.",
+      },
+      {
+        question: "Why does Google show my site name before my page title?",
+        answer:
+          "In modern Google SERPs (especially mobile), Google displays a dedicated Site Name element above or before the page title. If your site name structured data (WebSite schema) is missing or mismatched, Google will guess or extract brand fragments from your domain.",
+      },
+    ],
+  },
 ];
 
 export function getAllRecipes(): Recipe[] {
