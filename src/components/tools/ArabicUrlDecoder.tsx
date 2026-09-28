@@ -28,9 +28,16 @@ import { cn } from "@/lib/utils";
 import { EmbedToolModal } from "@/components/tools/EmbedToolModal";
 import { EmbedBadgeModal } from "@/components/tools/EmbedBadgeModal";
 
-interface ArabicUrlDecoderProps {
+export interface ArabicUrlDecoderProps {
   toolSlug?: string;
   toolName?: string;
+  initialUrl?: string;
+  platformName?: string;
+  customPresets?: Array<{
+    name: string;
+    description: string;
+    url: string;
+  }>;
 }
 
 // Preset samples
@@ -105,9 +112,13 @@ function safeDecode(str: string, convertPlus = true, recursive = true): string {
 export function ArabicUrlDecoder({
   toolSlug = "arabic-url-decoder",
   toolName = "Arabic & UTF-8 URL Decoder",
+  initialUrl,
+  platformName,
+  customPresets,
 }: ArabicUrlDecoderProps) {
+  const activePresets = customPresets && customPresets.length > 0 ? customPresets : SAMPLE_PRESETS;
   const [mode, setMode] = useState<"single" | "batch">("single");
-  const [singleInput, setSingleInput] = useState<string>(SAMPLE_PRESETS[0].url);
+  const [singleInput, setSingleInput] = useState<string>(initialUrl || activePresets[0].url);
   const [batchInput, setBatchInput] = useState<string>(BATCH_SAMPLE);
   const [dirMode, setDirMode] = useState<"auto" | "rtl" | "ltr">("auto");
   const [convertPlus, setConvertPlus] = useState<boolean>(true);
@@ -371,9 +382,9 @@ export function ArabicUrlDecoder({
         {mode === "single" && (
           <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
             <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-              <Sparkles className="h-3 w-3 text-amber-500" /> Presets:
+              <Sparkles className="h-3 w-3 text-amber-500" /> {platformName ? `${platformName} Samples:` : "Presets:"}
             </span>
-            {SAMPLE_PRESETS.map((preset, idx) => (
+            {activePresets.map((preset, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -386,6 +397,33 @@ export function ArabicUrlDecoder({
           </div>
         )}
       </div>
+
+      {/* Platform Preset Notification Banner */}
+      {platformName && (
+        <div className="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-gradient-to-r from-indigo-50/90 via-sky-50/50 to-white dark:from-indigo-950/40 dark:via-slate-900 dark:to-slate-900/40 p-4 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-indigo-600 text-white font-bold text-[10px]">
+                {platformName.charAt(0)}
+              </span>
+              <div>
+                <span className="font-bold text-slate-900 dark:text-white">
+                  Active Preset: {platformName} Arabic Slug Decoder
+                </span>
+                <p className="text-slate-500 dark:text-slate-400 text-[11px]">
+                  Configured with real-world {platformName} e-commerce handles, permalinks, and search parameters.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/tools/arabic-url-decoder"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold text-[11px] shrink-0"
+            >
+              Switch to Universal Decoder &rarr;
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Main Input / Output Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
