@@ -6,6 +6,7 @@ import { RECIPES_DATA } from "@/config/recipes-data";
 import { UTM_PLATFORMS } from "@/config/utm-platforms";
 import { SERP_PLATFORMS } from "@/config/serp-platforms";
 import { ARABIC_DECODER_PLATFORMS } from "@/config/arabic-decoder-platforms";
+import { OG_SAFEZONE_PLATFORMS } from "@/config/og-safezone-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -92,6 +93,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5d. Open Graph Image Safe Zone Platform Presets (Shopify, WordPress, Next.js)
+  const ogSafeZonePlatformSubRoutes: MetadataRoute.Sitemap = OG_SAFEZONE_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/open-graph-image-safe-zone/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -154,6 +163,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...utmPlatformSubRoutes,
     ...serpPlatformSubRoutes,
     ...arabicDecoderPlatformSubRoutes,
+    ...ogSafeZonePlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,

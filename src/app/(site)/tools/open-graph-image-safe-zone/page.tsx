@@ -1,5 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Globe } from "lucide-react";
 import { ogImageSafeZoneTool } from "@/config/tools/social/open-graph-image-safe-zone";
 import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
@@ -132,6 +134,41 @@ export default function OgImageSafeZonePage() {
               toolName={ogImageSafeZoneTool.name}
             />
           </ToolErrorBoundary>
+        </section>
+
+        {/* CMS / Framework Platform Presets Switcher Bar */}
+        <section className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-r from-indigo-50/50 via-white to-sky-50/50 dark:from-slate-900/60 dark:via-slate-900 dark:to-slate-900/60 p-5 sm:p-6 shadow-xs space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Globe className="h-4 w-4 text-indigo-500" />
+                Specialized CMS &amp; Framework Presets
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Explore platform-tailored safe zone previewers with square product crops, Yoast metadata, and Next.js @vercel/og templates.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href="/tools/open-graph-image-safe-zone/shopify"
+                className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-200 text-xs font-semibold shadow-xs transition-all"
+              >
+                Shopify Preset &rarr;
+              </Link>
+              <Link
+                href="/tools/open-graph-image-safe-zone/wordpress"
+                className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-200 text-xs font-semibold shadow-xs transition-all"
+              >
+                WordPress Preset &rarr;
+              </Link>
+              <Link
+                href="/tools/open-graph-image-safe-zone/nextjs"
+                className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-200 text-xs font-semibold shadow-xs transition-all"
+              >
+                Next.js Preset &rarr;
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Mid-Content In-Feed AdSlot */}

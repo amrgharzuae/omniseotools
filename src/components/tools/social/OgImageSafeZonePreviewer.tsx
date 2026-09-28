@@ -31,15 +31,25 @@ import {
 import { cn } from "@/lib/utils";
 import { EmbedBadgeModal } from "@/components/tools/EmbedBadgeModal";
 
-interface OgImageSafeZonePreviewerProps {
+export interface OgImageSafeZonePreviewerProps {
   toolSlug?: string;
   toolName?: string;
   platform?: any;
+  initialImageUrl?: string;
+  initialTitle?: string;
+  initialDescription?: string;
+  initialDomain?: string;
+  platformName?: string;
+  customTemplates?: Array<{
+    name: string;
+    label: string;
+    url: string;
+  }>;
 }
 
 type PlatformTab = "facebook" | "twitter-large" | "twitter-small" | "linkedin" | "whatsapp";
 
-interface SamplePreset {
+export interface SamplePreset {
   name: string;
   url: string;
   label: string;
@@ -63,9 +73,21 @@ const SAMPLE_TEMPLATES: SamplePreset[] = [
   },
 ];
 
-export function OgImageSafeZonePreviewer({ toolSlug, toolName }: OgImageSafeZonePreviewerProps) {
+export function OgImageSafeZonePreviewer({
+  toolSlug,
+  toolName,
+  platform,
+  initialImageUrl,
+  initialTitle,
+  initialDescription,
+  initialDomain,
+  platformName,
+  customTemplates,
+}: OgImageSafeZonePreviewerProps) {
+  const activeTemplates = customTemplates && customTemplates.length > 0 ? customTemplates : SAMPLE_TEMPLATES;
+
   // Image State
-  const [imageUrl, setImageUrl] = useState<string>(SAMPLE_TEMPLATES[0].url);
+  const [imageUrl, setImageUrl] = useState<string>(initialImageUrl || activeTemplates[0].url);
   const [imageMetadata, setImageMetadata] = useState<{
     width: number;
     height: number;
@@ -91,11 +113,14 @@ export function OgImageSafeZonePreviewer({ toolSlug, toolName }: OgImageSafeZone
   const [fitMode, setFitMode] = useState<"cover" | "contain">("cover");
 
   // Mock Post Metadata
-  const [postTitle, setPostTitle] = useState<string>("Executive Insights: 2026 Growth Playbook for High-Scale Engineering");
-  const [postDescription, setPostDescription] = useState<string>(
-    "Explore proven architectural strategies, zero-latency workflows, and SEO performance blueprints deployed by top teams."
+  const [postTitle, setPostTitle] = useState<string>(
+    initialTitle || "Executive Insights: 2026 Growth Playbook for High-Scale Engineering"
   );
-  const [domainName, setDomainName] = useState<string>("omniseotools.com");
+  const [postDescription, setPostDescription] = useState<string>(
+    initialDescription ||
+      "Explore proven architectural strategies, zero-latency workflows, and SEO performance blueprints deployed by top teams."
+  );
+  const [domainName, setDomainName] = useState<string>(initialDomain || "omniseotools.com");
 
   // File Upload Ref
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -333,7 +358,7 @@ export function OgImageSafeZonePreviewer({ toolSlug, toolName }: OgImageSafeZone
 
           {/* Quick Presets & Embed Badge */}
           <div className="flex flex-wrap items-center gap-1.5">
-            {SAMPLE_TEMPLATES.map((tmpl, idx) => (
+            {activeTemplates.map((tmpl, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -354,6 +379,33 @@ export function OgImageSafeZonePreviewer({ toolSlug, toolName }: OgImageSafeZone
 
         </div>
       </div>
+
+      {/* Platform Preset Notification Banner */}
+      {platformName && (
+        <div className="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-gradient-to-r from-indigo-50/90 via-sky-50/50 to-white dark:from-indigo-950/40 dark:via-slate-900 dark:to-slate-900/40 p-4 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-indigo-600 text-white font-bold text-[10px]">
+                {platformName.charAt(0)}
+              </span>
+              <div>
+                <span className="font-bold text-slate-900 dark:text-white">
+                  Active Preset: {platformName} Open Graph Previewer
+                </span>
+                <p className="text-slate-500 dark:text-slate-400 text-[11px]">
+                  Configured with {platformName} social image aspect ratios, crop boundaries, and meta tags.
+                </p>
+              </div>
+            </div>
+            <a
+              href="/tools/open-graph-image-safe-zone"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold text-[11px] shrink-0"
+            >
+              Switch to Universal Safe-Zone Tool &rarr;
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Main Dual-Pane Workspace Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
