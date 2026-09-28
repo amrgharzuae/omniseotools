@@ -463,16 +463,16 @@ export function ToolContent() {
                 Google SERP Simulator &amp; Meta Pixel Counter
               </h3>
               <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Test title and meta description pixel lengths against Google desktop (600px) and mobile limits with AI generation powered by Gemini.
+                Test title and meta description pixel lengths against Google desktop (600px) and mobile limits with real-time truncation checking.
               </p>
             </div>
 
             <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
-                /tools/seo/serp-preview
+                /tools/google-serp-simulator
               </span>
               <Link
-                href="/tools/seo/serp-preview"
+                href="/tools/google-serp-simulator"
                 className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-0.5 transition-transform"
               >
                 <span>Launch SERP Previewer</span>
@@ -481,35 +481,35 @@ export function ToolContent() {
             </div>
           </div>
 
-          {/* Linked Card: URL Slug Generator */}
-          <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 space-y-4 shadow-sm hover:border-blue-500/50 transition-all group">
+          {/* Linked Card: How to Fix Keyword Stuffing Recipe */}
+          <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 space-y-4 shadow-sm hover:border-indigo-500/50 transition-all group">
             <div className="flex items-center justify-between">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-105 transition-transform">
-                <FileText className="h-5 w-5" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 shadow-sm group-hover:scale-105 transition-transform">
+                <Sparkles className="h-5 w-5" />
               </div>
-              <span className="rounded-md bg-blue-100 dark:bg-blue-950 px-2.5 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300">
-                SEO Utility
+              <span className="rounded-md bg-indigo-100 dark:bg-indigo-950 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+                SEO Recipe
               </span>
             </div>
 
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                SEO URL Slug &amp; Bulk Permalink Generator
+              <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                How to Detect &amp; Fix Keyword Stuffing Penalties
               </h3>
               <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Convert page headings and product titles into clean, hyphenated, stop-word-free URL slugs with batch conversion and diacritic transliteration.
+                Step-by-step troubleshooting protocol to resolve algorithmic over-optimization, map semantic entity synonyms, and de-optimize copy safely.
               </p>
             </div>
 
             <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-              <span className="text-[11px] font-mono text-slate-400 font-semibold">
-                /tools/seo/url-slug-generator
+              <span className="text-[11px] font-mono text-indigo-600 dark:text-indigo-400 font-semibold">
+                /recipes/how-to-fix-keyword-stuffing-penalties
               </span>
               <Link
-                href="/tools/seo/url-slug-generator"
-                className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform"
+                href="/recipes/how-to-fix-keyword-stuffing-penalties"
+                className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-0.5 transition-transform"
               >
-                <span>Launch Slug Generator</span>
+                <span>Read Troubleshooting Guide</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

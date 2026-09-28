@@ -782,93 +782,98 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   {
     id: "keyword-density-checker",
     slug: "keyword-density-checker",
-    name: "Keyword Density Checker",
-    title: "Free Keyword Density Checker & Word Frequency",
-    metaTitle: "Free Keyword Density Checker & Word Frequency",
-    metaDescription: "Analyze keyword density and n-gram word frequency in real time. Avoid over-optimization penalties, filter stop words, and optimize on-page content.",
-    h1: "Free Keyword Density Checker & Content Analyzer",
-    tagline: "Analyze keyword frequency, identify over-optimization risks, and optimize single and multi-word phrases for search engines.",
-    shortDescription: "Calculate 1-word, 2-word, and 3-word keyword frequency percentages, filter stop words, audit lexical diversity, and export CSV reports.",
+    name: "Keyword Density Checker & N-Gram Analyzer",
+    title: "Keyword Density Checker & N-Gram Frequency Analyzer | OmniSEO Tools",
+    metaTitle: "Keyword Density Checker & N-Gram Frequency Analyzer | OmniSEO Tools",
+    metaDescription: "Analyze keyword frequency, 1-word, 2-word, and 3-word n-gram density, and check for search engine keyword stuffing penalties. 100% private and client-side.",
+    h1: "Keyword Density Checker & N-Gram Frequency Analyzer",
+    tagline: "Calculate single-word and multi-word phrase frequency percentages. Audit your content against keyword stuffing thresholds in real time.",
+    shortDescription: "Calculate 1-word, 2-word, and 3-word n-gram keyword frequency percentages, filter stop words, audit lexical diversity, and prevent keyword stuffing penalties.",
     category: "copywriting",
     icon: "FileText",
     badge: "Popular",
     keywords: [
       "keyword density checker",
-      "keyword frequency counter",
-      "keyword stuffing checker",
+      "n-gram phrase frequency analyzer",
+      "keyword stuffing penalty detector",
+      "word frequency counter",
       "ngram density tool",
       "content word frequency analyzer",
-      "on page seo keyword density"
+      "on page seo keyword density",
+      "tf-idf content tool"
     ],
     status: "active",
     featured: true,
     howToSteps: [
       {
-        name: "Paste Text Content",
-        text: "Input your article text, landing page copy, or competitor's webpage content."
+        name: "Paste Content or Article Draft",
+        text: "Input your article text, landing page copy, or competitor webpage content into the text analyzer."
       },
       {
         name: "Select N-Gram Phrase Length",
-        text: "Toggle between 1-word, 2-word, and 3-word phrase density tables."
+        text: "Toggle between 1-word (unigram), 2-word (bigram), and 3-word (trigram) phrase density tables."
       },
       {
-        name: "Filter Stop Words",
-        text: "Enable stop word exclusion to eliminate conversational filler words (e.g., 'the', 'and', 'with')."
+        name: "Filter Stop Words & Exclusions",
+        text: "Enable stop word exclusion to strip non-informational filler words (e.g., 'the', 'and', 'with') and isolate true topical phrases."
+      },
+      {
+        name: "Audit Keyword Stuffing Thresholds",
+        text: "Review the automated risk badges to ensure primary phrases remain within the recommended 1.0% to 2.0% safety range."
       },
       {
         name: "Export Density Report",
-        text: "Download a structured CSV spreadsheet of your keyword frequencies for content auditing."
+        text: "Download a structured CSV spreadsheet of your keyword frequencies for editorial documentation and SEO audits."
       }
     ],
     guideContent: {
-      title: "Modern Keyword Density Best Practices & Anti-Stuffing Guidelines",
+      title: "Comprehensive Keyword Density, N-Gram Analysis & Anti-Stuffing Guide",
       sections: [
         {
-          heading: "The Evolution of Keyword Density in Search Engine Optimization",
-          content: "<p>In the early days of search algorithms, keyword density (the percentage of times a keyword appears relative to total word count) was a primary ranking signal. Webmasters calculated strict ratios (e.g. '5% keyword density') and repeated exact-match search terms repeatedly throughout the page.</p><p>Today, Google's advanced semantic understanding algorithms—including BERT, RankBrain, and modern Transformer-based Large Language Models—evaluate topical depth, entity relationships, and latent semantic search intent. While arbitrary keyword repetition is now penalized as <strong>keyword stuffing</strong>, monitoring keyword density remains vital for ensuring proper topical focus without crossing over-optimization thresholds.</p>",
+          heading: "What is an Optimal Keyword Density in Modern Search?",
+          content: "<p>In modern search engine optimization, the optimal keyword density for primary focus phrases is <strong>1.0% to 2.0%</strong> (approximately 1 to 2 occurrences per 100 words of body copy). While legacy search algorithms in the early 2000s relied heavily on raw keyword repetition, modern search engines powered by transformer models (such as Google BERT, RankBrain, and MUM) prioritize <strong>semantic entity coverage</strong>, topical depth, and natural conversational flow over mechanical keyword counts.</p><p>Target keyword densities exceeding <strong>2.5% to 3.0%</strong> risk triggering automated algorithmic spam demotions under Google's helpful content and keyword stuffing guidelines. Rather than repeating exact-match terms, high-ranking pages establish topical authority by incorporating contextual synonyms, co-occurring entities, and related technical terminology.</p>",
           keyTakeaways: [
-            "Formula: Keyword Density (%) = (Keyword Occurrences / Total Word Count) × 100.",
-            "Modern optimal keyword density for primary search phrases is 1.0% to 2.5%.",
-            "Densities above 3.5% trigger automated spam and over-optimization flags in search algorithms."
+            "Optimal primary keyword density benchmark is 1.0% to 2.0% of total word count.",
+            "Densities above 2.5% to 3.0% trigger automated over-optimization and keyword stuffing filters.",
+            "Prioritize semantic entity coverage and conceptual depth over raw keyword repetition."
           ]
         },
         {
           heading: "Single Words vs. Multi-Word N-Grams (2-Word & 3-Word Phrases)",
-          content: "<p>Analyzing single words alone provides an incomplete picture of on-page optimization. Evaluating <strong>2-word and 3-word n-grams</strong> reveals whether your content accurately and naturally incorporates long-tail search phrases and topic-specific entities.</p><p>For example, in an article about 'cloud hosting', single-word analysis might show high counts of 'cloud' and 'hosting', but 2-word analysis will reveal whether you naturally discuss key subtopics like 'server latency', 'uptime guarantee', 'database replication', and 'pricing plans'. Similarly, 3-word phrases uncover intent-driven search queries like 'best cloud hosting' or 'free migration support'.</p>",
+          content: "<p>Auditing single words (unigrams) alone provides an incomplete and often misleading assessment of content optimization. Modern content auditing requires analyzing <strong>2-word (bigrams) and 3-word (trigrams) n-gram sequences</strong>.</p><p>Analyzing multi-word phrases catches unintended over-optimization that single-word counts miss. For instance, in an article discussing <em>technical SEO audits</em>, the single words 'technical' and 'audit' might each register a safe 1.5% density. However, if the exact 3-word sequence <code>technical seo audit</code> appears in every subheading and every introductory sentence, the multi-word n-gram density will spike to 4.5%, instantly flagging the page for algorithmic devaluation.</p><p>Furthermore, evaluating 2-word and 3-word n-grams reveals whether your copy naturally integrates high-intent long-tail search queries (such as 'core web vitals optimization', 'internal linking architecture', or 'xml sitemap validation') that reflect true searcher intent.</p>",
           keyTakeaways: [
-            "1-word keywords should generally remain below 3.0% density.",
-            "2-word phrases should stay between 1.0% and 2.0% density.",
-            "3-word long-tail phrases should stay between 0.5% and 1.2% density."
+            "Unigrams (1-word) assess general topical vocabulary; Bigrams (2-word) and Trigrams (3-word) reflect exact search queries.",
+            "Multi-word n-gram analysis catches repetitive phrase stuffing that single-word frequency metrics overlook.",
+            "Keep 2-word phrases between 1.0% and 1.8% density, and 3-word long-tail phrases between 0.5% and 1.2%."
           ]
         },
         {
-          heading: "How to Avoid Keyword Stuffing While Maximizing Topical Authority",
-          content: "<p>To build high-ranking content that adheres to search engine quality standards and avoids algorithmic demotions:</p><ul><li><strong>Use Semantic Synonyms & LSI Entities:</strong> Instead of repeating 'SEO tool' 20 times, weave in 'search engine utility', 'SERP analyzer', 'ranking software', and 'metadata checker'.</li><li><strong>Optimize Strategic Placements:</strong> Ensure your primary keyword appears naturally in the H1 heading, the first 100 words, one H2 subheading, and the meta description.</li><li><strong>Filter Common Stop Words:</strong> Always exclude non-informational filler words (e.g., 'and', 'the', 'with') when auditing your content's true topical keyword distribution.</li><li><strong>Monitor Lexical Diversity:</strong> Maintain a healthy unique-to-total word ratio (typically above 40% for comprehensive articles) to ensure rich vocabulary.</li></ul>",
+          heading: "How Search Engines Detect Keyword Stuffing Algorithmic Penalties",
+          content: "<p>Search engine algorithms detect keyword stuffing through sophisticated statistical natural language processing (NLP) distributions rather than naive threshold counters:</p><ul><li><strong>Anomalous Frequency Spikes:</strong> Algorithms compare a page's term distribution against an expected probabilistic language model for that topic. Significant mathematical deviations indicate artificial manipulation.</li><li><strong>Heading & Meta Tag Clustering:</strong> Repeating exact-match focus keywords across multiple H2, H3, image alt text, and bold tags signals programmatic stuffing.</li><li><strong>Low Lexical Diversity:</strong> When the ratio of unique words to total words drops below 35% in long-form content, search engines interpret the copy as repetitive and low-quality.</li></ul><p>To safely de-optimize content, replace repetitive head keywords with latent semantic entities, prune redundant modifier phrases from subheadings, and expand explanatory analysis.</p>",
           keyTakeaways: [
-            "Incorporate semantic variations rather than repeating exact keyword strings.",
-            "Audit competitor pages using CSV exports to identify missed secondary topics.",
-            "Maintain lexical diversity above 40% to indicate rich editorial depth."
+            "Search engines detect keyword stuffing through statistical NLP anomaly detection.",
+            "Avoid repeating exact keywords across consecutive H2/H3 subheadings and image alt tags.",
+            "Maintain lexical diversity above 40% to indicate rich vocabulary and authoritative editorial depth."
           ]
         }
-
       ]
     },
     faqs: [
       {
-        question: "What is the ideal keyword density percentage for Google SEO in 2026?",
-        answer: "The optimal density for your primary target keyword is between 1% and 2.5%. For secondary and long-tail phrases, a density between 0.5% and 1.5% represents a natural, healthy distribution."
+        question: "Does Google have an official keyword density percentage?",
+        answer: "No. Google does not have an official keyword density percentage or target ratio. Google Search Advocate John Mueller has repeatedly confirmed that search algorithms evaluate whether content naturally answers user search intent rather than counting keyword percentages. However, maintaining a 1% to 2% density prevents accidental keyword stuffing penalties."
       },
       {
-        question: "What is keyword stuffing and how does Google penalize it?",
-        answer: "Keyword stuffing is the practice of unnaturally repeating keywords in a webpage to manipulate search rankings. Google's algorithms detect this through anomalous keyword density spikes (>3.5%) and demote or de-index the offending page."
+        question: "What is keyword stuffing and how do algorithms detect it?",
+        answer: "Keyword stuffing is the manipulative practice of repeating keywords unnaturally in webpage body text, headers, meta tags, or alt attributes. Modern algorithms detect it using natural language processing (NLP) to identify statistical frequency spikes and repetitive n-gram distributions that deviate from natural human writing."
       },
       {
-        question: "Why should I filter out stop words during keyword analysis?",
-        answer: "Stop words (like 'the', 'is', 'at', 'which') account for up to 30% of all words in English text. Filtering them allows you to see the true topical keywords that define your article's subject matter."
+        question: "Does stop word removal distort frequency percentages?",
+        answer: "No. In fact, removing grammatical stop words (such as 'the', 'and', 'is', 'at', 'which') clarifies your true topical distribution. Because stop words typically represent 25% to 35% of all words in English text, filtering them isolates meaningful subject-matter keywords and reveals genuine topical density."
       },
       {
-        question: "What are n-grams in content analysis?",
-        answer: "N-grams are contiguous sequences of 'n' items from a text. A 1-word n-gram is a unigram ('SEO'), a 2-word n-gram is a bigram ('SEO tools'), and a 3-word n-gram is a trigram ('free SEO tools')."
+        question: "Why should you analyze 2-word and 3-word n-grams alongside single words?",
+        answer: "Single words can appear natural while multi-word phrases are severely over-optimized. Analyzing 2-word (bigrams) and 3-word (trigrams) n-grams allows you to identify repetitive phrase patterns, uncover long-tail keyword coverage, and ensure key phrases match real user search queries."
       }
     ]
   },

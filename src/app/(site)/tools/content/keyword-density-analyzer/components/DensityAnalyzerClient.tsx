@@ -32,19 +32,24 @@ interface SamplePreset {
 
 const SAMPLE_PRESETS: SamplePreset[] = [
   {
-    name: "SEO Blog Post",
-    badge: "Well-Balanced",
-    text: `Search engine optimization (SEO) is the process of improving your website to increase its visibility in Google search results. Effective SEO requires high-quality content, fast page speed, and relevant backlinks. When you optimize your SEO strategy, focus on matching search intent rather than artificial keyword stuffing. In this comprehensive SEO guide, we explore proven SEO techniques, keyword research best practices, and internal linking structures to build organic search authority and drive qualified traffic. Content marketing works hand in hand with technical SEO to deliver long-term organic growth.`,
+    name: "Technical SEO Audit",
+    badge: "Balanced (1.6%)",
+    text: `Conducting a regular technical SEO audit is essential to maintain search engine crawlability and indexation health. During a technical SEO audit, webmasters inspect XML sitemaps, canonical tags, and HTTP response codes. Resolving redirect chains, fixing broken 404 links, and optimizing crawl budget ensure search engine bots can discover new content efficiently. A comprehensive technical SEO audit also analyzes server response latency, structured data validation, and mobile usability metrics to maximize organic search visibility.`,
   },
   {
-    name: "E-Commerce Product",
-    badge: "E-Commerce",
-    text: `Introducing the ProSound Wireless Noise-Cancelling Headphones. Engineered with 40mm custom audio drivers, active noise cancellation technology, and 45-hour extended battery life. Experience studio-grade acoustic clarity and ultra-soft memory foam earcups. Connect seamlessly with Bluetooth 5.3 multipoint pairing and enjoy crystal-clear calls with our quad-microphone array. Free 2-day shipping and 2-year manufacturer warranty included with every headphone purchase.`,
+    name: "Core Web Vitals Guide",
+    badge: "Optimized (1.4%)",
+    text: `Optimizing Core Web Vitals is crucial for delivering an exceptional user experience and satisfying Google page experience ranking signals. The three primary Core Web Vitals metrics include Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS). Improving Largest Contentful Paint requires fast server response times, responsive image optimization, and high-priority resource preloading. To minimize Cumulative Layout Shift, always declare explicit width and height dimensions on media elements.`,
   },
   {
-    name: "Over-Optimized (Stuffing Warning)",
-    badge: "Spam Warning",
-    text: `Buy cheap shoes online at our cheap shoes store. We offer the best cheap shoes, discount cheap shoes, running cheap shoes, and casual cheap shoes. If you are looking for cheap shoes in 2026, our cheap shoes website has the greatest cheap shoes selection with free cheap shoes delivery. Contact our cheap shoes team today for cheap shoes discounts.`,
+    name: "Internal Linking Architecture",
+    badge: "Semantic Focus (1.8%)",
+    text: `A structured internal linking architecture distributes PageRank equity and establishes contextual topical hierarchy across your website. By connecting related cluster articles with descriptive anchor text, you signal entity relationships to search engine algorithms. Maintain a shallow click depth so high-priority landing pages remain accessible within three clicks from the homepage. Auditing internal linking architecture helps uncover orphaned pages, eliminate broken links, and reinforce topical authority across content clusters.`,
+  },
+  {
+    name: "Over-Optimized (Stuffing Alert)",
+    badge: "Stuffing Warning (4.8%)",
+    text: `Looking for the best technical seo audit? Our technical seo audit service provides the ultimate technical seo audit for enterprise brands. If you need a technical seo audit agency to perform your technical seo audit, our technical seo audit specialists deliver fast technical seo audit reports. Contact our technical seo audit team today for the best technical seo audit pricing and technical seo audit checklists.`,
   },
 ];
 
@@ -397,7 +402,7 @@ export function DensityAnalyzerClient() {
               rows={11}
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Paste your article, blog post draft, or product description here..."
+              placeholder="Paste your article draft, technical SEO audit notes, or blog copy to analyze 1-word, 2-word, and 3-word n-gram keyword density percentages in real time..."
               className="w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 p-4 text-xs sm:text-sm text-slate-900 dark:text-slate-100 focus:border-blue-500 focus:outline-none transition-colors resize-none leading-relaxed"
             />
           </div>
@@ -421,7 +426,7 @@ export function DensityAnalyzerClient() {
                 type="text"
                 value={targetLookup}
                 onChange={(e) => setTargetLookup(e.target.value)}
-                placeholder="Enter specific primary keyword (e.g. 'seo tools')..."
+                placeholder="Enter focus keyword or n-gram (e.g. 'technical seo audit', 'core web vitals')..."
                 className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 p-2.5 text-xs sm:text-sm text-slate-900 dark:text-slate-100 focus:border-blue-500 focus:outline-none"
               />
 
