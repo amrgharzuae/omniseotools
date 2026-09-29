@@ -38,6 +38,8 @@ interface SchemaValidatorProps {
   toolSlug?: string;
   toolName?: string;
   initialInput?: string;
+  platformName?: string;
+  platformPreset?: string;
 }
 
 const SAMPLE_PRESETS = {
@@ -129,8 +131,12 @@ export function SchemaValidator({
   toolSlug = "schema-validator",
   toolName = "JSON-LD Schema Validator & Linter",
   initialInput,
+  platformName,
+  platformPreset,
 }: SchemaValidatorProps) {
-  const [inputCode, setInputCode] = useState<string>(initialInput || SAMPLE_PRESETS.validArticle);
+  const [inputCode, setInputCode] = useState<string>(
+    initialInput || platformPreset || SAMPLE_PRESETS.validArticle
+  );
   const [copied, setCopied] = useState(false);
   const [shareFeedback, setShareFeedback] = useState(false);
 
@@ -241,7 +247,7 @@ export function SchemaValidator({
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                Client-Side JSON-LD Validator &amp; Linter
+                {platformName ? `${platformName} JSON-LD Schema Validator` : "Client-Side JSON-LD Validator & Linter"}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Paste raw JSON or full HTML script tags. Evaluated 100% in browser with zero telemetry.
@@ -281,6 +287,14 @@ export function SchemaValidator({
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mr-1">
             Presets:
           </span>
+          {platformPreset && (
+            <button
+              onClick={() => setInputCode(platformPreset)}
+              className="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-100 dark:bg-emerald-950/90 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 hover:bg-emerald-200 dark:hover:bg-emerald-900 transition-colors shadow-2xs"
+            >
+              ⭐ {platformName || "Platform"} Preset
+            </button>
+          )}
           <button
             onClick={() => setInputCode(SAMPLE_PRESETS.validArticle)}
             className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
