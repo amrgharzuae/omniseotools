@@ -1699,6 +1699,81 @@ Allow: /`,
       },
     ],
   },
+  // How to Fix Discovered - Currently Not Indexed in GSC
+  {
+    slug: "how-to-fix-discovered-currently-not-indexed",
+    title: "How to Fix 'Discovered – Currently Not Indexed' in Google Search Console",
+    description:
+      "Step-by-step diagnostic guide to resolving Google Search Console's 'Discovered – currently not indexed' status. Fix crawl budget bottlenecks, internal link deficits, and server host overload.",
+    category: "SEO & Search Console",
+    readingTime: "5 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "canonical-redirect-auditor",
+    relatedToolName: "Canonical URL & Redirect Loop Auditor",
+    relatedToolCta: "Audit Canonical & Redirects in Tool #42",
+    problemSummary:
+      "'Discovered – currently not indexed' indicates Googlebot found your URL (via an XML sitemap, external link, or internal page link) and queued it for crawling, but has not yet fetched or rendered the page. This is primarily a crawl prioritization, internal link distribution, or server latency bottleneck rather than a content penalty.",
+    errorSnippet:
+      "Google Search Console > Indexing > Pages\nStatus: Excluded\nReason: Discovered – currently not indexed\nCrawl allowed? Yes (Googlebot)\nPage fetch: Not attempted (Queued)",
+    solutionSnippet: `// 5-Step Protocol to Force Priority Crawling
+// 1. Audit Internal Link Depth: Ensure page is within 2-3 clicks of root
+// 2. Add In-Content Anchor Links: Connect from top-ranking category hubs
+// 3. Verify Clean HTTP 200 & Low TTFB: Ensure server latency < 800ms
+// 4. Validate Canonical Consistency: Eliminate 308 redirect loops
+// 5. Submit in GSC URL Inspection: Test Live URL -> Request Indexing`,
+    snippetLanguage: "javascript",
+    implementationSteps: [
+      {
+        title: "1. Audit Internal Link Depth",
+        explanation:
+          "Verify the stalled URL is reachable within 2 to 3 clicks of the root domain. A page linked only via an XML sitemap without in-content links gets deprioritized in Google's crawl queue.",
+      },
+      {
+        title: "2. Verify HTTP Headers & Response Code",
+        explanation:
+          "Confirm the endpoint returns a pristine 200 OK status code with low Time to First Byte (TTFB).",
+      },
+      {
+        title: "3. Validate Canonical & Redirect Consistency",
+        explanation:
+          "Ensure the page has a self-referential canonical tag and does not land on trailing-slash redirects or parameter loops.",
+      },
+      {
+        title: "4. Cleanse XML Sitemap",
+        explanation:
+          "Verify the URL exists in a clean, submitted sitemap free of 404s, redirects, or noindexed routes.",
+      },
+      {
+        title: "5. Re-trigger Priority Fetch in GSC",
+        explanation:
+          "Use the GSC URL Inspection tool to 'Test Live URL', verify Googlebot can render the DOM without asset blocking, and click 'Request Indexing'.",
+      },
+    ],
+    commonPitfalls: [
+      "Assuming 'Discovered' is a thin content penalty when Googlebot hasn't even crawled or read the HTML yet.",
+      "Leaving important money pages as orphan URLs without contextual internal links from authoritative site hubs.",
+      "Spamming the 'Request Indexing' button repeatedly without resolving high server response latency (TTFB > 800ms).",
+      "Submitting thousands of faceted navigation parameter URLs in XML sitemaps, exhaustively draining site crawl budget.",
+      "Overlooking redirect chains or trailing-slash 308 mismatches on newly published blog or product URLs.",
+    ],
+    faqItems: [
+      {
+        question: "How long does it take for Google to crawl 'Discovered' pages?",
+        answer:
+          "It can vary from 48 hours to several weeks depending on domain authority, site crawl budget, and internal linking depth. High-authority domains with strong internal link hierarchies see URLs crawled within hours, whereas newly registered domains or orphan pages can remain queued indefinitely.",
+      },
+      {
+        question: "Does requesting indexing in GSC guarantee it will be crawled?",
+        answer:
+          "No. Requesting indexing in Google Search Console places the URL in a priority inspection queue, but Google's crawl scheduler still evaluates domain crawl budget, server response time, and internal PageRank before actually performing the crawl.",
+      },
+      {
+        question: "Will resubmitting my XML sitemap fix discovered status?",
+        answer:
+          "No. Resubmitting an XML sitemap merely informs Google that a sitemap was updated; it does not change Googlebot's internal crawl priority. To move URLs from discovered to indexed, you must add contextual internal links from high-authority pages and ensure optimal server performance.",
+      },
+    ],
+  },
 ];
 
 export function getAllRecipes(): Recipe[] {
