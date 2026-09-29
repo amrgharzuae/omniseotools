@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 40**
+**Total Active Tools: 41**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -50,6 +50,7 @@
 | 38 | PPC Negative Keyword List Scrubber & Match-Type Formatter | `ppc-negative-keyword-scrubber` | `/tools/ppc-negative-keyword-scrubber` | Marketing & Growth | Live / Production |
 | 39 | Bulk URL Slug & Anchor Text Sanitizer | `url-slug-sanitizer` | `/tools/url-slug-sanitizer` | Content & Copy | Live / Production |
 | 40 | Bulk UTM Matrix & Multi-Channel Tagging Generator | `bulk-utm-matrix-generator` | `/tools/bulk-utm-matrix-generator` | Marketing & Growth | Live / Production |
+| 41 | JSON-LD Schema Validator & Linter | `schema-validator` | `/tools/schema-validator` | Technical SEO | Live / Production |
 
 ---
 
@@ -57,15 +58,15 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 14 | 35.0% |
-| Social Media | 6 | 15.0% |
-| Web & Developer | 5 | 12.5% |
-| Marketing & Growth | 4 | 10.0% |
-| Content & Copy | 3 | 7.5% |
-| SERP & Snippets | 3 | 7.5% |
-| International SEO | 2 | 5.0% |
-| SEO Tools | 1 | 2.5% |
-| **Total** | **40** | **100%** |
+| Technical SEO | 15 | 36.6% |
+| Social Media | 6 | 14.6% |
+| Web & Developer | 5 | 12.2% |
+| Marketing & Growth | 4 | 9.8% |
+| Content & Copy | 3 | 7.3% |
+| SERP & Snippets | 3 | 7.3% |
+| International SEO | 2 | 4.9% |
+| SEO Tools | 1 | 2.4% |
+| **Total** | **41** | **100%** |
 
 
 

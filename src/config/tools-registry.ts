@@ -20,6 +20,7 @@ import { idnPunycodeConverterTool } from "./tools/developer/idn-punycode-convert
 import { ppcNegativeKeywordScrubberTool } from "./tools/marketing/ppc-negative-keyword-scrubber";
 import { urlSlugSanitizerTool } from "./tools/content/url-slug-sanitizer";
 import { bulkUtmMatrixGeneratorTool } from "./tools/marketing/bulk-utm-matrix-generator";
+import { schemaValidatorTool } from "./tools/technical/schema-validator";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2396,7 +2397,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 39. Bulk URL Slug & Anchor Text Sanitizer
   urlSlugSanitizerTool,
   // 40. Bulk UTM Matrix & Multi-Channel Tagging Generator
-  bulkUtmMatrixGeneratorTool
+  bulkUtmMatrixGeneratorTool,
+  // 41. JSON-LD Schema Validator & Linter
+  schemaValidatorTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2589,6 +2592,17 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-40"
   ) {
     return bulkUtmMatrixGeneratorTool;
+  }
+  if (
+    normalized === "schema-validator" ||
+    normalized === "json-ld-schema-validator" ||
+    normalized === "jsonld-validator" ||
+    normalized === "schema-linter" ||
+    normalized === "structured-data-validator" ||
+    normalized === "schema-org-validator" ||
+    normalized === "tool-41"
+  ) {
+    return schemaValidatorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
