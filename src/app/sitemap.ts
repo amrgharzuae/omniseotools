@@ -9,6 +9,7 @@ import { ARABIC_DECODER_PLATFORMS } from "@/config/arabic-decoder-platforms";
 import { OG_SAFEZONE_PLATFORMS } from "@/config/og-safezone-platforms";
 import { ROBOTS_PLATFORMS } from "@/config/robots-platforms";
 import { SCHEMA_PLATFORMS } from "@/config/schema-platforms";
+import { CANONICAL_PLATFORMS } from "@/config/canonical-redirect-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -119,6 +120,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5g. Canonical URL & Redirect Auditor Platform Presets (Shopify, WordPress, Next.js)
+  const canonicalRedirectPlatformSubRoutes: MetadataRoute.Sitemap = CANONICAL_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/canonical-redirect-auditor/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -184,6 +193,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...ogSafeZonePlatformSubRoutes,
     ...robotsPlatformSubRoutes,
     ...schemaPlatformSubRoutes,
+    ...canonicalRedirectPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,

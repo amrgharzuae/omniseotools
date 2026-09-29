@@ -39,6 +39,8 @@ interface CanonicalRedirectAuditorProps {
   toolSlug?: string;
   toolName?: string;
   initialInput?: string;
+  platformName?: string;
+  platformPreset?: string;
 }
 
 const SAMPLE_PRESETS = {
@@ -52,9 +54,11 @@ export function CanonicalRedirectAuditor({
   toolSlug = "canonical-redirect-auditor",
   toolName = "Canonical URL & Redirect Loop Auditor",
   initialInput,
+  platformName,
+  platformPreset,
 }: CanonicalRedirectAuditorProps) {
   const [urlInput, setUrlInput] = useState<string>(
-    initialInput || SAMPLE_PRESETS.trackingBloat
+    initialInput || platformPreset || SAMPLE_PRESETS.trackingBloat
   );
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [shareFeedback, setShareFeedback] = useState(false);
@@ -148,7 +152,9 @@ export const metadata: Metadata = {
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                Client-Side Canonical &amp; Redirect Auditor
+                {platformName
+                  ? `${platformName} Canonical URL & Redirect Auditor`
+                  : "Client-Side Canonical & Redirect Auditor"}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Audit URL hygiene, resolve 308 redirect loops, strip query bloat, and generate canonical meta tags
