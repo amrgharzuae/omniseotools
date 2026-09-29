@@ -1528,6 +1528,91 @@ export const metadata: Metadata = {
       },
     ],
   },
+
+  // 19. How to Block AI Crawlers in Robots.txt
+  {
+    slug: "how-to-block-ai-crawlers-in-robots-txt",
+    title: "How to Block AI Crawlers in Robots.txt (GPTBot, ClaudeBot, Perplexity)",
+    description:
+      "Step-by-step guide to blocking or allowing AI web scrapers and LLM training bots using robots.txt directives. Full user-agent syntax matrix for OpenAI, Anthropic, Google, and Perplexity.",
+    category: "AI & Crawlers",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "robots-txt-generator-validator",
+    relatedToolName: "Robots.txt Generator & AI Directive Validator",
+    relatedToolCta: "Generate & Validate in Tool #31",
+    problemSummary:
+      "To block AI scrapers from indexing or training on your content without impacting your organic search rankings, declare explicit User-agent blocks followed by Disallow: / in your root robots.txt file. Standard search engine bots (like Googlebot and Bingbot) must remain allowed, while dedicated training and retrieval bots (such as GPTBot, ClaudeBot, PerplexityBot, CCBot, and Google-Extended) can be selectively restricted. Directives are case-sensitive and must precede universal wildcard rules.",
+    errorSnippet:
+      "# Inadvertent Block: Blocking all crawlers destroys Google & Bing search traffic!\nUser-agent: *\nDisallow: /\n\n# Or missing AI crawler rules allows unmetered LLM training scraping:\nUser-agent: Googlebot\nAllow: /\n# (GPTBot, ClaudeBot, CCBot, and Bytespider continue scraping unchecked)",
+    solutionSnippet: `User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: *
+Allow: /`,
+    snippetLanguage: "plaintext",
+    implementationSteps: [
+      {
+        title: "1. Identify Target AI Agents",
+        explanation:
+          "Determine whether you want to block raw model training only, or also restrict conversational AI search citations.",
+      },
+      {
+        title: "2. Append Directives to robots.txt",
+        explanation:
+          "Place explicit AI bot blocks at the top of your public/robots.txt or configure them via your CMS settings.",
+      },
+      {
+        title: "3. Verify Header Responses",
+        explanation:
+          "Ensure your web server returns a valid 200 OK HTTP status code and Content-Type: text/plain for the /robots.txt endpoint.",
+      },
+      {
+        title: "4. Test in Robots Validator",
+        explanation:
+          "Run your file through a client-side validator to confirm there are no syntax errors or accidental universal disallows.",
+      },
+    ],
+    commonPitfalls: [
+      "Using 'User-agent: *' with 'Disallow: /' which accidentally de-indexes your site from Google and Bing search results.",
+      "Thinking 'Google-Extended' affects Google Search (it only controls Gemini/Vertex AI model training, NOT Googlebot indexation).",
+      "Blocking ChatGPT-User or PerplexityBot when your goal was only to stop model training, accidentally killing AI search citation traffic.",
+      "Placing specific User-agent blocks below 'User-agent: *' in parsers that evaluate rules strictly top-to-bottom.",
+      "Serving robots.txt with an HTML Content-Type header (text/html) instead of standard text/plain.",
+    ],
+    faqItems: [
+      {
+        question: "Does blocking Google-Extended remove my site from Google Search?",
+        answer:
+          "No, Google-Extended only controls Gemini and AI training, whereas Googlebot handles search indexing.",
+      },
+      {
+        question: "Do all AI companies honor robots.txt directives?",
+        answer:
+          "Robots.txt is voluntary; major players like OpenAI, Anthropic, and Google honor it, but smaller scrapers may ignore it.",
+      },
+      {
+        question: "What is the difference between robots.txt and llms.txt?",
+        answer:
+          "Robots.txt restricts bot access, while llms.txt provides clean markdown context for AI models that are allowed.",
+      },
+    ],
+  },
 ];
 
 export function getAllRecipes(): Recipe[] {
