@@ -21,6 +21,7 @@ import { ppcNegativeKeywordScrubberTool } from "./tools/marketing/ppc-negative-k
 import { urlSlugSanitizerTool } from "./tools/content/url-slug-sanitizer";
 import { bulkUtmMatrixGeneratorTool } from "./tools/marketing/bulk-utm-matrix-generator";
 import { schemaValidatorTool } from "./tools/technical/schema-validator";
+import { canonicalRedirectAuditorTool } from "./tools/technical/canonical-redirect-auditor";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2399,7 +2400,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 40. Bulk UTM Matrix & Multi-Channel Tagging Generator
   bulkUtmMatrixGeneratorTool,
   // 41. JSON-LD Schema Validator & Linter
-  schemaValidatorTool
+  schemaValidatorTool,
+  // 42. Canonical URL & Redirect Loop Auditor
+  canonicalRedirectAuditorTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2603,6 +2606,16 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-41"
   ) {
     return schemaValidatorTool;
+  }
+  if (
+    normalized === "canonical-redirect-auditor" ||
+    normalized === "canonical-auditor" ||
+    normalized === "redirect-loop-auditor" ||
+    normalized === "canonical-redirect" ||
+    normalized === "canonical-redirect-loop-auditor" ||
+    normalized === "tool-42"
+  ) {
+    return canonicalRedirectAuditorTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");
