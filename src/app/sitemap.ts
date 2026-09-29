@@ -10,6 +10,7 @@ import { OG_SAFEZONE_PLATFORMS } from "@/config/og-safezone-platforms";
 import { ROBOTS_PLATFORMS } from "@/config/robots-platforms";
 import { SCHEMA_PLATFORMS } from "@/config/schema-platforms";
 import { CANONICAL_PLATFORMS } from "@/config/canonical-redirect-platforms";
+import { OG_VALIDATOR_PLATFORMS } from "@/config/open-graph-validator-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -128,6 +129,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5h. Open Graph & Social Card Validator Platform Presets (Shopify, WordPress, Next.js)
+  const ogValidatorPlatformSubRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/tools/open-graph-validator`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    ...OG_VALIDATOR_PLATFORMS.map((platform) => ({
+      url: `${BASE_URL}/tools/open-graph-validator/${platform.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  ];
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -194,6 +211,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...robotsPlatformSubRoutes,
     ...schemaPlatformSubRoutes,
     ...canonicalRedirectPlatformSubRoutes,
+    ...ogValidatorPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,

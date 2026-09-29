@@ -2420,7 +2420,15 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
   );
   if (found) return found;
 
-  if (normalized === "open-graph-preview" || normalized === "opengraph-preview") {
+  if (
+    normalized === "open-graph-preview" ||
+    normalized === "opengraph-preview" ||
+    normalized === "open-graph-validator" ||
+    normalized === "opengraph-validator" ||
+    normalized === "og-validator" ||
+    normalized === "social-card-validator" ||
+    normalized === "open-graph-social-validator"
+  ) {
     return openGraphPreviewTool;
   }
   if (

@@ -117,6 +117,12 @@ interface SocialPreviewerProps {
   toolSlug?: string;
   toolName?: string;
   isEmbedded?: boolean;
+  platformName?: string;
+  initialTitle?: string;
+  initialDescription?: string;
+  initialUrl?: string;
+  initialSiteName?: string;
+  initialImageUrl?: string;
 }
 
 export function SocialPreviewer({
@@ -124,6 +130,12 @@ export function SocialPreviewer({
   toolSlug,
   toolName,
   isEmbedded,
+  platformName,
+  initialTitle,
+  initialDescription,
+  initialUrl,
+  initialSiteName,
+  initialImageUrl,
 }: SocialPreviewerProps) {
   const [platform, setPlatform] = useState<SocialPlatform>(defaultPlatform);
 
@@ -137,23 +149,30 @@ export function SocialPreviewer({
 
   const currentToolName = useMemo(() => {
     if (toolName) return toolName;
+    if (platformName) return `${platformName} Open Graph Validator`;
     if (platform === "twitter") return "Twitter Card Previewer";
     if (platform === "linkedin") return "LinkedIn Link Previewer";
     if (platform === "facebook") return "Facebook Open Graph Debugger";
     return "Discord Embed Previewer";
-  }, [toolName, platform]);
+  }, [toolName, platformName, platform]);
 
-  const [title, setTitle] = useState(SAMPLE_PRESETS[0].title);
-  const [description, setDescription] = useState(SAMPLE_PRESETS[0].description);
-  const [url, setUrl] = useState(SAMPLE_PRESETS[0].url);
-  const [siteName, setSiteName] = useState(SAMPLE_PRESETS[0].siteName);
-  const [imageUrl, setImageUrl] = useState(SAMPLE_PRESETS[0].imageUrl);
+  const [title, setTitle] = useState(initialTitle || SAMPLE_PRESETS[0].title);
+  const [description, setDescription] = useState(initialDescription || SAMPLE_PRESETS[0].description);
+  const [url, setUrl] = useState(initialUrl || SAMPLE_PRESETS[0].url);
+  const [siteName, setSiteName] = useState(initialSiteName || SAMPLE_PRESETS[0].siteName);
+  const [imageUrl, setImageUrl] = useState(initialImageUrl || SAMPLE_PRESETS[0].imageUrl);
   const [twitterCard, setTwitterCard] = useState<"summary_large_image" | "summary">(
     SAMPLE_PRESETS[0].twitterCard
   );
   const [discordColor, setDiscordColor] = useState(SAMPLE_PRESETS[0].discordColor);
-  const [codeTab, setCodeTab] = useState<CodeExportTab>("html");
-  const [activePreset, setActivePreset] = useState<string>("SaaS Platform");
+  const [codeTab, setCodeTab] = useState<CodeExportTab>(
+    platformName?.toLowerCase().includes("shopify")
+      ? "shopify"
+      : platformName?.toLowerCase().includes("next")
+      ? "nextjs"
+      : "html"
+  );
+  const [activePreset, setActivePreset] = useState<string>(initialTitle ? "" : "SaaS Platform");
   const [copiedCode, setCopiedCode] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
   const [viewDevice, setViewDevice] = useState<"desktop" | "mobile">("desktop");
