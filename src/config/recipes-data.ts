@@ -1613,6 +1613,92 @@ Allow: /`,
       },
     ],
   },
+
+  // 20. How to Create and Optimize an llms.txt File for AI Search
+  {
+    slug: "how-to-create-and-optimize-llms-txt",
+    title: "How to Create and Optimize an llms.txt File for AI Search",
+    description:
+      "Step-by-step developer guide to the llms.txt specification. Learn how to structure Markdown indices, curate canonical URLs for AI crawlers, and drive citations in ChatGPT, Claude, and Perplexity.",
+    category: "AI & Crawlers",
+    readingTime: "4 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "llms-txt-generator",
+    relatedToolName: "LLMs.txt & AI Crawler Directive Generator",
+    relatedToolCta: "Generate & Validate in Tool #34",
+    problemSummary:
+      "Traditional HTML pages contain megabytes of navigation boilerplate, scripts, CSS stylesheets, and dynamic layout elements that consume massive context window token budgets when processed by Large Language Models (LLMs) and autonomous AI search agents. Without a dedicated, machine-readable index, AI models like ChatGPT Search, Claude, and Perplexity either truncate critical documentation or hallucinate API structures due to context overload. The /llms.txt standard solves this by providing a lightweight, curated Markdown index of canonical URLs and factual summaries.",
+    errorSnippet:
+      "# Context Window Exhaustion / High-Token Web Ingestion:\nFetching https://example.com/docs -> 1.8MB HTML / 45,000 Tokens (Navbars, scripts, ads)\n-> Result: Truncated documentation, lost citations, and inaccurate LLM responses.\n\n# Desired /llms.txt Streamlined Ingestion:\nFetching https://example.com/llms.txt -> 2.4KB Markdown / 450 Tokens (Curated semantic links)",
+    solutionSnippet: `# OmniSEO Tools
+
+> Free, privacy-first technical SEO toolkit and developer workbench with zero client-side tracking and client-side canvas calculations.
+
+## Core Technical Tools
+- [SERP Simulator](https://omniseotools.com/tools/google-serp-simulator): Google desktop and mobile title tag pixel-width previewer.
+- [Robots.txt Validator](https://omniseotools.com/tools/robots-txt-generator-validator): Client-side robots.txt syntax checker and AI crawler rule builder.
+- [JSON-LD Schema Validator](https://omniseotools.com/tools/schema-validator): Browser-based structured data linter for Rich Results compliance.
+- [UTM Campaign Builder](https://omniseotools.com/tools/utm-campaign-builder): URL parameter generator formatted for GA4 and major ad platforms.
+
+## Implementation Guides
+- [AI Crawler Blocking Guide](https://omniseotools.com/recipes/how-to-block-ai-crawlers-in-robots-txt): User-agent directives for GPTBot, ClaudeBot, and Google-Extended.
+- [Google Title Rewrite Guide](https://omniseotools.com/recipes/how-to-fix-google-rewriting-meta-titles): Diagnostic steps to resolve search snippet overwrites.
+
+## Optional
+- [All Tools Index](https://omniseotools.com/tools): Full catalog of 40+ client-side SEO utilities.`,
+    snippetLanguage: "markdown",
+    implementationSteps: [
+      {
+        title: "1. Curate Canonical URLs",
+        explanation:
+          "Select 5 to 15 authoritative URLs that represent your core products, APIs, or educational recipes. Avoid dumping an entire sitemap.",
+      },
+      {
+        title: "2. Draft Concise Factual Descriptions",
+        explanation:
+          "Write plain-text summaries without marketing fluff so language models extract clear semantic signals.",
+      },
+      {
+        title: "3. Structure Optional Breakpoints",
+        explanation:
+          "Place supplementary resources beneath an ## Optional heading so agents can truncate gracefully when context windows are limited.",
+      },
+      {
+        title: "4. Verify HTTP Response Headers",
+        explanation:
+          "Host the file at /llms.txt and ensure your server delivers Content-Type: text/markdown; charset=utf-8 or text/plain.",
+      },
+      {
+        title: "5. Align with robots.txt",
+        explanation:
+          "Verify that robots.txt does not inadvertently block the URLs highlighted in your llms.txt index.",
+      },
+    ],
+    commonPitfalls: [
+      "Dumping your entire 10,000-URL sitemap into /llms.txt, defeating the purpose of a token-efficient semantic index.",
+      "Using promotional marketing superlatives ('the world's most revolutionary tool') instead of factual, entity-dense summaries.",
+      "Forgetting to serve Content-Type: text/markdown or text/plain, causing crawlers to receive 404s or application/octet-stream.",
+      "Blocking AI search crawlers (like OAI-SearchBot or PerplexityBot) in robots.txt while expecting citations from /llms.txt.",
+      "Omitting the root H1 project title or blockquote summary required by the standard llmstxt.org specification.",
+    ],
+    faqItems: [
+      {
+        question: "Does Google Search use llms.txt for search rankings?",
+        answer:
+          "No, Google Search relies on standard HTML indexing, meta tags, and structured data (JSON-LD); llms.txt is aimed at AI assistants, autonomous agents, and LLM inference pipelines (ChatGPT, Claude, Perplexity, Cursor, Copilot).",
+      },
+      {
+        question: "What is the difference between llms.txt and llms-full.txt?",
+        answer:
+          "llms.txt is a curated map/index of links with short descriptions designed for quick context routing. In contrast, llms-full.txt concatenates entire documentation sets, API specs, or knowledge bases into a single comprehensive Markdown file for deep model ingestion.",
+      },
+      {
+        question: "Can I block an AI bot in robots.txt and still use llms.txt?",
+        answer:
+          "If robots.txt disallows a bot from crawling a page (e.g. Disallow: /docs), the bot cannot fetch the page regardless of whether it is listed in llms.txt. Robots.txt always acts as the authoritative gatekeeper for crawler access.",
+      },
+    ],
+  },
 ];
 
 export function getAllRecipes(): Recipe[] {
