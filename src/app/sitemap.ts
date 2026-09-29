@@ -7,6 +7,7 @@ import { UTM_PLATFORMS } from "@/config/utm-platforms";
 import { SERP_PLATFORMS } from "@/config/serp-platforms";
 import { ARABIC_DECODER_PLATFORMS } from "@/config/arabic-decoder-platforms";
 import { OG_SAFEZONE_PLATFORMS } from "@/config/og-safezone-platforms";
+import { ROBOTS_PLATFORMS } from "@/config/robots-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -101,6 +102,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5e. Robots.txt Generator Platform Presets (Shopify, WordPress, Next.js)
+  const robotsPlatformSubRoutes: MetadataRoute.Sitemap = ROBOTS_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/robots-txt-generator-validator/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -164,6 +173,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...serpPlatformSubRoutes,
     ...arabicDecoderPlatformSubRoutes,
     ...ogSafeZonePlatformSubRoutes,
+    ...robotsPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,

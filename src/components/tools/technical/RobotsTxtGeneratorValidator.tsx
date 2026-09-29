@@ -43,6 +43,9 @@ interface RobotsTxtGeneratorValidatorProps {
   toolSlug?: string;
   toolName?: string;
   platform?: any;
+  initialConfig?: RobotsConfig;
+  initialRaw?: string;
+  platformName?: string;
 }
 
 const COMMON_BOTS = [
@@ -129,20 +132,38 @@ Host:`;
 export function RobotsTxtGeneratorValidator({
   toolSlug = "robots-txt-generator-validator",
   toolName = "Robots.txt Generator & Validator",
+  platform,
+  initialConfig,
+  initialRaw,
+  platformName,
 }: RobotsTxtGeneratorValidatorProps) {
+  const startingConfig = initialConfig || platform?.presetRobotsConfig || DEFAULT_CONFIG;
+  const startingRaw =
+    initialRaw ||
+    platform?.presetRobotsTxt ||
+    (initialConfig ? generateRobotsTxt(initialConfig) : SAMPLE_RAW_VALID);
+
   // Mode state: 'builder' (Mode A) or 'validator' (Mode B)
   const [activeMode, setActiveMode] = useState<"builder" | "validator">("builder");
 
   // Mode A: Visual Builder State
-  const [config, setConfig] = useState<RobotsConfig>(DEFAULT_CONFIG);
+  const [config, setConfig] = useState<RobotsConfig>(startingConfig);
   const [newSitemapInput, setNewSitemapInput] = useState("");
-  const [customHostInput, setCustomHostInput] = useState(DEFAULT_CONFIG.host || "");
+  const [customHostInput, setCustomHostInput] = useState(startingConfig.host || "");
 
   // Mode B: Validator State
-  const [rawInput, setRawInput] = useState<string>(SAMPLE_RAW_VALID);
+  const [rawInput, setRawInput] = useState<string>(startingRaw);
 
   // Path Tester state
-  const [testPath, setTestPath] = useState("/admin/dashboard");
+  const [testPath, setTestPath] = useState(
+    platform?.slug === "shopify"
+      ? "/checkout"
+      : platform?.slug === "wordpress"
+      ? "/wp-admin/admin-ajax.php"
+      : platform?.slug === "nextjs"
+      ? "/api/users"
+      : "/admin/dashboard"
+  );
   const [testUserAgent, setTestUserAgent] = useState("*");
 
   // Copy feedback state
@@ -457,6 +478,75 @@ export function RobotsTxtGeneratorValidator({
           host: config.host,
         });
         break;
+      case "shopify":
+        setConfig({
+          rules: [
+            {
+              userAgent: "*",
+              allow: ["/"],
+              disallow: [
+                "/admin",
+                "/cart",
+                "/orders",
+                "/checkouts/",
+                "/checkout",
+                "/*design_theme_id*",
+                "/*preview_theme_id*",
+                "/*preview_script_id*",
+                "/policies/",
+                "/search",
+                "/apple-app-site-association",
+              ],
+            },
+            { userAgent: "GPTBot", allow: [], disallow: ["/"] },
+            { userAgent: "ClaudeBot", allow: [], disallow: ["/"] },
+            { userAgent: "Bytespider", allow: [], disallow: ["/"] },
+          ],
+          sitemaps: ["https://yourstore.myshopify.com/sitemap.xml"],
+          host: "https://yourstore.myshopify.com",
+        });
+        break;
+      case "wordpress":
+        setConfig({
+          rules: [
+            {
+              userAgent: "*",
+              allow: ["/wp-admin/admin-ajax.php"],
+              disallow: [
+                "/wp-admin/",
+                "/wp-includes/",
+                "/cart/",
+                "/checkout/",
+                "/my-account/",
+                "/*?add-to-cart=*",
+              ],
+            },
+            { userAgent: "GPTBot", allow: [], disallow: ["/"] },
+            { userAgent: "ClaudeBot", allow: [], disallow: ["/"] },
+            { userAgent: "CCBot", allow: [], disallow: ["/"] },
+          ],
+          sitemaps: ["https://yourdomain.com/sitemap_index.xml"],
+          host: "https://yourdomain.com",
+        });
+        break;
+      case "nextjs":
+        setConfig({
+          rules: [
+            {
+              userAgent: "*",
+              allow: ["/"],
+              disallow: ["/api/", "/admin/", "/private/", "/_next/"],
+            },
+            { userAgent: "GPTBot", allow: [], disallow: ["/"] },
+            { userAgent: "ClaudeBot", allow: [], disallow: ["/"] },
+            { userAgent: "Google-Extended", allow: [], disallow: ["/"] },
+            { userAgent: "CCBot", allow: [], disallow: ["/"] },
+            { userAgent: "Bytespider", allow: [], disallow: ["/"] },
+          ],
+          sitemaps: ["https://yourdomain.com/sitemap.xml"],
+          host: "https://yourdomain.com",
+        });
+        break;
     }
   };
 
@@ -533,6 +623,26 @@ export function RobotsTxtGeneratorValidator({
 
   return (
     <div className="space-y-8">
+      {/* Platform Preset Active Banner */}
+      {(platformName || platform?.name) && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-500/30 text-xs shadow-xs">
+          <div className="flex items-center gap-2.5 text-emerald-900 dark:text-emerald-200">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold shrink-0">
+              <Sparkles className="h-4 w-4" />
+            </span>
+            <span>
+              <strong>{platformName || platform?.name} Preset Active:</strong> Pre-configured with {platformName || platform?.name} specific checkout protections, dynamic endpoint routing, and AI crawler blocks.
+            </span>
+          </div>
+          <button
+            onClick={() => applyPreset("standard-web")}
+            className="text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 underline font-semibold text-[11px] self-start sm:self-auto shrink-0"
+          >
+            Reset to Generic Web
+          </button>
+        </div>
+      )}
+
       {/* Top Header & Interactive Mode Bar */}
       <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-4 sm:p-6 shadow-sm backdrop-blur-sm">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -606,34 +716,49 @@ export function RobotsTxtGeneratorValidator({
               Standard Web
             </button>
             <button
-              onClick={() => applyPreset("allow-all")}
-              className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
+              onClick={() => applyPreset("shopify")}
+              className={cn(
+                "px-2.5 py-1 text-xs font-medium rounded-md border transition-colors",
+                platform?.slug === "shopify"
+                  ? "bg-emerald-100 dark:bg-emerald-950/60 border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-bold"
+                  : "bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 hover:text-emerald-600 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+              )}
             >
-              Allow All
+              Shopify Liquid
             </button>
             <button
-              onClick={() => applyPreset("disallow-all")}
-              className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40 dark:hover:text-rose-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
+              onClick={() => applyPreset("wordpress")}
+              className={cn(
+                "px-2.5 py-1 text-xs font-medium rounded-md border transition-colors",
+                platform?.slug === "wordpress"
+                  ? "bg-emerald-100 dark:bg-emerald-950/60 border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-bold"
+                  : "bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 hover:text-emerald-600 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+              )}
             >
-              Disallow All (Staging Lock)
+              WordPress &amp; WooCommerce
             </button>
             <button
-              onClick={() => applyPreset("block-bad-bots")}
-              className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-950/40 dark:hover:text-indigo-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
+              onClick={() => applyPreset("nextjs")}
+              className={cn(
+                "px-2.5 py-1 text-xs font-medium rounded-md border transition-colors",
+                platform?.slug === "nextjs"
+                  ? "bg-emerald-100 dark:bg-emerald-950/60 border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-bold"
+                  : "bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 hover:text-emerald-600 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+              )}
             >
-              Block Bad Bots (Ahrefs, Semrush)
-            </button>
-            <button
-              onClick={() => applyPreset("allow-googlebot-only")}
-              className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/40 dark:hover:text-blue-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
-            >
-              Allow Googlebot Only
+              Next.js App Router
             </button>
             <button
               onClick={() => applyPreset("block-ai")}
               className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-purple-50 hover:text-purple-600 dark:hover:bg-purple-950/40 dark:hover:text-purple-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
             >
-              Block AI Scrapers (GPTBot, ClaudeBot)
+              Block AI Scrapers
+            </button>
+            <button
+              onClick={() => applyPreset("disallow-all")}
+              className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40 dark:hover:text-rose-300 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
+            >
+              Staging Lock
             </button>
           </div>
         )}
