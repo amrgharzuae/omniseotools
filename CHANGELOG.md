@@ -1,5 +1,20 @@
 # Changelog
 
+## [2026-09-30] - Sprint 46: Build Core Web Vitals Budget & Resource Hint Calculator (Tool #44)
+### Added & Enhanced
+- **Core Web Vitals Budget & Resource Hint Engine (`src/lib/cwv-budget-calculator.ts`, `src/components/tools/core-web-vitals-budget-calculator/CoreWebVitalsBudgetCalculator.tsx`, `src/config/tools/technical/core-web-vitals-budget-calculator.ts`):**
+  - Built a 100% client-side, zero-telemetry performance budgeting and resource hint generator.
+  - **Network & Device Profile Simulation:** Supports Fast 4G (150ms RTT, 9.0 Mbps), Average 4G CrUX 75th percentile (170ms RTT, 4.0 Mbps), and Slow 4G / Fast 3G (300ms RTT, 1.6 Mbps).
+  - **Physics-Based CWV Calculations:** Models TCP slow-start round trips (`initcwnd` = 14 KB doubling each RTT), payload download times across HTML/CSS/JS/Image/Fonts, uncompressed JS execution expansion (3.2x multiplier), and main-thread parse/eval latency on mobile CPUs (~120ms per 100 KB uncompressed JS).
+  - **Live Risk Gauges & Waterfall:** Visual risk gauges for Largest Contentful Paint (LCP) and Interaction to Next Paint (INP), paired with a 4-phase LCP breakdown (TTFB, Resource Load Delay, Resource Load Duration, Element Render Delay).
+  - **Architecture Presets:** 1-click presets for Next.js App Router (Optimized), WordPress + WooCommerce (Plugin-Heavy), Shopify (Liquid Theme + Apps), and Ultra-Lean Static (Jamstack).
+  - **Multi-Target Resource Hint Snippets:** Generates copy-paste code across HTML `<head>` tags (`fetchpriority="high"`, `<link rel="preload">`, `<link rel="preconnect">`), RFC 5988 HTTP Link headers (for 103 Early Hints / Nginx / Cloudflare), and Next.js `app/layout.tsx` metadata arrays.
+- **Dedicated Route & Registry Integration:**
+  - Registered `coreWebVitalsBudgetCalculatorTool` (`#44`) in `src/config/tools-registry.ts` under "Technical SEO & Performance".
+  - Created dedicated App Router page at `src/app/(site)/tools/core-web-vitals-budget-calculator/page.tsx` with Schema.org `WebApplication` + `HowTo` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Added comparison matrix (Preload vs Preconnect vs Fetchpriority) and technical FAQs.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 44) and `PROJECT_STATUS.md`.
+
 ## [2026-09-30] - Sprint 45: Build AI Crawler Platform Sub-Routes & Companion Recipe
 ### Added & Enhanced
 - **Programmatic Platform Sub-Routes for AI Crawler Firewall (`src/app/(site)/tools/ai-crawler-firewall/[platform]/page.tsx`):**
