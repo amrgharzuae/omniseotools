@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 46**
+**Total Active Tools: 45**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -18,44 +18,43 @@
 | 06 | Meta Description Length Counter | `meta-description-length-counter` | `/tools/meta-description-length-counter` | SERP & Snippets | Live / Production |
 | 07 | Google SERP Simulator | `google-serp-simulator` | `/tools/google-serp-simulator` | SERP & Snippets | Live / Production |
 | 08 | Flesch-Kincaid Calculator | `flesch-kincaid-calculator` | `/tools/flesch-kincaid-calculator` | Content & Copy | Live / Production |
-| 09 | Keyword Density Checker | `keyword-density-checker` | `/tools/keyword-density-checker` | Content & Copy | Live / Production |
+| 09 | Keyword Density Checker & N-Gram Analyzer | `keyword-density-checker` | `/tools/keyword-density-checker` | Content & Copy | Live / Production |
 | 10 | Open Graph Meta Tag Generator | `open-graph-meta-generator` | `/tools/open-graph-meta-generator` | Technical SEO | Live / Production |
 | 11 | Schema Markup Generator | `schema-markup-generator` | `/tools/schema-markup-generator` | Technical SEO | Live / Production |
 | 12 | Canonical URL Builder | `canonical-url-builder` | `/tools/canonical-url-builder` | Technical SEO | Live / Production |
 | 13 | Meta Viewport Generator | `meta-viewport-generator` | `/tools/meta-viewport-generator` | Web & Developer | Live / Production |
-| 14 | Hreflang Tag Generator | `hreflang-tag-generator` | `/tools/hreflang-tag-generator` | International SEO | Live / Production |
-| 15 | Meta Robots Tag Builder | `meta-robots-builder` | `/tools/meta-robots-builder` | Technical SEO | Live / Production |
-| 16 | Security Headers Meta Generator | `security-headers-meta-generator` | `/tools/security-headers-meta-generator` | Web & Developer | Live / Production |
-| 17 | Social Share Link Generator | `social-share-link-generator` | `/tools/social-share-link-generator` | Social Media | Live / Production |
-| 18 | Breadcrumb Schema Generator | `breadcrumb-schema-generator` | `/tools/breadcrumb-schema-generator` | Technical SEO | Live / Production |
-| 19 | FAQ Schema Generator | `faq-schema-generator` | `/tools/faq-schema-generator` | Technical SEO | Live / Production |
-| 20 | Favicon & App Icon Generator | `favicon-meta-generator` | `/tools/favicon-meta-generator` | Web & Developer | Live / Production |
-| 21 | Social Meta & OpenGraph Card Simulator | `open-graph-preview` | `/tools/open-graph-preview` | Social Media | Live / Production |
-| 22 | UTM Campaign Builder | `utm-campaign-builder` | `/tools/utm-campaign-builder` | Marketing & Growth | Live / Production |
-| 23 | Arabic & UTF-8 URL Decoder | `arabic-url-decoder` | `/tools/arabic-url-decoder` | Marketing & Growth | Live / Production |
-| 24 | Hreflang & Multi-Language Tag Generator | `hreflang-tags-generator` | `/tools/hreflang-tags-generator` | International SEO | Live / Production |
-| 25 | Robots.txt Generator & Validator | `robots-txt-generator-validator` | `/tools/robots-txt-generator-validator` | Technical SEO | Live / Production |
-| 26 | Article & BlogPosting Schema Generator | `article-schema-generator` | `/tools/article-schema-generator` | Technical SEO | Live / Production |
-| 27 | Bulk Canonical URL Normalizer & Auditor | `canonical-tag-generator` | `/tools/canonical-tag-generator` | Technical SEO | Live / Production |
-| 28 | XML Sitemap Generator & Validator | `xml-sitemap-generator` | `/tools/xml-sitemap-generator` | Technical SEO | Live / Production |
-| 29 | Redirect Rule & Regex Mapper | `redirect-rule-generator` | `/tools/redirect-rule-generator` | Technical SEO | Live / Production |
-| 30 | OG & Twitter Card Image Safe-Zone Previewer | `open-graph-image-safe-zone` | `/tools/open-graph-image-safe-zone` | Social Media | Live / Production |
-| 31 | Product & Offer Schema Generator | `product-schema-generator` | `/tools/product-schema-generator` | Technical SEO | Live / Production |
-| 32 | Resource Hint & Preconnect Generator | `resource-hint-generator` | `/tools/resource-hint-generator` | Technical SEO | Live / Production |
-| 33 | SVG to Base64 & Data URI Optimizer | `svg-to-data-uri` | `/tools/svg-to-data-uri` | Technical SEO | Live / Production |
-| 34 | LLMs.txt & AI Crawler Directive Generator | `llms-txt-generator` | `/tools/llms-txt-generator` | Technical SEO | Live / Production |
-| 35 | Content Security Policy (CSP) & Header Builder | `csp-header-builder` | `/tools/csp-header-builder` | Web & Developer | Live / Production |
-| 36 | Google Search Console Regex Filter Builder | `gsc-regex-filter-builder` | `/tools/gsc-regex-filter-builder` | SEO Tools | Live / Production |
-| 37 | Unicode & Punycode (IDN) Converter | `idn-punycode-converter` | `/tools/idn-punycode-converter` | Web & Developer | Live / Production |
-| 38 | PPC Negative Keyword List Scrubber & Match-Type Formatter | `ppc-negative-keyword-scrubber` | `/tools/ppc-negative-keyword-scrubber` | Marketing & Growth | Live / Production |
-| 39 | Bulk URL Slug & Anchor Text Sanitizer | `url-slug-sanitizer` | `/tools/url-slug-sanitizer` | Content & Copy | Live / Production |
-| 40 | Bulk UTM Matrix & Multi-Channel Tagging Generator | `bulk-utm-matrix-generator` | `/tools/bulk-utm-matrix-generator` | Marketing & Growth | Live / Production |
-| 41 | JSON-LD Schema Validator & Linter | `schema-validator` | `/tools/schema-validator` | Technical SEO | Live / Production |
-| 42 | Canonical URL & Redirect Loop Auditor | `canonical-redirect-auditor` | `/tools/canonical-redirect-auditor` | Technical SEO | Live / Production |
-| 43 | AI Crawler Firewall & Scraper Rule Generator | `ai-crawler-firewall` | `/tools/ai-crawler-firewall` | Technical SEO | Live / Production |
-| 44 | Core Web Vitals Budget & Resource Hint Calculator | `core-web-vitals-budget-calculator` | `/tools/core-web-vitals-budget-calculator` | Technical SEO | Live / Production |
-| 45 | Hreflang & i18n Matrix Generator | `hreflang-tag-generator` | `/tools/hreflang-tag-generator` | International SEO | Live / Production |
-| 46 | E-Commerce Product Schema & Merchant Rich Result Builder | `ecommerce-schema-generator` | `/tools/ecommerce-schema-generator` | Technical SEO | Live / Production |
+| 14 | Meta Robots Tag Builder | `meta-robots-builder` | `/tools/meta-robots-builder` | Technical SEO | Live / Production |
+| 15 | Security Headers Meta Generator | `security-headers-meta-generator` | `/tools/security-headers-meta-generator` | Web & Developer | Live / Production |
+| 16 | Social Share Link Generator | `social-share-link-generator` | `/tools/social-share-link-generator` | Social Media | Live / Production |
+| 17 | Breadcrumb Schema Generator | `breadcrumb-schema-generator` | `/tools/breadcrumb-schema-generator` | Technical SEO | Live / Production |
+| 18 | FAQ Schema Generator | `faq-schema-generator` | `/tools/faq-schema-generator` | Technical SEO | Live / Production |
+| 19 | Favicon & App Icon Generator | `favicon-meta-generator` | `/tools/favicon-meta-generator` | Web & Developer | Live / Production |
+| 20 | Social Meta & OpenGraph Card Simulator | `open-graph-preview` | `/tools/open-graph-preview` | Social Media | Live / Production |
+| 21 | Campaign URL Builder | `utm-campaign-builder` | `/tools/utm-campaign-builder` | Marketing & Growth | Live / Production |
+| 22 | Arabic & UTF-8 URL Decoder | `arabic-url-decoder` | `/tools/arabic-url-decoder` | Marketing & Growth | Live / Production |
+| 23 | Hreflang & Multi-Language Tag Generator | `hreflang-tags-generator` | `/tools/hreflang-tags-generator` | International SEO | Live / Production |
+| 24 | Robots.txt Generator & Validator | `robots-txt-generator-validator` | `/tools/robots-txt-generator-validator` | Technical SEO | Live / Production |
+| 25 | Article & BlogPosting Schema Generator | `article-schema-generator` | `/tools/article-schema-generator` | Technical SEO | Live / Production |
+| 26 | Bulk Canonical Normalizer & Auditor | `canonical-tag-generator` | `/tools/canonical-tag-generator` | Technical SEO | Live / Production |
+| 27 | XML Sitemap Generator & Validator | `xml-sitemap-generator` | `/tools/xml-sitemap-generator` | Technical SEO | Live / Production |
+| 28 | Redirect Rule & Regex Mapper | `redirect-rule-generator` | `/tools/redirect-rule-generator` | Technical SEO | Live / Production |
+| 29 | OG & Twitter Card Image Safe-Zone Previewer | `open-graph-image-safe-zone` | `/tools/open-graph-image-safe-zone` | Social Media | Live / Production |
+| 30 | Product & Offer Schema Generator | `product-schema-generator` | `/tools/product-schema-generator` | Technical SEO | Live / Production |
+| 31 | Resource Hint & Preconnect Generator | `resource-hint-generator` | `/tools/resource-hint-generator` | Technical SEO | Live / Production |
+| 32 | SVG to Base64 & Data URI Optimizer | `svg-to-data-uri` | `/tools/svg-to-data-uri` | Technical SEO | Live / Production |
+| 33 | LLMs.txt & AI Crawler Directive Generator | `llms-txt-generator` | `/tools/llms-txt-generator` | Technical SEO | Live / Production |
+| 34 | Content Security Policy (CSP) & Header Builder | `csp-header-builder` | `/tools/csp-header-builder` | Technical SEO | Live / Production |
+| 35 | Google Search Console Regex Filter Builder | `gsc-regex-filter-builder` | `/tools/gsc-regex-filter-builder` | SEO Tools | Live / Production |
+| 36 | Unicode & Punycode (IDN) Converter | `idn-punycode-converter` | `/tools/idn-punycode-converter` | Web & Developer | Live / Production |
+| 37 | PPC Negative Keyword List Scrubber & Match-Type Formatter | `ppc-negative-keyword-scrubber` | `/tools/ppc-negative-keyword-scrubber` | Marketing & Growth | Live / Production |
+| 38 | Bulk URL Slug & Anchor Text Sanitizer | `url-slug-sanitizer` | `/tools/url-slug-sanitizer` | Content & Copy | Live / Production |
+| 39 | Bulk UTM Matrix & Multi-Channel Tagging Generator | `bulk-utm-matrix-generator` | `/tools/bulk-utm-matrix-generator` | Marketing & Growth | Live / Production |
+| 40 | JSON-LD Schema Validator & Linter | `schema-validator` | `/tools/schema-validator` | Technical SEO | Live / Production |
+| 41 | Canonical URL & Redirect Loop Auditor | `canonical-redirect-auditor` | `/tools/canonical-redirect-auditor` | Technical SEO | Live / Production |
+| 42 | AI Crawler Firewall & Scraper Rule Generator | `ai-crawler-firewall` | `/tools/ai-crawler-firewall` | Technical SEO | Live / Production |
+| 43 | Core Web Vitals Budget & Resource Hint Calculator | `core-web-vitals-budget-calculator` | `/tools/core-web-vitals-budget-calculator` | Technical SEO | Live / Production |
+| 44 | Hreflang & i18n Matrix Generator | `hreflang-tag-generator` | `/tools/hreflang-tag-generator` | International SEO | Live / Production |
+| 45 | E-Commerce Product Schema & Merchant Rich Result Builder | `ecommerce-schema-generator` | `/tools/ecommerce-schema-generator` | Technical SEO | Live / Production |
 
 ---
 
@@ -63,15 +62,15 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 19 | 41.3% |
-| Social Media | 6 | 13.0% |
-| Web & Developer | 5 | 10.9% |
-| Marketing & Growth | 4 | 8.7% |
-| International SEO | 3 | 6.5% |
-| Content & Copy | 3 | 6.5% |
-| SERP & Snippets | 3 | 6.5% |
+| Technical SEO | 21 | 46.7% |
+| Social Media | 7 | 15.6% |
+| Web & Developer | 4 | 8.9% |
+| Marketing & Growth | 4 | 8.9% |
+| SERP & Snippets | 3 | 6.7% |
+| Content & Copy | 3 | 6.7% |
+| International SEO | 2 | 4.4% |
 | SEO Tools | 1 | 2.2% |
-| **Total** | **46** | **100%** |
+| **Total** | **45** | **100%** |
 
 
 
