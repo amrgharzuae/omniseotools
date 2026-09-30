@@ -12,6 +12,7 @@ import { SCHEMA_PLATFORMS } from "@/config/schema-platforms";
 import { CANONICAL_PLATFORMS } from "@/config/canonical-redirect-platforms";
 import { OG_VALIDATOR_PLATFORMS } from "@/config/open-graph-validator-platforms";
 import { XML_SITEMAP_PLATFORMS } from "@/config/xml-sitemap-platforms";
+import { AI_CRAWLER_FIREWALL_PLATFORMS } from "@/config/ai-crawler-firewall-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -154,6 +155,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5j. AI Crawler Firewall Platform Presets (Cloudflare, Next.js, Nginx)
+  const aiCrawlerFirewallPlatformSubRoutes: MetadataRoute.Sitemap = AI_CRAWLER_FIREWALL_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/ai-crawler-firewall/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -222,6 +231,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...canonicalRedirectPlatformSubRoutes,
     ...ogValidatorPlatformSubRoutes,
     ...xmlSitemapPlatformSubRoutes,
+    ...aiCrawlerFirewallPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,

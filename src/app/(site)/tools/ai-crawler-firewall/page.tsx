@@ -178,6 +178,40 @@ export default function AiCrawlerFirewallPage() {
           </div>
         </section>
 
+        {/* Platform-Specific Presets Switcher Bar */}
+        <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Platform-Specific Firewall Rules:
+              </span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 w-full sm:w-auto">
+              <Link
+                href="/tools/ai-crawler-firewall/cloudflare"
+                className="flex items-center justify-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-rose-500 hover:text-rose-600 text-slate-800 dark:text-slate-200"
+              >
+                <span>Cloudflare WAF</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+              <Link
+                href="/tools/ai-crawler-firewall/nextjs"
+                className="flex items-center justify-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-rose-500 hover:text-rose-600 text-slate-800 dark:text-slate-200"
+              >
+                <span>Next.js Edge</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+              <Link
+                href="/tools/ai-crawler-firewall/nginx"
+                className="flex items-center justify-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-rose-500 hover:text-rose-600 text-slate-800 dark:text-slate-200"
+              >
+                <span>Nginx 444 Drop</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Interactive Tool Widget */}
         <section
           className="mt-2"

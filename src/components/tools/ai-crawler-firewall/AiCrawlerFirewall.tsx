@@ -36,14 +36,21 @@ const safeBots: AiBotDefinition[] = Array.isArray(AI_BOTS)
   ? AI_BOTS
   : (Object.values(AI_BOTS || {}) as AiBotDefinition[]);
 
-type OutputTab = "nextjs" | "cloudflare" | "nginx" | "apache" | "robots";
+export type OutputTab = "nextjs" | "cloudflare" | "nginx" | "apache" | "robots";
 
-interface AiCrawlerFirewallProps {
+export interface AiCrawlerFirewallProps {
   toolSlug?: string;
   toolName?: string;
+  initialTab?: OutputTab;
+  platformSlug?: "cloudflare" | "nextjs" | "nginx" | string;
 }
 
-export function AiCrawlerFirewall({ toolSlug, toolName }: AiCrawlerFirewallProps) {
+export function AiCrawlerFirewall({
+  toolSlug,
+  toolName,
+  initialTab,
+  platformSlug,
+}: AiCrawlerFirewallProps) {
   // Active Blocked Bot State (Record of bot.id -> boolean)
   const [blockedBots, setBlockedBots] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
@@ -53,8 +60,18 @@ export function AiCrawlerFirewall({ toolSlug, toolName }: AiCrawlerFirewallProps
     return initial;
   });
 
-  // Output Format Tab
-  const [activeTab, setActiveTab] = useState<OutputTab>("nextjs");
+  // Output Format Tab (derived from initialTab or platformSlug if provided)
+  const defaultTab: OutputTab =
+    initialTab ||
+    (platformSlug === "cloudflare"
+      ? "cloudflare"
+      : platformSlug === "nginx"
+      ? "nginx"
+      : platformSlug === "nextjs"
+      ? "nextjs"
+      : "nextjs");
+
+  const [activeTab, setActiveTab] = useState<OutputTab>(defaultTab);
   const [copied, setCopied] = useState<boolean>(false);
 
   // Live User-Agent Tester State
