@@ -1,5 +1,19 @@
 # Changelog
 
+## [2026-09-30] - Sprint 45: Build AI Crawler Platform Sub-Routes & Companion Recipe
+### Added & Enhanced
+- **Programmatic Platform Sub-Routes for AI Crawler Firewall (`src/app/(site)/tools/ai-crawler-firewall/[platform]/page.tsx`):**
+  - Built SSG programmatic sub-routes (`generateStaticParams()`) covering **Cloudflare**, **Next.js App Router**, and **Nginx**.
+  - **Cloudflare WAF Rule Generator (`/tools/ai-crawler-firewall/cloudflare`):** Explains why the global one-click "Block AI Scrapers" toggle in Cloudflare can block useful search citation engines (like PerplexityBot). Provides custom WAF expressions to block offline model training crawlers while whitelisting AI search assistants.
+  - **Next.js Edge Middleware Firewall (`/tools/ai-crawler-firewall/nextjs`):** Intercepts unauthorized AI scrapers on the V8 Edge Runtime in <2ms before React Server Components (RSC) and database queries execute, preventing CPU spikes and Vercel serverless duration costs.
+  - **Nginx HTTP 444 Drop Generator (`/tools/ai-crawler-firewall/nginx`):** Employs high-performance `map $http_user_agent` blocks and Nginx non-standard `return 444;` to instantly sever TCP connections with zero response bytes, saving 100% of outbound bandwidth against ByteSpider crawl bursts.
+  - **Platform Configuration Dataset (`src/config/ai-crawler-firewall-platforms.ts`):** Defined typed platform configuration dataset with unique titles, meta descriptions, target architecture quirks, direct answers, step-by-step HowTo guides, and 3 technical FAQs per platform with Schema.org JSON-LD graphs.
+- **Diagnostic Companion Technical Recipe (`src/app/(site)/recipes/how-to-block-ai-crawlers-without-hurting-seo/page.tsx`):**
+  - Published comprehensive guide covering the distinction between search indexers (Googlebot, Bingbot, Applebot) vs training bots (Google-Extended, GPTBot, ClaudeBot, Applebot-Extended).
+  - Detailed the 3-Layer defense architecture: Layer 1 (Advisory `robots.txt`), Layer 2 (Edge Interception with Cloudflare WAF / Nginx 444), and Layer 3 (Application Interception with Next.js Edge Middleware).
+  - Built interactive multi-layer code snippet tabs (`src/components/recipes/AiDefenseSnippetTabs.tsx`) with copy and download support for all infrastructure tiers.
+  - Registered recipe in `src/config/recipes-data.ts` and `src/app/sitemap.ts`.
+
 ## [2026-09-30] - Sprint 44: Build AI Crawler Firewall & Scraper Rule Generator (Tool #43)
 ### Added & Enhanced
 - **AI Crawler Firewall & Scraper Rule Generator Engine (`src/components/tools/ai-crawler-firewall/AiCrawlerFirewall.tsx`, `src/config/tools/technical/ai-crawler-firewall.ts`):**
