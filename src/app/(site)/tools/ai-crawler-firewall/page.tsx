@@ -19,7 +19,8 @@ import { ToolHeader } from "@/components/tool-layout/ToolHeader";
 import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
-import { AiCrawlerFirewall, AI_BOTS } from "@/components/tools/ai-crawler-firewall/AiCrawlerFirewall";
+import { AiCrawlerFirewall } from "@/components/tools/ai-crawler-firewall/AiCrawlerFirewall";
+import { AI_BOTS, type AiBotDefinition } from "@/config/ai-crawler-firewall-data";
 import { ToolGuide } from "@/components/tool-layout/ToolGuide";
 import { ToolFAQ } from "@/components/tool-layout/ToolFAQ";
 import { ComparisonMatrix } from "@/components/seo/ComparisonMatrix";
@@ -242,7 +243,7 @@ export default function AiCrawlerFirewallPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-                  {AI_BOTS.map((bot) => (
+                  {(Array.isArray(AI_BOTS) ? AI_BOTS : (Object.values(AI_BOTS || {}) as AiBotDefinition[])).map((bot: AiBotDefinition) => (
                     <tr
                       key={bot.id}
                       className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors"
