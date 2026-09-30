@@ -1,5 +1,19 @@
 # Changelog
 
+## [2026-09-30] - Sprint 43: Build Programmatic CMS Sub-Routes for XML Sitemap Generator
+### Added & Enhanced
+- **Programmatic Platform Sub-Routes for XML Sitemap Generator (`src/app/(site)/tools/xml-sitemap-generator/[platform]/page.tsx`):**
+  - Built programmatic SSG sub-routes (`generateStaticParams()`) covering **Shopify**, **WordPress**, and **Next.js**.
+  - **Shopify Sub-Sitemap Auditor (`/tools/xml-sitemap-generator/shopify`):** Inspects auto-generated `sitemap.xml` index pointing to locked sub-sitemaps (`sitemap_products_1.xml`, `sitemap_pages_1.xml`, `sitemap_collections_1.xml`, `sitemap_blogs_1.xml`), eliminates dead-URL crawl waste from hidden (`seo.hidden = 1`) or draft items, and audits tag filter bloat in `robots.txt.liquid`.
+  - **WordPress Conflict Auditor (`/tools/xml-sitemap-generator/wordpress`):** Resolves duplicate sitemap submissions between native WordPress 5.5+ `wp-sitemap.xml` and Yoast/RankMath `sitemap_index.xml`, provides `functions.php` disable filters (`add_filter('wp_sitemaps_enabled', '__return_false');`), and fixes Nginx/Apache 404 caching MIME errors.
+  - **Next.js App Router Validator (`/tools/xml-sitemap-generator/nextjs`):** Validates dynamic `sitemap.ts` files, ensures correct `application/xml` MIME headers, and generates type-safe `MetadataRoute.Sitemap` TypeScript handlers with dynamic `generateSitemaps()` 50,000 URL partition support.
+- **Platform Configuration Dataset (`src/config/xml-sitemap-platforms.ts`):**
+  - Strongly typed configuration interface `XmlSitemapPlatformConfig` with unique titles, meta descriptions, target CMS quirks, direct answer boxes, 5-step implementation guides, dynamic code snippets, and 3 platform-specific technical FAQs with Schema.org `FAQPage` + `HowTo` + `WebApplication` JSON-LD graphs.
+- **Component & Ecosystem Enhancements (`src/components/tools/technical/XmlSitemapGenerator.tsx`):**
+  - Enhanced `XmlSitemapGenerator` to auto-inject platform-specific URL presets and raw XML indices directly into the editor upon page load.
+  - Added Cross-Platform Navigation Bar and Internal Linking Bridge to Robots.txt Generator & Validator, Canonical URL Auditor, and Recipe for "Discovered – Currently Not Indexed".
+  - Registered all new sub-routes cleanly in `src/app/sitemap.ts`.
+
 ## [2026-09-25] - Sprint 40: Build Bulk UTM Matrix & Multi-Channel Tagging Generator (Tool #40)
 ### Added & Enhanced
 - **Bulk UTM Matrix Engine (`src/lib/bulk-utm-matrix.ts`, `src/components/tools/marketing/BulkUtmMatrixGenerator.tsx`):**

@@ -122,6 +122,40 @@ export default function XmlSitemapGeneratorPage() {
         {/* Top Zero-CLS AdSlot Container */}
         <AdSlot slotType="leaderboard" className="my-6" />
 
+        {/* Platform-Specific Presets Banner */}
+        <section className="mb-4 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-indigo-500/10 via-sky-500/5 to-transparent p-4 sm:p-5 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                CMS &amp; Framework XML Sitemap Generators
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Optimize and validate sitemaps tailored for Shopify sub-sitemaps, WordPress sitemap_index.xml, or Next.js sitemap.ts.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <a
+                href="/tools/xml-sitemap-generator/shopify"
+                className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all"
+              >
+                Shopify
+              </a>
+              <a
+                href="/tools/xml-sitemap-generator/wordpress"
+                className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all"
+              >
+                WordPress
+              </a>
+              <a
+                href="/tools/xml-sitemap-generator/nextjs"
+                className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all"
+              >
+                Next.js App Router
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* Interactive Tool Widget */}
         <section className="mt-4" aria-label="Interactive XML Sitemap Generator and Validator">
           <ToolErrorBoundary

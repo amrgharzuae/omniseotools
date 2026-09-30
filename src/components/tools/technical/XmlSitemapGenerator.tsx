@@ -31,10 +31,17 @@ import {
 import { cn } from "@/lib/utils";
 import { EmbedBadgeModal } from "@/components/tools/EmbedBadgeModal";
 
+import { XmlSitemapPlatformConfig } from "@/config/xml-sitemap-platforms";
+
 interface XmlSitemapGeneratorProps {
   toolSlug?: string;
   toolName?: string;
-  platform?: any;
+  platform?: XmlSitemapPlatformConfig;
+  platformName?: string;
+  initialUrls?: string;
+  initialXml?: string;
+  initialMode?: "generator" | "validator";
+  initialTab?: "xml" | "nextjs";
 }
 
 type ChangeFreq = "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
@@ -147,13 +154,28 @@ function isValidW3CDate(dateStr: string): boolean {
   return false;
 }
 
-export function XmlSitemapGenerator({ toolSlug, toolName }: XmlSitemapGeneratorProps) {
+export function XmlSitemapGenerator({
+  toolSlug,
+  toolName,
+  platform,
+  platformName,
+  initialUrls,
+  initialXml,
+  initialMode,
+  initialTab,
+}: XmlSitemapGeneratorProps) {
   // Mode State: generator vs validator
-  const [mode, setMode] = useState<Mode>("generator");
+  const [mode, setMode] = useState<Mode>(
+    initialMode || platform?.defaultMode || "generator"
+  );
 
   // Generator State
-  const [rawUrlsInput, setRawUrlsInput] = useState<string>(SAMPLE_GENERATOR_URLS);
-  const [defaultChangefreq, setDefaultChangefreq] = useState<ChangeFreq>("weekly");
+  const [rawUrlsInput, setRawUrlsInput] = useState<string>(
+    initialUrls ?? (platform?.presetUrls || SAMPLE_GENERATOR_URLS)
+  );
+  const [defaultChangefreq, setDefaultChangefreq] = useState<ChangeFreq>(
+    platform?.slug === "shopify" ? "daily" : "weekly"
+  );
   const [defaultPriority, setDefaultPriority] = useState<string>("0.8");
   const [defaultLastmod, setDefaultLastmod] = useState<string>(getTodayString());
   const [includeLastmod, setIncludeLastmod] = useState<boolean>(true);
@@ -164,10 +186,14 @@ export function XmlSitemapGenerator({ toolSlug, toolName }: XmlSitemapGeneratorP
   const [escapeEntities, setEscapeEntities] = useState<boolean>(true);
 
   // Validator State
-  const [rawXmlInput, setRawXmlInput] = useState<string>(SAMPLE_VALID_XML);
+  const [rawXmlInput, setRawXmlInput] = useState<string>(
+    initialXml ?? (platform?.presetXml || SAMPLE_VALID_XML)
+  );
 
   // Output Tab & Feedback
-  const [activeTab, setActiveTab] = useState<OutputTab>("xml");
+  const [activeTab, setActiveTab] = useState<OutputTab>(
+    initialTab || platform?.defaultTab || "xml"
+  );
   const [copied, setCopied] = useState<boolean>(false);
 
   // Parse URLs in Generator Mode
@@ -602,6 +628,19 @@ ${entries.join(",\n")}
           <div className="flex flex-wrap items-center gap-2">
             {mode === "generator" ? (
               <>
+                {platform && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRawUrlsInput(platform.presetUrls || SAMPLE_GENERATOR_URLS);
+                      setDefaultPriority("0.8");
+                      setDefaultChangefreq(platform.slug === "shopify" ? "daily" : "weekly");
+                    }}
+                    className="px-2.5 py-1.5 rounded-lg bg-indigo-500/30 hover:bg-indigo-500/40 text-xs font-semibold text-indigo-200 border border-indigo-400/40 transition-colors"
+                  >
+                    {platform.shortName} URLs
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => {
@@ -635,6 +674,15 @@ ${entries.join(",\n")}
               </>
             ) : (
               <>
+                {platform && platform.presetXml && (
+                  <button
+                    type="button"
+                    onClick={() => setRawXmlInput(platform.presetXml)}
+                    className="px-2.5 py-1.5 rounded-lg bg-indigo-500/30 hover:bg-indigo-500/40 text-xs font-semibold text-indigo-200 border border-indigo-400/40 transition-colors"
+                  >
+                    Load {platform.shortName} XML
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => setRawXmlInput(SAMPLE_VALID_XML)}

@@ -11,6 +11,7 @@ import { ROBOTS_PLATFORMS } from "@/config/robots-platforms";
 import { SCHEMA_PLATFORMS } from "@/config/schema-platforms";
 import { CANONICAL_PLATFORMS } from "@/config/canonical-redirect-platforms";
 import { OG_VALIDATOR_PLATFORMS } from "@/config/open-graph-validator-platforms";
+import { XML_SITEMAP_PLATFORMS } from "@/config/xml-sitemap-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -145,6 +146,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // 5i. XML Sitemap Generator & Validator Platform Presets (Shopify, WordPress, Next.js)
+  const xmlSitemapPlatformSubRoutes: MetadataRoute.Sitemap = XML_SITEMAP_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/xml-sitemap-generator/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -212,6 +221,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...schemaPlatformSubRoutes,
     ...canonicalRedirectPlatformSubRoutes,
     ...ogValidatorPlatformSubRoutes,
+    ...xmlSitemapPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,
