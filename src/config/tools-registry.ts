@@ -22,6 +22,7 @@ import { urlSlugSanitizerTool } from "./tools/content/url-slug-sanitizer";
 import { bulkUtmMatrixGeneratorTool } from "./tools/marketing/bulk-utm-matrix-generator";
 import { schemaValidatorTool } from "./tools/technical/schema-validator";
 import { canonicalRedirectAuditorTool } from "./tools/technical/canonical-redirect-auditor";
+import { aiCrawlerFirewallTool } from "./tools/technical/ai-crawler-firewall";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2402,7 +2403,9 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 41. JSON-LD Schema Validator & Linter
   schemaValidatorTool,
   // 42. Canonical URL & Redirect Loop Auditor
-  canonicalRedirectAuditorTool
+  canonicalRedirectAuditorTool,
+  // 43. AI Crawler Firewall & Scraper Rule Generator
+  aiCrawlerFirewallTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2624,6 +2627,16 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-42"
   ) {
     return canonicalRedirectAuditorTool;
+  }
+  if (
+    normalized === "ai-crawler-firewall" ||
+    normalized === "ai-crawler-firewall-generator" ||
+    normalized === "ai-scraper-firewall" ||
+    normalized === "ai-crawler-blocker" ||
+    normalized === "ai-bot-blocker" ||
+    normalized === "tool-43"
+  ) {
+    return aiCrawlerFirewallTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

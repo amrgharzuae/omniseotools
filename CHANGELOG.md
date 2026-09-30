@@ -1,5 +1,19 @@
 # Changelog
 
+## [2026-09-30] - Sprint 44: Build AI Crawler Firewall & Scraper Rule Generator (Tool #43)
+### Added & Enhanced
+- **AI Crawler Firewall & Scraper Rule Generator Engine (`src/components/tools/ai-crawler-firewall/AiCrawlerFirewall.tsx`, `src/config/tools/technical/ai-crawler-firewall.ts`):**
+  - Engineered a 100% client-side, zero-telemetry edge firewall and scraper blocking configurator.
+  - **Categorized Bot Selection Matrix:** Supports 13 AI crawlers across Commercial AI Training Crawlers (GPTBot, ChatGPT-User, ClaudeBot, Claude-Web, Google-Extended, Applebot-Extended, Meta-ExternalAgent) and Aggressive Web Scrapers & Harvesters (Bytespider, CCBot, Diffbot, ImagesiftBot, PerplexityBot, Cohere-ai).
+  - **Strategy Action Presets:** 1-click strategy buttons for "Select All AI Bots", "Block Training Only (Allow Search/Browsing)", "Block ByteSpider & Scrapers", and "Clear All".
+  - **Live User-Agent Header Tester:** Interactive input sandbox with instant ALLOWED (200 OK) vs BLOCKED (403 Forbidden) evaluation and matched signature detection. Includes one-click test fixtures for GPTBot, Bytespider, ClaudeBot, Googlebot, and Chrome User.
+  - **Multi-Target Production Code Exporters:** Generates instant copy-paste snippets for Next.js Edge Middleware (`middleware.ts`), Cloudflare WAF Custom Rule expressions, Nginx `map` reverse proxy blocks, Apache `.htaccess` rewrite conditions, and standard RFC 9309 `robots.txt` exclusion blocks with 1-click clipboard copying and file downloads.
+- **Dedicated Route & Registry Integration:**
+  - Registered `aiCrawlerFirewallTool` (`#43`) in `src/config/tools-registry.ts` under "Technical SEO & Security".
+  - Created dedicated App Router page at `src/app/(site)/tools/ai-crawler-firewall/page.tsx` with Schema.org `WebApplication` + `HowTo` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Added internal linking bridge to `llms.txt` Generator, Robots.txt Generator, Canonical URL Auditor, and AI Bot Blocking Recipe.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 43), `PROJECT_STATUS.md`, and dynamic sitemap.
+
 ## [2026-09-30] - Sprint 43: Build Programmatic CMS Sub-Routes for XML Sitemap Generator
 ### Added & Enhanced
 - **Programmatic Platform Sub-Routes for XML Sitemap Generator (`src/app/(site)/tools/xml-sitemap-generator/[platform]/page.tsx`):**

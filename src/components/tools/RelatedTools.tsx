@@ -301,10 +301,16 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
 
   // 11. AI Crawler & LLMs.txt Cluster
   "llms-txt-generator": [
+    "ai-crawler-firewall",
     "robots-txt-generator-validator",
     "xml-sitemap-generator",
     "schema-markup-generator",
-    "resource-hint-generator",
+  ],
+  "ai-crawler-firewall": [
+    "llms-txt-generator",
+    "robots-txt-generator-validator",
+    "canonical-redirect-auditor",
+    "csp-header-builder",
   ],
 };
 
