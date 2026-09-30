@@ -43,6 +43,14 @@ import {
 interface CoreWebVitalsBudgetCalculatorProps {
   toolSlug?: string;
   toolName?: string;
+  platformName?: string;
+  platformTip?: string;
+  initialPresetId?: string;
+  initialBudgets?: Partial<AssetBudgets>;
+  initialCodeTab?: CodeTab;
+  initialHeroImage?: string;
+  initialFontUrl?: string;
+  initialNetwork?: NetworkProfileId;
 }
 
 type CodeTab = "html" | "headers" | "nextjs";
@@ -50,25 +58,42 @@ type CodeTab = "html" | "headers" | "nextjs";
 export function CoreWebVitalsBudgetCalculator({
   toolSlug = "core-web-vitals-budget-calculator",
   toolName = "Core Web Vitals Budget & Resource Hint Calculator",
+  platformName,
+  platformTip,
+  initialPresetId,
+  initialBudgets,
+  initialCodeTab = "html",
+  initialHeroImage = "/images/hero-lcp.webp",
+  initialFontUrl = "/fonts/inter.woff2",
+  initialNetwork = "average-4g",
 }: CoreWebVitalsBudgetCalculatorProps) {
+  // Determine initial budgets from preset or custom initialBudgets
+  const resolvedInitialBudgets: AssetBudgets = useMemo(() => {
+    if (initialPresetId) {
+      const found = PLATFORM_PRESETS.find((p) => p.id === initialPresetId);
+      if (found) return found.budgets;
+    }
+    return {
+      htmlKb: initialBudgets?.htmlKb ?? 30,
+      cssKb: initialBudgets?.cssKb ?? 45,
+      jsKb: initialBudgets?.jsKb ?? 150,
+      imageKb: initialBudgets?.imageKb ?? 120,
+      fontKb: initialBudgets?.fontKb ?? 60,
+    };
+  }, [initialPresetId, initialBudgets]);
+
   // State: Network Profile
-  const [selectedNetwork, setSelectedNetwork] = useState<NetworkProfileId>("average-4g");
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkProfileId>(initialNetwork);
 
   // State: Asset Budgets (in KB, compressed)
-  const [budgets, setBudgets] = useState<AssetBudgets>({
-    htmlKb: 30,
-    cssKb: 45,
-    jsKb: 150,
-    imageKb: 120,
-    fontKb: 60,
-  });
+  const [budgets, setBudgets] = useState<AssetBudgets>(resolvedInitialBudgets);
 
   // State: Resource URLs for code exporter
-  const [heroImageUrl, setHeroImageUrl] = useState<string>("/images/hero-lcp.webp");
-  const [fontUrl, setFontUrl] = useState<string>("/fonts/inter.woff2");
+  const [heroImageUrl, setHeroImageUrl] = useState<string>(initialHeroImage);
+  const [fontUrl, setFontUrl] = useState<string>(initialFontUrl);
 
   // State: Code Export Tab
-  const [activeCodeTab, setActiveCodeTab] = useState<CodeTab>("html");
+  const [activeCodeTab, setActiveCodeTab] = useState<CodeTab>(initialCodeTab);
   const [copied, setCopied] = useState<boolean>(false);
 
   // Active Network Profile
@@ -237,6 +262,23 @@ export function CoreWebVitalsBudgetCalculator({
 
         </div>
       </div>
+
+      {/* Optional Platform Optimization Highlight */}
+      {platformTip && (
+        <div className="rounded-2xl border border-indigo-500/30 bg-indigo-50/70 dark:bg-indigo-950/30 p-4 sm:p-5 flex items-start gap-3 shadow-xs">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold text-xs shrink-0 mt-0.5">
+            <Sparkles className="h-4 w-4" />
+          </div>
+          <div className="space-y-1 text-xs sm:text-sm">
+            <p className="font-bold text-slate-900 dark:text-white">
+              {platformName ? `${platformName} Optimization Strategy` : "Platform Performance Tip"}
+            </p>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              {platformTip}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Target Network Profile Selector */}
       <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 p-4 sm:p-5 shadow-sm space-y-3">

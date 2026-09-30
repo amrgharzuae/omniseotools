@@ -13,6 +13,7 @@ import { CANONICAL_PLATFORMS } from "@/config/canonical-redirect-platforms";
 import { OG_VALIDATOR_PLATFORMS } from "@/config/open-graph-validator-platforms";
 import { XML_SITEMAP_PLATFORMS } from "@/config/xml-sitemap-platforms";
 import { AI_CRAWLER_FIREWALL_PLATFORMS } from "@/config/ai-crawler-firewall-platforms";
+import { CWV_BUDGET_PLATFORMS } from "@/config/cwv-budget-platforms";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -163,6 +164,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // 5k. Core Web Vitals Budget Calculator Platform Presets (Next.js, Shopify, WordPress)
+  const cwvBudgetPlatformSubRoutes: MetadataRoute.Sitemap = CWV_BUDGET_PLATFORMS.map((platform) => ({
+    url: `${BASE_URL}/tools/core-web-vitals-budget-calculator/${platform.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // 6. Technical Blog Directory & Static Articles
   const blogPages: MetadataRoute.Sitemap = [
     {
@@ -232,6 +241,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...ogValidatorPlatformSubRoutes,
     ...xmlSitemapPlatformSubRoutes,
     ...aiCrawlerFirewallPlatformSubRoutes,
+    ...cwvBudgetPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
     ...legalPages,

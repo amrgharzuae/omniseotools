@@ -9,11 +9,17 @@
   - **Live Risk Gauges & Waterfall:** Visual risk gauges for Largest Contentful Paint (LCP) and Interaction to Next Paint (INP), paired with a 4-phase LCP breakdown (TTFB, Resource Load Delay, Resource Load Duration, Element Render Delay).
   - **Architecture Presets:** 1-click presets for Next.js App Router (Optimized), WordPress + WooCommerce (Plugin-Heavy), Shopify (Liquid Theme + Apps), and Ultra-Lean Static (Jamstack).
   - **Multi-Target Resource Hint Snippets:** Generates copy-paste code across HTML `<head>` tags (`fetchpriority="high"`, `<link rel="preload">`, `<link rel="preconnect">`), RFC 5988 HTTP Link headers (for 103 Early Hints / Nginx / Cloudflare), and Next.js `app/layout.tsx` metadata arrays.
+- **Programmatic Platform Sub-Routes (`src/app/(site)/tools/core-web-vitals-budget-calculator/[platform]/page.tsx`, `src/config/cwv-budget-platforms.ts`):**
+  - Built SSG sub-routes (`generateStaticParams()`) for **Next.js App Router**, **Shopify Liquid**, and **WordPress & WooCommerce**.
+  - **Next.js App Router (`/tools/core-web-vitals-budget-calculator/nextjs`):** Targets Client Component hydration overhead and heavy client component trees blocking the main thread during interaction. Generates `next/image` with `priority`, `next/font/google` optimizations, and type-safe `app/layout.tsx` metadata link hints.
+  - **Shopify Liquid (`/tools/core-web-vitals-budget-calculator/shopify`):** Addresses third-party app injection script contention (>350 KB JS evaluation) and un-preloaded hero image delays on `cdn.shopify.com`. Generates `{{ product.featured_image | image_url: width: 1200 }}` preload Liquid snippets with `fetchpriority="high"`.
+  - **WordPress & WooCommerce (`/tools/core-web-vitals-budget-calculator/wordpress`):** Tackles render-blocking CSS stylesheets and legacy jQuery dependencies from plugins. Generates `functions.php` snippets dequeuing WooCommerce assets on non-store pages and injecting Google Fonts preconnects.
+  - Injected Schema.org `WebApplication`, `HowTo`, `FAQPage`, and `BreadcrumbList` graphs for every platform sub-route.
 - **Dedicated Route & Registry Integration:**
   - Registered `coreWebVitalsBudgetCalculatorTool` (`#44`) in `src/config/tools-registry.ts` under "Technical SEO & Performance".
   - Created dedicated App Router page at `src/app/(site)/tools/core-web-vitals-budget-calculator/page.tsx` with Schema.org `WebApplication` + `HowTo` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
   - Added comparison matrix (Preload vs Preconnect vs Fetchpriority) and technical FAQs.
-  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 44) and `PROJECT_STATUS.md`.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 44), `PROJECT_STATUS.md`, and dynamic sitemap.
 
 ## [2026-09-30] - Sprint 45: Build AI Crawler Platform Sub-Routes & Companion Recipe
 ### Added & Enhanced
