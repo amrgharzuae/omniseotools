@@ -1774,6 +1774,105 @@ Allow: /`,
       },
     ],
   },
+
+  // 26. Block AI Crawlers Without Hurting SEO
+  {
+    slug: "how-to-block-ai-crawlers-without-hurting-seo",
+    title: "How to Block AI Scrapers Without Hurting Google SEO",
+    description:
+      "Learn how to stop aggressive AI crawlers (GPTBot, ClaudeBot, Bytespider) and protect server bandwidth without blocking Googlebot or tanking search rankings.",
+    category: "AI & Crawlers",
+    readingTime: "7 min read",
+    lastUpdated: "September 2026",
+    relatedToolSlug: "ai-crawler-firewall",
+    relatedToolName: "AI Crawler Firewall & Scraper Blocker",
+    relatedToolCta: "Generate Edge Firewall Rules in Tool #43",
+    problemSummary:
+      "When trying to prevent LLM bots from scraping website content for AI training, engineering teams often implement blanket robots.txt disallows or broad user-agent wildcard blocks. This can inadvertently block Googlebot and Bingbot, de-indexing money pages from search results, or fail entirely because rogue scrapers (like Bytespider) ignore robots.txt and exhaust origin server CPU and database connections.",
+    errorSnippet:
+      "Google Search Console Error:\nIndexed, though blocked by robots.txt\nOR\nPage is not indexed: Blocked by robots.txt (Googlebot excluded due to over-broad User-agent: * Disallow rule)",
+    solutionSnippet: `// src/middleware.ts (Next.js Edge AI Firewall - Zero Googlebot Impact)
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+// Explicitly match AI training bots and aggressive scrapers
+// Notice: Googlebot and Bingbot are NEVER included in this regex
+const BLOCKED_AI_BOTS = /(GPTBot|ClaudeBot|Google-Extended|Applebot-Extended|Bytespider|CCBot|Diffbot)/i;
+
+export function middleware(request: NextRequest) {
+  const userAgent = request.headers.get('user-agent') || '';
+
+  // Return immediate 403 Forbidden at the Edge (<2ms)
+  if (BLOCKED_AI_BOTS.test(userAgent)) {
+    return new NextResponse('Forbidden: Automated AI Training & Scraping Prohibited', {
+      status: 403,
+      headers: {
+        'Content-Type': 'text/plain',
+        'X-Robots-Tag': 'noindex, nofollow, noarchive',
+        'Cache-Control': 'no-store',
+      },
+    });
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};`,
+    snippetLanguage: "typescript",
+    implementationSteps: [
+      {
+        title: "1. Distinguish Search Crawlers from AI Training Harvesters",
+        explanation:
+          "Separate Googlebot (search indexer) from Google-Extended (Gemini training). Never block Googlebot. Allow ChatGPT-User if you want live AI search citation referrals.",
+      },
+      {
+        title: "2. Configure Advisory Layer 1 in robots.txt",
+        explanation:
+          "Add explicit Disallow directives for polite foundation model crawlers (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended) in your root robots.txt.",
+      },
+      {
+        title: "3. Deploy Edge Layer 2 in Cloudflare WAF or Nginx",
+        explanation:
+          "Create a Cloudflare Custom WAF Rule with action 'Block' and safety check 'and not cf.client.bot', or configure Nginx with 'return 444;' to drop scraper TCP connections with 0 response bytes.",
+      },
+      {
+        title: "4. Deploy Application Layer 3 in Next.js Edge Middleware",
+        explanation:
+          "Add middleware.ts to intercept matched user-agent tokens on the V8 Edge Runtime in <2ms before React Server Components or database queries run.",
+      },
+    ],
+    commonPitfalls: [
+      "Using generic wildcard disallows (User-agent: * Disallow: /) that de-index your site from Google Search.",
+      "Enabling the blunt one-click Cloudflare 'Block AI Scrapers' toggle without realising it blocks AI search citation engines like Perplexity.",
+      "Filtering on broad substrings like 'bot' which accidentally matches Googlebot, Bingbot, and Twitterbot.",
+      "Blocking static CSS and JavaScript files that Googlebot needs for mobile page rendering.",
+      "Relying solely on robots.txt and wondering why ByteDance's Bytespider continues hammering origin servers.",
+    ],
+    faqItems: [
+      {
+        question: "Does blocking Google-Extended harm my Google Search rankings?",
+        answer:
+          "No. Googlebot and Google-Extended operate independently. Disallowing Google-Extended prevents your content from being ingested into Gemini and Vertex AI training datasets while having zero impact on your Google Search visibility or ranking.",
+      },
+      {
+        question: "Why does robots.txt fail to stop scrapers like Bytespider?",
+        answer:
+          "robots.txt is an advisory standard (RFC 9309). Aggressive commercial scrapers regularly ignore it. You must enforce hard HTTP 403 blocks or HTTP 444 connection drops at the CDN edge (Cloudflare) or web server (Next.js/Nginx).",
+      },
+      {
+        question: "What is the difference between GPTBot and ChatGPT-User?",
+        answer:
+          "GPTBot is OpenAI's bulk offline model training crawler. ChatGPT-User is an on-demand live browsing assistant dispatched when users prompt ChatGPT to summarize or search a specific URL.",
+      },
+      {
+        question: "How can I block AI bots without accidentally blocking Googlebot mobile renderers?",
+        answer:
+          "Use exact token substrings (GPTBot, ClaudeBot, Bytespider) rather than generic keywords like 'bot'. In Cloudflare, append 'and not cf.client.bot' to cryptographically verify Googlebot and Bingbot IP addresses.",
+      },
+    ],
+  },
 ];
 
 export function getAllRecipes(): Recipe[] {
