@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 44**
+**Total Active Tools: 46**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -54,6 +54,8 @@
 | 42 | Canonical URL & Redirect Loop Auditor | `canonical-redirect-auditor` | `/tools/canonical-redirect-auditor` | Technical SEO | Live / Production |
 | 43 | AI Crawler Firewall & Scraper Rule Generator | `ai-crawler-firewall` | `/tools/ai-crawler-firewall` | Technical SEO | Live / Production |
 | 44 | Core Web Vitals Budget & Resource Hint Calculator | `core-web-vitals-budget-calculator` | `/tools/core-web-vitals-budget-calculator` | Technical SEO | Live / Production |
+| 45 | Hreflang & i18n Matrix Generator | `hreflang-tag-generator` | `/tools/hreflang-tag-generator` | International SEO | Live / Production |
+| 46 | E-Commerce Product Schema & Merchant Rich Result Builder | `ecommerce-schema-generator` | `/tools/ecommerce-schema-generator` | Technical SEO | Live / Production |
 
 ---
 
@@ -61,15 +63,15 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 18 | 40.9% |
-| Social Media | 6 | 13.6% |
-| Web & Developer | 5 | 11.4% |
-| Marketing & Growth | 4 | 9.1% |
-| Content & Copy | 3 | 6.8% |
-| SERP & Snippets | 3 | 6.8% |
-| International SEO | 2 | 4.5% |
-| SEO Tools | 1 | 2.3% |
-| **Total** | **44** | **100%** |
+| Technical SEO | 19 | 41.3% |
+| Social Media | 6 | 13.0% |
+| Web & Developer | 5 | 10.9% |
+| Marketing & Growth | 4 | 8.7% |
+| International SEO | 3 | 6.5% |
+| Content & Copy | 3 | 6.5% |
+| SERP & Snippets | 3 | 6.5% |
+| SEO Tools | 1 | 2.2% |
+| **Total** | **46** | **100%** |
 
 
 

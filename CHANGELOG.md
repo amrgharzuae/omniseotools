@@ -1,5 +1,41 @@
 # Changelog
 
+## [2026-09-30] - Sprint 48: Build Google Merchant & E-Commerce Product Schema Builder (Tool #46)
+### Added & Enhanced
+- **E-Commerce Product Schema & Merchant Rich Result Engine (`src/lib/ecommerce-schema-engine.ts`, `src/components/tools/ecommerce-schema-generator/EcommerceSchemaGenerator.tsx`, `src/config/tools/technical/ecommerce-schema-generator.ts`):**
+  - Built a 100% client-side, zero-telemetry 2026 Google Merchant Center-compliant Product JSON-LD structured data generator and validator.
+  - **Core Product Details & Identifiers:** Supports product name, brand entity (`{"@type": "Brand", "name": "..."}`), description, SKU, dynamic multi-image URL list, and global commercial identifiers (`gtin13`, `gtin14`, `gtin8`, `mpn`, `isbn`) with automatic GTIN-13/14 checksum validation.
+  - **Offers & Pricing Controls:** Currency selector (USD, EUR, GBP, AED, CAD, AUD, SAR, JPY, INR), numerical price formatting, availability status (`InStock`, `OutOfStock`, `PreOrder`, `BackOrder`), `priceValidUntil` date picker, and item condition (`NewCondition`, `RefurbishedCondition`, `UsedCondition`).
+  - **2026 Google Merchant Compliance Entities:**
+    - `shippingDetails`: Shipping rate, currency, destination country (ISO 3166-1 alpha-2), and handling/transit time min/max days for delivered cost calculations and Google Shopping delivery badges.
+    - `hasMerchantReturnPolicy`: Return policy category (`MerchantReturnFiniteReturnWindow`, `MerchantReturnNotPermitted`, `MerchantReturnUnlimitedWindow`), return window duration (days), return method (`ReturnByMail`, `ReturnInStore`, `ReturnAtKiosk`), and return fees (`FreeReturn`, `ReturnShippingFees`).
+    - `aggregateRating`: Rating score (e.g. 4.8), best rating (default: 5), rating count, and review count.
+  - **Real-Time Rich Snippet Validator & SERP Preview:** Live Google Search SERP Rich Result card simulation (title, star rating badges, review count, price/currency, stock badge, free shipping & return policy pills), paired with an itemized 2026 Google Merchant compliance audit checklist.
+  - **Multi-Framework Code Exporters:** Tabbed export interface with 1-click copying and `.json` / `.tsx` / `.liquid` file downloads:
+    1. Standard JSON-LD `<script type="application/ld+json">` tag.
+    2. Next.js App Router Component (`<Script id="product-schema" ... />` / inline `<script>` snippet).
+    3. Shopify Liquid Snippet with dynamic template interpolations (`{{ product.title }}`, `{{ product.price | money_without_currency }}`, `{{ product.featured_image }}`, `{{ product.selected_or_first_available_variant.barcode }}`).
+  - **Strategy Presets:** 1-click sample templates for Luxury Apparel (USD with Free 30-Day Returns), Consumer Electronics (EUR with Free Shipping & 14-Day Return), and Middle East / UAE Merchant (AED with 3-Day Delivery).
+- **Dedicated Route & Registry Integration:**
+  - Registered `ecommerceSchemaGeneratorTool` (`#46`) in `src/config/tools-registry.ts` under "Technical SEO & Structured Data".
+  - Created dedicated App Router page at `src/app/(site)/tools/ecommerce-schema-generator/page.tsx` with Schema.org `WebApplication` + `HowTo` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Added direct answer box, Mandatory vs Recommended 2026 Google Merchant Schema comparison table, and technical FAQs.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 46), `PROJECT_STATUS.md`, and dynamic sitemap.
+
+## [2026-09-30] - Sprint 47: Build Hreflang & i18n Matrix Generator (Tool #45)
+### Added & Enhanced
+- **Hreflang & i18n Matrix Engine (`src/lib/hreflang-engine.ts`, `src/components/tools/hreflang-tag-generator/HreflangTagGenerator.tsx`, `src/config/tools/international/hreflang-tag-generator.ts`):**
+  - Built a 100% client-side, zero-telemetry internationalization (i18n) hreflang cluster builder and validator.
+  - **Dynamic Language & Country Matrix:** Row-based URL, ISO 639-1 language, and ISO 3166-1 country selectors with instant `x-default` global fallback role toggling.
+  - **Quick Presets:** 1-click strategic templates for Global E-Commerce (US, UK, UAE, Default), Canada Bilingual (EN-CA / FR-CA), Pan-European Store (DE, FR, ES, IT), Middle East & GCC (UAE, Saudi Arabia, Egypt), and LATAM Spanish.
+  - **Real-Time Linting & Validation:** Automated detection of missing return tags (reciprocal audit reminder), missing `x-default` fallbacks, duplicate locale mappings, invalid country codes (e.g. flagging `UK` instead of `GB`, `EU` regional invalidity), and relative URL warnings.
+  - **Multi-Target Integration Code Exporters:** Generates instant copy-paste code across HTML5 `<head>` tags (`<link rel="alternate" hreflang="..." href="..." />`), XML Sitemap clusters (`<xhtml:link>` blocks with `xmlns:xhtml` namespace declarations), Next.js App Router `alternates.languages` TypeScript metadata, and RFC 5988 HTTP `Link:` response headers.
+- **Dedicated Route & Registry Integration:**
+  - Registered `hreflangTagGeneratorTool` (`#45`) in `src/config/tools-registry.ts` under "International SEO".
+  - Created dedicated App Router page at `src/app/(site)/tools/hreflang-tag-generator/page.tsx` with Schema.org `WebApplication` + `HowTo` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Added comparison table (HTML Head vs XML Sitemap vs HTTP Headers) and technical FAQs.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 45), `PROJECT_STATUS.md`, and dynamic sitemap.
+
 ## [2026-09-30] - Sprint 46: Build Core Web Vitals Budget & Resource Hint Calculator (Tool #44)
 ### Added & Enhanced
 - **Core Web Vitals Budget & Resource Hint Engine (`src/lib/cwv-budget-calculator.ts`, `src/components/tools/core-web-vitals-budget-calculator/CoreWebVitalsBudgetCalculator.tsx`, `src/config/tools/technical/core-web-vitals-budget-calculator.ts`):**
