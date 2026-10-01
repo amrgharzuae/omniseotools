@@ -2,36 +2,56 @@
 import fs from 'fs';
 import path from 'path';
 
-const registryContent = fs.readFileSync('src/config/tools-registry.ts', 'utf8');
+const rootDir = process.cwd();
+const registryPath = path.resolve(rootDir, 'src/config/tools-registry.ts');
 
-// 1. Inline slugs (handles quoted and unquoted keys)
+if (!fs.existsSync(registryPath)) {
+    console.error(`❌ Could not locate tools-registry.ts at ${registryPath}`);
+    process.exit(1);
+}
+
+const registryContent = fs.readFileSync(registryPath, 'utf8');
+
+// 1. Parse inline slugs
 const inlineSlugs = [...registryContent.matchAll(/["']?slug["']?\s*:\s*["']([^"']+)["']/g)].map(m => m[1]);
 
-// 2. Imported module slugs
+// 2. Resolve imported tool module slugs
 const importMatches = [...registryContent.matchAll(/from\s+["'](\.\/tools\/[^"']+)["']/g)].map(m => m[1]);
 const importedSlugs = [];
 
-importMatches.forEach(relPath => {
-    const possible = [
-        path.join('src/config', relPath + '.ts'),
-        path.join('src/config', relPath + '.tsx'),
-        path.join('src/config', relPath + '/index.ts'),
+for (const relPath of importMatches) {
+    // Normalize path relative to src/config/
+    const cleanRel = relPath.replace(/^\.\//, '');
+    const possiblePaths = [
+        path.resolve(rootDir, 'src/config', `${cleanRel}.ts`),
+        path.resolve(rootDir, 'src/config', `${cleanRel}.tsx`),
+        path.resolve(rootDir, 'src/config', cleanRel, 'index.ts'),
+        path.resolve(rootDir, 'src/config', cleanRel, 'index.tsx'),
     ];
-    const file = possible.find(p => fs.existsSync(p));
-    if (file) {
-        const txt = fs.readFileSync(file, 'utf8');
+
+    const foundPath = possiblePaths.find(p => fs.existsSync(p));
+    if (foundPath) {
+        const txt = fs.readFileSync(foundPath, 'utf8');
         const match = txt.match(/["']?slug["']?\s*:\s*["']([^"']+)["']/);
-        if (match) importedSlugs.push(match[1]);
+        if (match) {
+            importedSlugs.push(match[1]);
+        }
+    } else {
+        console.warn(`⚠️ Could not resolve import path: ${relPath}`);
     }
-});
+}
 
 const allSlugs = [...new Set([...inlineSlugs, ...importedSlugs])];
 
-// 3. Physical standalone folders on disk
+// 3. Scan physical folders
+const toolsDir = path.resolve(rootDir, 'src/app/(site)/tools');
 const hubDirs = ['content', 'developer', 'marketing', 'seo', 'social'];
-const physicalToolDirs = fs.readdirSync('src/app/(site)/tools', { withFileTypes: true })
-    .filter(d => d.isDirectory() && !d.name.startsWith('[') && !hubDirs.includes(d.name))
-    .map(d => d.name);
+
+const physicalToolDirs = fs.existsSync(toolsDir)
+    ? fs.readdirSync(toolsDir, { withFileTypes: true })
+        .filter(d => d.isDirectory() && !d.name.startsWith('[') && !hubDirs.includes(d.name))
+        .map(d => d.name)
+    : [];
 
 const unreferenced = physicalToolDirs.filter(d => !allSlugs.includes(d));
 
@@ -44,7 +64,7 @@ console.log(`Physical Standalone Dirs: ${physicalToolDirs.length}`);
 let failed = false;
 
 if (allSlugs.length < 50) {
-    console.error(`❌ REGRESSION: Found ${allSlugs.length} tools, expected 50.`);
+    console.error(`❌ REGRESSION: Found ${allSlugs.length} tools, expected at least 50.`);
     failed = true;
 }
 
@@ -56,6 +76,6 @@ if (unreferenced.length > 0) {
 if (failed) {
     process.exit(1);
 } else {
-    console.log(`✅ All 50 tools registered and correctly mapped!\n`);
+    console.log(`✅ All ${allSlugs.length} tools registered and correctly mapped!\n`);
     process.exit(0);
 }

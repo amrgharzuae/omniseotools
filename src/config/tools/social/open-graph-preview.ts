@@ -1,8 +1,8 @@
 import { ToolDefinition } from "@/types/tool";
 
 export const openGraphPreviewTool: ToolDefinition = {
-  "id": "open-graph-preview",
-  "slug": "open-graph-preview",
+  "id": "open-graph-validator",
+  "slug": "open-graph-validator",
   "name": "Social Meta & OpenGraph Card Simulator",
   "shortDescription": "Preview and validate how your link previews look when shared on Twitter (X), Facebook, LinkedIn, and Discord before publishing.",
   "category": "social",
