@@ -210,16 +210,22 @@ const WORKFLOW_CLUSTERS: Record<string, string[]> = {
   ],
 
   // 5. International & URL Cluster
+  "hreflang-matrix-generator": [
+    "hreflang-tags-generator",
+    "hreflang-tag-generator",
+    "arabic-url-decoder",
+    "canonical-tag-generator",
+  ],
   "hreflang-tag-generator": [
+    "hreflang-matrix-generator",
     "hreflang-tags-generator",
     "arabic-url-decoder",
-    "utm-campaign-builder",
     "canonical-url-builder",
   ],
   "hreflang-tags-generator": [
+    "hreflang-matrix-generator",
     "hreflang-tag-generator",
     "arabic-url-decoder",
-    "utm-campaign-builder",
     "canonical-tag-generator",
   ],
   "arabic-url-decoder": [

@@ -24,8 +24,12 @@ import { schemaValidatorTool } from "./tools/technical/schema-validator";
 import { canonicalRedirectAuditorTool } from "./tools/technical/canonical-redirect-auditor";
 import { aiCrawlerFirewallTool } from "./tools/technical/ai-crawler-firewall";
 import { coreWebVitalsBudgetCalculatorTool } from "./tools/technical/core-web-vitals-budget-calculator";
-import { hreflangTagGeneratorTool } from "./tools/international/hreflang-tag-generator";
+import { hreflangMatrixGeneratorTool } from "./tools/international/hreflang-matrix-generator";
 import { ecommerceSchemaGeneratorTool } from "./tools/technical/ecommerce-schema-generator";
+import { permissionsPolicyBuilderTool } from "./tools/developer/permissions-policy-builder";
+import { sitemapIndexSplitterTool } from "./tools/technical/sitemap-index-splitter";
+import { securityTxtGeneratorTool } from "./tools/developer/security-txt-generator";
+import { breadcrumbPathVisualizerTool } from "./tools/technical/breadcrumb-path-visualizer";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 1. Twitter Card Preview
@@ -2412,9 +2416,17 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   // 44. Core Web Vitals Budget & Resource Hint Calculator
   coreWebVitalsBudgetCalculatorTool,
   // 45. Hreflang & i18n Matrix Generator
-  hreflangTagGeneratorTool,
+  hreflangMatrixGeneratorTool,
   // 46. E-Commerce Product Schema & Merchant Rich Result Builder
-  ecommerceSchemaGeneratorTool
+  ecommerceSchemaGeneratorTool,
+  // 47. HTTP Permissions-Policy Header Builder
+  permissionsPolicyBuilderTool,
+  // 48. XML Sitemap Index Splitter & Chunking Tool
+  sitemapIndexSplitterTool,
+  // 49. RFC 9116 Security.txt Generator
+  securityTxtGeneratorTool,
+  // 50. Breadcrumb Path Visualizer & Schema Builder
+  breadcrumbPathVisualizerTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2454,13 +2466,26 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     return arabicUrlDecoderTool;
   }
   if (
-    normalized === "hreflang-tags-generator" ||
-    normalized === "hreflang-tag-generator" ||
-    normalized === "hreflang-generator" ||
+    normalized === "hreflang-matrix-generator" ||
     normalized === "i18n-matrix-generator" ||
+    normalized === "hreflang-matrix" ||
+    normalized === "hreflang-cluster-generator" ||
     normalized === "tool-45"
   ) {
-    return hreflangTagGeneratorTool;
+    return hreflangMatrixGeneratorTool;
+  }
+  if (
+    normalized === "hreflang-tags-generator" ||
+    normalized === "tool-24"
+  ) {
+    return hreflangTagsGeneratorTool;
+  }
+  if (
+    normalized === "hreflang-tag-generator" ||
+    normalized === "hreflang-generator" ||
+    normalized === "tool-14"
+  ) {
+    return TOOLS_REGISTRY.find((t) => t.id === "hreflang-tag-generator");
   }
   if (
     normalized === "robots-txt-generator-validator" ||
@@ -2669,6 +2694,47 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "tool-46"
   ) {
     return ecommerceSchemaGeneratorTool;
+  }
+  if (
+    normalized === "permissions-policy-builder" ||
+    normalized === "permissions-policy-generator" ||
+    normalized === "permissions-policy" ||
+    normalized === "feature-policy-builder" ||
+    normalized === "feature-policy-generator" ||
+    normalized === "feature-policy" ||
+    normalized === "tool-47"
+  ) {
+    return permissionsPolicyBuilderTool;
+  }
+  if (
+    normalized === "sitemap-index-splitter" ||
+    normalized === "sitemap-splitter" ||
+    normalized === "xml-sitemap-splitter" ||
+    normalized === "sitemap-chunker" ||
+    normalized === "xml-sitemap-index-splitter" ||
+    normalized === "tool-48"
+  ) {
+    return sitemapIndexSplitterTool;
+  }
+  if (
+    normalized === "security-txt-generator" ||
+    normalized === "security-txt-builder" ||
+    normalized === "rfc-9116-generator" ||
+    normalized === "security-txt" ||
+    normalized === "security-policy-generator" ||
+    normalized === "tool-49"
+  ) {
+    return securityTxtGeneratorTool;
+  }
+  if (
+    normalized === "breadcrumb-path-visualizer" ||
+    normalized === "breadcrumb-visualizer" ||
+    normalized === "breadcrumb-schema-generator" ||
+    normalized === "breadcrumblist-generator" ||
+    normalized === "breadcrumb-builder" ||
+    normalized === "tool-50"
+  ) {
+    return breadcrumbPathVisualizerTool;
   }
   if (normalized === "twitter-card-previewer") {
     return TOOLS_REGISTRY.find((t) => t.slug === "twitter-card-preview");

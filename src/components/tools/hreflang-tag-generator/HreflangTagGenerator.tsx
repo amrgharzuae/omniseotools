@@ -44,7 +44,7 @@ interface HreflangTagGeneratorProps {
 type CodeTab = "html" | "sitemap" | "nextjs" | "headers";
 
 export function HreflangTagGenerator({
-  toolSlug = "hreflang-tag-generator",
+  toolSlug = "hreflang-matrix-generator",
   toolName = "Hreflang & i18n Matrix Generator",
   initialPresetId = "global-ecommerce",
 }: HreflangTagGeneratorProps) {

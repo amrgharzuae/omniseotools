@@ -1,11 +1,11 @@
 import { ToolDefinition } from "@/types/tool";
 
-export const hreflangTagGeneratorTool: ToolDefinition = {
-  id: "hreflang-tag-generator",
-  slug: "hreflang-tag-generator",
+export const hreflangMatrixGeneratorTool: ToolDefinition = {
+  id: "hreflang-matrix-generator",
+  slug: "hreflang-matrix-generator",
   name: "Hreflang & i18n Matrix Generator",
-  title: "Hreflang Tag Generator & XML i18n Cluster Builder | OmniSEO Tools",
-  metaTitle: "Hreflang Tag Generator & XML i18n Cluster Builder | OmniSEO Tools",
+  title: "Hreflang & i18n Matrix Generator | OmniSEO Tools",
+  metaTitle: "Hreflang & i18n Matrix Generator | OmniSEO Tools",
   metaDescription:
     "Generate bi-directional hreflang HTML tags, Next.js metadata alternates, and XML Sitemap xhtml:link clusters. Validate ISO 639-1 language codes, ISO 3166-1 country codes, and x-default fallbacks with zero telemetry.",
   h1: "Hreflang & i18n Matrix Generator",
@@ -19,6 +19,8 @@ export const hreflangTagGeneratorTool: ToolDefinition = {
   featured: true,
   status: "active",
   keywords: [
+    "hreflang matrix generator",
+    "i18n matrix generator",
     "hreflang tag generator",
     "hreflang generator",
     "international seo hreflang",

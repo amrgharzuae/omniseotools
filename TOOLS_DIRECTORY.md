@@ -1,6 +1,6 @@
 # OmniSEO Tools Directory (Single Source of Truth)
 
-**Total Active Tools: 46**
+**Total Active Tools: 50**
 
 > This document serves as the canonical registry and single source of truth for all active tools deployed on the OmniSEO Tools platform. All routing, navigation, programmatic permutations, and sitemaps derive from these tool definitions.
 
@@ -54,8 +54,12 @@
 | 42 | Canonical URL & Redirect Loop Auditor | `canonical-redirect-auditor` | `/tools/canonical-redirect-auditor` | Technical SEO | Live / Production |
 | 43 | AI Crawler Firewall & Scraper Rule Generator | `ai-crawler-firewall` | `/tools/ai-crawler-firewall` | Technical SEO | Live / Production |
 | 44 | Core Web Vitals Budget & Resource Hint Calculator | `core-web-vitals-budget-calculator` | `/tools/core-web-vitals-budget-calculator` | Technical SEO | Live / Production |
-| 45 | Hreflang & i18n Matrix Generator | `hreflang-tag-generator` | `/tools/hreflang-tag-generator` | International SEO | Live / Production |
+| 45 | Hreflang & i18n Matrix Generator | `hreflang-matrix-generator` | `/tools/hreflang-matrix-generator` | International SEO | Live / Production |
 | 46 | E-Commerce Product Schema & Merchant Rich Result Builder | `ecommerce-schema-generator` | `/tools/ecommerce-schema-generator` | Technical SEO | Live / Production |
+| 47 | HTTP Permissions-Policy Header Builder | `permissions-policy-builder` | `/tools/permissions-policy-builder` | Web & Developer | Live / Production |
+| 48 | XML Sitemap Index Splitter & Chunking Tool | `sitemap-index-splitter` | `/tools/sitemap-index-splitter` | Technical SEO | Live / Production |
+| 49 | RFC 9116 Security.txt Generator | `security-txt-generator` | `/tools/security-txt-generator` | Web & Developer | Live / Production |
+| 50 | Breadcrumb Path Visualizer & Schema Builder | `breadcrumb-path-visualizer` | `/tools/breadcrumb-path-visualizer` | Technical SEO | Live / Production |
 
 ---
 
@@ -63,15 +67,15 @@
 
 | Category | Active Tools | Share |
 |---|---|---|
-| Technical SEO | 19 | 41.3% |
-| Social Media | 6 | 13.0% |
-| Web & Developer | 5 | 10.9% |
-| Marketing & Growth | 4 | 8.7% |
-| International SEO | 3 | 6.5% |
-| Content & Copy | 3 | 6.5% |
-| SERP & Snippets | 3 | 6.5% |
-| SEO Tools | 1 | 2.2% |
-| **Total** | **46** | **100%** |
+| Technical SEO | 21 | 42.0% |
+| Web & Developer | 7 | 14.0% |
+| Social Media | 6 | 12.0% |
+| Marketing & Growth | 4 | 8.0% |
+| International SEO | 3 | 6.0% |
+| Content & Copy | 3 | 6.0% |
+| SERP & Snippets | 3 | 6.0% |
+| SEO Tools | 1 | 2.0% |
+| **Total** | **50** | **100%** |
 
 
 

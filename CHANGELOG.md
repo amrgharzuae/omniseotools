@@ -1,5 +1,60 @@
 # Changelog
 
+## [2026-10-01] - Sprint 50: Reached 50-Tool Milestone (Tools #48, #49, #50)
+### Added & Enhanced
+- **XML Sitemap Index Splitter & File Chunking Tool (Tool #48 - `sitemap-index-splitter`):**
+  - Built 100% client-side large XML sitemap parser, URL list chunker, and parent `<sitemapindex>` builder at `src/app/(site)/tools/sitemap-index-splitter/page.tsx`.
+  - Supports raw URL line-by-line paste and existing oversized `<urlset>` XML input.
+  - Granular chunk threshold controls (5,000, 10,000, 25,000, max 50,000 URLs / 50MB per chunk limit).
+  - Parent sitemap index generator (`sitemap.xml` with `<sitemapindex>` and `<sitemap>` child nodes).
+  - Automated `<lastmod>` ISO timestamp injection, `<changefreq>`, and `<priority>` toggle switches.
+  - Multi-tab preview for `sitemap.xml` and each generated sub-sitemap (`sitemap-1.xml`, `sitemap-2.xml`, etc.).
+  - 1-click ZIP archive packaging and download of all `.xml` files via `JSZip`.
+- **RFC 9116 Security.txt & Responsible Disclosure Generator (Tool #49 - `security-txt-generator`):**
+  - Built 100% client-side IETF RFC 9116 standard security.txt policy generator and validator at `src/app/(site)/tools/security-txt-generator/page.tsx`.
+  - Mandatory directives: `Contact` (multi-input, `mailto:` or HTTPS web portals) and `Expires` (ISO 8601 date calculation).
+  - Optional directives: `Encryption` (public PGP key), `Acknowledgments` (Hall of Fame), `Preferred-Languages` (ISO codes), `Canonical`, `Policy` (Safe Harbor terms), `Hiring`, and `CSAF`.
+  - 5-tab multi-platform deployment exports: plain text `security.txt`, Next.js App Router Route Handler (`src/app/.well-known/security.txt/route.ts`), Nginx server block, Apache `.htaccess`, and Cloudflare Pages `_headers`.
+- **Programmatic Breadcrumb & Deep Linking Visualizer (Tool #50 - `breadcrumb-path-visualizer`):**
+  - Built 100% client-side URL hierarchy dissector and Schema.org `BreadcrumbList` builder at `src/app/(site)/tools/breadcrumb-path-visualizer/page.tsx`.
+  - Automated path segment dissector with humanized slug auto-formatting and step reordering.
+  - Live Google SERP mobile & desktop search snippet preview engine.
+  - Interactive on-page UI trail preview with customizable separator styles (chevron, slash, arrow, dot).
+  - 4-tab code exports: Schema.org `BreadcrumbList` JSON-LD script, HTML5 Semantic Microdata `<nav>`, Next.js React component with Tailwind CSS, and raw JSON data.
+- **Central Registry & SEO Infrastructure:**
+  - Registered all 3 utilities in `src/config/tools-registry.ts`, raising total live tools to exactly 50.
+  - Injected Schema.org `WebApplication` + `BreadcrumbList` + `HowTo` + `FAQPage` JSON-LD graphs across all new pages.
+  - Updated `TOOLS_DIRECTORY.md`, `PROJECT_STATUS.md`, and dynamic `sitemap.ts`.
+### Added & Enhanced
+- **HTTP Permissions-Policy Header Engine (`src/config/permissions-policy-data.ts`, `src/components/tools/permissions-policy-builder/PermissionsPolicyBuilder.tsx`, `src/config/tools/developer/permissions-policy-builder.ts`):**
+  - Built a 100% client-side, zero-telemetry HTTP Permissions-Policy (and legacy Feature-Policy migration) generator, validator, and security hardening linter.
+  - **Granular Directive Controls (4 Categories):**
+    1. *Privacy & Tracking Protection:* `interest-cohort` (Google FLoC Privacy Sandbox), `browsing-topics` (Chrome Topics API), `attribution-reporting` (ad conversion measurement), `run-ad-auction` (Protected Audience / TURTLEDOVE ad auction), `join-ad-interest-group` (remarketing pools), `compute-pressure` (hardware load telemetry), `client-hint-dpr` (screen resolution hints).
+    2. *Device Hardware & Sensors:* `camera` (webcam input), `microphone` (audio input), `geolocation` (GPS / location coordinates), `display-capture` (screen sharing / getDisplayMedia), `accelerometer` (3D motion), `gyroscope` (device tilt / orientation), `magnetometer` (compass), `ambient-light-sensor` (illuminance in lux), `screen-wake-lock`, `midi`, `xr-spatial-tracking` (WebXR AR/VR).
+    3. *Payments & Identity:* `payment` (Payment Request API with multi-origin allowlists for Stripe, Apple Pay, Google Pay), `identity-credentials-get` (FedCM / WebID), `otp-credentials` (WebOTP SMS 2FA reading), `publickey-credentials-get` (WebAuthn Passkeys), `usb` (WebUSB), `serial` (Web Serial), `bluetooth` (Web Bluetooth BLE), `smart-card` (PC/SC chip cards), `web-share` (OS native share sheet).
+    4. *Performance & Rendering:* `autoplay` (HTML5 video/audio playback), `fullscreen` (Fullscreen API), `picture-in-picture` (floating PiP video), `sync-xhr` (synchronous blocking XHR prevention), `document-domain` (same-origin relaxation blocker), `encrypted-media` (EME DRM playback).
+  - **Directive Modes:** Supports `Disable Everywhere ()`, `Allow Same-Origin (self)`, `Allow All (*)`, and `Custom Origins ("https://..." with includeSelf toggle)` with quick-add helper chips.
+  - **Security Hardening Audit & Scorecard:** Visual 0-100 rating with grade (`A+` to `F`), status badges, and expandable checklist classifying hardened protections, optimization notices, and critical wildcard risk vectors.
+  - **5 Production Strategy Presets:** 1-click templates for Strict Lockdown (SaaS & Content Suites), E-Commerce Standard (Stripe / Apple Pay), Media & Streaming Platform, Progressive Web App (PWA), and Permissive Dev / Staging.
+  - **Interactive Inspection Modal:** Real-time directive deep dive with W3C specification links and 4-engine browser compatibility breakdown (Chrome, Firefox, Safari, Edge).
+  - **8 Multi-Target Code Exporters:**
+    1. Raw HTTP Header String with single-line vs formatted multi-line wrap toggle.
+    2. Next.js App Router (`next.config.mjs` / `headers()` config).
+    3. Cloudflare Pages (`_headers` file) & Cloudflare Worker script.
+    4. Nginx Reverse Proxy (`add_header Permissions-Policy "..." always;`).
+    5. Apache (`.htaccess` `<IfModule mod_headers.c>` block).
+    6. Vercel (`vercel.json` headers array).
+    7. HTML `<iframe>` delegation snippet with `allow="..."` attributes.
+    8. Caddy Server & Netlify `_headers`.
+  - **Client-Side URL Hash State Sharing:** Encodes configured state into shareable URL hash (`#policy=...`) with 1-click link copy and instant hydration.
+  - **Embed Badge Integration:** Injected `EmbedBadgeModal` allowing users to embed live Permissions-Policy audit badges on GitHub READMEs or site footers.
+- **Dedicated Route & Registry Integration:**
+  - Registered `permissionsPolicyBuilderTool` (`#47`) in `src/config/tools-registry.ts` under "Web & Developer" category.
+  - Created dedicated App Router page at `src/app/(site)/tools/permissions-policy-builder/page.tsx` with Schema.org `WebApplication` + `HowTo` + `FAQPage` + `BreadcrumbList` JSON-LD graph.
+  - Added direct answer box, Comparison Matrix (`Permissions-Policy` vs `Feature-Policy` vs `Content-Security-Policy`), and technical FAQs.
+  - Ecosystem internal cross-linking to `Security Headers Meta Generator`, `CSP Header Builder`, `AI Crawler Firewall`, and `Core Web Vitals Budget Calculator`.
+  - Updated `TOOLS_DIRECTORY.md` (incrementing total active tools to 47), `PROJECT_STATUS.md`, and dynamic sitemap.
+
 ## [2026-09-30] - Sprint 48: Build Google Merchant & E-Commerce Product Schema Builder (Tool #46)
 ### Added & Enhanced
 - **E-Commerce Product Schema & Merchant Rich Result Engine (`src/lib/ecommerce-schema-engine.ts`, `src/components/tools/ecommerce-schema-generator/EcommerceSchemaGenerator.tsx`, `src/config/tools/technical/ecommerce-schema-generator.ts`):**
