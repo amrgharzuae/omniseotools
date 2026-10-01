@@ -32,7 +32,7 @@ import { securityTxtGeneratorTool } from "./tools/developer/security-txt-generat
 import { breadcrumbPathVisualizerTool } from "./tools/technical/breadcrumb-path-visualizer";
 
 export const TOOLS_REGISTRY: ToolDefinition[] = [
-  // 1. Twitter Card Previewer
+  // 1. Twitter Card Preview
   {
     id: "twitter-card-preview",
     slug: "twitter-card-preview",
@@ -124,7 +124,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 2. LinkedIn Link Previewer
+  // 2. LinkedIn Link Preview
   {
     id: "linkedin-link-preview",
     slug: "linkedin-link-preview",
@@ -788,7 +788,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 9. Keyword Density Checker & N-Gram Analyzer
+  // 9. Keyword Density Checker
   {
     id: "keyword-density-checker",
     slug: "keyword-density-checker",
@@ -888,7 +888,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 10. Open Graph Meta Tag Generator
+  // 10. Open Graph Meta Generator
   {
     id: "open-graph-meta-generator",
     slug: "open-graph-meta-generator",
@@ -1412,7 +1412,147 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 14. Meta Robots Tag Builder
+  // 14. Hreflang Tag Generator
+  {
+    id: "hreflang-tag-generator",
+    slug: "hreflang-tag-generator",
+    name: "Hreflang Tag Generator",
+    title: "Hreflang Tag Generator (Multi-Language & Regional SEO)",
+    metaTitle: "Hreflang Tag Generator (Multi-Language & Regional SEO)",
+    metaDescription: "Generate valid hreflang link tags and XML sitemap annotations for multi-language, multi-regional websites. Prevent international ranking cannibalization.",
+    h1: "Hreflang Tag Generator for Multi-Language SEO",
+    tagline: "Build bidirectional hreflang cluster tags and x-default annotations for multi-lingual and international websites.",
+    shortDescription: "Generate multi-lingual hreflang link tags, XML sitemap annotations, and x-default fallbacks for international Google targeting.",
+    category: "international",
+    icon: "Globe",
+    badge: "Popular",
+    keywords: [
+      "hreflang tag generator",
+      "hreflang generator tool",
+      "multi language seo tags",
+      "international seo hreflang",
+      "x default hreflang builder",
+      "hreflang link tag creator"
+    ],
+    status: "active",
+    featured: true,
+    presetSchema: [
+      {
+        id: "defaultUrl",
+        label: "Default Global URL (x-default fallback)",
+        type: "text",
+        defaultValue: "https://example.com/",
+        placeholder: "https://example.com/"
+      },
+      {
+        id: "enUrl",
+        label: "English Edition URL (en / en-US)",
+        type: "text",
+        defaultValue: "https://example.com/en/",
+        placeholder: "https://example.com/en/"
+      },
+      {
+        id: "esUrl",
+        label: "Spanish Edition URL (es / es-ES)",
+        type: "text",
+        defaultValue: "https://example.com/es/",
+        placeholder: "https://example.com/es/"
+      },
+      {
+        id: "frUrl",
+        label: "French Edition URL (fr / fr-FR)",
+        type: "text",
+        defaultValue: "https://example.com/fr/",
+        placeholder: "https://example.com/fr/"
+      }
+    ],
+    samplePresets: [
+      {
+        name: "Global Brand (EN, ES, FR)",
+        values: {
+          defaultUrl: "https://brand.com/",
+          enUrl: "https://brand.com/en/",
+          esUrl: "https://brand.com/es/",
+          frUrl: "https://brand.com/fr/"
+        }
+      },
+      {
+        name: "Regional Store (US, UK, CA)",
+        values: {
+          defaultUrl: "https://store.com/",
+          enUrl: "https://store.com/us/",
+          esUrl: "https://store.com/uk/",
+          frUrl: "https://store.com/ca/"
+        }
+      }
+    ],
+    defaultValues: {
+      defaultUrl: "https://example.com/",
+      enUrl: "https://example.com/en/",
+      esUrl: "https://example.com/es/",
+      frUrl: "https://example.com/fr/"
+    },
+    howToSteps: [
+      {
+        name: "Define Global Default URL",
+        text: "Provide your master domain or language selector landing page URL for the x-default attribute."
+      },
+      {
+        name: "Assign Language & Country Codes",
+        text: "Map each translated page version using ISO 639-1 language codes (e.g. 'en', 'es', 'fr') and optional ISO 3166-1 country codes."
+      },
+      {
+        name: "Verify Bidirectional Links",
+        text: "Ensure every language variant page includes reciprocal links pointing back to all other sister versions."
+      },
+      {
+        name: "Implement in Head or Sitemap",
+        text: "Paste the generated <link rel=\"alternate\" hreflang=\"...\"> tags into the HTML <head> of every language page."
+      }
+    ],
+    guideContent: {
+      title: "Mastering Hreflang Tags, Multi-Regional SEO & Language Clustering",
+      sections: [
+        {
+          heading: "How Hreflang Solves International Content Duplication",
+          content: "<p>When a website serves localized content across multiple countries or languages (such as an English page for the US and an English page for the UK), search engines might view these pages as duplicate content. The <strong>hreflang attribute</strong> (<code>&lt;link rel=\"alternate\" hreflang=\"...\" href=\"...\" /&gt;</code>) tells Google, Bing, and Yandex which localized URL to display to users based on their browser language and geographic IP.</p><p>Hreflang prevents search cannibalization and ensures international visitors land on the correct currency, pricing, and translated language edition automatically.</p>",
+          keyTakeaways: [
+            "Hreflang tags must be strictly bidirectional: Page A must link to Page B, and Page B must link back to Page A.",
+            "The x-default tag serves as the fallback for searchers whose language does not match any specified localized page.",
+            "Use standard ISO 639-1 format for languages (e.g., 'de', 'ja') and ISO 3166-1 Alpha-2 for regions ('en-GB', 'en-AU')."
+          ]
+        },
+        {
+          heading: "HTML Head Tags vs. XML Sitemap Hreflang",
+          content: "<p>Hreflang can be implemented via three supported methods:</p><ol><li><strong>HTML Head Tags:</strong> Simple to implement and inspect, optimal for sites with 2–5 language variations.</li><li><strong>XML Sitemap Annotations:</strong> Recommended for large enterprise sites with 10+ languages to avoid inflating HTML document sizes.</li><li><strong>HTTP Headers:</strong> Used for non-HTML files like localized PDF downloads.</li></ol>",
+          keyTakeaways: [
+            "Always include self-referencing hreflang tags on each regional page.",
+            "Never point hreflang tags to redirected (301) or broken (404) URLs."
+          ]
+        }
+      ]
+    },
+    faqs: [
+      {
+        question: "What is the x-default hreflang attribute?",
+        answer: "The x-default value tells search engines which page to show when no specific language or region matches the user's settings. It is typically set to the global homepage or an interactive country selector page."
+      },
+      {
+        question: "Why does Google Search Console report 'No return tags' for hreflang?",
+        answer: "This error occurs when Page A links to Page B via hreflang, but Page B fails to include a reciprocal link back to Page A. Google requires complete bidirectional confirmation across all pages in the cluster."
+      },
+      {
+        question: "Can I use country codes without a language code in hreflang?",
+        answer: "No. The language code is always mandatory in ISO 639-1 format. You cannot specify a country code alone (e.g. hreflang=\"uk\" is invalid; it must be hreflang=\"en-GB\")."
+      },
+      {
+        question: "How do I implement hreflang in Next.js?",
+        answer: "In Next.js App Router, specify the alternates.languages object inside your metadata export: alternates: { languages: { 'en-US': '/en', 'es-ES': '/es', 'x-default': '/' } }."
+      }
+    ]
+  },
+
+  // 15. Meta Robots Builder
   {
     id: "meta-robots-builder",
     slug: "meta-robots-builder",
@@ -1579,7 +1719,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 15. Security Headers Meta Generator
+  // 16. Security Headers Meta Generator
   {
     id: "security-headers-meta-generator",
     slug: "security-headers-meta-generator",
@@ -1697,7 +1837,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 16. Social Share Link Generator
+  // 17. Social Share Link Generator
   {
     id: "social-share-link-generator",
     slug: "social-share-link-generator",
@@ -1819,7 +1959,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 17. Breadcrumb Schema Generator
+  // 18. Breadcrumb Schema Generator
   {
     id: "breadcrumb-schema-generator",
     slug: "breadcrumb-schema-generator",
@@ -1971,7 +2111,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 18. FAQ Schema Generator
+  // 19. FAQ Schema Generator
   {
     id: "faq-schema-generator",
     slug: "faq-schema-generator",
@@ -2103,7 +2243,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     ]
   },
 
-  // 19. Favicon & App Icon Generator
+  // 20. Favicon & App Icon Generator
   {
     id: "favicon-meta-generator",
     slug: "favicon-meta-generator",
@@ -2227,53 +2367,53 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
       }
     ]
   },
-  // 20. Social Meta & OpenGraph Card Simulator
+  // 21. Social Meta & OpenGraph Card Simulator
   openGraphPreviewTool,
-  // 21. Campaign URL Builder
+  // 22. Campaign UTM Builder
   utmCampaignBuilderTool,
-  // 22. Arabic & UTF-8 URL Decoder
+  // 23. Arabic & UTF-8 URL Decoder
   arabicUrlDecoderTool,
-  // 23. Hreflang & Multi-Language Tag Generator
+  // 24. Hreflang & Multi-Language Tag Generator
   hreflangTagsGeneratorTool,
-  // 24. Robots.txt Generator & Validator
+  // 25. Robots.txt Generator & Validator
   robotsTxtGeneratorValidatorTool,
-  // 25. Article & BlogPosting Schema Generator
+  // 26. Article & BlogPosting Schema Generator
   articleSchemaGeneratorTool,
-  // 26. Bulk Canonical Normalizer & Auditor
+  // 27. Canonical Tag Generator & Auditor
   canonicalTagGeneratorTool,
-  // 27. XML Sitemap Generator & Validator
+  // 28. XML Sitemap Generator & Validator
   xmlSitemapGeneratorTool,
-  // 28. Redirect Rule & Regex Mapper
+  // 29. Redirect Rule & Regex Mapper
   redirectRuleGeneratorTool,
-  // 29. OG & Twitter Card Image Safe-Zone Previewer
+  // 30. OG & Twitter Card Image Safe-Zone Previewer
   ogImageSafeZoneTool,
-  // 30. Product & Offer Schema Generator
+  // 31. Product & Offer Schema Generator
   productSchemaGeneratorTool,
-  // 31. Resource Hint & Preconnect Generator
+  // 32. Resource Hint & Preconnect Generator
   resourceHintGeneratorTool,
-  // 32. SVG to Base64 & Data URI Optimizer
+  // 33. SVG to Base64 & Data URI Optimizer
   svgToDataUriTool,
-  // 33. LLMs.txt & AI Crawler Directive Generator
+  // 34. LLMs.txt & AI Crawler Directive Generator
   llmsTxtGeneratorTool,
-  // 34. Content Security Policy (CSP) & Header Builder
+  // 35. Content Security Policy (CSP) & Header Builder
   cspHeaderBuilderTool,
-  // 35. Google Search Console Regex Filter Builder
+  // 36. Google Search Console Regex Filter Builder
   gscRegexFilterBuilderTool,
-  // 36. Unicode & Punycode (IDN) Converter
+  // 37. Unicode & Punycode (IDN) Converter
   idnPunycodeConverterTool,
-  // 37. PPC Negative Keyword List Scrubber & Match-Type Formatter
+  // 38. PPC Negative Keyword List Scrubber & Match-Type Formatter
   ppcNegativeKeywordScrubberTool,
-  // 38. Bulk URL Slug & Anchor Text Sanitizer
+  // 39. Bulk URL Slug & Anchor Text Sanitizer
   urlSlugSanitizerTool,
-  // 39. Bulk UTM Matrix & Multi-Channel Tagging Generator
+  // 40. Bulk UTM Matrix & Multi-Channel Tagging Generator
   bulkUtmMatrixGeneratorTool,
-  // 40. JSON-LD Schema Validator & Linter
+  // 41. JSON-LD Schema Validator & Linter
   schemaValidatorTool,
-  // 41. Canonical URL & Redirect Loop Auditor
+  // 42. Canonical URL & Redirect Loop Auditor
   canonicalRedirectAuditorTool,
-  // 42. AI Crawler Firewall & Scraper Rule Generator
+  // 43. AI Crawler Firewall & Scraper Rule Generator
   aiCrawlerFirewallTool,
-  // 43. Core Web Vitals Budget & Resource Hint Calculator
+  // 44. Core Web Vitals Budget & Resource Hint Calculator
   coreWebVitalsBudgetCalculatorTool,
   // 45. Hreflang & i18n Matrix Generator
   hreflangMatrixGeneratorTool,
@@ -2287,10 +2427,6 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   securityTxtGeneratorTool,
   // 50. Breadcrumb Path Visualizer & Schema Builder
   breadcrumbPathVisualizerTool
-  // 44. Hreflang & i18n Matrix Generator
-  hreflangTagGeneratorTool,
-  // 45. E-Commerce Product Schema & Merchant Rich Result Builder
-  ecommerceSchemaGeneratorTool
 ];
 
 export const tools = TOOLS_REGISTRY;
@@ -2348,9 +2484,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "hreflang-tag-generator" ||
     normalized === "hreflang-generator" ||
     normalized === "tool-14"
-    normalized === "i18n-matrix-generator" ||
-      normalized === "tool-44" ||
-      normalized === "tool-45"
   ) {
     return TOOLS_REGISTRY.find((t) => t.id === "hreflang-tag-generator");
   }
@@ -2461,7 +2594,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "gsc-regex" ||
     normalized === "gsc-regex-tester" ||
     normalized === "re2-regex-builder" ||
-    normalized === "tool-35" ||
     normalized === "tool-36"
   ) {
     return gscRegexFilterBuilderTool;
@@ -2474,7 +2606,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "unicode-to-punycode" ||
     normalized === "punycode-to-unicode" ||
     normalized === "punycode" ||
-    normalized === "tool-36" ||
     normalized === "tool-37"
   ) {
     return idnPunycodeConverterTool;
@@ -2487,7 +2618,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "negative-keyword-formatter" ||
     normalized === "ppc-match-type-formatter" ||
     normalized === "negative-keyword-tool" ||
-    normalized === "tool-37" ||
     normalized === "tool-38"
   ) {
     return ppcNegativeKeywordScrubberTool;
@@ -2499,7 +2629,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "anchor-text-sanitizer" ||
     normalized === "bulk-slug-generator" ||
     normalized === "seo-slug-sanitizer" ||
-    normalized === "tool-38" ||
     normalized === "tool-39"
   ) {
     return urlSlugSanitizerTool;
@@ -2510,7 +2639,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "bulk-utm-generator" ||
     normalized === "bulk-utm-builder" ||
     normalized === "utm-matrix" ||
-    normalized === "tool-39" ||
     normalized === "tool-40"
   ) {
     return bulkUtmMatrixGeneratorTool;
@@ -2522,7 +2650,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "schema-linter" ||
     normalized === "structured-data-validator" ||
     normalized === "schema-org-validator" ||
-    normalized === "tool-40" ||
     normalized === "tool-41"
   ) {
     return schemaValidatorTool;
@@ -2533,7 +2660,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "redirect-loop-auditor" ||
     normalized === "canonical-redirect" ||
     normalized === "canonical-redirect-loop-auditor" ||
-    normalized === "tool-41" ||
     normalized === "tool-42"
   ) {
     return canonicalRedirectAuditorTool;
@@ -2544,7 +2670,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "ai-scraper-firewall" ||
     normalized === "ai-crawler-blocker" ||
     normalized === "ai-bot-blocker" ||
-    normalized === "tool-42" ||
     normalized === "tool-43"
   ) {
     return aiCrawlerFirewallTool;
@@ -2555,7 +2680,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "web-vitals-budget-calculator" ||
     normalized === "resource-hint-calculator" ||
     normalized === "cwv-calculator" ||
-    normalized === "tool-43" ||
     normalized === "tool-44"
   ) {
     return coreWebVitalsBudgetCalculatorTool;
@@ -2567,7 +2691,6 @@ export function getProgrammaticToolBySlug(slug: string): ToolDefinition | undefi
     normalized === "ecommerce-product-schema" ||
     normalized === "product-schema-builder" ||
     normalized === "merchant-rich-results" ||
-    normalized === "tool-45" ||
     normalized === "tool-46"
   ) {
     return ecommerceSchemaGeneratorTool;
