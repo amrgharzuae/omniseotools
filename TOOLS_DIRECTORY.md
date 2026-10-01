@@ -18,7 +18,7 @@
 | 06 | Meta Description Length Counter | `meta-description-length-counter` | `/tools/meta-description-length-counter` | SERP & Snippets | Live / Production |
 | 07 | Google SERP Simulator | `google-serp-simulator` | `/tools/google-serp-simulator` | SERP & Snippets | Live / Production |
 | 08 | Flesch-Kincaid Calculator | `flesch-kincaid-calculator` | `/tools/flesch-kincaid-calculator` | Content & Copy | Live / Production |
-| 09 | Keyword Density Checker | `keyword-density-checker` | `/tools/keyword-density-checker` | Content & Copy | Live / Production |
+| 09 | Keyword Density Checker & N-Gram Analyzer | `keyword-density-checker` | `/tools/keyword-density-checker` | Content & Copy | Live / Production |
 | 10 | Open Graph Meta Tag Generator | `open-graph-meta-generator` | `/tools/open-graph-meta-generator` | Technical SEO | Live / Production |
 | 11 | Schema Markup Generator | `schema-markup-generator` | `/tools/schema-markup-generator` | Technical SEO | Live / Production |
 | 12 | Canonical URL Builder | `canonical-url-builder` | `/tools/canonical-url-builder` | Technical SEO | Live / Production |
