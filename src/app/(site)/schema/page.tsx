@@ -9,14 +9,14 @@ import { Code2, Sparkles, ChevronRight, CheckCircle2, ArrowRight } from "lucide-
 export const metadata: Metadata = {
   title: "Schema Markup Blueprints & JSON-LD Cheat Sheets | OmniSEO Tools",
   description:
-    "Comprehensive directory of 225 production-ready Schema.org JSON-LD blueprints for Real Estate & Accommodation, Finance & Banking, Automotive & Marine, Sports & Recreation, Government & Civic, Tech & SaaS, E-Commerce, Local Businesses, Healthcare, and Media.",
+    "Comprehensive directory of 300 production-ready Schema.org JSON-LD blueprints for Specialized Medical, Advanced Commerce, Industrial, Hospitality, Real Estate, Finance, Tech & SaaS, Local Businesses, Healthcare, and Media.",
   alternates: {
     canonical: "https://omniseotools.com/schema",
   },
   openGraph: {
     title: "Schema Markup Blueprints & JSON-LD Cheat Sheets | OmniSEO Tools",
     description:
-      "Comprehensive directory of 225 production-ready Schema.org JSON-LD blueprints for Real Estate & Accommodation, Finance & Banking, Automotive & Marine, Sports & Recreation, Government & Civic, Tech & SaaS, E-Commerce, Local Businesses, Healthcare, and Media.",
+      "Comprehensive directory of 300 production-ready Schema.org JSON-LD blueprints for Specialized Medical, Advanced Commerce, Industrial, Hospitality, Real Estate, Finance, Tech & SaaS, Local Businesses, Healthcare, and Media.",
     url: "https://omniseotools.com/schema",
     type: "website",
     siteName: "OmniSEOTools",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Schema Markup Blueprints & JSON-LD Cheat Sheets | OmniSEO Tools",
     description:
-      "Comprehensive directory of 225 production-ready Schema.org JSON-LD blueprints for Real Estate & Accommodation, Finance & Banking, Automotive & Marine, Sports & Recreation, Government & Civic, Tech & SaaS, E-Commerce, Local Businesses, Healthcare, and Media.",
+      "Comprehensive directory of 300 production-ready Schema.org JSON-LD blueprints for Specialized Medical, Advanced Commerce, Industrial, Hospitality, Real Estate, Finance, Tech & SaaS, Local Businesses, Healthcare, and Media.",
   },
 };
 
@@ -41,7 +41,7 @@ export default function SchemaHubPage() {
         name: "OmniSEOTools Schema Markup Blueprints & JSON-LD Cheat Sheets",
         url: "https://omniseotools.com/schema",
         description:
-          "Comprehensive directory of 225 production-ready Schema.org JSON-LD blueprints for Real Estate & Accommodation, Finance & Banking, Automotive & Marine, Sports & Recreation, Government & Civic, Tech & SaaS, E-Commerce, Local Businesses, Healthcare, and Media.",
+          "Comprehensive directory of 300 production-ready Schema.org JSON-LD blueprints for Specialized Medical, Advanced Commerce, Industrial, Hospitality, Real Estate, Finance, Tech & SaaS, Local Businesses, Healthcare, and Media.",
         publisher: {
           "@type": "Organization",
           name: "OmniSEOTools",
