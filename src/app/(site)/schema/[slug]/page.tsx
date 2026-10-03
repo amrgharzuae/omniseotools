@@ -82,16 +82,27 @@ export default async function SchemaDetailPage({ params }: SchemaPageProps) {
 
   const relatedBlueprints = getRelatedBlueprints(blueprint);
 
-  // Schema.org Structured Data: TechArticle + BreadcrumbList
+  let targetPayload: any = null;
+  try {
+    targetPayload = JSON.parse(blueprint.jsonLd);
+  } catch {
+    targetPayload = {
+      "@type": blueprint.schemaType,
+      name: blueprint.shortTitle,
+      description: blueprint.description,
+    };
+  }
+
+  // Schema.org Structured Data: TechArticle + BreadcrumbList + Target Blueprint Entity
   const structuredDataGraph = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "TechArticle",
-        "@id": `https://omniseotools.com/schema/${blueprint.slug}#article`,
-        headline: blueprint.title,
+        "@id": `https://www.omniseotools.com/schema/${blueprint.slug}#article`,
+        headline: `${blueprint.title} JSON-LD Schema Blueprint`,
         description: blueprint.description,
-        url: `https://omniseotools.com/schema/${blueprint.slug}`,
+        url: `https://www.omniseotools.com/schema/${blueprint.slug}`,
         datePublished: "2026-10-01T00:00:00+00:00",
         dateModified: `${blueprint.lastUpdated}T00:00:00+00:00`,
         proficiencyLevel: "Intermediate",
@@ -99,12 +110,13 @@ export default async function SchemaDetailPage({ params }: SchemaPageProps) {
         publisher: {
           "@type": "Organization",
           name: "OmniSEOTools",
-          url: "https://omniseotools.com",
+          url: "https://www.omniseotools.com",
         },
         author: {
           "@type": "Organization",
-          name: "OmniSEOTools Engineering",
+          name: "OmniSEOTools",
         },
+        about: targetPayload,
       },
       {
         "@type": "BreadcrumbList",
@@ -113,19 +125,19 @@ export default async function SchemaDetailPage({ params }: SchemaPageProps) {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://omniseotools.com",
+            item: "https://www.omniseotools.com",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Schema Blueprints",
-            item: "https://omniseotools.com/schema",
+            item: "https://www.omniseotools.com/schema",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: blueprint.shortTitle,
-            item: `https://omniseotools.com/schema/${blueprint.slug}`,
+            item: `https://www.omniseotools.com/schema/${blueprint.slug}`,
           },
         ],
       },
