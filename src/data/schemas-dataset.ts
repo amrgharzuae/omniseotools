@@ -1,5 +1,5 @@
 // Auto-generated Schema Blueprints Dataset — OmniSEO Tools
-// Total Blueprints: 150 (Cluster 1: 35 Core + Cluster 2: 30 Local Business + Cluster 3: 25 Tech/Developer + Cluster 4: 30 Creative/Media + Cluster 5: 30 Education/Events/Jobs)
+// Total Blueprints: 225 (Cluster 1: 35 Core + Cluster 2: 30 Local Business + Cluster 3: 25 Tech/Developer + Cluster 4: 30 Creative/Media + Cluster 5: 30 Education/Events/Jobs + Cluster 6: 75 Commerce/Finance/RealEstate/Auto/Civic)
 
 export interface SchemaProperty {
   name: string;
@@ -15672,6 +15672,7526 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "Regional alumni chapter directories and event hubs",
       "Medical and law school alumni society pages",
       "Fraternity and sorority national graduate alumni networks"
+    ]
+  },
+  {
+    "slug": "single-family-residence-sale",
+    "title": "Single Family Residence Sale Schema Markup (JSON-LD)",
+    "shortTitle": "Home For Sale",
+    "schemaType": "SingleFamilyResidence",
+    "category": "Local Business",
+    "richResultType": "Real Estate Listing",
+    "description": "Models residential single-family homes for sale including room counts, living area square footage, postal address, listing broker, and pricing offers for real estate search engines.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "single family residence schema",
+      "real estate house for sale json-ld",
+      "property listing structured data",
+      "residential home schema.org",
+      "real estate rich snippets"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SingleFamilyResidence\",\n  \"@id\": \"https://example.com/listings/124-maple-drive#residence\",\n  \"name\": \"124 Maple Drive Modern Colonial\",\n  \"description\": \"Newly renovated 4-bedroom single-family colonial residence with finished basement and two-car attached garage.\",\n  \"numberOfRooms\": 9,\n  \"numberOfBedrooms\": 4,\n  \"numberOfBathroomsTotal\": 3.5,\n  \"floorSize\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 3250,\n    \"unitCode\": \"FTK\"\n  },\n  \"yearBuilt\": 2018,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"124 Maple Drive\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78701\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 30.2672,\n    \"longitude\": -97.7431\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"875000\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"validFrom\": \"2026-10-01\",\n    \"businessFunction\": \"http://purl.org/goodrelations/v1#Sell\"\n  }\n}",
+    "properties": [
+      {
+        "name": "numberOfRooms",
+        "type": "Integer",
+        "description": "Total count of interior rooms excluding bathrooms and unconditioned utility areas.",
+        "required": true,
+        "exampleValue": "9"
+      },
+      {
+        "name": "numberOfBedrooms",
+        "type": "Integer",
+        "description": "Number of designated residential sleeping bedrooms.",
+        "required": true,
+        "exampleValue": "4"
+      },
+      {
+        "name": "numberOfBathroomsTotal",
+        "type": "Number",
+        "description": "Total number of full and partial bathrooms in the residence.",
+        "required": true,
+        "exampleValue": "3.5"
+      },
+      {
+        "name": "floorSize",
+        "type": "QuantitativeValue",
+        "description": "Gross conditioned living floor area with standardized UN/CEFACT unitCode (e.g., FTK for sq ft, MTK for sq m).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 3250, \"unitCode\": \"FTK\" }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address and postal location of the real estate parcel.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"124 Maple Drive\", ... }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Real estate listing price, transaction currency, availability state, and listing duration.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"875000\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "yearBuilt",
+        "type": "Integer",
+        "description": "The calendar year in which residential property construction was completed.",
+        "required": false,
+        "exampleValue": "2018"
+      },
+      {
+        "name": "geo",
+        "type": "GeoCoordinates",
+        "description": "Precise latitude and longitude coordinates for map pinning and spatial queries.",
+        "required": false,
+        "exampleValue": "{ \"@type\": \"GeoCoordinates\", \"latitude\": 30.2672, \"longitude\": -97.7431 }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing UN/CEFACT UnitCode in FloorSize",
+        "description": "Specifying a naked numeric value for floorSize without a quantitative unitCode causes search crawlers to misinterpret square feet as square meters.",
+        "severity": "error",
+        "gscImpact": "Property dimensions ignored or incorrectly indexed in regional real estate filters.",
+        "solution": "Use a QuantitativeValue node with unitCode 'FTK' (square feet) or 'MTK' (square meters)."
+      },
+      {
+        "title": "Omission of BusinessFunction Sell on Property Offers",
+        "description": "Failing to disambiguate whether an offer represents a property purchase sale vs monthly lease confused housing search engines.",
+        "severity": "warning",
+        "gscImpact": "Listing may appear under rental filters instead of for-sale searches.",
+        "solution": "Explicitly set businessFunction to 'http://purl.org/goodrelations/v1#Sell' on sales listings."
+      },
+      {
+        "title": "Stale Pending/Sold Status in Offers Availability",
+        "description": "Keeping 'InStock' availability after a contract closes violates Google Search accuracy policies for commercial listings.",
+        "severity": "critical",
+        "gscImpact": "GSC structured data manual actions for deceptive pricing/availability.",
+        "solution": "Automate real-time MLS sync to update availability to 'Discontinued' or 'OutOfStock' once under escrow."
+      }
+    ],
+    "relatedSlugs": [
+      "real-estate-listing-broker",
+      "residential-condo-unit",
+      "luxury-estate-penthouse",
+      "apartment-rental-complex"
+    ],
+    "useCases": [
+      "MLS residential for-sale property detail pages",
+      "Real estate broker exclusive home listings",
+      "Direct homebuilder spec-home inventory pages"
+    ]
+  },
+  {
+    "slug": "apartment-rental-complex",
+    "title": "Apartment Rental Complex Schema Markup (JSON-LD)",
+    "shortTitle": "Apartment Complex",
+    "schemaType": "ApartmentComplex",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for multi-family residential apartment buildings and leasing communities, detailing accommodation unit counts, pet policies, amenities, and leasing office hours.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "apartment complex schema",
+      "apartment rental structured data",
+      "multi family housing json-ld",
+      "pets allowed apartment schema",
+      "leasing office rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ApartmentComplex\",\n  \"@id\": \"https://example.com/apartments/skyline-heights#complex\",\n  \"name\": \"Skyline Heights Luxury Apartments\",\n  \"description\": \"Modern mid-rise apartment community offering 1-3 bedroom luxury rental homes with resort-style pool and fitness center.\",\n  \"numberOfAccommodationUnits\": 180,\n  \"petsAllowed\": \"Dogs and cats allowed with deposit, breed restrictions apply\",\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Resort-Style Swimming Pool\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"24/7 Fitness Center\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"EV Charging Stations\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"500 Grand Avenue\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98101\",\n    \"addressCountry\": \"US\"\n  },\n  \"telephone\": \"+1-206-555-0145\",\n  \"priceRange\": \"$$$\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Public commercial brand name of the apartment complex or multi-family community.",
+        "required": true,
+        "exampleValue": "Skyline Heights Luxury Apartments"
+      },
+      {
+        "name": "numberOfAccommodationUnits",
+        "type": "Integer",
+        "description": "Total residential apartment units across all residential buildings in the complex.",
+        "required": true,
+        "exampleValue": "180"
+      },
+      {
+        "name": "petsAllowed",
+        "type": "Boolean / Text",
+        "description": "Comprehensive pet policy description or boolean indicating whether animal companions are permitted.",
+        "required": true,
+        "exampleValue": "Dogs and cats allowed with deposit, breed restrictions apply"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Array of structured community amenities such as swimming pools, rooftop lounges, EV charging, and fitness studios.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Resort-Style Swimming Pool\", \"value\": true }]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical location address of the apartment complex leasing center.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"500 Grand Avenue\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Primary telephone contact number for resident inquiries and leasing tours.",
+        "required": true,
+        "exampleValue": "+1-206-555-0145"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Relative affordability tier indicator or monthly rent span.",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Individual Unit Schema with ApartmentComplex",
+        "description": "Placing individual floor plans as top-level ApartmentComplex entities dilutes community authority in Google Maps and Local Pack.",
+        "severity": "warning",
+        "gscImpact": "Search engine fails to index property amenities at the aggregate community level.",
+        "solution": "Use ApartmentComplex at the site/building level, and nest individual FloorPlan or Accommodation entities within."
+      },
+      {
+        "title": "String Amenities Instead of LocationFeatureSpecification",
+        "description": "Using plain comma-separated strings for amenities prevents Google from parsing high-value housing filter attributes.",
+        "severity": "warning",
+        "gscImpact": "Filtered SERP facets (e.g. 'apartments with pool') miss your listing.",
+        "solution": "Declare amenities using typed LocationFeatureSpecification objects with name and boolean value."
+      },
+      {
+        "title": "Missing Pet Policy Boolean or Text Disambiguation",
+        "description": "Omitting petsAllowed prevents the apartment from qualifying for pet-friendly rental carousel highlights.",
+        "severity": "error",
+        "gscImpact": "Omission from pet-friendly housing search result cards.",
+        "solution": "Specify petsAllowed with explicit textual pet guidelines and weight limits."
+      }
+    ],
+    "relatedSlugs": [
+      "single-family-residence-sale",
+      "residential-condo-unit",
+      "student-housing-dormitory",
+      "vacation-rental-villa"
+    ],
+    "useCases": [
+      "Multi-family rental community overview pages",
+      "Property management company portfolio hubs",
+      "Apartment finder directory portals"
+    ]
+  },
+  {
+    "slug": "commercial-office-lease",
+    "title": "Commercial Office Lease Property Schema Markup (JSON-LD)",
+    "shortTitle": "Commercial Office Lease",
+    "schemaType": "CommercialProperty",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Detailed structured data markup for commercial office buildings and corporate suites available for lease, specifying floor space, lease tenure, zoning, and tenant amenities.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "commercial property schema",
+      "office space lease json-ld",
+      "commercial real estate structured data",
+      "office building schema.org",
+      "commercial lease rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"CommercialProperty\",\n  \"@id\": \"https://example.com/commercial/financial-tower-suite-400#office\",\n  \"name\": \"Financial Tower Suite 400 - Class A Office Space\",\n  \"description\": \"Turnkey Class A corporate office space featuring executive boardrooms, open plan workstations, and panoramic skyline views.\",\n  \"floorSize\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 12500,\n    \"unitCode\": \"FTK\"\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"100 Wall Street, 4th Floor\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10005\",\n    \"addressCountry\": \"US\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"68\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"SQFT_YR\",\n    \"businessFunction\": \"http://purl.org/goodrelations/v1#LeaseOut\",\n    \"validThrough\": \"2026-12-31\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Fiber Optic Backbone\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"24/7 Security & Concierge\",\n      \"value\": true\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title or suite identifier of the commercial office property listing.",
+        "required": true,
+        "exampleValue": "Financial Tower Suite 400 - Class A Office Space"
+      },
+      {
+        "name": "floorSize",
+        "type": "QuantitativeValue",
+        "description": "Total rentable commercial area with standard UN/CEFACT unitCode.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 12500, \"unitCode\": \"FTK\" }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Exact geographic postal address including floor or suite number.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"100 Wall Street...\", ... }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Lease rate terms, price per square foot, pricing period, and valid lease time horizon.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"68\", \"unitText\": \"SQFT_YR\", ... }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Commercial building infrastructure features like backup generators, fiber internet, and dock access.",
+        "required": false,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Fiber Optic Backbone\", \"value\": true }]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Narrative summary of building class, layout, parking ratio, and tenancy history.",
+        "required": false,
+        "exampleValue": "Turnkey Class A corporate office space featuring executive boardrooms..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Undefined Lease Pricing Rate Metric in unitText",
+        "description": "Listing a price like '68' without specifying whether it is annual per sqft or monthly total leads to gross price calculation errors in commercial search portals.",
+        "severity": "error",
+        "gscImpact": "Lease pricing displays incorrectly or is rejected by commercial real estate aggregators.",
+        "solution": "Specify unitText as 'SQFT_YR' or 'MONTH' alongside businessFunction 'LeaseOut'."
+      },
+      {
+        "title": "Generic Place Type Instead of CommercialProperty",
+        "description": "Using standard generic 'Place' rather than 'CommercialProperty' limits Google's semantic categorization for B2B tenancy searches.",
+        "severity": "warning",
+        "gscImpact": "Reduced visibility for commercial leasing intent queries.",
+        "solution": "Utilize specific Schema.org CommercialProperty or OfficeBuilding types."
+      },
+      {
+        "title": "Missing Floor/Suite Address Specifics",
+        "description": "Omitting the suite or floor number causes multi-tenant office buildings to clash on duplicate addresses.",
+        "severity": "warning",
+        "gscImpact": "Multiple suites in the same building trigger duplicate entity warnings.",
+        "solution": "Always append suite or floor numbers in streetAddress and use unique @id URIs per unit."
+      }
+    ],
+    "relatedSlugs": [
+      "coworking-space-membership",
+      "warehouse-logistics-facility",
+      "retail-strip-mall",
+      "real-estate-listing-broker"
+    ],
+    "useCases": [
+      "Commercial real estate brokerage listing portfolios",
+      "Corporate business park leasing websites",
+      "CRE investment trust tenant portal pages"
+    ]
+  },
+  {
+    "slug": "vacation-rental-villa",
+    "title": "Vacation Rental Villa & Holiday Home Schema Markup (JSON-LD)",
+    "shortTitle": "Vacation Rental Villa",
+    "schemaType": "VacationRental",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for luxury vacation villas, short-term holiday rentals, and private beachfront estates, defining check-in policies, guest occupancy, room setups, and booking offers.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "vacation rental schema",
+      "holiday villa json-ld",
+      "short term rental structured data",
+      "vacation home rich snippet",
+      "bed and breakfast schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"VacationRental\",\n  \"@id\": \"https://example.com/villas/sunset-paradise#villa\",\n  \"name\": \"Sunset Paradise Oceanfront Villa\",\n  \"description\": \"Exclusive 5-bedroom private oceanfront villa featuring private infinity pool, direct beach access, and personal chef services.\",\n  \"checkinTime\": \"15:00\",\n  \"checkoutTime\": \"11:00\",\n  \"numberOfBedrooms\": 5,\n  \"numberOfBathroomsTotal\": 5.5,\n  \"occupancy\": {\n    \"@type\": \"QuantitativeValue\",\n    \"maxValue\": 12,\n    \"unitCode\": \"C62\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Private Infinity Pool\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Direct Beach Access\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"High-Speed Wi-Fi\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"742 Ocean Boulevard\",\n    \"addressLocality\": \"Kihei\",\n    \"addressRegion\": \"HI\",\n    \"postalCode\": \"96753\",\n    \"addressCountry\": \"US\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"1200\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"NIGHT\",\n    \"availability\": \"https://schema.org/InStock\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Descriptive holiday title or brand name of the vacation rental villa.",
+        "required": true,
+        "exampleValue": "Sunset Paradise Oceanfront Villa"
+      },
+      {
+        "name": "checkinTime",
+        "type": "Time",
+        "description": "Earliest standard guest check-in time in 24-hour ISO format (HH:MM).",
+        "required": true,
+        "exampleValue": "15:00"
+      },
+      {
+        "name": "checkoutTime",
+        "type": "Time",
+        "description": "Latest allowable guest check-out time in 24-hour ISO format (HH:MM).",
+        "required": true,
+        "exampleValue": "11:00"
+      },
+      {
+        "name": "numberOfBedrooms",
+        "type": "Integer",
+        "description": "Total count of dedicated private bedrooms available to guests.",
+        "required": true,
+        "exampleValue": "5"
+      },
+      {
+        "name": "occupancy",
+        "type": "QuantitativeValue",
+        "description": "Maximum allowable guest capacity with unitCode C62 (individual count).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"maxValue\": 12, \"unitCode\": \"C62\" }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Array of premium vacation amenities like swimming pools, hot tubs, beach access, and air conditioning.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Private Infinity Pool\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Nightly rental price, currency code, and booking availability status.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"1200\", \"priceCurrency\": \"USD\", \"unitText\": \"NIGHT\" }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Postal address and geographic municipality of the holiday rental.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"742 Ocean Boulevard\", ... }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Invalid ISO 8601 Time Format on Check-in/Check-out",
+        "description": "Specifying check-in times as '3 PM' or '15:00:00 EST' violates Schema.org ISO Time requirements.",
+        "severity": "error",
+        "gscImpact": "Travel and hotel rich snippet parsing failures in GSC.",
+        "solution": "Format times strictly as 24-hour 'HH:MM' strings (e.g. '15:00')."
+      },
+      {
+        "title": "Missing Maximum Occupancy Limits",
+        "description": "Failing to declare guest capacity limits prevents travel search engines from filtering listings by family/group size.",
+        "severity": "warning",
+        "gscImpact": "Listing excluded from group vacation search filters on Google Travel.",
+        "solution": "Provide an occupancy QuantitativeValue object with maxValue."
+      },
+      {
+        "title": "Misusing Hotel Type for Private Vacation Rentals",
+        "description": "Tagging single private standalone homes as '@type: Hotel' leads to missing front desk complaints from search quality evaluators.",
+        "severity": "warning",
+        "gscImpact": "Entity misclassification in Google Travel and Google Maps.",
+        "solution": "Use the specialized VacationRental or House type rather than Hotel."
+      }
+    ],
+    "relatedSlugs": [
+      "guesthouse-bed-breakfast",
+      "single-family-residence-sale",
+      "campground-rv-park",
+      "hostel-shared-dorm"
+    ],
+    "useCases": [
+      "Direct booking vacation rental platforms",
+      "Luxury villa management property detail pages",
+      "Regional tourism destination accommodation guides"
+    ]
+  },
+  {
+    "slug": "guesthouse-bed-breakfast",
+    "title": "Bed & Breakfast and Guesthouse Schema Markup (JSON-LD)",
+    "shortTitle": "Bed & Breakfast",
+    "schemaType": "BedAndBreakfast",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for quaint guesthouses, historic inns, and bed & breakfast lodges, modeling breakfast inclusion, room count, pet acceptance, and hospitality amenities.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "bed and breakfast schema",
+      "guesthouse structured data",
+      "inn json-ld markup",
+      "b&b schema.org",
+      "boutique lodge rich result"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BedAndBreakfast\",\n  \"@id\": \"https://example.com/stay/rosewood-inn#lodge\",\n  \"name\": \"The Rosewood Country Inn & Guesthouse\",\n  \"description\": \"Charming 8-room Victorian bed & breakfast offering gourmet farm-to-table breakfast, afternoon tea, and landscaped cottage gardens.\",\n  \"numberOfRooms\": 8,\n  \"petsAllowed\": false,\n  \"priceRange\": \"$$\",\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Complimentary Gourmet Breakfast\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Free High-Speed Wi-Fi\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"En-Suite Bathrooms\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"310 Heritage Lane\",\n    \"addressLocality\": \"Stowe\",\n    \"addressRegion\": \"VT\",\n    \"postalCode\": \"05672\",\n    \"addressCountry\": \"US\"\n  },\n  \"telephone\": \"+1-802-555-0182\",\n  \"checkinTime\": \"16:00\",\n  \"checkoutTime\": \"11:00\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official hospitality name of the bed & breakfast or guesthouse.",
+        "required": true,
+        "exampleValue": "The Rosewood Country Inn & Guesthouse"
+      },
+      {
+        "name": "numberOfRooms",
+        "type": "Integer",
+        "description": "Total guest rooms available for booking across the property.",
+        "required": true,
+        "exampleValue": "8"
+      },
+      {
+        "name": "petsAllowed",
+        "type": "Boolean",
+        "description": "Boolean indicating whether domestic pets are accommodated on the premises.",
+        "required": true,
+        "exampleValue": "false"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Hospitality features including breakfast inclusions, garden access, and parking.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Complimentary Gourmet Breakfast\", \"value\": true }]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the inn.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"310 Heritage Lane\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main reservation desk phone number in international format.",
+        "required": true,
+        "exampleValue": "+1-802-555-0182"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Indicative price tier indicator ($ to $$$$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Breakfast Inclusions in Structured Features",
+        "description": "Omitting structured breakfast details from BedAndBreakfast schema causes Google Travel to hide complimentary dining badges.",
+        "severity": "warning",
+        "gscImpact": "Loss of 'Free breakfast' rich badges on Google Travel SERPs.",
+        "solution": "Include LocationFeatureSpecification with name 'Complimentary Gourmet Breakfast' and value true."
+      },
+      {
+        "title": "Ambiguous Pet Policy Declaration",
+        "description": "Leaving petsAllowed undefined causes search filters to default to pet-ineligible.",
+        "severity": "warning",
+        "gscImpact": "Lost traffic from pet-conscious travelers searching on travel portals.",
+        "solution": "Explicitly declare petsAllowed as true or false."
+      },
+      {
+        "title": "Omitting Telephone Number for Direct Inquiries",
+        "description": "Guesthouses without telephone contact in structured data lose click-to-call conversions in mobile Local Pack.",
+        "severity": "error",
+        "gscImpact": "Failure to render click-to-call buttons in local search results.",
+        "solution": "Provide an E.164 formatted international telephone string."
+      }
+    ],
+    "relatedSlugs": [
+      "vacation-rental-villa",
+      "campground-rv-park",
+      "hostel-shared-dorm",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Country inn and boutique guesthouse websites",
+      "Bed & breakfast booking engines",
+      "Historic lodge tourism portal pages"
+    ]
+  },
+  {
+    "slug": "campground-rv-park",
+    "title": "Campground & RV Park Schema Markup (JSON-LD)",
+    "shortTitle": "Campground & RV Park",
+    "schemaType": "Campground",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for outdoor campgrounds, RV resorts, and glamping sites, detailing campsite hookups, pet rules, operating seasons, and recreational amenities.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "campground schema",
+      "rv park structured data",
+      "glamping json-ld markup",
+      "campsite schema.org",
+      "outdoor recreation rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Campground\",\n  \"@id\": \"https://example.com/camp/pine-valley#ground\",\n  \"name\": \"Pine Valley RV Resort & Campground\",\n  \"description\": \"Family-friendly mountain campground featuring full 50-amp RV hookups, tent sites, heated restrooms, and kayak rentals.\",\n  \"priceRange\": \"$$\",\n  \"petsAllowed\": true,\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"50 Amp Full Hookups\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Heated Showers & Restrooms\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Campfire Rings & Picnic Tables\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"880 Forest Route 12\",\n    \"addressLocality\": \"Estes Park\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80517\",\n    \"addressCountry\": \"US\"\n  },\n  \"telephone\": \"+1-970-555-0193\",\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"20:00\",\n      \"validFrom\": \"2026-05-01\",\n      \"validThrough\": \"2026-10-31\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official public commercial name of the campground or RV resort.",
+        "required": true,
+        "exampleValue": "Pine Valley RV Resort & Campground"
+      },
+      {
+        "name": "petsAllowed",
+        "type": "Boolean",
+        "description": "Indicates whether pets and camping canines are welcomed on the grounds.",
+        "required": true,
+        "exampleValue": "true"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Camp amenities including electrical hookups, dump stations, potable water, and shower facilities.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"50 Amp Full Hookups\", \"value\": true }]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical rural address or forest route location of the campground.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"880 Forest Route 12\", ... }"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Seasonal operational hours and opening/closing dates for camping seasons.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"20:00\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Nightly pricing bracket indicator for campsites and RV pads.",
+        "required": false,
+        "exampleValue": "$$"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Camp ranger station or reservation phone line.",
+        "required": false,
+        "exampleValue": "+1-970-555-0193"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Seasonal Opening Dates on Campgrounds",
+        "description": "Failing to define validFrom and validThrough dates on seasonal campgrounds causes Google to display the camp as permanently closed during winter off-seasons.",
+        "severity": "critical",
+        "gscImpact": "Misleading 'Temporarily Closed' or lost rankings during booking preseason.",
+        "solution": "Use validFrom and validThrough within openingHoursSpecification to reflect seasonal dates."
+      },
+      {
+        "title": "Vague RV Hookup Specifications",
+        "description": "Not specifying amperage and full hookups (water/sewer/power) in amenityFeature limits visibility for heavy RV travelers.",
+        "severity": "warning",
+        "gscImpact": "Omission from Google Maps RV search filters.",
+        "solution": "Explicitly declare '50 Amp Full Hookups' in LocationFeatureSpecification."
+      },
+      {
+        "title": "Missing GeoCoordinates for Remote Campgrounds",
+        "description": "Rural forest route street addresses often fail geocoding in Google Maps without explicit latitude/longitude.",
+        "severity": "error",
+        "gscImpact": "Map pin placement errors leading to lost campers.",
+        "solution": "Always append precise GeoCoordinates to rural campground schema."
+      }
+    ],
+    "relatedSlugs": [
+      "guesthouse-bed-breakfast",
+      "vacation-rental-villa",
+      "public-park-recreation-area",
+      "marina-boat-slip"
+    ],
+    "useCases": [
+      "RV resort and glamping site booking portals",
+      "National forest campground guide pages",
+      "Outdoor adventure recreation directories"
+    ]
+  },
+  {
+    "slug": "hostel-shared-dorm",
+    "title": "Youth Hostel & Shared Dormitory Schema Markup (JSON-LD)",
+    "shortTitle": "Hostel & Shared Dorm",
+    "schemaType": "Hostel",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for youth hostels, backpacker lodges, and shared dormitory accommodations, highlighting bunk capacities, shared kitchen access, lockers, and check-in times.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "hostel schema markup",
+      "shared dorm json-ld",
+      "backpackers lodge structured data",
+      "hostel schema.org",
+      "budget accommodation rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Hostel\",\n  \"@id\": \"https://example.com/hostels/wanderlust-berlin#hostel\",\n  \"name\": \"Wanderlust Central Backpacker Hostel\",\n  \"description\": \"Vibrant budget backpacker hostel in city center featuring 4-8 bed shared dorms, private pods, communal kitchen, and social lounge.\",\n  \"numberOfRooms\": 24,\n  \"checkinTime\": \"14:00\",\n  \"checkoutTime\": \"10:30\",\n  \"priceRange\": \"$\",\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Communal Guest Kitchen\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Secure Luggage Lockers\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"24-Hour Front Desk\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"Torstrasse 120\",\n    \"addressLocality\": \"Berlin\",\n    \"postalCode\": \"10119\",\n    \"addressCountry\": \"DE\"\n  },\n  \"telephone\": \"+49-30-5550189\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official brand name of the hostel or backpackers accommodation.",
+        "required": true,
+        "exampleValue": "Wanderlust Central Backpacker Hostel"
+      },
+      {
+        "name": "checkinTime",
+        "type": "Time",
+        "description": "Standard hostel check-in time formatted in 24-hour ISO (HH:MM).",
+        "required": true,
+        "exampleValue": "14:00"
+      },
+      {
+        "name": "checkoutTime",
+        "type": "Time",
+        "description": "Mandatory morning check-out deadline formatted in 24-hour ISO (HH:MM).",
+        "required": true,
+        "exampleValue": "10:30"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Hostel-specific amenities including communal kitchens, bed linens, individual bunk lamps, and lockers.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Communal Guest Kitchen\", \"value\": true }]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "City postal address of the hostel building.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"Torstrasse 120\", ... }"
+      },
+      {
+        "name": "numberOfRooms",
+        "type": "Integer",
+        "description": "Total number of private and shared dormitory rooms in the hostel.",
+        "required": false,
+        "exampleValue": "24"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Budget tier indicator (typically '$').",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Failing to Distinguish Shared Dorms from Private Hotel Rooms",
+        "description": "Listing per-bed shared dormitory prices as standard private hotel rooms creates customer expectation mismatches and review penalties.",
+        "severity": "warning",
+        "gscImpact": "User bounce rates surge from misleading room rates on search cards.",
+        "solution": "Use Hostel schema and describe shared dormitory bed setups in room descriptions."
+      },
+      {
+        "title": "Missing Luggage Locker & Kitchen Feature Markup",
+        "description": "Backpacker search engines heavily index communal kitchen and security locker amenities.",
+        "severity": "warning",
+        "gscImpact": "Omission from budget accommodation feature filter queries.",
+        "solution": "Include LocationFeatureSpecification for lockers and guest kitchen facilities."
+      },
+      {
+        "title": "Missing Checkout Deadline Format",
+        "description": "Supplying non-ISO strings like '10 AM sharp' causes schema parser warnings in GSC.",
+        "severity": "error",
+        "gscImpact": "Schema validation errors in Google Search Console travel rich results.",
+        "solution": "Format checkoutTime strictly as '10:30' (HH:MM)."
+      }
+    ],
+    "relatedSlugs": [
+      "guesthouse-bed-breakfast",
+      "vacation-rental-villa",
+      "student-housing-dormitory",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Youth hostel booking platform detail pages",
+      "Backpacker travel community destination guides",
+      "Budget urban lodging directories"
+    ]
+  },
+  {
+    "slug": "real-estate-listing-broker",
+    "title": "Real Estate Listing & Broker Offer Schema Markup (JSON-LD)",
+    "shortTitle": "Real Estate Listing",
+    "schemaType": "RealEstateListing",
+    "category": "Local Business",
+    "richResultType": "Real Estate Listing",
+    "description": "Structured data for real estate agent listings and MLS brokerage property syndications, encoding date posted, expiration dates, listing agents, and transaction terms.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "real estate listing schema",
+      "mls property json-ld",
+      "real estate broker structured data",
+      "real estate agent rich snippet",
+      "property for sale schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RealEstateListing\",\n  \"@id\": \"https://example.com/listings/mls-884920#listing\",\n  \"name\": \"MLS #884920 - Luxury Waterfront Townhome\",\n  \"datePosted\": \"2026-09-15\",\n  \"validThrough\": \"2026-12-31\",\n  \"about\": {\n    \"@type\": \"SingleFamilyResidence\",\n    \"name\": \"Waterfront Townhome Unit 4B\",\n    \"numberOfRooms\": 7,\n    \"floorSize\": {\n      \"@type\": \"QuantitativeValue\",\n      \"value\": 2400,\n      \"unitCode\": \"FTK\"\n    },\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"350 Harbor View Way\",\n      \"addressLocality\": \"San Diego\",\n      \"addressRegion\": \"CA\",\n      \"postalCode\": \"92101\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"1450000\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"seller\": {\n      \"@type\": \"RealEstateAgent\",\n      \"name\": \"Pacific Premier Realty\",\n      \"telephone\": \"+1-619-555-0134\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official listing headline or MLS identification number.",
+        "required": true,
+        "exampleValue": "MLS #884920 - Luxury Waterfront Townhome"
+      },
+      {
+        "name": "datePosted",
+        "type": "Date (ISO 8601)",
+        "description": "The publication date when the listing became active on the market.",
+        "required": true,
+        "exampleValue": "2026-09-15"
+      },
+      {
+        "name": "validThrough",
+        "type": "Date (ISO 8601)",
+        "description": "Expiration date of the brokerage listing agreement.",
+        "required": true,
+        "exampleValue": "2026-12-31"
+      },
+      {
+        "name": "about",
+        "type": "Place / SingleFamilyResidence",
+        "description": "The underlying physical real estate property entity being offered.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"SingleFamilyResidence\", \"name\": \"Waterfront Townhome...\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Financial terms, list price, currency, and representing brokerage information.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"1450000\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "seller",
+        "type": "RealEstateAgent / Organization",
+        "description": "The licensed real estate brokerage or listing agent representing the property.",
+        "required": false,
+        "exampleValue": "{ \"@type\": \"RealEstateAgent\", \"name\": \"Pacific Premier Realty\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing 'about' Target Property Entity Nesting",
+        "description": "Placing property characteristics directly on RealEstateListing instead of nesting the physical property under 'about' causes Google schema parser confusion.",
+        "severity": "error",
+        "gscImpact": "Google fails to link physical address attributes to the listing.",
+        "solution": "Nest SingleFamilyResidence or Apartment under the 'about' property."
+      },
+      {
+        "title": "Expired validThrough Dates Left on Live Listings",
+        "description": "Allowing validThrough to lapse into the past marks the listing as expired in search engine indices.",
+        "severity": "warning",
+        "gscImpact": "Immediate drop in SERP visibility and listing carousel removals.",
+        "solution": "Dynamically renew validThrough upon listing agreement extensions."
+      },
+      {
+        "title": "Missing Brokerage Seller Entity Attribution",
+        "description": "Omitting the representing RealEstateAgent under offers.seller deprives the brokerage of E-E-A-T local authority credit.",
+        "severity": "warning",
+        "gscImpact": "Lost agency Knowledge Graph association with premier home sales.",
+        "solution": "Specify the licensed RealEstateAgent or Organization under offers.seller."
+      }
+    ],
+    "relatedSlugs": [
+      "single-family-residence-sale",
+      "residential-condo-unit",
+      "luxury-estate-penthouse",
+      "commercial-office-lease"
+    ],
+    "useCases": [
+      "Real estate brokerage listing syndication feeds",
+      "MLS agent property portfolio pages",
+      "Luxury home sales showcase websites"
+    ]
+  },
+  {
+    "slug": "warehouse-logistics-facility",
+    "title": "Industrial Warehouse & Logistics Facility Schema Markup (JSON-LD)",
+    "shortTitle": "Warehouse & Logistics Facility",
+    "schemaType": "Warehouse",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for commercial industrial warehouses, distribution centers, and fulfillment hubs, detailing ceiling clear heights, loading docks, floor capacity, and lease offers.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "warehouse schema markup",
+      "industrial logistics structured data",
+      "distribution center json-ld",
+      "commercial warehouse schema.org",
+      "industrial lease rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Warehouse\",\n  \"@id\": \"https://example.com/industrial/gateway-logistics-park#facility\",\n  \"name\": \"Gateway Logistics Center - Building 3\",\n  \"description\": \"Modern Class A industrial distribution warehouse featuring 36ft clear heights, 48 dock-high loading doors, and cross-dock configuration.\",\n  \"floorSize\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 250000,\n    \"unitCode\": \"FTK\"\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"400 Logistics Parkway\",\n    \"addressLocality\": \"Dallas\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"75261\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"36-Foot Clear Ceiling Height\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"48 Dock-High Loading Bays\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"ESFR Fire Sprinkler System\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"9.50\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"SQFT_YR\",\n    \"businessFunction\": \"http://purl.org/goodrelations/v1#LeaseOut\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Commercial facility name or industrial park building identifier.",
+        "required": true,
+        "exampleValue": "Gateway Logistics Center - Building 3"
+      },
+      {
+        "name": "floorSize",
+        "type": "QuantitativeValue",
+        "description": "Gross industrial warehouse square footage with standard UN/CEFACT unitCode.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 250000, \"unitCode\": \"FTK\" }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical industrial park street address and postal jurisdiction.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"400 Logistics Parkway\", ... }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Industrial specs including clear ceiling height, dock-high doors, grade level doors, and power capacity.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"36-Foot Clear Ceiling Height\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Industrial lease rate per square foot per year (NNN/gross) and availability terms.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"9.50\", \"unitText\": \"SQFT_YR\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Technical narrative covering truck court depth, trailer parking stalls, and column spacing.",
+        "required": false,
+        "exampleValue": "Modern Class A industrial distribution warehouse featuring 36ft clear heights..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting NNN Lease Distinctions in Industrial Pricing",
+        "description": "Failing to explain lease structures (triple net vs modified gross) in description or unitText causes tenant price discrepancy flags.",
+        "severity": "warning",
+        "gscImpact": "Low tenant qualification rates from misleading commercial pricing SERPs.",
+        "solution": "Specify 'SQFT_YR NNN' in offer description and terms."
+      },
+      {
+        "title": "Missing Loading Dock Specifications",
+        "description": "Failing to include loading dock counts in structured amenity features excludes the facility from supply-chain filter queries.",
+        "severity": "warning",
+        "gscImpact": "Excluded from specialized 3PL and freight logistics search filters.",
+        "solution": "Detail dock-high and drive-in doors in LocationFeatureSpecification arrays."
+      },
+      {
+        "title": "Missing UN/CEFACT UnitCode for Large Industrial Floor Areas",
+        "description": "Omitting 'FTK' or 'MTK' from high square-footage numbers creates multi-thousand unit unit mismatches.",
+        "severity": "error",
+        "gscImpact": "Facility square footage parsed erroneously by industrial search scrapers.",
+        "solution": "Explicitly set unitCode to 'FTK' (sq ft) or 'MTK' (sq meters)."
+      }
+    ],
+    "relatedSlugs": [
+      "commercial-office-lease",
+      "land-lot-development",
+      "commercial-truck-freight",
+      "retail-strip-mall"
+    ],
+    "useCases": [
+      "Industrial real estate brokerage property listings",
+      "Logistics park owner-developer portfolio hubs",
+      "Supply chain warehouse subleasing directories"
+    ]
+  },
+  {
+    "slug": "coworking-space-membership",
+    "title": "Coworking Space & Shared Office Schema Markup (JSON-LD)",
+    "shortTitle": "Coworking Space",
+    "schemaType": "Place",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for coworking hubs, flexible shared workspaces, and hot desk facilities, detailing desk tiers, conference room credits, gigabit internet, and operating hours.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "coworking space schema",
+      "shared office structured data",
+      "hot desk membership json-ld",
+      "flexible workspace schema.org",
+      "coworking rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LocalBusiness\",\n  \"@id\": \"https://example.com/cowork/nexus-hub#space\",\n  \"name\": \"Nexus Collective Coworking & Innovation Hub\",\n  \"description\": \"Collaborative flexible workspace offering dedicated desks, private offices, podcast studios, and event spaces for creators and tech startups.\",\n  \"telephone\": \"+1-415-555-0176\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"750 Howard Street, Suite 200\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94103\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"1 Gbps Symmetrical Fiber Wi-Fi\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Soundproof Phone Booths\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Specialty Espresso Bar\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"20:00\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Flexible Hot Desk Membership\",\n    \"price\": \"299\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"MONTH\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official trading brand name of the coworking hub or shared workspace.",
+        "required": true,
+        "exampleValue": "Nexus Collective Coworking & Innovation Hub"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical urban street address and suite location of the workspace.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"750 Howard Street...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Reception or community manager phone contact number.",
+        "required": true,
+        "exampleValue": "+1-415-555-0176"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Workspace amenities such as gigabit internet, phone booths, podcast studios, and coffee bars.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Soundproof Phone Booths\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Staffed community manager hours and general access schedules.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"20:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Monthly membership subscription pricing for hot desks, dedicated desks, or private suites.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Flexible Hot Desk Membership\", \"price\": \"299\", \"unitText\": \"MONTH\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Membership affordability tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Monthly unitText on Membership Plans",
+        "description": "Listing membership cost as a raw number without unitText 'MONTH' causes search engines to misinterpret subscription fees as one-time daily drop-in fees.",
+        "severity": "error",
+        "gscImpact": "Inaccurate pricing displays on Google Local Business cards.",
+        "solution": "Specify unitText as 'MONTH' on all ongoing coworking membership offers."
+      },
+      {
+        "title": "Confusing 24/7 Member Access with Public Staff Hours",
+        "description": "Listing 24/7 opening hours when front desk tours are restricted to business hours creates visitor walk-in friction.",
+        "severity": "warning",
+        "gscImpact": "Negative user reviews and local trust signal degradation.",
+        "solution": "Publish public tour hours in schema, mentioning 24/7 keycard access in description."
+      },
+      {
+        "title": "Omission of High-Speed Wi-Fi in Amenity Features",
+        "description": "Freelancers and remote workers filter specifically for high-speed connectivity in local coworking queries.",
+        "severity": "warning",
+        "gscImpact": "Loss of targeted traffic for 'fast wifi coworking' local queries.",
+        "solution": "Include LocationFeatureSpecification for fiber internet speeds."
+      }
+    ],
+    "relatedSlugs": [
+      "commercial-office-lease",
+      "community-cultural-center",
+      "public-library-branch",
+      "real-estate-listing-broker"
+    ],
+    "useCases": [
+      "Coworking operator location detail pages",
+      "Flexible office network membership directories",
+      "Remote work hub local landing pages"
+    ]
+  },
+  {
+    "slug": "student-housing-dormitory",
+    "title": "Student Housing & Dormitory Community Schema Markup (JSON-LD)",
+    "shortTitle": "Student Housing",
+    "schemaType": "Accommodation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for off-campus student housing communities, university dormitories, and co-living residences, specifying academic term tenancies, study lounges, and furnished room options.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "student housing schema",
+      "dormitory structured data",
+      "off campus student apartment json-ld",
+      "co living residence schema.org",
+      "university housing rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Accommodation\",\n  \"@id\": \"https://example.com/housing/varsity-towers#dorm\",\n  \"name\": \"Varsity Towers Off-Campus Student Living\",\n  \"description\": \"Premier fully furnished student apartments adjacent to university campus featuring private bedrooms, study lounges, and academic year leases.\",\n  \"occupancy\": {\n    \"@type\": \"QuantitativeValue\",\n    \"maxValue\": 4,\n    \"unitCode\": \"C62\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Individual By-the-Bed Leases\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Academic Study Lounge & Printing Lab\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Campus Shuttle Bus Service\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1800 University Avenue\",\n    \"addressLocality\": \"Madison\",\n    \"addressRegion\": \"WI\",\n    \"postalCode\": \"53726\",\n    \"addressCountry\": \"US\"\n  },\n  \"telephone\": \"+1-608-555-0149\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"795\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"MONTH\",\n    \"eligibleDuration\": {\n      \"@type\": \"QuantitativeValue\",\n      \"value\": 10,\n      \"unitCode\": \"MON\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official residence community name.",
+        "required": true,
+        "exampleValue": "Varsity Towers Off-Campus Student Living"
+      },
+      {
+        "name": "occupancy",
+        "type": "QuantitativeValue",
+        "description": "Maximum student occupancy per suite with unitCode C62.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"maxValue\": 4, \"unitCode\": \"C62\" }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Student-specific amenities such as campus shuttles, study rooms, roommate matching, and furnished units.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Individual By-the-Bed Leases\", \"value\": true }]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address located in university precinct.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1800 University Avenue\", ... }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "By-the-bed monthly rental rate, currency, and academic term lease duration.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"795\", \"unitText\": \"MONTH\" }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Leasing office phone number for student inquiries.",
+        "required": false,
+        "exampleValue": "+1-608-555-0149"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Failure to Specify Individual By-the-Bed Pricing",
+        "description": "Listing total suite rent instead of individual student per-bed rates creates huge price discrepancies on student housing search filters.",
+        "severity": "error",
+        "gscImpact": "Drastic drop-off in student click-through rate due to inflated price impressions.",
+        "solution": "State per-bed pricing in offers and clarify in amenityFeature."
+      },
+      {
+        "title": "Missing Academic Lease Duration Constraints",
+        "description": "Failing to define eligibleDuration leads users to believe monthly month-to-month leases are permitted.",
+        "severity": "warning",
+        "gscImpact": "High bounce rates from non-student prospects seeking short-term leases.",
+        "solution": "Use eligibleDuration with 10 or 12 month QuantitativeValue."
+      },
+      {
+        "title": "Omitting Proximity to University Entities",
+        "description": "Failing to cross-reference the local university in schema reduces local campus relevance signals.",
+        "severity": "warning",
+        "gscImpact": "Weaker rankings for '[University Name] student apartments' queries.",
+        "solution": "Mention university proximity in description and link to college entity if applicable."
+      }
+    ],
+    "relatedSlugs": [
+      "apartment-rental-complex",
+      "hostel-shared-dorm",
+      "coworking-space-membership",
+      "single-family-residence-sale"
+    ],
+    "useCases": [
+      "Off-campus student apartment leasing websites",
+      "University housing directory portals",
+      "Co-living community property detail pages"
+    ]
+  },
+  {
+    "slug": "residential-condo-unit",
+    "title": "Residential Condominium Unit Schema Markup (JSON-LD)",
+    "shortTitle": "Residential Condo Unit",
+    "schemaType": "Condominium",
+    "category": "Local Business",
+    "richResultType": "Real Estate Listing",
+    "description": "Structured data for individual condominium units and high-rise apartments, highlighting HOA/maintenance fees, floor level, building year, and shared condo association amenities.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "condo schema markup",
+      "condominium structured data",
+      "condo unit for sale json-ld",
+      "hoa fees schema.org",
+      "condo real estate rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Condominium\",\n  \"@id\": \"https://example.com/condos/bay-tower-14b#unit\",\n  \"name\": \"Bayview Tower Unit 14B - Luxury Skyline Condo\",\n  \"description\": \"High-floor 2-bedroom condominium featuring panoramic ocean views, private balcony, concierge service, and deeded underground parking.\",\n  \"numberOfRooms\": 5,\n  \"numberOfBedrooms\": 2,\n  \"numberOfBathroomsTotal\": 2,\n  \"floorSize\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 1420,\n    \"unitCode\": \"FTK\"\n  },\n  \"yearBuilt\": 2021,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"888 Biscayne Blvd, Unit 14B\",\n    \"addressLocality\": \"Miami\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33132\",\n    \"addressCountry\": \"US\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"749000\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"businessFunction\": \"http://purl.org/goodrelations/v1#Sell\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Deeded Garage Parking Space\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Rooftop Infinity Pool & Gym\",\n      \"value\": true\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official listing title with condo building name and unit number.",
+        "required": true,
+        "exampleValue": "Bayview Tower Unit 14B - Luxury Skyline Condo"
+      },
+      {
+        "name": "numberOfBedrooms",
+        "type": "Integer",
+        "description": "Number of private bedrooms in the condominium unit.",
+        "required": true,
+        "exampleValue": "2"
+      },
+      {
+        "name": "numberOfBathroomsTotal",
+        "type": "Number",
+        "description": "Total bathroom count for the unit.",
+        "required": true,
+        "exampleValue": "2"
+      },
+      {
+        "name": "floorSize",
+        "type": "QuantitativeValue",
+        "description": "Interior living area of the condo unit with UN/CEFACT unitCode.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 1420, \"unitCode\": \"FTK\" }"
+      },
+      {
+        "name": "yearBuilt",
+        "type": "Integer",
+        "description": "Construction year of the condominium tower.",
+        "required": true,
+        "exampleValue": "2021"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Postal address containing explicit unit or suite designation.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"888 Biscayne Blvd, Unit 14B\", ... }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Asking purchase price, transaction currency, and availability.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"749000\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Condo community features including deeded parking, storage lockers, and fitness facilities.",
+        "required": false,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Deeded Garage Parking Space\", \"value\": true }]"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Condominium with SingleFamilyResidence",
+        "description": "Using SingleFamilyResidence for high-rise condos misrepresents property ownership structure in real estate filters.",
+        "severity": "warning",
+        "gscImpact": "Listing miscategorized in property type filters on major search portals.",
+        "solution": "Use the dedicated Schema.org '@type: Condominium' entity."
+      },
+      {
+        "title": "Omission of Unit Number in StreetAddress",
+        "description": "Using only the building address without unit identifier causes duplicate entity collisions with other listed units in the building.",
+        "severity": "error",
+        "gscImpact": "Google Search Console warns of duplicate schema entities on the same address.",
+        "solution": "Include 'Unit 14B' in streetAddress and use unique unit @id URLs."
+      },
+      {
+        "title": "Missing Parking Amenity Declarations",
+        "description": "In urban markets, deeded parking is a primary search filter; omitting it loses high-intent buyers.",
+        "severity": "warning",
+        "gscImpact": "Excluded from 'condos with parking' search facets.",
+        "solution": "Detail deeded parking in amenityFeature."
+      }
+    ],
+    "relatedSlugs": [
+      "single-family-residence-sale",
+      "luxury-estate-penthouse",
+      "apartment-rental-complex",
+      "real-estate-listing-broker"
+    ],
+    "useCases": [
+      "High-rise condominium sales listings",
+      "Condo association resale showcase pages",
+      "Urban luxury real estate brokerage portals"
+    ]
+  },
+  {
+    "slug": "luxury-estate-penthouse",
+    "title": "Luxury Estate & Penthouse Schema Markup (JSON-LD)",
+    "shortTitle": "Luxury Estate & Penthouse",
+    "schemaType": "SingleFamilyResidence",
+    "category": "Local Business",
+    "richResultType": "Real Estate Listing",
+    "description": "High-density structured data for multi-million dollar luxury estates, mega-mansions, and trophy penthouses, modeling private helipads, smart security systems, wine cellars, and estate acreage.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "luxury estate schema",
+      "penthouse structured data",
+      "trophy property json-ld",
+      "mansion schema.org",
+      "luxury real estate rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SingleFamilyResidence\",\n  \"@id\": \"https://example.com/estates/bel-air-promontory#estate\",\n  \"name\": \"The Bel-Air Promontory Trophy Estate\",\n  \"description\": \"Ultra-luxury 18,000 sq ft gated modern architectural estate featuring 360-degree city views, infinity edge pool, 12-car subterranean gallery, and biometric security.\",\n  \"numberOfRooms\": 18,\n  \"numberOfBedrooms\": 7,\n  \"numberOfBathroomsTotal\": 11,\n  \"floorSize\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 18500,\n    \"unitCode\": \"FTK\"\n  },\n  \"yearBuilt\": 2024,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"10671 Bellagio Road\",\n    \"addressLocality\": \"Los Angeles\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"90077\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Biometric & Armed Perimeter Security\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Temperature-Controlled 2,000 Bottle Wine Cellar\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"12-Car Subterranean Auto Gallery\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Private Helipad Access\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"39500000\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"businessFunction\": \"http://purl.org/goodrelations/v1#Sell\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official estate moniker or trophy residence name.",
+        "required": true,
+        "exampleValue": "The Bel-Air Promontory Trophy Estate"
+      },
+      {
+        "name": "numberOfBedrooms",
+        "type": "Integer",
+        "description": "Total count of luxury master and guest suites.",
+        "required": true,
+        "exampleValue": "7"
+      },
+      {
+        "name": "numberOfBathroomsTotal",
+        "type": "Number",
+        "description": "Full and partial luxury bathroom count.",
+        "required": true,
+        "exampleValue": "11"
+      },
+      {
+        "name": "floorSize",
+        "type": "QuantitativeValue",
+        "description": "Living area square footage with standard UN/CEFACT unitCode.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 18500, \"unitCode\": \"FTK\" }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Bespoke luxury amenities including auto galleries, helipads, wine cellars, and screening rooms.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Private Helipad Access\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Asking luxury purchase price in USD or local currency.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"39500000\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Postal address in exclusive enclave.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"10671 Bellagio Road\", ... }"
+      },
+      {
+        "name": "yearBuilt",
+        "type": "Integer",
+        "description": "Completion year for the custom architectural masterpiece.",
+        "required": false,
+        "exampleValue": "2024"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Scientific Notation Price Corruption in JSON-LD",
+        "description": "Representing large multi-million prices like 3.95e7 as float exponents causes string parsing failure on older search engine bots.",
+        "severity": "error",
+        "gscImpact": "Price parsing error in Google Search Console merchant & listing audits.",
+        "solution": "Format ultra-high prices as plain numerical string integers (e.g., '39500000')."
+      },
+      {
+        "title": "Missing Security Feature Markup",
+        "description": "High-net-worth buyers prioritize gated security; omitting security specs deprives luxury listings of differentiator keywords.",
+        "severity": "warning",
+        "gscImpact": "Lower relevance for 'gated guarded estate' search intents.",
+        "solution": "Explicitly include security systems under amenityFeature."
+      },
+      {
+        "title": "Unspecified Property Grounds Lot Size",
+        "description": "Failing to differentiate between home floorSize and overall acreage lot size misleads buyers on compound scale.",
+        "severity": "warning",
+        "gscImpact": "Omission from large acreage luxury estate searches.",
+        "solution": "Declare living space under floorSize and land parcel under lotSize/landArea."
+      }
+    ],
+    "relatedSlugs": [
+      "single-family-residence-sale",
+      "residential-condo-unit",
+      "vacation-rental-villa",
+      "real-estate-listing-broker"
+    ],
+    "useCases": [
+      "Ultra-high-net-worth luxury estate showcases",
+      "Private architectural compound sales websites",
+      "Global luxury real estate auction platforms"
+    ]
+  },
+  {
+    "slug": "land-lot-development",
+    "title": "Land Parcel & Development Lot Schema Markup (JSON-LD)",
+    "shortTitle": "Land & Development Lot",
+    "schemaType": "Place",
+    "category": "Local Business",
+    "richResultType": "Real Estate Listing",
+    "description": "Structured data for vacant land parcels, commercial development tracts, and residential building lots, detailing acreage, zoning classifications, soil utility hookups, and asking price.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "land lot schema",
+      "vacant land structured data",
+      "development parcel json-ld",
+      "land for sale schema.org",
+      "acreage listing rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Place\",\n  \"@id\": \"https://example.com/land/cypress-ridge-tract#parcel\",\n  \"name\": \"Cypress Ridge 45-Acre Commercial Development Tract\",\n  \"description\": \"Prime shovel-ready 45-acre commercial development tract zoned C-3 with direct highway frontage, municipal water, and 3-phase power on site.\",\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 32.7767,\n    \"longitude\": -96.797\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"Highway 287 at County Road 104\",\n    \"addressLocality\": \"Fort Worth\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"76101\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Zoned C-3 Heavy Commercial\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Municipal Water & Sewer Connected\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"3-Phase Power Available\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"4250000\",\n    \"priceCurrency\": \"USD\",\n    \"businessFunction\": \"http://purl.org/goodrelations/v1#Sell\",\n    \"availability\": \"https://schema.org/InStock\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title or parcel identification of the land listing.",
+        "required": true,
+        "exampleValue": "Cypress Ridge 45-Acre Commercial Development Tract"
+      },
+      {
+        "name": "geo",
+        "type": "GeoCoordinates",
+        "description": "Exact geographic coordinates centering the land parcel.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"GeoCoordinates\", \"latitude\": 32.7767, \"longitude\": -96.7970 }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "County road, intersection, or physical address of the property tract.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"Highway 287...\", ... }"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Land development attributes including municipal water, sewer, zoning code, and road frontage.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Zoned C-3 Heavy Commercial\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Asking purchase price and terms for the land parcel.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"4250000\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Detailed description of topography, wetland status, and development feasibility.",
+        "required": false,
+        "exampleValue": "Prime shovel-ready 45-acre commercial development tract..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing GeoCoordinates on Unaddressed Rural Parcels",
+        "description": "Rural raw land often lacks formal street numbers; omitting GeoCoordinates prevents mapping crawlers from positioning the land.",
+        "severity": "error",
+        "gscImpact": "Listing excluded from map-based land search portals.",
+        "solution": "Provide precise latitude and longitude under geo."
+      },
+      {
+        "title": "Omitting Zoning Classification in Structured Specs",
+        "description": "Failing to structure zoning attributes limits commercial developer discovery (residential vs industrial vs agricultural).",
+        "severity": "warning",
+        "gscImpact": "Listing fails to match commercial land developer filter queries.",
+        "solution": "Add LocationFeatureSpecification explicitly declaring municipal zoning designation."
+      },
+      {
+        "title": "Misrepresenting Total Parcel Acreage",
+        "description": "Failing to clearly state acreage in both title and structured specs creates buyer confusion.",
+        "severity": "warning",
+        "gscImpact": "High bounce rates from buyers looking for specific plot sizes.",
+        "solution": "Include clear acreage numbers in both name and description."
+      }
+    ],
+    "relatedSlugs": [
+      "warehouse-logistics-facility",
+      "commercial-office-lease",
+      "single-family-residence-sale",
+      "retail-strip-mall"
+    ],
+    "useCases": [
+      "Commercial land brokerage websites",
+      "Residential subdivision development portals",
+      "Agricultural farm and ranch sales listings"
+    ]
+  },
+  {
+    "slug": "retail-strip-mall",
+    "title": "Shopping Center & Retail Strip Mall Schema Markup (JSON-LD)",
+    "shortTitle": "Shopping Center & Strip Mall",
+    "schemaType": "ShoppingCenter",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for shopping centers, retail plazas, and open-air strip malls, encoding tenant store directories, anchor stores, parking capacity, and operating schedules.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "shopping center schema",
+      "retail strip mall structured data",
+      "shopping mall json-ld",
+      "retail plaza schema.org",
+      "shopping center rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ShoppingCenter\",\n  \"@id\": \"https://example.com/mall/westgate-plaza#center\",\n  \"name\": \"Westgate Town Center & Retail Plaza\",\n  \"description\": \"Premier open-air retail shopping center anchored by Target, Whole Foods Market, and over 45 specialty shops and restaurants.\",\n  \"telephone\": \"+1-408-555-0188\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1600 Saratoga Avenue\",\n    \"addressLocality\": \"San Jose\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"95129\",\n    \"addressCountry\": \"US\"\n  },\n  \"department\": [\n    {\n      \"@type\": \"GroceryStore\",\n      \"name\": \"Whole Foods Market\",\n      \"telephone\": \"+1-408-555-0190\"\n    },\n    {\n      \"@type\": \"DepartmentStore\",\n      \"name\": \"Target\",\n      \"telephone\": \"+1-408-555-0195\"\n    }\n  ],\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Free Surface & Garage Parking\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Tesla Supercharger Station\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Wheelchair Accessible Ramps\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"10:00\",\n      \"closes\": \"21:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Sunday\"\n      ],\n      \"opens\": \"11:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official public commercial name of the shopping center or retail plaza.",
+        "required": true,
+        "exampleValue": "Westgate Town Center & Retail Plaza"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the retail shopping center.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1600 Saratoga Avenue\", ... }"
+      },
+      {
+        "name": "department",
+        "type": "Array<LocalBusiness>",
+        "description": "Anchor department stores, supermarkets, and prominent sub-tenants operating within the complex.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"GroceryStore\", \"name\": \"Whole Foods Market\" }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "General retail center concourse operating hours across days of the week.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"10:00\", \"closes\": \"21:00\" }]"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Shopping center management office contact phone number.",
+        "required": true,
+        "exampleValue": "+1-408-555-0188"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Customer amenities including EV charging hubs, family restrooms, and free parking.",
+        "required": false,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Tesla Supercharger Station\", \"value\": true }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Overall retail price span tier ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Mall Concourse Hours with Tenant Store Hours",
+        "description": "Anchor supermarkets often open earlier (7 AM) than the general mall concourse (10 AM); publishing only mall hours confuses grocery shoppers.",
+        "severity": "warning",
+        "gscImpact": "Incorrect opening hours displayed for sub-department queries.",
+        "solution": "Provide dedicated opening hours on individual department entities."
+      },
+      {
+        "title": "Failing to Model Anchor Stores under department",
+        "description": "Omitting major department stores prevents the shopping center from triggering Knowledge Graph carousels for 'stores in [Mall Name]'.",
+        "severity": "warning",
+        "gscImpact": "Lost entity association with high-volume brand searches.",
+        "solution": "Nest prominent tenants under the department array."
+      },
+      {
+        "title": "Missing EV Charging Infrastructure Markup",
+        "description": "Electric vehicle drivers increasingly search for shopping centers with EV charging while shopping.",
+        "severity": "warning",
+        "gscImpact": "Excluded from 'shopping with EV charging' local searches.",
+        "solution": "Include LocationFeatureSpecification for EV charging stations."
+      }
+    ],
+    "relatedSlugs": [
+      "commercial-office-lease",
+      "warehouse-logistics-facility",
+      "coworking-space-membership",
+      "auto-detailing-wrap-service"
+    ],
+    "useCases": [
+      "Regional shopping mall directory websites",
+      "Retail strip center leasing portal pages",
+      "Commercial retail property management hubs"
+    ]
+  },
+  {
+    "slug": "mortgage-loan-fixed-rate",
+    "title": "30-Year Fixed-Rate Mortgage Loan Schema Markup (JSON-LD)",
+    "shortTitle": "Fixed-Rate Mortgage",
+    "schemaType": "MortgageLoan",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for residential fixed-rate home mortgage loans, modeling APR rates, loan terms, down payment requirements, collateral terms, and underwriting guidelines for Google Financial SERPs.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "mortgage loan schema",
+      "fixed rate mortgage json-ld",
+      "home loan structured data",
+      "financial product schema.org",
+      "mortgage rates rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MortgageLoan\",\n  \"@id\": \"https://example.com/mortgages/30-year-fixed#product\",\n  \"name\": \"30-Year Fixed-Rate Conforming Mortgage\",\n  \"description\": \"Standard fixed-interest home loan offering predictable monthly payments for prime borrowers purchasing single-family homes.\",\n  \"annualPercentageRate\": 6.375,\n  \"interestRate\": 6.25,\n  \"loanTerm\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 30,\n    \"unitCode\": \"ANN\"\n  },\n  \"amount\": {\n    \"@type\": \"MonetaryAmount\",\n    \"currency\": \"USD\",\n    \"minValue\": 100000,\n    \"maxValue\": 766550\n  },\n  \"requiredCollateral\": \"Single Family Primary Residence or Warrantable Condominium\",\n  \"provider\": {\n    \"@type\": \"BankOrCreditUnion\",\n    \"name\": \"Apex Home Mortgage Corp\",\n    \"telephone\": \"+1-800-555-0130\"\n  },\n  \"feesAndCommissionsSpecification\": \"1.0% origination fee, $950 underwriting fee, appraisal fees apply.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official marketing name of the mortgage loan product.",
+        "required": true,
+        "exampleValue": "30-Year Fixed-Rate Conforming Mortgage"
+      },
+      {
+        "name": "annualPercentageRate",
+        "type": "Number",
+        "description": "Annual Percentage Rate (APR) reflecting true cost of credit including points and fees.",
+        "required": true,
+        "exampleValue": "6.375"
+      },
+      {
+        "name": "interestRate",
+        "type": "Number",
+        "description": "Nominal fixed annual note interest rate.",
+        "required": true,
+        "exampleValue": "6.25"
+      },
+      {
+        "name": "loanTerm",
+        "type": "QuantitativeValue",
+        "description": "Amortization term duration with unitCode (ANN for years, MON for months).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 30, \"unitCode\": \"ANN\" }"
+      },
+      {
+        "name": "amount",
+        "type": "MonetaryAmount",
+        "description": "Conforming loan limits with minValue and maxValue borrowing constraints.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"MonetaryAmount\", \"currency\": \"USD\", \"minValue\": 100000, \"maxValue\": 766550 }"
+      },
+      {
+        "name": "requiredCollateral",
+        "type": "Text",
+        "description": "Security asset required to underwrite the secured mortgage lien.",
+        "required": true,
+        "exampleValue": "Single Family Primary Residence or Warrantable Condominium"
+      },
+      {
+        "name": "provider",
+        "type": "BankOrCreditUnion",
+        "description": "Lending institution or mortgage banker originating the loan.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BankOrCreditUnion\", \"name\": \"Apex Home Mortgage Corp\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Disclosures regarding origination points, processing fees, and third-party appraisal costs.",
+        "required": false,
+        "exampleValue": "1.0% origination fee, $950 underwriting fee, appraisal fees apply."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Note Interest Rate with APR",
+        "description": "Submitting only interestRate while omitting annualPercentageRate violates Google Financial Services lending disclosure policies.",
+        "severity": "critical",
+        "gscImpact": "Structured data disqualification from Google loan comparison rich widgets.",
+        "solution": "Always declare both annualPercentageRate and interestRate."
+      },
+      {
+        "title": "Unbounded Loan Amounts Without Currency",
+        "description": "Specifying loan limits as naked numbers without a MonetaryAmount node and 3-letter ISO-4217 currency code creates parser errors.",
+        "severity": "error",
+        "gscImpact": "Unparseable structured data in GSC financial reports.",
+        "solution": "Nest amount within a MonetaryAmount object containing currency: 'USD'."
+      },
+      {
+        "title": "Missing Loan Term unitCode Specification",
+        "description": "Failing to set unitCode on loanTerm causes crawlers to confuse 30 years with 30 months.",
+        "severity": "error",
+        "gscImpact": "Loan tenure displayed incorrectly in Google Search snippets.",
+        "solution": "Use UN/CEFACT 'ANN' for years or 'MON' for months."
+      }
+    ],
+    "relatedSlugs": [
+      "personal-loan-unsecured",
+      "single-family-residence-sale",
+      "real-estate-listing-broker",
+      "savings-account-high-yield"
+    ],
+    "useCases": [
+      "Mortgage lender rate table pages",
+      "Home buyer loan calculator comparison hubs",
+      "Credit union residential lending product pages"
+    ]
+  },
+  {
+    "slug": "personal-loan-unsecured",
+    "title": "Unsecured Personal Loan Schema Markup (JSON-LD)",
+    "shortTitle": "Unsecured Personal Loan",
+    "schemaType": "FinancialProduct",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for unsecured personal loans, debt consolidation financing, and installment credit, detailing APR ranges, repayment tenure, loan amounts, and credit qualification criteria.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "personal loan schema",
+      "unsecured loan structured data",
+      "debt consolidation json-ld",
+      "loan rates schema.org",
+      "financial product rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialProduct\",\n  \"@id\": \"https://example.com/loans/personal-installment#product\",\n  \"name\": \"Fixed-Rate Unsecured Personal Installment Loan\",\n  \"description\": \"Fast unsecured personal loans for debt consolidation and home improvements with fixed monthly payments and no collateral required.\",\n  \"annualPercentageRate\": 8.99,\n  \"loanTerm\": {\n    \"@type\": \"QuantitativeValue\",\n    \"minValue\": 24,\n    \"maxValue\": 60,\n    \"unitCode\": \"MON\"\n  },\n  \"amount\": {\n    \"@type\": \"MonetaryAmount\",\n    \"currency\": \"USD\",\n    \"minValue\": 5000,\n    \"maxValue\": 50000\n  },\n  \"provider\": {\n    \"@type\": \"FinancialService\",\n    \"name\": \"LendFlow Online Capital\",\n    \"url\": \"https://example.com\"\n  },\n  \"feesAndCommissionsSpecification\": \"No prepayment penalty, 0% to 5% origination fee based on credit tier.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Marketing product name of the personal loan program.",
+        "required": true,
+        "exampleValue": "Fixed-Rate Unsecured Personal Installment Loan"
+      },
+      {
+        "name": "annualPercentageRate",
+        "type": "Number",
+        "description": "Lowest starting APR for qualified tier-one borrowers.",
+        "required": true,
+        "exampleValue": "8.99"
+      },
+      {
+        "name": "loanTerm",
+        "type": "QuantitativeValue",
+        "description": "Flexible loan duration span in months (e.g. 24 to 60 months).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"minValue\": 24, \"maxValue\": 60, \"unitCode\": \"MON\" }"
+      },
+      {
+        "name": "amount",
+        "type": "MonetaryAmount",
+        "description": "Minimum and maximum borrowing principal amounts.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"MonetaryAmount\", \"currency\": \"USD\", \"minValue\": 5000, \"maxValue\": 50000 }"
+      },
+      {
+        "name": "provider",
+        "type": "FinancialService",
+        "description": "Licensed fintech lender or direct banking provider.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"FinancialService\", \"name\": \"LendFlow Online Capital\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Disclosures regarding origination fees, late penalties, and prepayment terms.",
+        "required": false,
+        "exampleValue": "No prepayment penalty, 0% to 5% origination fee based on credit tier."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Minimum and Maximum APR Bounds",
+        "description": "Publishing a single introductory rate without providing fee disclosures risks regulatory compliance penalties under Truth in Lending standards.",
+        "severity": "warning",
+        "gscImpact": "Consumer financial comparison engines flag ambiguous rates.",
+        "solution": "Include realistic APR ranges and detailed fee specifications."
+      },
+      {
+        "title": "Omission of ISO Currency on MonetaryAmount",
+        "description": "Missing currency codes cause search engines to reject loan range values.",
+        "severity": "error",
+        "gscImpact": "Unparseable structured data errors in GSC.",
+        "solution": "Always add currency: 'USD' (or appropriate ISO 4217 3-letter code)."
+      },
+      {
+        "title": "Omitting Provider Financial Entity",
+        "description": "Failing to attach an authorized FinancialService provider damages E-E-A-T trust signals in YMYL topics.",
+        "severity": "critical",
+        "gscImpact": "Severe algorithmic de-ranking in YMYL finance search results.",
+        "solution": "Link provider to verified corporate entity with NMLS/regulatory numbers in description."
+      }
+    ],
+    "relatedSlugs": [
+      "mortgage-loan-fixed-rate",
+      "auto-financing-lease",
+      "credit-card-rewards-tier",
+      "savings-account-high-yield"
+    ],
+    "useCases": [
+      "Fintech personal loan landing pages",
+      "Debt consolidation service comparison pages",
+      "Peer-to-peer lending marketplace rate tables"
+    ]
+  },
+  {
+    "slug": "auto-financing-lease",
+    "title": "Automobile Financing & Vehicle Lease Schema Markup (JSON-LD)",
+    "shortTitle": "Auto Financing & Lease",
+    "schemaType": "FinancialProduct",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for auto loan financing packages and vehicle lease agreements, encoding money factor, APR, down payment requirements, lease terms, and monthly payment estimates.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "auto loan schema",
+      "car lease structured data",
+      "vehicle financing json-ld",
+      "auto finance schema.org",
+      "car loan rates rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialProduct\",\n  \"@id\": \"https://example.com/financing/new-car-loan#product\",\n  \"name\": \"Premier New Vehicle Purchase Financing\",\n  \"description\": \"Competitive auto loan financing for new passenger vehicles with terms up to 72 months and flexible down payment options.\",\n  \"annualPercentageRate\": 4.99,\n  \"loanTerm\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 60,\n    \"unitCode\": \"MON\"\n  },\n  \"amount\": {\n    \"@type\": \"MonetaryAmount\",\n    \"currency\": \"USD\",\n    \"minValue\": 10000,\n    \"maxValue\": 100000\n  },\n  \"provider\": {\n    \"@type\": \"BankOrCreditUnion\",\n    \"name\": \"AutoFlex Credit Union\",\n    \"telephone\": \"+1-800-555-0144\"\n  },\n  \"feesAndCommissionsSpecification\": \"$0 application fee, 0.25% APR discount for automatic monthly payments.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official vehicle loan or lease program title.",
+        "required": true,
+        "exampleValue": "Premier New Vehicle Purchase Financing"
+      },
+      {
+        "name": "annualPercentageRate",
+        "type": "Number",
+        "description": "Promotional or base APR offered on auto financing.",
+        "required": true,
+        "exampleValue": "4.99"
+      },
+      {
+        "name": "loanTerm",
+        "type": "QuantitativeValue",
+        "description": "Repayment tenure in months (e.g., 36, 48, 60, or 72 months).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 60, \"unitCode\": \"MON\" }"
+      },
+      {
+        "name": "amount",
+        "type": "MonetaryAmount",
+        "description": "Allowable auto loan principal borrowing limits.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"MonetaryAmount\", \"currency\": \"USD\", \"minValue\": 10000, \"maxValue\": 100000 }"
+      },
+      {
+        "name": "provider",
+        "type": "BankOrCreditUnion",
+        "description": "Automotive captive financing arm or lending institution.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BankOrCreditUnion\", \"name\": \"AutoFlex Credit Union\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Details on doc fees, early payoff flexibility, and auto-debit rate reductions.",
+        "required": false,
+        "exampleValue": "$0 application fee, 0.25% APR discount for automatic monthly payments."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Auto Lease (LeaseOut) with Secured Purchase Loan",
+        "description": "Using identical schema for closed-end lease contracts and vehicle purchase loans confuses monthly payment calculators.",
+        "severity": "warning",
+        "gscImpact": "Inaccurate payment estimates in Google vehicle shopping widgets.",
+        "solution": "Clarify in product description whether residual value lease or amortized installment loan."
+      },
+      {
+        "title": "Missing Promotional APR Expiration Dates",
+        "description": "Advertising limited-time 0.9% or 1.9% manufacturer promotional rates without validThrough dates causes out-of-date rich snippets.",
+        "severity": "error",
+        "gscImpact": "Google Search penalties for misleading or expired promotional interest rates.",
+        "solution": "Add validThrough timestamps on promotional auto rate schema."
+      },
+      {
+        "title": "Omitting UnitCode on Auto Loan Duration",
+        "description": "Omitting unitCode 'MON' leads search crawlers to miscalculate loan terms as years.",
+        "severity": "error",
+        "gscImpact": "Display of '60 years' instead of '60 months' in vehicle loan snippets.",
+        "solution": "Explicitly declare unitCode: 'MON'."
+      }
+    ],
+    "relatedSlugs": [
+      "used-car-certified-pre-owned",
+      "electric-vehicle-range-spec",
+      "personal-loan-unsecured",
+      "insurance-policy-auto"
+    ],
+    "useCases": [
+      "Car dealership finance department payment pages",
+      "Credit union auto lending calculator hubs",
+      "Automotive manufacturer incentive and lease offer portals"
+    ]
+  },
+  {
+    "slug": "credit-card-rewards-tier",
+    "title": "Rewards Credit Card & Cashback Tier Schema Markup (JSON-LD)",
+    "shortTitle": "Rewards Credit Card",
+    "schemaType": "FinancialProduct",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for rewards credit cards, travel points cards, and cash-back credit tiers, specifying variable purchase APR, annual fees, sign-up bonus offers, and category reward multipliers.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "credit card schema",
+      "cashback card structured data",
+      "rewards credit card json-ld",
+      "credit card apr schema.org",
+      "credit card rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialProduct\",\n  \"@id\": \"https://example.com/cards/sapphire-rewards#card\",\n  \"name\": \"Apex Sapphire Premier Travel Rewards Card\",\n  \"description\": \"Premium travel rewards card offering 3x points on dining and travel, complimentary airport lounge access, and zero foreign transaction fees.\",\n  \"annualPercentageRate\": 21.49,\n  \"provider\": {\n    \"@type\": \"BankOrCreditUnion\",\n    \"name\": \"Apex Global Bank\",\n    \"telephone\": \"+1-800-555-0155\"\n  },\n  \"feesAndCommissionsSpecification\": \"$95 annual fee waived first year; 0% foreign transaction fees; $40 late payment fee.\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"60,000 Bonus Points Welcome Offer\",\n    \"description\": \"Earn 60,000 bonus points after spending $4,000 on purchases in the first 3 months from account opening.\",\n    \"price\": \"95\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"ANN\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Commercial branded name of the credit card product.",
+        "required": true,
+        "exampleValue": "Apex Sapphire Premier Travel Rewards Card"
+      },
+      {
+        "name": "annualPercentageRate",
+        "type": "Number",
+        "description": "Variable purchase APR rate percentage.",
+        "required": true,
+        "exampleValue": "21.49"
+      },
+      {
+        "name": "provider",
+        "type": "BankOrCreditUnion",
+        "description": "Issuing bank or financial credit institution.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BankOrCreditUnion\", \"name\": \"Apex Global Bank\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Comprehensive fee disclosures covering annual fees, foreign transaction surcharges, and balance transfer fees.",
+        "required": true,
+        "exampleValue": "$95 annual fee waived first year; 0% foreign transaction fees..."
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Annual card membership fee, sign-up bonus terms, and promotional introductory rates.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"60,000 Bonus Points Welcome Offer\", \"price\": \"95\", \"unitText\": \"ANN\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Summary of card benefits, reward earn rates (e.g. 3x dining, 2x travel), and travel insurance perks.",
+        "required": false,
+        "exampleValue": "Premium travel rewards card offering 3x points on dining..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting Variable APR Disclosures in Card Schema",
+        "description": "Listing a fixed APR when the card uses a variable rate tied to the Prime Rate violates financial consumer protection guidelines.",
+        "severity": "error",
+        "gscImpact": "Disqualification from Google credit card comparison tables.",
+        "solution": "Specify variable APR ranges clearly in description and fees specification."
+      },
+      {
+        "title": "Conflating Sign-Up Bonus with Regular Cashback Rates",
+        "description": "Failing to separate temporary welcome bonuses from evergreen rewards structures creates deceptive markup alerts.",
+        "severity": "warning",
+        "gscImpact": "Warning flags on merchant and financial product audits.",
+        "solution": "Structure welcome bonuses under dedicated Offer nodes with spend conditions."
+      },
+      {
+        "title": "Missing Annual Fee in Offers",
+        "description": "Publishing a credit card without declaring the recurring annual fee price leads to user friction and high bounce rates.",
+        "severity": "warning",
+        "gscImpact": "Card excluded from 'no annual fee' or 'premium travel' filter facets.",
+        "solution": "Declare the annual fee in offers with unitText: 'ANN'."
+      }
+    ],
+    "relatedSlugs": [
+      "savings-account-high-yield",
+      "checking-business-account",
+      "personal-loan-unsecured",
+      "investment-brokerage-account"
+    ],
+    "useCases": [
+      "Credit card affiliate review portals",
+      "Bank retail credit card landing pages",
+      "Travel points optimization websites"
+    ]
+  },
+  {
+    "slug": "savings-account-high-yield",
+    "title": "High-Yield Savings Account (HYSA) Schema Markup (JSON-LD)",
+    "shortTitle": "High-Yield Savings Account",
+    "schemaType": "DepositAccount",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for high-yield savings accounts and money market deposit accounts, encoding Annual Percentage Yield (APY), FDIC insurance, minimum opening deposits, and compounding frequencies.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "high yield savings schema",
+      "hysa structured data",
+      "savings account apy json-ld",
+      "deposit account schema.org",
+      "savings rate rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"DepositAccount\",\n  \"@id\": \"https://example.com/banking/high-yield-savings#account\",\n  \"name\": \"Apex High-Yield Direct Savings Account\",\n  \"description\": \"FDIC-insured high-yield savings account offering 5.15% APY with no monthly maintenance fees and zero minimum balance requirements.\",\n  \"annualPercentageYield\": 5.15,\n  \"amount\": {\n    \"@type\": \"MonetaryAmount\",\n    \"currency\": \"USD\",\n    \"minValue\": 0\n  },\n  \"provider\": {\n    \"@type\": \"BankOrCreditUnion\",\n    \"name\": \"Apex Direct Bank, Member FDIC\",\n    \"telephone\": \"+1-800-555-0160\"\n  },\n  \"feesAndCommissionsSpecification\": \"$0 monthly maintenance fee, unlimited deposits, 6 free external transfers per monthly cycle.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official marketing name of the savings account.",
+        "required": true,
+        "exampleValue": "Apex High-Yield Direct Savings Account"
+      },
+      {
+        "name": "annualPercentageYield",
+        "type": "Number",
+        "description": "Annual Percentage Yield (APY) interest rate reflecting compounding return.",
+        "required": true,
+        "exampleValue": "5.15"
+      },
+      {
+        "name": "amount",
+        "type": "MonetaryAmount",
+        "description": "Minimum initial deposit required to open or maintain the account.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"MonetaryAmount\", \"currency\": \"USD\", \"minValue\": 0 }"
+      },
+      {
+        "name": "provider",
+        "type": "BankOrCreditUnion",
+        "description": "FDIC/NCUA chartered depository institution.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BankOrCreditUnion\", \"name\": \"Apex Direct Bank, Member FDIC\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Monthly maintenance fee schedule, wire fees, and withdrawal limits.",
+        "required": true,
+        "exampleValue": "$0 monthly maintenance fee, unlimited deposits..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Deposit terms, compounding method (daily/monthly), and FDIC insurance protection.",
+        "required": false,
+        "exampleValue": "FDIC-insured high-yield savings account offering 5.15% APY..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing APY with Base Interest Rate",
+        "description": "Reporting simple nominal interest instead of compounded Annual Percentage Yield (APY) misleads savers.",
+        "severity": "warning",
+        "gscImpact": "Savings rates flagged for inaccuracy in banking SERP aggregators.",
+        "solution": "Explicitly declare annualPercentageYield with compounded calculation."
+      },
+      {
+        "title": "Omission of FDIC / Deposit Insurance Declarations",
+        "description": "In YMYL banking niches, failing to indicate insured status harms institutional trust metrics.",
+        "severity": "warning",
+        "gscImpact": "Lower E-E-A-T score in financial search rankings.",
+        "solution": "Include 'Member FDIC' or NCUA charter status in provider name and description."
+      },
+      {
+        "title": "Missing Minimum Deposit Thresholds",
+        "description": "Omitting minimum opening deposit requirements causes friction when savers discover unexpected initial funding rules.",
+        "severity": "warning",
+        "gscImpact": "Higher drop-off rates on account application funnels.",
+        "solution": "Add MonetaryAmount with minValue (use 0 for no-minimum accounts)."
+      }
+    ],
+    "relatedSlugs": [
+      "checking-business-account",
+      "investment-brokerage-account",
+      "credit-card-rewards-tier",
+      "mortgage-loan-fixed-rate"
+    ],
+    "useCases": [
+      "Online banking savings product pages",
+      "Financial rate comparison engine listings",
+      "Personal finance blog HYSA best-of guides"
+    ]
+  },
+  {
+    "slug": "checking-business-account",
+    "title": "Business Commercial Checking Account Schema Markup (JSON-LD)",
+    "shortTitle": "Business Checking Account",
+    "schemaType": "DepositAccount",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for business commercial checking accounts and corporate treasury services, modeling cash deposit limits, wire transfer fees, ACH batch capabilities, and merchant services.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "business checking schema",
+      "commercial bank account json-ld",
+      "business banking structured data",
+      "deposit account schema.org",
+      "commercial checking rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"DepositAccount\",\n  \"@id\": \"https://example.com/business-banking/growth-checking#account\",\n  \"name\": \"Commercial Growth Business Checking\",\n  \"description\": \"Tailored commercial checking account for expanding small and mid-sized businesses with 500 free monthly transactions, free incoming wires, and integrated invoicing.\",\n  \"provider\": {\n    \"@type\": \"BankOrCreditUnion\",\n    \"name\": \"Apex Commercial Bank\",\n    \"telephone\": \"+1-800-555-0165\"\n  },\n  \"amount\": {\n    \"@type\": \"MonetaryAmount\",\n    \"currency\": \"USD\",\n    \"minValue\": 100\n  },\n  \"feesAndCommissionsSpecification\": \"$15 monthly fee waived with $5,000 average daily balance; 500 free transactions/month, $0.40 per excess item.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Commercial brand title of the business checking product.",
+        "required": true,
+        "exampleValue": "Commercial Growth Business Checking"
+      },
+      {
+        "name": "provider",
+        "type": "BankOrCreditUnion",
+        "description": "Commercial banking institution providing the treasury account.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BankOrCreditUnion\", \"name\": \"Apex Commercial Bank\" }"
+      },
+      {
+        "name": "amount",
+        "type": "MonetaryAmount",
+        "description": "Minimum initial commercial deposit required to open.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"MonetaryAmount\", \"currency\": \"USD\", \"minValue\": 100 }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Monthly maintenance fee waiver conditions, transaction fee allowances, and wire pricing.",
+        "required": true,
+        "exampleValue": "$15 monthly fee waived with $5,000 average daily balance..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Summary of treasury features including QuickBooks sync, employee debit cards, and multi-user access.",
+        "required": false,
+        "exampleValue": "Tailored commercial checking account for expanding small and mid-sized businesses..."
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Commercial depository classification (e.g. Small Business Checking).",
+        "required": false,
+        "exampleValue": "Commercial Business Depository Account"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Fee Waiver Thresholds in Disclosures",
+        "description": "Publishing monthly maintenance fee without explaining average daily balance waiver options alienates SMB searchers.",
+        "severity": "warning",
+        "gscImpact": "Higher bounce rate from price-sensitive small business owners.",
+        "solution": "Clearly outline fee waiver balance requirements in feesAndCommissionsSpecification."
+      },
+      {
+        "title": "Confusing Consumer Checking with Commercial Checking",
+        "description": "Failing to specify business entity qualification (LLC, Corp, Sole Prop) leads to consumer account confusion.",
+        "severity": "warning",
+        "gscImpact": "Account opening drop-offs during identity verification.",
+        "solution": "Specify business documentation prerequisites in product description."
+      },
+      {
+        "title": "Missing Currency on Deposit Minimums",
+        "description": "Supplying naked integer values without ISO currency code causes schema parser failures.",
+        "severity": "error",
+        "gscImpact": "Unparseable structured data in Google Search Console.",
+        "solution": "Encapsulate deposit minimums in MonetaryAmount with currency: 'USD'."
+      }
+    ],
+    "relatedSlugs": [
+      "savings-account-high-yield",
+      "investment-brokerage-account",
+      "credit-card-rewards-tier",
+      "escrow-service-transaction"
+    ],
+    "useCases": [
+      "Commercial bank business services pages",
+      "Fintech neo-bank business checking portals",
+      "Startup financial resource comparison hubs"
+    ]
+  },
+  {
+    "slug": "investment-brokerage-account",
+    "title": "Self-Directed Investment & Brokerage Account Schema Markup (JSON-LD)",
+    "shortTitle": "Investment Brokerage Account",
+    "schemaType": "InvestmentOrDeposit",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for self-directed brokerage accounts, IRA retirement portfolios, and stock trading platforms, highlighting commission-free trading, SIPC coverage, and asset classes.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "brokerage account schema",
+      "investment account json-ld",
+      "stock trading structured data",
+      "financial product schema.org",
+      "brokerage fees rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"InvestmentOrDeposit\",\n  \"@id\": \"https://example.com/investing/brokerage-account#product\",\n  \"name\": \"Apex Premier Self-Directed Brokerage Account\",\n  \"description\": \"Zero-commission stock, ETF, and options trading platform with advanced charting tools, real-time Level 2 market data, and SIPC insurance protection.\",\n  \"provider\": {\n    \"@type\": \"FinancialService\",\n    \"name\": \"Apex Securities & Clearing LLC, Member FINRA/SIPC\",\n    \"telephone\": \"+1-800-555-0170\"\n  },\n  \"amount\": {\n    \"@type\": \"MonetaryAmount\",\n    \"currency\": \"USD\",\n    \"minValue\": 0\n  },\n  \"feesAndCommissionsSpecification\": \"$0 commission on US exchange-listed stocks and ETFs; $0.65 per contract on options trades; margin rates starting at SOFR + 1.25%.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official brand name of the brokerage or investment account.",
+        "required": true,
+        "exampleValue": "Apex Premier Self-Directed Brokerage Account"
+      },
+      {
+        "name": "provider",
+        "type": "FinancialService",
+        "description": "SEC-registered broker-dealer and FINRA/SIPC member clearing firm.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"FinancialService\", \"name\": \"Apex Securities & Clearing LLC...\" }"
+      },
+      {
+        "name": "amount",
+        "type": "MonetaryAmount",
+        "description": "Minimum account opening balance required.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"MonetaryAmount\", \"currency\": \"USD\", \"minValue\": 0 }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Commission schedule covering equities, contract fees for options, and margin interest tiers.",
+        "required": true,
+        "exampleValue": "$0 commission on US exchange-listed stocks and ETFs; $0.65 per contract..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Trading capabilities, securities coverage (equities, bonds, mutual funds), and investor tools.",
+        "required": false,
+        "exampleValue": "Zero-commission stock, ETF, and options trading platform..."
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Investment account classification (e.g. Retail Self-Directed Trading Account).",
+        "required": false,
+        "exampleValue": "Self-Directed Brokerage & Margin Account"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting Options Contract Fees in 'Zero Commission' Claims",
+        "description": "Advertising zero commission without detailing per-contract options fees creates regulatory and search quality evaluator red flags.",
+        "severity": "warning",
+        "gscImpact": "Google Search quality raters penalize misleading fee summaries.",
+        "solution": "Break down per-asset commission specifics in feesAndCommissionsSpecification."
+      },
+      {
+        "title": "Missing FINRA/SIPC Regulatory Entity Affiliations",
+        "description": "Omitting broker-dealer regulatory disclosures damages E-E-A-T credibility in YMYL investing queries.",
+        "severity": "critical",
+        "gscImpact": "Drastic visibility dampening for high-intent investing search queries.",
+        "solution": "Specify FINRA and SIPC membership explicitly in provider name and description."
+      },
+      {
+        "title": "Failure to Distinguish Margin Accounts from Cash Accounts",
+        "description": "Failing to specify margin borrowing terms leads to unvetted credit applications.",
+        "severity": "warning",
+        "gscImpact": "Application drop-offs and negative customer reviews.",
+        "solution": "Clarify cash vs margin account capabilities in structured description."
+      }
+    ],
+    "relatedSlugs": [
+      "savings-account-high-yield",
+      "cryptocurrency-exchange-trade",
+      "checking-business-account",
+      "credit-card-rewards-tier"
+    ],
+    "useCases": [
+      "Online stock brokerage comparison portals",
+      "Robo-advisor and wealth management onboarding pages",
+      "Retirement IRA account guide pages"
+    ]
+  },
+  {
+    "slug": "cryptocurrency-exchange-trade",
+    "title": "Cryptocurrency Exchange & Spot Trading Schema Markup (JSON-LD)",
+    "shortTitle": "Crypto Exchange & Trading",
+    "schemaType": "FinancialService",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for cryptocurrency spot and derivatives exchanges, detailing maker/taker fee tiers, supported digital asset pairs, cold storage security, and fiat on-ramp methods.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "crypto exchange schema",
+      "cryptocurrency trading json-ld",
+      "crypto exchange structured data",
+      "financial service schema.org",
+      "maker taker fee rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialService\",\n  \"@id\": \"https://example.com/exchange/pro-trade#service\",\n  \"name\": \"Apex Crypto Global Spot Exchange\",\n  \"description\": \"Institutional-grade digital asset exchange offering deep liquidity across 250+ crypto pairs, sub-millisecond execution, and segregated cold storage custody.\",\n  \"url\": \"https://example.com/exchange\",\n  \"telephone\": \"+1-800-555-0175\",\n  \"priceRange\": \"$$\",\n  \"feesAndCommissionsSpecification\": \"Maker fee 0.10%, Taker fee 0.20%; volume tier discounts up to 0.00% maker / 0.03% taker; free SEPA/ACH fiat deposits.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Commercial trading name of the cryptocurrency exchange.",
+        "required": true,
+        "exampleValue": "Apex Crypto Global Spot Exchange"
+      },
+      {
+        "name": "url",
+        "type": "URL",
+        "description": "Official HTTPS trading terminal or exchange website URL.",
+        "required": true,
+        "exampleValue": "https://example.com/exchange"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Maker and taker fee schedule, withdrawal gas fees, and fiat deposit charges.",
+        "required": true,
+        "exampleValue": "Maker fee 0.10%, Taker fee 0.20%; volume tier discounts..."
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Support phone line or verification contact number.",
+        "required": true,
+        "exampleValue": "+1-800-555-0175"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Asset security protocols, cold storage custody, regulatory licensing, and pair counts.",
+        "required": false,
+        "exampleValue": "Institutional-grade digital asset exchange offering deep liquidity..."
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Trading fee tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting Maker vs Taker Fee Structure",
+        "description": "Listing a single flat fee without maker/taker distinction leads to pricing disputes and review backlash.",
+        "severity": "warning",
+        "gscImpact": "Misleading pricing snippets on cryptocurrency comparison SERPs.",
+        "solution": "Clearly separate maker and taker fee percentages in feesAndCommissionsSpecification."
+      },
+      {
+        "title": "Missing Regulatory Jurisdiction & Compliance Disclosures",
+        "description": "Failing to disclose restricted jurisdictions (e.g., US states, OFAC territories) triggers YMYL trust demotions.",
+        "severity": "critical",
+        "gscImpact": "Substantial ranking loss across high-volume digital asset queries.",
+        "solution": "Detail regulatory licenses (FinCEN, MSB, FCA) in description."
+      },
+      {
+        "title": "Unencrypted or HTTP Exchange URLs in Schema",
+        "description": "Submitting HTTP protocol URLs in financial cryptocurrency schema violates Google security standards.",
+        "severity": "error",
+        "gscImpact": "Schema validation errors and browser security warning badges.",
+        "solution": "Ensure all url and @id properties use strictly HTTPS endpoints."
+      }
+    ],
+    "relatedSlugs": [
+      "investment-brokerage-account",
+      "web-api-service",
+      "savings-account-high-yield",
+      "escrow-service-transaction"
+    ],
+    "useCases": [
+      "Cryptocurrency exchange fee comparison tables",
+      "Digital asset trading platform overview pages",
+      "Web3 financial service directory listings"
+    ]
+  },
+  {
+    "slug": "insurance-policy-auto",
+    "title": "Personal Auto Insurance Policy Schema Markup (JSON-LD)",
+    "shortTitle": "Auto Insurance Policy",
+    "schemaType": "InsurancePolicy",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for personal auto insurance policies, comprehensive collision coverage, roadside assistance riders, deductibles, and premium payment structures.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "auto insurance schema",
+      "car insurance json-ld",
+      "vehicle insurance structured data",
+      "insurance policy schema.org",
+      "auto policy rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"InsurancePolicy\",\n  \"@id\": \"https://example.com/insurance/auto-comprehensive#policy\",\n  \"name\": \"Gold Shield Full Coverage Auto Insurance\",\n  \"description\": \"Comprehensive auto insurance coverage including collision, bodily injury liability, property damage, uninsured motorist protection, and 24/7 roadside assistance.\",\n  \"provider\": {\n    \"@type\": \"InsuranceAgency\",\n    \"name\": \"Gold Shield Mutual Insurance Group\",\n    \"telephone\": \"+1-800-555-0180\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"125\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"MONTH\",\n    \"description\": \"Starting full coverage premium with $500 comprehensive and collision deductible.\"\n  },\n  \"feesAndCommissionsSpecification\": \"$500 standard comprehensive and collision deductible; optional $250 deductible waiver rider.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Commercial plan name of the auto insurance policy.",
+        "required": true,
+        "exampleValue": "Gold Shield Full Coverage Auto Insurance"
+      },
+      {
+        "name": "provider",
+        "type": "InsuranceAgency / Organization",
+        "description": "Licensed state insurance underwriting carrier or agency.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"InsuranceAgency\", \"name\": \"Gold Shield Mutual Insurance Group\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Monthly or annual baseline insurance premium quote.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"125\", \"priceCurrency\": \"USD\", \"unitText\": \"MONTH\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Deductible options ($250, $500, $1000) and endorsement rider costs.",
+        "required": true,
+        "exampleValue": "$500 standard comprehensive and collision deductible..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Summary of coverage limits (e.g. 100k/300k/100k liability) and bundled discounts.",
+        "required": false,
+        "exampleValue": "Comprehensive auto insurance coverage including collision, bodily injury..."
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Insurance line category ('Personal Automobile Liability & Physical Damage').",
+        "required": false,
+        "exampleValue": "Comprehensive Personal Auto Insurance"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Deductible Details in Premium Quotes",
+        "description": "Publishing a low monthly premium without stating the associated $1,000 or $2,500 deductible creates deceptive pricing signals.",
+        "severity": "warning",
+        "gscImpact": "User complaint spikes leading to E-E-A-T quality downgrades.",
+        "solution": "Clarify deductible levels directly in feesAndCommissionsSpecification and offer description."
+      },
+      {
+        "title": "Confusing Insurance Agency with Direct Carrier",
+        "description": "Tagging brokerages without state licensing authority as primary insurance carriers confuses legal entity verification.",
+        "severity": "warning",
+        "gscImpact": "Entity disambiguation failure in Google Knowledge Graph.",
+        "solution": "Use InsuranceAgency for local brokers and InsuranceCompany for primary underwriters."
+      },
+      {
+        "title": "Missing UnitText on Recurring Premium Offers",
+        "description": "Omitting unitText 'MONTH' causes search engines to display monthly quotes as one-time annual rates.",
+        "severity": "error",
+        "gscImpact": "Massive quote price discrepancies in insurance comparison SERPs.",
+        "solution": "Always append unitText: 'MONTH' or 'ANN' on insurance offers."
+      }
+    ],
+    "relatedSlugs": [
+      "auto-financing-lease",
+      "used-car-certified-pre-owned",
+      "insurance-policy-homeowners",
+      "insurance-policy-health"
+    ],
+    "useCases": [
+      "Auto insurance quote comparison portals",
+      "Insurance broker policy detail pages",
+      "Car dealership insurance affiliate landing pages"
+    ]
+  },
+  {
+    "slug": "insurance-policy-homeowners",
+    "title": "Homeowners & Property Hazard Insurance Policy Schema Markup (JSON-LD)",
+    "shortTitle": "Homeowners Insurance Policy",
+    "schemaType": "InsurancePolicy",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for residential homeowners (HO-3/HO-5) insurance policies, dwelling hazard coverage, personal property protection, liability limits, and windstorm/flood riders.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "homeowners insurance schema",
+      "property insurance json-ld",
+      "hazard insurance structured data",
+      "ho3 policy schema.org",
+      "home insurance rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"InsurancePolicy\",\n  \"@id\": \"https://example.com/insurance/homeowners-ho3#policy\",\n  \"name\": \"Premier HO-3 Special Form Homeowners Insurance\",\n  \"description\": \"Comprehensive all-peril dwelling coverage, personal property replacement cost, loss of use, and $500,000 personal liability protection for single-family residences.\",\n  \"provider\": {\n    \"@type\": \"InsuranceAgency\",\n    \"name\": \"Heritage Mutual Property & Casualty\",\n    \"telephone\": \"+1-800-555-0185\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"1450\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"ANN\",\n    \"description\": \"Estimated annual premium based on $450,000 dwelling replacement value.\"\n  },\n  \"feesAndCommissionsSpecification\": \"$1,000 standard all-peril deductible; 2% named hurricane deductible in coastal zones.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official homeowners policy designation (HO-3, HO-5, HO-6).",
+        "required": true,
+        "exampleValue": "Premier HO-3 Special Form Homeowners Insurance"
+      },
+      {
+        "name": "provider",
+        "type": "InsuranceAgency",
+        "description": "Underwriting property and casualty insurance carrier.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"InsuranceAgency\", \"name\": \"Heritage Mutual Property & Casualty\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Annual baseline premium estimate, currency, and rating basis.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"1450\", \"priceCurrency\": \"USD\", \"unitText\": \"ANN\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Standard all-peril deductible and separate wind/hail/flood percentage deductibles.",
+        "required": true,
+        "exampleValue": "$1,000 standard all-peril deductible; 2% named hurricane deductible..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Coverage limits for dwelling structure (Coverage A), personal property (Coverage C), and personal liability.",
+        "required": false,
+        "exampleValue": "Comprehensive all-peril dwelling coverage, personal property replacement..."
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Property & casualty policy form classification.",
+        "required": false,
+        "exampleValue": "HO-3 Special Form Residential Hazard Insurance"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Failing to Disclose Separate Wind/Hail Deductibles",
+        "description": "Omitting percentage-based hurricane/wind deductibles in coastal zones creates compliance issues in homeowner rate aggregators.",
+        "severity": "warning",
+        "gscImpact": "User trust erosion and bounce rate increases.",
+        "solution": "Disclose all-peril vs wind/hail deductible splits in feesAndCommissionsSpecification."
+      },
+      {
+        "title": "Confusing Flood Insurance with Standard Hazard HO-3",
+        "description": "Implying flood/rising water is covered under standard HO-3 policies without a separate NFIP rider violates state insurance regulations.",
+        "severity": "critical",
+        "gscImpact": "Regulatory review flags and algorithmic YMYL trust downgrades.",
+        "solution": "Explicitly state flood exclusion or separate NFIP policy requirement in description."
+      },
+      {
+        "title": "Missing Annual Billing UnitCode",
+        "description": "Omitting unitText 'ANN' causes annual $1,450 premiums to look like extreme monthly rates.",
+        "severity": "error",
+        "gscImpact": "SERP quote snippets appear 12x more expensive than competitors.",
+        "solution": "Specify unitText: 'ANN' on annual home insurance policies."
+      }
+    ],
+    "relatedSlugs": [
+      "single-family-residence-sale",
+      "residential-condo-unit",
+      "insurance-policy-auto",
+      "mortgage-loan-fixed-rate"
+    ],
+    "useCases": [
+      "Homeowners insurance quote comparison portals",
+      "Property & casualty insurer policy product pages",
+      "Mortgage escrow insurance requirement guides"
+    ]
+  },
+  {
+    "slug": "insurance-policy-health",
+    "title": "Comprehensive Health Insurance Plan Schema Markup (JSON-LD)",
+    "shortTitle": "Health Insurance Plan",
+    "schemaType": "HealthInsurancePlan",
+    "category": "Healthcare",
+    "richResultType": "Financial Product",
+    "description": "Structured data for major medical health insurance plans (HMO, PPO, EPO), detailing monthly premiums, individual/family deductibles, maximum out-of-pocket limits, copays, and prescription formularies.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "health insurance schema",
+      "medical insurance structured data",
+      "health plan json-ld",
+      "health insurance plan schema.org",
+      "health plan rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HealthInsurancePlan\",\n  \"@id\": \"https://example.com/health/silver-ppo-plan#plan\",\n  \"name\": \"Silver Standard 87 PPO Health Plan\",\n  \"description\": \"ACA-compliant comprehensive major medical PPO plan with nationwide in-network provider access, $30 primary care copays, and low prescription tier costs.\",\n  \"healthPlanId\": \"HI-98442-PPO-2026\",\n  \"benefitsSummaryUrl\": \"https://example.com/health/silver-ppo-summary.pdf\",\n  \"provider\": {\n    \"@type\": \"InsuranceAgency\",\n    \"name\": \"CareFirst Health Solutions\",\n    \"telephone\": \"+1-800-555-0191\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"420\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"MONTH\",\n    \"description\": \"Individual monthly premium before federal subsidy tax credits.\"\n  },\n  \"feesAndCommissionsSpecification\": \"$2,500 individual in-network deductible; $8,500 individual out-of-pocket maximum; $30 PCP copay.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official marketing and exchange plan title.",
+        "required": true,
+        "exampleValue": "Silver Standard 87 PPO Health Plan"
+      },
+      {
+        "name": "healthPlanId",
+        "type": "Text",
+        "description": "State or federal exchange standardized Health Insurance Plan Identifier (HIOS ID).",
+        "required": true,
+        "exampleValue": "HI-98442-PPO-2026"
+      },
+      {
+        "name": "benefitsSummaryUrl",
+        "type": "URL",
+        "description": "Direct URL to official Summary of Benefits and Coverage (SBC) PDF document.",
+        "required": true,
+        "exampleValue": "https://example.com/health/silver-ppo-summary.pdf"
+      },
+      {
+        "name": "provider",
+        "type": "InsuranceAgency",
+        "description": "Underwriting health maintenance organization or insurance carrier.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"InsuranceAgency\", \"name\": \"CareFirst Health Solutions\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Monthly baseline health plan premium before ACA premium tax credits.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"420\", \"priceCurrency\": \"USD\", \"unitText\": \"MONTH\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Individual/family deductibles, copay schedules, coinsurance percentages, and OOP maximums.",
+        "required": true,
+        "exampleValue": "$2,500 individual in-network deductible; $8,500 individual out-of-pocket maximum..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Plan network type (HMO, PPO, EPO), preventative care inclusions, and prescription coverage.",
+        "required": false,
+        "exampleValue": "ACA-compliant comprehensive major medical PPO plan..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Official Summary of Benefits and Coverage (SBC) Link",
+        "description": "Omitting benefitsSummaryUrl prevents consumers and search engines from validating covered essential health benefits.",
+        "severity": "error",
+        "gscImpact": "Warning in Google health insurance structured data audit.",
+        "solution": "Provide an absolute HTTPS link to the plan's official SBC PDF."
+      },
+      {
+        "title": "Confusing Subsidized Rate with Full Benchmark Premium",
+        "description": "Publishing $0 or $10 premium quotes without explaining that they are post-subsidy triggers deceptive pricing flags.",
+        "severity": "critical",
+        "gscImpact": "Severe Google manual action for deceptive healthcare price representations.",
+        "solution": "Publish gross unsubsidized premium in schema and mention subsidy eligibility in description."
+      },
+      {
+        "title": "Omission of Standardized healthPlanId",
+        "description": "Failing to include federal/state HIOS plan identifiers prevents healthcare aggregators from matching provider directories.",
+        "severity": "warning",
+        "gscImpact": "Plan excluded from state exchange comparative search indices.",
+        "solution": "Include official HIOS healthPlanId string."
+      }
+    ],
+    "relatedSlugs": [
+      "insurance-policy-auto",
+      "life-insurance-term",
+      "physician-medical-specialist",
+      "hospital-healthcare-facility"
+    ],
+    "useCases": [
+      "ACA health insurance exchange marketplace portals",
+      "Health insurance broker plan comparison pages",
+      "Corporate employee benefits enrollment portals"
+    ]
+  },
+  {
+    "slug": "life-insurance-term",
+    "title": "Term Life Insurance Policy Schema Markup (JSON-LD)",
+    "shortTitle": "Term Life Insurance",
+    "schemaType": "InsurancePolicy",
+    "category": "Technical SEO",
+    "richResultType": "Financial Product",
+    "description": "Structured data for level-term life insurance policies, modeling 10 to 30-year term durations, death benefit amounts, accelerated benefit riders, and medical underwriting classes.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "term life insurance schema",
+      "life insurance json-ld",
+      "death benefit structured data",
+      "term policy schema.org",
+      "life insurance rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"InsurancePolicy\",\n  \"@id\": \"https://example.com/life/20-year-level-term#policy\",\n  \"name\": \"20-Year Level Term Life Insurance Policy\",\n  \"description\": \"Guaranteed level-premium term life insurance providing $1,000,000 tax-free death benefit protection with living benefit riders for terminal illness.\",\n  \"provider\": {\n    \"@type\": \"InsuranceAgency\",\n    \"name\": \"Guardian Heritage Life Assurance\",\n    \"telephone\": \"+1-800-555-0196\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"35\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"MONTH\",\n    \"description\": \"Sample monthly premium for 35-year-old preferred non-tobacco tier applicant.\"\n  },\n  \"feesAndCommissionsSpecification\": \"$1,000,000 guaranteed level death benefit for 20 years; no policy fees or surrender penalties.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title of the term life insurance product.",
+        "required": true,
+        "exampleValue": "20-Year Level Term Life Insurance Policy"
+      },
+      {
+        "name": "provider",
+        "type": "InsuranceAgency",
+        "description": "AM Best rated life insurance underwriting company.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"InsuranceAgency\", \"name\": \"Guardian Heritage Life Assurance\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Representative monthly premium quote for sample age/health demographic.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"35\", \"priceCurrency\": \"USD\", \"unitText\": \"MONTH\" }"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Death benefit coverage amount ($500k, $1M) and level term duration details.",
+        "required": true,
+        "exampleValue": "$1,000,000 guaranteed level death benefit for 20 years..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Underwriting class details (Preferred Plus, Standard), conversion options to permanent life, and rider details.",
+        "required": false,
+        "exampleValue": "Guaranteed level-premium term life insurance providing $1,000,000..."
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Life insurance category ('Level Term Life Insurance Policy').",
+        "required": false,
+        "exampleValue": "Level Term Life Insurance Policy"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Publishing Unqualified Premium Quotes Without Underwriting Basis",
+        "description": "Quoting a low $15/month rate without noting it applies to a 25-year-old non-smoker creates deceptive rate flags.",
+        "severity": "warning",
+        "gscImpact": "Quality demotions for misleading insurance price snippets.",
+        "solution": "Specify sample age and health underwriting tier in offer description."
+      },
+      {
+        "title": "Omitting Term Duration from Product Title and Schema",
+        "description": "Failing to state whether a policy is 10, 20, or 30-year level term causes user mismatch during quote generation.",
+        "severity": "warning",
+        "gscImpact": "High bounce rate from shoppers seeking different term horizons.",
+        "solution": "Include term length explicitly in product name and description."
+      },
+      {
+        "title": "Confusing Term Life with Cash Value Whole Life",
+        "description": "Misrepresenting term policies as having cash investment value creates insurance regulator compliance issues.",
+        "severity": "critical",
+        "gscImpact": "Severe algorithmic trust penalties in YMYL life insurance queries.",
+        "solution": "Clarify level term pure protection nature in description."
+      }
+    ],
+    "relatedSlugs": [
+      "insurance-policy-health",
+      "insurance-policy-homeowners",
+      "savings-account-high-yield",
+      "investment-brokerage-account"
+    ],
+    "useCases": [
+      "Life insurance brokerage quote aggregators",
+      "Direct-to-consumer digital life insurer landing pages",
+      "Family financial planning policy guide hubs"
+    ]
+  },
+  {
+    "slug": "escrow-service-transaction",
+    "title": "Licensed Escrow & Settlement Service Schema Markup (JSON-LD)",
+    "shortTitle": "Escrow & Settlement Service",
+    "schemaType": "FinancialService",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for licensed real estate escrow companies, title closing agents, and digital transaction settlement services, detailing trust accounting, closing fee schedules, and security bonding.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "escrow service schema",
+      "title closing structured data",
+      "settlement service json-ld",
+      "escrow company schema.org",
+      "title company rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialService\",\n  \"@id\": \"https://example.com/escrow/vanguard-title#service\",\n  \"name\": \"Vanguard Escrow & Title Settlement Services\",\n  \"description\": \"Licensed, bonded, and independent escrow and real estate settlement agency specializing in commercial, residential, and 1031 exchange closings.\",\n  \"telephone\": \"+1-949-555-0140\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"400 Newport Center Drive, Suite 500\",\n    \"addressLocality\": \"Newport Beach\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"92660\",\n    \"addressCountry\": \"US\"\n  },\n  \"feesAndCommissionsSpecification\": \"Base escrow fee of $2.50 per $1,000 of purchase price plus $350 base document fee per transaction side.\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official corporate name of the licensed escrow company.",
+        "required": true,
+        "exampleValue": "Vanguard Escrow & Title Settlement Services"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the escrow closing office.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"400 Newport Center Drive...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main phone line for escrow officers and settlement inquiries.",
+        "required": true,
+        "exampleValue": "+1-949-555-0140"
+      },
+      {
+        "name": "feesAndCommissionsSpecification",
+        "type": "Text",
+        "description": "Transparent escrow closing fee formulas based on transaction valuation.",
+        "required": true,
+        "exampleValue": "Base escrow fee of $2.50 per $1,000 of purchase price..."
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Fiduciary licensing, state Department of Financial Protection licensing, and bonded status.",
+        "required": false,
+        "exampleValue": "Licensed, bonded, and independent escrow and real estate settlement..."
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Transaction fee bracket indicator ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing State Department of Insurance / Banking Licensing",
+        "description": "Failing to disclose regulatory bonding and license numbers harms trust in YMYL real estate settlement searches.",
+        "severity": "warning",
+        "gscImpact": "Lower local Pack ranking for 'escrow company near me' searches.",
+        "solution": "Include state license and bonding details in description."
+      },
+      {
+        "title": "Omission of Fee Calculation Methodology",
+        "description": "Failing to detail how escrow fees are split between buyer and seller creates transparency issues.",
+        "severity": "warning",
+        "gscImpact": "User drop-offs during settlement quote estimation.",
+        "solution": "Specify base plus per-thousand fee schedule in feesAndCommissionsSpecification."
+      },
+      {
+        "title": "Incomplete Postal Address on Closing Office",
+        "description": "Missing suite number on multi-tenant executive centers prevents proper Google Maps geocoding.",
+        "severity": "error",
+        "gscImpact": "Local Pack map pin errors for settlement appointments.",
+        "solution": "Provide complete streetAddress with suite designation."
+      }
+    ],
+    "relatedSlugs": [
+      "real-estate-listing-broker",
+      "single-family-residence-sale",
+      "mortgage-loan-fixed-rate",
+      "tax-preparation-advisory"
+    ],
+    "useCases": [
+      "Independent escrow agency website pages",
+      "Title insurance settlement fee calculator pages",
+      "Commercial real estate 1031 exchange closing hubs"
+    ]
+  },
+  {
+    "slug": "tax-preparation-advisory",
+    "title": "CPA & Tax Preparation Advisory Practice Schema Markup (JSON-LD)",
+    "shortTitle": "CPA & Tax Advisory",
+    "schemaType": "AccountingService",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for Certified Public Accountants (CPAs), enrolled agents, and tax preparation firms, detailing IRS representation, corporate filing, audit defense, and consultation pricing.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "cpa schema markup",
+      "tax preparation structured data",
+      "accounting firm json-ld",
+      "accounting service schema.org",
+      "tax advisor rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AccountingService\",\n  \"@id\": \"https://example.com/cpa/summit-tax#practice\",\n  \"name\": \"Summit CPA & Strategic Tax Advisory\",\n  \"description\": \"Full-service CPA firm providing corporate tax strategy, IRS audit representation, multi-state tax filings, and high-net-worth estate tax planning.\",\n  \"telephone\": \"+1-312-555-0198\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"200 South Wacker Drive, Suite 1500\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60606\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:30\"\n    }\n  ],\n  \"areaServed\": [\n    \"Chicago\",\n    \"Cook County\",\n    \"Illinois\"\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official professional firm name of the CPA or accounting practice.",
+        "required": true,
+        "exampleValue": "Summit CPA & Strategic Tax Advisory"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical office street address for client tax consultations.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"200 South Wacker Drive...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main phone line for tax appointment bookings.",
+        "required": true,
+        "exampleValue": "+1-312-555-0198"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Geographic municipalities, counties, and states served by the accounting firm.",
+        "required": true,
+        "exampleValue": "[\"Chicago\", \"Cook County\", \"Illinois\"]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Regular business hours and extended tax-season operational hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:30\", \"closes\": \"17:30\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Professional fee level indicator ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Tax Season Extended Hours Disclosures",
+        "description": "CPAs often extend hours during January-April tax season; failing to update schema leads customers to believe the office is closed on Saturdays.",
+        "severity": "warning",
+        "gscImpact": "Lost walk-in and emergency tax consultation leads.",
+        "solution": "Use seasonal validFrom/validThrough openingHoursSpecification for Q1 tax season."
+      },
+      {
+        "title": "Using Generic LocalBusiness Instead of AccountingService",
+        "description": "Failing to specialize as AccountingService diminishes relevance for 'CPA near me' search intents.",
+        "severity": "warning",
+        "gscImpact": "Weaker ranking in Google Local Pack accounting categories.",
+        "solution": "Declare '@type: AccountingService' or specialized FinancialService."
+      },
+      {
+        "title": "Omitting Credentials & Professional Certifications",
+        "description": "Failing to state CPA, Enrolled Agent, or Master of Taxation credentials reduces E-E-A-T trust signals in YMYL tax advice.",
+        "severity": "warning",
+        "gscImpact": "Lower organic search ranking for competitive tax advice keywords.",
+        "solution": "Highlight CPA and Enrolled Agent credentials in description."
+      }
+    ],
+    "relatedSlugs": [
+      "bankruptcy-legal-service",
+      "escrow-service-transaction",
+      "checking-business-account",
+      "legal-service-law-firm"
+    ],
+    "useCases": [
+      "CPA firm appointment and service pages",
+      "Corporate tax advisory client onboarding portals",
+      "IRS tax resolution service landing pages"
+    ]
+  },
+  {
+    "slug": "bankruptcy-legal-service",
+    "title": "Bankruptcy Legal Practice & Debt Relief Schema Markup (JSON-LD)",
+    "shortTitle": "Bankruptcy Law Practice",
+    "schemaType": "LegalService",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for bankruptcy attorney practices, Chapter 7 & Chapter 13 debt reorganization law firms, detailing consultation policies, bar admissions, and client service areas.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "bankruptcy lawyer schema",
+      "chapter 7 attorney structured data",
+      "legal service json-ld",
+      "bankruptcy law firm schema.org",
+      "debt relief attorney rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LegalService\",\n  \"@id\": \"https://example.com/law/beacon-bankruptcy#firm\",\n  \"name\": \"Beacon Debt Relief & Bankruptcy Law Firm\",\n  \"description\": \"Experienced bankruptcy attorney practice assisting individuals and small businesses with Chapter 7 liquidation, Chapter 13 debt restructuring, and foreclosure defense.\",\n  \"telephone\": \"+1-215-555-0199\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1500 Market Street, 12th Floor\",\n    \"addressLocality\": \"Philadelphia\",\n    \"addressRegion\": \"PA\",\n    \"postalCode\": \"19102\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ],\n  \"areaServed\": [\n    \"Philadelphia\",\n    \"Montgomery County\",\n    \"Delaware County\",\n    \"Bucks County\"\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official legal practice or law firm name.",
+        "required": true,
+        "exampleValue": "Beacon Debt Relief & Bankruptcy Law Firm"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the attorney's consultation office.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1500 Market Street...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Direct confidential consultation phone number.",
+        "required": true,
+        "exampleValue": "+1-215-555-0199"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Counties, judicial districts, and metropolitan areas served by the law firm.",
+        "required": true,
+        "exampleValue": "[\"Philadelphia\", \"Montgomery County\", ...]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Office hours available for in-person or virtual bankruptcy client intakes.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"09:00\", \"closes\": \"18:00\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Indicative legal fee tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Federal Bankruptcy Court Jurisdiction Disclosures",
+        "description": "Failing to clarify federal district court admission (e.g. Eastern District of PA) causes confusion for multi-jurisdiction bankruptcy cases.",
+        "severity": "warning",
+        "gscImpact": "Weaker localized legal search authority.",
+        "solution": "Specify federal district court bar admissions in firm description."
+      },
+      {
+        "title": "Confusing Free Consultation with Zero Legal Fee",
+        "description": "Tagging free evaluation offers as 100% free legal service violates attorney advertising guidelines in many bar associations.",
+        "severity": "critical",
+        "gscImpact": "State bar advertising sanction risk and deceptive rich result flags.",
+        "solution": "Clarify that initial consultations are free while court filing and attorney fees apply."
+      },
+      {
+        "title": "Using Generic ProfessionalService Instead of LegalService",
+        "description": "Failing to declare LegalService prevents Google from triggering specialized legal consultation actions in mobile SERPs.",
+        "severity": "warning",
+        "gscImpact": "Omission from Google Local Services Ads and legal Local Pack highlights.",
+        "solution": "Always use '@type: LegalService' or Attorney."
+      }
+    ],
+    "relatedSlugs": [
+      "tax-preparation-advisory",
+      "legal-service-law-firm",
+      "personal-loan-unsecured",
+      "escrow-service-transaction"
+    ],
+    "useCases": [
+      "Bankruptcy law firm case evaluation pages",
+      "Debt relief legal service directories",
+      "Consumer financial protection law portal hubs"
+    ]
+  },
+  {
+    "slug": "used-car-certified-pre-owned",
+    "title": "Certified Pre-Owned (CPO) Used Car Schema Markup (JSON-LD)",
+    "shortTitle": "Certified Pre-Owned Car",
+    "schemaType": "Car",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for Certified Pre-Owned (CPO) and used passenger automobiles, encoding VIN, odometer mileage, previous owner count, CARFAX history, and dealer warranty terms for Google Vehicle Listings.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "used car schema",
+      "certified pre owned json-ld",
+      "vehicle listing structured data",
+      "car vin schema.org",
+      "auto dealer vehicle rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Car\",\n  \"@id\": \"https://example.com/inventory/2023-audi-a4-cpo#vehicle\",\n  \"name\": \"2023 Audi A4 45 TFSI quattro Premium Plus (Certified Pre-Owned)\",\n  \"vehicleIdentificationNumber\": \"WAUZZZF45PA019482\",\n  \"modelDate\": \"2023\",\n  \"mileageFromOdometer\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 18450,\n    \"unitCode\": \"SMI\"\n  },\n  \"itemCondition\": \"https://schema.org/UsedCondition\",\n  \"numberOfPreviousOwners\": 1,\n  \"fuelType\": \"Gasoline\",\n  \"vehicleTransmission\": \"7-Speed S tronic Automatic\",\n  \"driveWheelConfiguration\": \"https://schema.org/AllWheelDriveConfiguration\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"34995\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"seller\": {\n      \"@type\": \"AutoDealer\",\n      \"name\": \"Audi North Scottsdale\",\n      \"telephone\": \"+1-480-555-0145\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Full year, make, model, trim, and certified pre-owned status.",
+        "required": true,
+        "exampleValue": "2023 Audi A4 45 TFSI quattro Premium Plus (Certified Pre-Owned)"
+      },
+      {
+        "name": "vehicleIdentificationNumber",
+        "type": "Text",
+        "description": "Standard 17-character alphanumeric Vehicle Identification Number (VIN).",
+        "required": true,
+        "exampleValue": "WAUZZZF45PA019482"
+      },
+      {
+        "name": "mileageFromOdometer",
+        "type": "QuantitativeValue",
+        "description": "Verified odometer mileage reading with unitCode SMI (statute miles) or KMT (kilometers).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 18450, \"unitCode\": \"SMI\" }"
+      },
+      {
+        "name": "modelDate",
+        "type": "Date / Integer",
+        "description": "Automobile model year.",
+        "required": true,
+        "exampleValue": "2023"
+      },
+      {
+        "name": "numberOfPreviousOwners",
+        "type": "Integer",
+        "description": "Documented count of prior registered vehicle owners.",
+        "required": true,
+        "exampleValue": "1"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Dealer asking price, currency, availability, and selling dealership.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"34995\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "itemCondition",
+        "type": "ItemCondition",
+        "description": "Condition enumerated URI (UsedCondition or RefurbishedCondition for CPO).",
+        "required": false,
+        "exampleValue": "https://schema.org/UsedCondition"
+      },
+      {
+        "name": "vehicleTransmission",
+        "type": "Text",
+        "description": "Transmission type (e.g. 7-Speed Dual-Clutch Automatic).",
+        "required": false,
+        "exampleValue": "7-Speed S tronic Automatic"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing or Invalid 17-Character VIN Format",
+        "description": "Omitting the VIN or providing invalid checksum characters causes Google Vehicle Listing feeds to reject the inventory item.",
+        "severity": "critical",
+        "gscImpact": "Vehicle listing completely excluded from Google Car Search carousels.",
+        "solution": "Validate VIN string length (17 chars) and characters against ISO 3779."
+      },
+      {
+        "title": "Omission of UnitCode on Odometer Mileage",
+        "description": "Passing naked integers for mileage without unitCode 'SMI' or 'KMT' causes international unit confusion in vehicle cards.",
+        "severity": "error",
+        "gscImpact": "Mileage parsed incorrectly as kilometers instead of miles.",
+        "solution": "Use QuantitativeValue with unitCode 'SMI' for US statute miles."
+      },
+      {
+        "title": "Marking CPO Vehicles as NewCondition",
+        "description": "Tagging Certified Pre-Owned cars as NewCondition violates Google Merchant and Vehicle Listing policies.",
+        "severity": "error",
+        "gscImpact": "GSC Merchant penalty for inaccurate condition schema.",
+        "solution": "Always use 'https://schema.org/UsedCondition' for CPO cars."
+      }
+    ],
+    "relatedSlugs": [
+      "electric-vehicle-range-spec",
+      "auto-financing-lease",
+      "insurance-policy-auto",
+      "car-rental-fleet-vehicle"
+    ],
+    "useCases": [
+      "Car dealership used inventory detail pages (VDPs)",
+      "Automotive digital retail marketplace listings",
+      "Certified pre-owned brand inventory search portals"
+    ]
+  },
+  {
+    "slug": "electric-vehicle-range-spec",
+    "title": "Electric Vehicle (EV) Battery & Range Specification Schema Markup (JSON-LD)",
+    "shortTitle": "Electric Vehicle (EV) Spec",
+    "schemaType": "Vehicle",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for battery electric vehicles (BEVs) and plug-in hybrids, specifying EPA electric driving range, usable battery capacity, DC fast charging duration, and drivetrain efficiency.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "electric vehicle schema",
+      "ev range structured data",
+      "battery capacity json-ld",
+      "electric car schema.org",
+      "ev charging spec rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Car\",\n  \"@id\": \"https://example.com/ev/hyperion-gt-dual-motor#vehicle\",\n  \"name\": \"2026 Hyperion GT Dual-Motor Long Range AWD\",\n  \"modelDate\": \"2026\",\n  \"fuelType\": \"Electricity\",\n  \"vehicleEngine\": {\n    \"@type\": \"EngineSpecification\",\n    \"engineType\": \"Dual Permanent Magnet Synchronous Electric Motors\",\n    \"enginePower\": {\n      \"@type\": \"QuantitativeValue\",\n      \"value\": 520,\n      \"unitCode\": \"BHP\"\n    }\n  },\n  \"mileageFromOdometer\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 0,\n    \"unitCode\": \"SMI\"\n  },\n  \"itemCondition\": \"https://schema.org/NewCondition\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"68900\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"seller\": {\n      \"@type\": \"AutoDealer\",\n      \"name\": \"Hyperion Motors Flagship Center\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official EV trim and battery package designation.",
+        "required": true,
+        "exampleValue": "2026 Hyperion GT Dual-Motor Long Range AWD"
+      },
+      {
+        "name": "fuelType",
+        "type": "Text",
+        "description": "Power source classification ('Electricity' or 'Hybrid Electricity').",
+        "required": true,
+        "exampleValue": "Electricity"
+      },
+      {
+        "name": "vehicleEngine",
+        "type": "EngineSpecification",
+        "description": "Electric motor architecture, motor count, and combined system horsepower output.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"EngineSpecification\", \"engineType\": \"Dual Permanent Magnet...\" }"
+      },
+      {
+        "name": "modelDate",
+        "type": "Date / Integer",
+        "description": "Automobile model manufacturing year.",
+        "required": true,
+        "exampleValue": "2026"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Base MSRP asking price, transaction currency, and authorized dealership seller.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"68900\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "itemCondition",
+        "type": "ItemCondition",
+        "description": "Item condition URI (https://schema.org/NewCondition).",
+        "required": false,
+        "exampleValue": "https://schema.org/NewCondition"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing EV fuelType with Internal Combustion",
+        "description": "Setting fuelType to 'Gasoline' or leaving it blank on electric models prevents Google from categorizing the car under EV SERP filters.",
+        "severity": "error",
+        "gscImpact": "Excluded from 'electric vehicles for sale' search filters.",
+        "solution": "Always set fuelType to 'Electricity'."
+      },
+      {
+        "title": "Missing Combined Horsepower Engine Specs",
+        "description": "Omitting vehicleEngine specifications deprives performance EV listings of technical snippet callouts in automotive reviews.",
+        "severity": "warning",
+        "gscImpact": "Loss of horsepower and dual-motor callout badges.",
+        "solution": "Include an EngineSpecification node with enginePower in BHP."
+      },
+      {
+        "title": "Omitting Model Year in Vehicle Entity",
+        "description": "Failing to define modelDate creates ambiguity between preceding generations and new refreshed EV models.",
+        "severity": "warning",
+        "gscImpact": "Search engine fails to match specific model year queries.",
+        "solution": "Specify modelDate as an integer (e.g. 2026)."
+      }
+    ],
+    "relatedSlugs": [
+      "used-car-certified-pre-owned",
+      "auto-financing-lease",
+      "bicycle-ebike-retail",
+      "car-rental-fleet-vehicle"
+    ],
+    "useCases": [
+      "Electric vehicle manufacturer configurator pages",
+      "EV dealership inventory showcase pages",
+      "Automotive technology comparison portals"
+    ]
+  },
+  {
+    "slug": "commercial-truck-freight",
+    "title": "Commercial Freight Truck & Heavy Semi Tractor Schema Markup (JSON-LD)",
+    "shortTitle": "Commercial Freight Truck",
+    "schemaType": "Vehicle",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for commercial heavy-duty trucks, Class 8 semi tractors, and freight transport rigs, detailing Gross Vehicle Weight Rating (GVWR), sleeper cab configuration, diesel engine specs, and axle setup.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "commercial truck schema",
+      "semi tractor structured data",
+      "freight truck json-ld",
+      "heavy vehicle schema.org",
+      "class 8 truck rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Vehicle\",\n  \"@id\": \"https://example.com/trucks/cascadia-semi-tractor#vehicle\",\n  \"name\": \"2025 Freightliner Cascadia 126 Sleeper Semi Tractor\",\n  \"modelDate\": \"2025\",\n  \"vehicleIdentificationNumber\": \"3AKJHHDR5SF109284\",\n  \"fuelType\": \"Diesel\",\n  \"vehicleConfiguration\": \"6x4 Tandem Axle 72-inch Raised Roof Sleeper\",\n  \"mileageFromOdometer\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 142000,\n    \"unitCode\": \"SMI\"\n  },\n  \"itemCondition\": \"https://schema.org/UsedCondition\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"118500\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"seller\": {\n      \"@type\": \"AutoDealer\",\n      \"name\": \"Lone Star Commercial Truck Center\",\n      \"telephone\": \"+1-214-555-0150\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official model title and commercial tractor chassis designation.",
+        "required": true,
+        "exampleValue": "2025 Freightliner Cascadia 126 Sleeper Semi Tractor"
+      },
+      {
+        "name": "vehicleIdentificationNumber",
+        "type": "Text",
+        "description": "17-digit commercial chassis Vehicle Identification Number.",
+        "required": true,
+        "exampleValue": "3AKJHHDR5SF109284"
+      },
+      {
+        "name": "fuelType",
+        "type": "Text",
+        "description": "Heavy commercial fuel type ('Diesel', 'CNG', 'LNG').",
+        "required": true,
+        "exampleValue": "Diesel"
+      },
+      {
+        "name": "vehicleConfiguration",
+        "type": "Text",
+        "description": "Chassis axle drive layout (e.g. 6x4) and cab style (day cab vs sleeper).",
+        "required": true,
+        "exampleValue": "6x4 Tandem Axle 72-inch Raised Roof Sleeper"
+      },
+      {
+        "name": "mileageFromOdometer",
+        "type": "QuantitativeValue",
+        "description": "Total commercial engine road miles.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 142000, \"unitCode\": \"SMI\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Commercial asking price, currency, availability, and commercial dealership.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"118500\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "modelDate",
+        "type": "Date / Integer",
+        "description": "Truck manufacture model year.",
+        "required": false,
+        "exampleValue": "2025"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Passenger Car Schema with Heavy Commercial Vehicle",
+        "description": "Using standard Car type without commercial vehicleConfiguration attributes reduces relevance for industrial logistics buyers.",
+        "severity": "warning",
+        "gscImpact": "Omission from specialized B2B commercial truck search portals.",
+        "solution": "Use base Vehicle type with detailed vehicleConfiguration descriptors."
+      },
+      {
+        "title": "Missing Commercial Axle and Cab Configuration",
+        "description": "Failing to specify 6x4 or sleeper dimensions prevents fleet buyers from filtering by long-haul vs regional route capability.",
+        "severity": "warning",
+        "gscImpact": "High bounce rates from fleet managers looking for specific cab layouts.",
+        "solution": "Include full axle and cab dimensions in vehicleConfiguration."
+      },
+      {
+        "title": "Omitting Commercial VIN",
+        "description": "Omitting commercial VIN prevents automated equipment history and title check integrations.",
+        "severity": "error",
+        "gscImpact": "Vehicle listing rejected by commercial truck inventory syndicators.",
+        "solution": "Always populate vehicleIdentificationNumber."
+      }
+    ],
+    "relatedSlugs": [
+      "warehouse-logistics-facility",
+      "used-car-certified-pre-owned",
+      "auto-parts-oem-catalog",
+      "towing-roadside-assistance"
+    ],
+    "useCases": [
+      "Commercial heavy truck dealership inventory pages",
+      "Fleet liquidation and semi truck auction portals",
+      "Freight equipment leasing and finance platforms"
+    ]
+  },
+  {
+    "slug": "motorcycle-cruiser-sport",
+    "title": "Motorcycle Cruiser & Sport Bike Schema Markup (JSON-LD)",
+    "shortTitle": "Motorcycle & Sport Bike",
+    "schemaType": "Motorcycle",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for street motorcycles, touring cruisers, and sport bikes, modeling engine displacement (CC), transmission type, fuel capacity, mileage, and dealer price.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "motorcycle schema markup",
+      "sport bike json-ld",
+      "cruiser motorcycle structured data",
+      "motorcycle schema.org",
+      "bike dealer rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Motorcycle\",\n  \"@id\": \"https://example.com/bikes/harley-street-glide#bike\",\n  \"name\": \"2024 Harley-Davidson Street Glide Special\",\n  \"modelDate\": \"2024\",\n  \"vehicleIdentificationNumber\": \"1HD1KB414RB602931\",\n  \"fuelType\": \"Gasoline\",\n  \"mileageFromOdometer\": {\n    \"@type\": \"QuantitativeValue\",\n    \"value\": 4200,\n    \"unitCode\": \"SMI\"\n  },\n  \"itemCondition\": \"https://schema.org/UsedCondition\",\n  \"vehicleEngine\": {\n    \"@type\": \"EngineSpecification\",\n    \"engineDisplacement\": {\n      \"@type\": \"QuantitativeValue\",\n      \"value\": 1868,\n      \"unitCode\": \"CMQ\"\n    },\n    \"engineType\": \"Milwaukee-Eight 114 V-Twin\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"24990\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"seller\": {\n      \"@type\": \"AutoDealer\",\n      \"name\": \"Desert Coast Powersports\",\n      \"telephone\": \"+1-602-555-0155\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Full motorcycle year, manufacturer, and model trim.",
+        "required": true,
+        "exampleValue": "2024 Harley-Davidson Street Glide Special"
+      },
+      {
+        "name": "vehicleIdentificationNumber",
+        "type": "Text",
+        "description": "17-character motorcycle chassis VIN.",
+        "required": true,
+        "exampleValue": "1HD1KB414RB602931"
+      },
+      {
+        "name": "vehicleEngine",
+        "type": "EngineSpecification",
+        "description": "Engine displacement in cubic centimeters (CC/CMQ) and motor configuration.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"EngineSpecification\", \"engineDisplacement\": { \"value\": 1868, \"unitCode\": \"CMQ\" } }"
+      },
+      {
+        "name": "mileageFromOdometer",
+        "type": "QuantitativeValue",
+        "description": "Motorcycle odometer reading in miles or kilometers.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"QuantitativeValue\", \"value\": 4200, \"unitCode\": \"SMI\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Asking purchase price, transaction currency, and selling powersports dealer.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"24990\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "fuelType",
+        "type": "Text",
+        "description": "Motorcycle fuel type ('Gasoline' or 'Electricity').",
+        "required": false,
+        "exampleValue": "Gasoline"
+      },
+      {
+        "name": "modelDate",
+        "type": "Date / Integer",
+        "description": "Motorcycle production model year.",
+        "required": false,
+        "exampleValue": "2024"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing UN/CEFACT CMQ UnitCode on Engine Displacement",
+        "description": "Specifying displacement as a plain number without unitCode 'CMQ' (cubic centimeters) causes cubic inch vs cubic centimeter conversion errors.",
+        "severity": "error",
+        "gscImpact": "Engine displacement miscalculated in motorcycle search filters.",
+        "solution": "Use QuantitativeValue with unitCode 'CMQ'."
+      },
+      {
+        "title": "Using Generic Product Type Instead of Motorcycle",
+        "description": "Declaring bikes under standard Product misses out on motorcycle-specific search entity features in Google shopping.",
+        "severity": "warning",
+        "gscImpact": "Lower visibility in specialized powersports vehicle searches.",
+        "solution": "Use the specialized Schema.org '@type: Motorcycle' entity."
+      },
+      {
+        "title": "Missing Condition Markup on Pre-Owned Bikes",
+        "description": "Failing to declare itemCondition causes used motorcycles to be indexed alongside brand new showroom models.",
+        "severity": "warning",
+        "gscImpact": "User disappointment and elevated bounce rates.",
+        "solution": "Explicitly declare itemCondition: 'https://schema.org/UsedCondition'."
+      }
+    ],
+    "relatedSlugs": [
+      "used-car-certified-pre-owned",
+      "bicycle-ebike-retail",
+      "boat-yacht-charter",
+      "auto-parts-oem-catalog"
+    ],
+    "useCases": [
+      "Powersports dealership motorcycle inventory VDPs",
+      "Pre-owned motorcycle marketplace listings",
+      "Custom motorcycle builder portfolio pages"
+    ]
+  },
+  {
+    "slug": "boat-yacht-charter",
+    "title": "Luxury Yacht Charter & Boat Rental Schema Markup (JSON-LD)",
+    "shortTitle": "Yacht Charter & Boat Rental",
+    "schemaType": "BoatReservation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for luxury crewed yacht charters, sailboat rentals, and marine catamarans, detailing vessel length overall, berth sleeping capacity, captain crew inclusions, and charter rates.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "yacht charter schema",
+      "boat rental structured data",
+      "luxury yacht json-ld",
+      "boat charter schema.org",
+      "marine charter rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BoatReservation\",\n  \"@id\": \"https://example.com/charter/sunseeker-88#charter\",\n  \"name\": \"Sunseeker 88ft Luxury Motor Yacht Day & Term Charter\",\n  \"description\": \"Exclusive 88-foot motor yacht charter with professional captain, private chef, 4 luxury staterooms accommodating 8 overnight guests, and water toys.\",\n  \"reservationFor\": {\n    \"@type\": \"Vehicle\",\n    \"name\": \"Sunseeker 88 Luxury Yacht\",\n    \"vehicleConfiguration\": \"Motor Yacht with Flybridge\",\n    \"amenityFeature\": [\n      {\n        \"@type\": \"LocationFeatureSpecification\",\n        \"name\": \"4 Luxury Guest En-Suite Staterooms\",\n        \"value\": true\n      },\n      {\n        \"@type\": \"LocationFeatureSpecification\",\n        \"name\": \"Seadoo Jet Skis & Seabob Included\",\n        \"value\": true\n      }\n    ]\n  },\n  \"provider\": {\n    \"@type\": \"TravelAgency\",\n    \"name\": \"Nautilus Luxury Yacht Charters\",\n    \"telephone\": \"+1-305-555-0162\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"300 Alton Road, Slip 42\",\n      \"addressLocality\": \"Miami Beach\",\n      \"addressRegion\": \"FL\",\n      \"postalCode\": \"33139\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"totalPrice\": \"8500\",\n  \"priceCurrency\": \"USD\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official charter vessel title and experience description.",
+        "required": true,
+        "exampleValue": "Sunseeker 88ft Luxury Motor Yacht Day & Term Charter"
+      },
+      {
+        "name": "reservationFor",
+        "type": "Vehicle",
+        "description": "The underlying vessel, yacht specifications, length, and onboard water toys.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Vehicle\", \"name\": \"Sunseeker 88 Luxury Yacht\" }"
+      },
+      {
+        "name": "provider",
+        "type": "TravelAgency / Organization",
+        "description": "The licensed charter broker or yacht management company.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"TravelAgency\", \"name\": \"Nautilus Luxury Yacht Charters\" }"
+      },
+      {
+        "name": "totalPrice",
+        "type": "Number / Text",
+        "description": "Base daily or weekly charter rate.",
+        "required": true,
+        "exampleValue": "8500"
+      },
+      {
+        "name": "priceCurrency",
+        "type": "Text",
+        "description": "Charter pricing currency (e.g. USD, EUR).",
+        "required": true,
+        "exampleValue": "USD"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Narrative summary of crew inclusions, cruising itinerary, and stateroom berths.",
+        "required": false,
+        "exampleValue": "Exclusive 88-foot motor yacht charter with professional captain..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Boat Sale with Crewed Boat Charter",
+        "description": "Using standard Vehicle Sell schema for charter rentals creates price mismatch warnings against yacht purchase indices.",
+        "severity": "warning",
+        "gscImpact": "Charter rate appears as purchase price in Google Shopping crawlers.",
+        "solution": "Use BoatReservation or RentalAction schema for charter experiences."
+      },
+      {
+        "title": "Missing Marina Slip Location Address",
+        "description": "Omitting physical marina boarding slip details prevents Google Maps from showing departure location directions.",
+        "severity": "error",
+        "gscImpact": "Navigation failures for charter clients on embarkation day.",
+        "solution": "Include the marina street address and dock slip number."
+      },
+      {
+        "title": "Omission of Crew and Fuel Inclusions",
+        "description": "Failing to state whether APA (Advance Provisioning Allowance) and crew gratuity are included creates price dispute flags.",
+        "severity": "warning",
+        "gscImpact": "Lower user conversion on yacht booking landing pages.",
+        "solution": "Detail APA and captain inclusions in the charter description."
+      }
+    ],
+    "relatedSlugs": [
+      "marina-boat-slip",
+      "ferry-water-transit-route",
+      "scuba-diving-charter",
+      "vacation-rental-villa"
+    ],
+    "useCases": [
+      "Luxury yacht charter broker booking portals",
+      "Bareboat and catamaran rental fleet pages",
+      "Deep sea fishing and party boat charter websites"
+    ]
+  },
+  {
+    "slug": "auto-parts-oem-catalog",
+    "title": "OEM Replacement Auto Parts & Component Schema Markup (JSON-LD)",
+    "shortTitle": "OEM Auto Parts Catalog",
+    "schemaType": "Product",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for Original Equipment Manufacturer (OEM) automotive replacement parts, encoding MPN, OEM part numbers, vehicle fitment compatibility, warranty terms, and stock availability.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "auto parts schema",
+      "oem replacement parts json-ld",
+      "car part fitment structured data",
+      "auto component schema.org",
+      "vehicle parts rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Product\",\n  \"@id\": \"https://example.com/parts/oem-ceramic-brake-pads-toyota#product\",\n  \"name\": \"Toyota Genuine OEM Front Ceramic Brake Pad Set\",\n  \"description\": \"Authentic factory OEM ceramic front disc brake pad set designed for optimal stopping power and low dust on 2019-2025 Toyota Camry and RAV4 models.\",\n  \"mpn\": \"04465-06150\",\n  \"sku\": \"TOY-04465-06150\",\n  \"brand\": {\n    \"@type\": \"Brand\",\n    \"name\": \"Toyota Genuine Parts\"\n  },\n  \"itemCondition\": \"https://schema.org/NewCondition\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"68.50\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"url\": \"https://example.com/parts/toyota-04465-06150\",\n    \"priceValidUntil\": \"2026-12-31\",\n    \"seller\": {\n      \"@type\": \"Organization\",\n      \"name\": \"Apex Auto Parts Direct\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Specific OEM part title including position (front/rear) and component type.",
+        "required": true,
+        "exampleValue": "Toyota Genuine OEM Front Ceramic Brake Pad Set"
+      },
+      {
+        "name": "mpn",
+        "type": "Text",
+        "description": "Exact Manufacturer Part Number matching vehicle OEM parts catalog.",
+        "required": true,
+        "exampleValue": "04465-06150"
+      },
+      {
+        "name": "sku",
+        "type": "Text",
+        "description": "Retail inventory Stock Keeping Unit.",
+        "required": true,
+        "exampleValue": "TOY-04465-06150"
+      },
+      {
+        "name": "brand",
+        "type": "Brand",
+        "description": "OEM automotive brand or certified Tier-1 component manufacturer.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Brand\", \"name\": \"Toyota Genuine Parts\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Part retail pricing, currency code, stock availability, and vendor URL.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"68.50\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "itemCondition",
+        "type": "ItemCondition",
+        "description": "Condition enumerated URI (e.g. NewCondition vs RemanufacturedCondition).",
+        "required": false,
+        "exampleValue": "https://schema.org/NewCondition"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Vehicle fitment list, rotor compatibility, and installation hardware inclusions.",
+        "required": false,
+        "exampleValue": "Authentic factory OEM ceramic front disc brake pad set..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Exact MPN (Manufacturer Part Number)",
+        "description": "Omitting the MPN prevents Google Merchant Center and Google Shopping from matching replacement part queries from auto mechanics.",
+        "severity": "critical",
+        "gscImpact": "Disqualification from Google Merchant part fitment rich results.",
+        "solution": "Always populate the official factory OEM part number in the mpn property."
+      },
+      {
+        "title": "Failing to Disclose Remanufactured vs New Condition",
+        "description": "Selling remanufactured alternators or brake calipers marked as NewCondition violates Google Product policies.",
+        "severity": "error",
+        "gscImpact": "Merchant account suspensions for product condition violations.",
+        "solution": "Use 'https://schema.org/RefurbishedCondition' for remanufactured parts."
+      },
+      {
+        "title": "Omission of priceValidUntil Date",
+        "description": "Missing price validity dates on volatile auto parts triggers GSC warning notices in Merchant Center.",
+        "severity": "warning",
+        "gscImpact": "GSC Merchant warnings for missing price validity timeline.",
+        "solution": "Provide an ISO 8601 date on offers.priceValidUntil."
+      }
+    ],
+    "relatedSlugs": [
+      "tires-wheels-specification",
+      "used-car-certified-pre-owned",
+      "auto-detailing-wrap-service",
+      "towing-roadside-assistance"
+    ],
+    "useCases": [
+      "E-commerce auto parts catalog product pages",
+      "Dealership parts counter online order portals",
+      "Aftermarket vehicle fitment database directories"
+    ]
+  },
+  {
+    "slug": "tires-wheels-specification",
+    "title": "Automotive Tire & Wheel Technical Specification Schema Markup (JSON-LD)",
+    "shortTitle": "Tires & Wheels Specification",
+    "schemaType": "Product",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for automotive tires, alloy wheels, and off-road rims, detailing tire section width, aspect ratio, rim diameter, load index, speed rating, and UTQG treadwear.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "tire schema markup",
+      "wheel specification json-ld",
+      "tire size structured data",
+      "tire load index schema.org",
+      "tire retailer rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Product\",\n  \"@id\": \"https://example.com/tires/michelin-pilot-sport-4s-245-40r19#product\",\n  \"name\": \"Michelin Pilot Sport 4S 245/40R19 98Y XL Performance Tire\",\n  \"description\": \"Ultra-high performance summer passenger tire offering maximum dry grip, wet braking precision, and 30,000-mile manufacturer treadwear warranty.\",\n  \"mpn\": \"MIC-38491\",\n  \"sku\": \"245-40-19-MPS4S\",\n  \"brand\": {\n    \"@type\": \"Brand\",\n    \"name\": \"Michelin\"\n  },\n  \"gtin13\": \"0086699384912\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"295.99\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"priceValidUntil\": \"2026-12-31\",\n    \"seller\": {\n      \"@type\": \"Organization\",\n      \"name\": \"TireApex Express\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Full tire size, brand, model line, load index, and speed rating.",
+        "required": true,
+        "exampleValue": "Michelin Pilot Sport 4S 245/40R19 98Y XL Performance Tire"
+      },
+      {
+        "name": "mpn",
+        "type": "Text",
+        "description": "Tire manufacturer unique part number code.",
+        "required": true,
+        "exampleValue": "MIC-38491"
+      },
+      {
+        "name": "gtin13",
+        "type": "Text",
+        "description": "Global Trade Item Number / 13-digit EAN barcode for tire retail.",
+        "required": true,
+        "exampleValue": "0086699384912"
+      },
+      {
+        "name": "brand",
+        "type": "Brand",
+        "description": "Tire manufacturer corporate brand.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Brand\", \"name\": \"Michelin\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Per-tire retail price, currency, availability, and seller entity.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"295.99\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Treadwear warranty, all-season vs summer compound, and UTQG rating.",
+        "required": false,
+        "exampleValue": "Ultra-high performance summer passenger tire offering maximum dry grip..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing GTIN-13 / UPC Barcode in Tire Schema",
+        "description": "Tires are standardized retail products; omitting GTIN-13 prevents matching against Google Shopping comparison price buckets.",
+        "severity": "error",
+        "gscImpact": "Loss of price comparison badge in Google Shopping tabs.",
+        "solution": "Include the official 12/13 digit GTIN barcode on tire products."
+      },
+      {
+        "title": "Confusing Per-Tire Price with Full Set of Four",
+        "description": "Listing a price for a set of 4 under a single unit schema without clarification creates huge price disparity complaints.",
+        "severity": "warning",
+        "gscImpact": "Customer trust degradation and misleading price warnings in Merchant Center.",
+        "solution": "Specify per-tire unit price or state 'Set of 4' clearly in name and description."
+      },
+      {
+        "title": "Omitting Load Index & Speed Rating from Title",
+        "description": "Vehicle owners search by exact specs (e.g., '98Y XL'); leaving this out causes fitment search misses.",
+        "severity": "warning",
+        "gscImpact": "Lower organic search traffic for technical tire queries.",
+        "solution": "Include complete size (245/40R19) and rating (98Y XL) in the name."
+      }
+    ],
+    "relatedSlugs": [
+      "auto-parts-oem-catalog",
+      "used-car-certified-pre-owned",
+      "electric-vehicle-range-spec",
+      "auto-detailing-wrap-service"
+    ],
+    "useCases": [
+      "Online tire retailer size finder product pages",
+      "Auto repair shop tire installation booking pages",
+      "Wheel fitment calculator and gallery websites"
+    ]
+  },
+  {
+    "slug": "airport-shuttle-transfer",
+    "title": "Airport Shuttle & Private Passenger Transfer Schema Markup (JSON-LD)",
+    "shortTitle": "Airport Shuttle Transfer",
+    "schemaType": "TaxiService",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for airport shuttle services, private terminal vans, and airport transfers, modeling flight tracking guarantees, luggage allowances, fixed airport fares, and service routes.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "airport shuttle schema",
+      "airport transfer structured data",
+      "private shuttle json-ld",
+      "taxi service schema.org",
+      "airport transport rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TaxiService\",\n  \"@id\": \"https://example.com/transfers/jfk-manhattan-shuttle#service\",\n  \"name\": \"Apex Express JFK Airport to Manhattan Transfer\",\n  \"description\": \"Fixed-rate direct private passenger transfer service connecting JFK International Airport with all Midtown Manhattan hotels and residences.\",\n  \"serviceType\": \"Airport Passenger Transfer\",\n  \"provider\": {\n    \"@type\": \"LocalBusiness\",\n    \"name\": \"Apex Ground Transportation LLC\",\n    \"telephone\": \"+1-212-555-0168\"\n  },\n  \"areaServed\": [\n    \"JFK International Airport (JFK)\",\n    \"Manhattan, New York\",\n    \"Queens, New York\"\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"75\",\n    \"priceCurrency\": \"USD\",\n    \"description\": \"Flat-rate one-way passenger transfer with flight delay tracking and luggage included.\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official passenger route or shuttle service title.",
+        "required": true,
+        "exampleValue": "Apex Express JFK Airport to Manhattan Transfer"
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Category of transportation service ('Airport Passenger Transfer', 'Shared Shuttle').",
+        "required": true,
+        "exampleValue": "Airport Passenger Transfer"
+      },
+      {
+        "name": "provider",
+        "type": "LocalBusiness",
+        "description": "Operating transportation carrier or licensed limousine service.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"LocalBusiness\", \"name\": \"Apex Ground Transportation LLC\" }"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Airports, airport terminals, and destination metropolitan municipalities served.",
+        "required": true,
+        "exampleValue": "[\"JFK International Airport (JFK)\", \"Manhattan, New York\"]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Flat-rate or metered transfer fare, currency, and baggage inclusions.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"75\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Summary of vehicle capacity, flight tracking, curbside pickup instructions, and meet-and-greet options.",
+        "required": false,
+        "exampleValue": "Fixed-rate direct private passenger transfer service connecting JFK..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting Airport IATA Codes in areaServed",
+        "description": "Listing only city names without specific airport IATA codes (e.g., JFK, LAX, ORD) misses high-intent flight arrival searches.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings for '[Airport Code] shuttle to downtown' search intents.",
+        "solution": "Include official 3-letter IATA airport codes in areaServed strings."
+      },
+      {
+        "title": "Conflating Shared Van Rates with Private Sedan Fares",
+        "description": "Quoting a low per-person shared shuttle rate without clarifying van pooling terms creates customer dissatisfaction.",
+        "severity": "warning",
+        "gscImpact": "Increased booking cancellations and review drops.",
+        "solution": "Specify 'Shared Shuttle' vs 'Private SUV' in serviceType and offer description."
+      },
+      {
+        "title": "Missing Dispatch Telephone Number",
+        "description": "Airport travelers seeking immediate transfers need click-to-call direct lines in mobile search results.",
+        "severity": "error",
+        "gscImpact": "Loss of mobile click-to-call conversion buttons on SERP cards.",
+        "solution": "Provide provider.telephone in international E.164 format."
+      }
+    ],
+    "relatedSlugs": [
+      "limousine-private-chauffeur",
+      "car-rental-fleet-vehicle",
+      "ferry-water-transit-route",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Airport shuttle booking and reservation websites",
+      "Hotel concierge transportation recommendation pages",
+      "Corporate airport ground travel portal hubs"
+    ]
+  },
+  {
+    "slug": "car-rental-fleet-vehicle",
+    "title": "Car Rental Fleet Category & Daily Hire Schema Markup (JSON-LD)",
+    "shortTitle": "Car Rental Fleet Hire",
+    "schemaType": "RentalCarReservation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for car rental fleet categories, daily hire reservations, and airport car rental desks, detailing vehicle class (SUV, Sedan, Convertible), mileage limits, insurance waivers, and pickup branches.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "car rental schema",
+      "rental car structured data",
+      "vehicle rental json-ld",
+      "car hire schema.org",
+      "car rental rates rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RentalCarReservation\",\n  \"@id\": \"https://example.com/rentals/full-size-suv#reservation\",\n  \"name\": \"Full-Size 7-Passenger SUV Rental (Chevy Tahoe or Similar)\",\n  \"description\": \"Spacious full-size 7-passenger SUV rental with automatic transmission, unlimited mileage, and complimentary airport terminal pickup.\",\n  \"reservationFor\": {\n    \"@type\": \"Car\",\n    \"name\": \"Full-Size SUV Category\",\n    \"vehicleConfiguration\": \"7-Passenger Full Size SUV\",\n    \"seatingCapacity\": 7\n  },\n  \"provider\": {\n    \"@type\": \"AutoRental\",\n    \"name\": \"Apex Car Rental Services\",\n    \"telephone\": \"+1-800-555-0174\"\n  },\n  \"pickupLocation\": {\n    \"@type\": \"Place\",\n    \"name\": \"Denver International Airport (DEN) Rental Facility\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"25500 East 78th Avenue\",\n      \"addressLocality\": \"Denver\",\n      \"addressRegion\": \"CO\",\n      \"postalCode\": \"80249\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"totalPrice\": \"89.00\",\n  \"priceCurrency\": \"USD\"\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official rental vehicle class title (e.g. Full-Size SUV).",
+        "required": true,
+        "exampleValue": "Full-Size 7-Passenger SUV Rental (Chevy Tahoe or Similar)"
+      },
+      {
+        "name": "reservationFor",
+        "type": "Car",
+        "description": "Representative vehicle attributes including seating capacity and transmission.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Car\", \"name\": \"Full-Size SUV Category\", \"seatingCapacity\": 7 }"
+      },
+      {
+        "name": "provider",
+        "type": "AutoRental",
+        "description": "Operating car rental company or fleet operator.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"AutoRental\", \"name\": \"Apex Car Rental Services\" }"
+      },
+      {
+        "name": "pickupLocation",
+        "type": "Place",
+        "description": "Physical airport car rental counter or neighborhood branch depot.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Place\", \"name\": \"Denver International Airport (DEN)...\" }"
+      },
+      {
+        "name": "totalPrice",
+        "type": "Number / Text",
+        "description": "Daily base hire rate before optional damage waivers and fuel options.",
+        "required": true,
+        "exampleValue": "89.00"
+      },
+      {
+        "name": "priceCurrency",
+        "type": "Text",
+        "description": "Rental pricing currency code.",
+        "required": true,
+        "exampleValue": "USD"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Daily Rental Rate with Long-Term Lease Rate",
+        "description": "Listing a daily car hire rate under an auto loan/lease schema misrepresents financing options to Google Search.",
+        "severity": "warning",
+        "gscImpact": "Listing miscategorized under vehicle purchase rather than travel car hire.",
+        "solution": "Use RentalCarReservation or AutoRental schemas for short-term daily hires."
+      },
+      {
+        "title": "Missing Seating Capacity on Family Fleet Classes",
+        "description": "Failing to state seatingCapacity on minivans and SUVs prevents Google Travel from matching family passenger filters.",
+        "severity": "warning",
+        "gscImpact": "Excluded from '7 passenger car rental' search result filters.",
+        "solution": "Explicitly declare seatingCapacity within reservationFor.Car."
+      },
+      {
+        "title": "Omission of Airport Facility Pickup Address",
+        "description": "Failing to specify the on-airport or off-airport consolidation facility address confuses arriving travelers.",
+        "severity": "error",
+        "gscImpact": "Google Maps route navigation errors for rental car returns.",
+        "solution": "Provide precise pickupLocation address with terminal details."
+      }
+    ],
+    "relatedSlugs": [
+      "airport-shuttle-transfer",
+      "limousine-private-chauffeur",
+      "used-car-certified-pre-owned",
+      "auto-financing-lease"
+    ],
+    "useCases": [
+      "Online car rental booking engines",
+      "Airport vehicle hire location landing pages",
+      "Travel aggregator car rental comparison tables"
+    ]
+  },
+  {
+    "slug": "limousine-private-chauffeur",
+    "title": "Luxury Limousine & Executive Chauffeur Service Schema Markup (JSON-LD)",
+    "shortTitle": "Limousine & Chauffeur Service",
+    "schemaType": "TaxiService",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for luxury limousine services, corporate executive black car chauffeurs, and wedding party sprinters, detailing hourly minimums, executive vehicle fleet, and vetted chauffeurs.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "limousine schema",
+      "chauffeur service structured data",
+      "black car service json-ld",
+      "executive transport schema.org",
+      "limo rental rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TaxiService\",\n  \"@id\": \"https://example.com/limo/black-car-executive#service\",\n  \"name\": \"Apex Executive Black Car & Chauffeur Service\",\n  \"description\": \"Discreet executive chauffeur service offering luxury Mercedes S-Class, Cadillac Escalade ESV, and executive Mercedes Sprinters for corporate travel and red-carpet events.\",\n  \"serviceType\": \"Executive Chauffeur Service\",\n  \"provider\": {\n    \"@type\": \"LocalBusiness\",\n    \"name\": \"Apex Luxury Limousines Inc.\",\n    \"telephone\": \"+1-310-555-0182\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"9500 Wilshire Boulevard\",\n      \"addressLocality\": \"Beverly Hills\",\n      \"addressRegion\": \"CA\",\n      \"postalCode\": \"90212\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"areaServed\": [\n    \"Beverly Hills\",\n    \"Los Angeles\",\n    \"Orange County\",\n    \"LAX Airport\"\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"125\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"HUR\",\n    \"description\": \"Hourly executive charter rate with 3-hour minimum booking.\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official business title of the limousine or chauffeur service.",
+        "required": true,
+        "exampleValue": "Apex Executive Black Car & Chauffeur Service"
+      },
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Transport service tier ('Executive Chauffeur Service', 'Wedding Limousine').",
+        "required": true,
+        "exampleValue": "Executive Chauffeur Service"
+      },
+      {
+        "name": "provider",
+        "type": "LocalBusiness",
+        "description": "Licensed charter transport operator.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"LocalBusiness\", \"name\": \"Apex Luxury Limousines Inc.\" }"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Metropolitan municipalities and airports served by the fleet.",
+        "required": true,
+        "exampleValue": "[\"Beverly Hills\", \"Los Angeles\", \"LAX Airport\"]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Hourly charter rate, unitText (HUR), and minimum booking requirements.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"125\", \"priceCurrency\": \"USD\", \"unitText\": \"HUR\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Fleet composition, chauffeur security vetting, and corporate billing options.",
+        "required": false,
+        "exampleValue": "Discreet executive chauffeur service offering luxury Mercedes S-Class..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Hourly UnitCode (HUR) on Charter Rates",
+        "description": "Listing an hourly rate of $125 without unitText: 'HUR' causes Google to interpret the rate as a total flat trip cost.",
+        "severity": "error",
+        "gscImpact": "Misleading pricing display on Google Local Business search snippets.",
+        "solution": "Specify unitText as 'HUR' alongside hourly minimum notes in description."
+      },
+      {
+        "title": "Missing TCP / PUC State Transport Licensing",
+        "description": "Failing to disclose regulatory charter party carrier numbers (e.g. TCP license) undermines trust for corporate booking managers.",
+        "severity": "warning",
+        "gscImpact": "Lower E-E-A-T rating for high-end corporate transport keywords.",
+        "solution": "Include state PUC/TCP license numbers in provider description."
+      },
+      {
+        "title": "Confusing Standard Yellow Taxi with Luxury Chauffeur",
+        "description": "Using generic TaxiService without specifying executive luxury fleet attributes reduces premium brand perception.",
+        "severity": "warning",
+        "gscImpact": "Mismatched clicks from low-cost city taxi searchers.",
+        "solution": "Clarify luxury vehicle models in service description."
+      }
+    ],
+    "relatedSlugs": [
+      "airport-shuttle-transfer",
+      "car-rental-fleet-vehicle",
+      "boat-yacht-charter",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Executive black car booking portals",
+      "Wedding limousine package landing pages",
+      "Corporate event transportation coordinator pages"
+    ]
+  },
+  {
+    "slug": "bicycle-ebike-retail",
+    "title": "Electric Bicycle (E-Bike) & Cycling Retail Schema Markup (JSON-LD)",
+    "shortTitle": "E-Bike & Cycling Retail",
+    "schemaType": "Product",
+    "category": "E-Commerce",
+    "richResultType": "Product",
+    "description": "Structured data for electric bicycles, gravel bikes, and commuter e-bikes, detailing motor wattage, battery watt-hours, assisted range, frame material, gear systems, and warranty.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "ebike schema markup",
+      "electric bicycle structured data",
+      "bike retail json-ld",
+      "ebike specs schema.org",
+      "cycling product rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Product\",\n  \"@id\": \"https://example.com/ebikes/apex-commuter-pro#product\",\n  \"name\": \"Apex Commuter Pro 750W Class 3 Electric Bicycle\",\n  \"description\": \"High-performance urban commuter e-bike featuring 750W geared hub motor, 720Wh removable Samsung battery, hydraulic disc brakes, and up to 55 miles of pedal-assist range.\",\n  \"mpn\": \"EB-COMM-750-GRY\",\n  \"sku\": \"APX-EBIKE-01\",\n  \"brand\": {\n    \"@type\": \"Brand\",\n    \"name\": \"Apex Bikes\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"1899\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"priceValidUntil\": \"2026-12-31\",\n    \"seller\": {\n      \"@type\": \"Organization\",\n      \"name\": \"Apex Cycling Store\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official bike model name, motor wattage, and e-bike legal classification (Class 1, 2, or 3).",
+        "required": true,
+        "exampleValue": "Apex Commuter Pro 750W Class 3 Electric Bicycle"
+      },
+      {
+        "name": "mpn",
+        "type": "Text",
+        "description": "Manufacturer Part Number / model code.",
+        "required": true,
+        "exampleValue": "EB-COMM-750-GRY"
+      },
+      {
+        "name": "brand",
+        "type": "Brand",
+        "description": "Bicycle manufacturing brand.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Brand\", \"name\": \"Apex Bikes\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Retail sale price, currency, availability, and merchant store.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"1899\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "sku",
+        "type": "Text",
+        "description": "Stock inventory unit code.",
+        "required": false,
+        "exampleValue": "APX-EBIKE-01"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Summary of battery capacity, torque, top speed, and brake system.",
+        "required": false,
+        "exampleValue": "High-performance urban commuter e-bike featuring 750W geared hub motor..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Legal E-Bike Classification (Class 1/2/3)",
+        "description": "Failing to state whether an e-bike is Class 1 (20mph assist), Class 2 (throttle), or Class 3 (28mph) creates compliance and trail legality confusion.",
+        "severity": "warning",
+        "gscImpact": "Missed long-tail searches for 'Class 3 commuter e-bike'.",
+        "solution": "Include the class classification in both product title and description."
+      },
+      {
+        "title": "Omitting Battery Capacity and Motor Wattage",
+        "description": "E-bike shoppers heavily compare watt-hours (Wh) and motor watts; omitting these specs reduces conversion rates.",
+        "severity": "warning",
+        "gscImpact": "Lower relevance in technical e-bike comparison queries.",
+        "solution": "Explicitly detail motor wattage (e.g. 750W) and battery size (720Wh) in description."
+      },
+      {
+        "title": "Missing Stock Availability Status",
+        "description": "Failing to specify availability: InStock or PreOrder on seasonal cycling models leads to merchant warning flags.",
+        "severity": "error",
+        "gscImpact": "Google Merchant Center item disapproval.",
+        "solution": "Always include Schema.org availability enumerations."
+      }
+    ],
+    "relatedSlugs": [
+      "electric-vehicle-range-spec",
+      "motorcycle-cruiser-sport",
+      "auto-parts-oem-catalog",
+      "used-car-certified-pre-owned"
+    ],
+    "useCases": [
+      "Direct-to-consumer e-bike retail product pages",
+      "Local bike shop online inventory catalogs",
+      "Electric micromobility review and comparison portals"
+    ]
+  },
+  {
+    "slug": "auto-detailing-wrap-service",
+    "title": "Auto Detailing & Ceramic Coating / Vinyl Wrap Schema Markup (JSON-LD)",
+    "shortTitle": "Auto Detailing & Vinyl Wrap",
+    "schemaType": "AutoRepair",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for high-end automotive detailing studios, ceramic coating specialists, and vinyl vehicle wrap shops, detailing multi-stage paint correction, paint protection film (PPF), and service packages.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "auto detailing schema",
+      "ceramic coating structured data",
+      "vinyl wrap json-ld",
+      "car detailer schema.org",
+      "ppf installer rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AutoRepair\",\n  \"@id\": \"https://example.com/detailing/apex-precision-studio#shop\",\n  \"name\": \"Apex Precision Auto Detailing & Ceramic Studio\",\n  \"description\": \"Certified paint protection studio specializing in multi-stage paint correction, 5-year hydrophobic ceramic coatings, and XPEL clear bra PPF installation.\",\n  \"telephone\": \"+1-702-555-0188\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"4420 Dean Martin Drive, Suite 10\",\n    \"addressLocality\": \"Las Vegas\",\n    \"addressRegion\": \"NV\",\n    \"postalCode\": \"89103\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Auto Detailing & Protection Packages\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"5-Year Ceramic Pro Paint Protection Coating\"\n        },\n        \"price\": \"1299\",\n        \"priceCurrency\": \"USD\"\n      }\n    ]\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official trading studio name of the auto detailing or wrap facility.",
+        "required": true,
+        "exampleValue": "Apex Precision Auto Detailing & Ceramic Studio"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the detailing bay and workshop.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"4420 Dean Martin Drive...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main phone contact number for detailing appointments.",
+        "required": true,
+        "exampleValue": "+1-702-555-0188"
+      },
+      {
+        "name": "hasOfferCatalog",
+        "type": "OfferCatalog",
+        "description": "Catalog of structured detailing packages including ceramic coating, PPF, and tinting.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"OfferCatalog\", \"name\": \"Auto Detailing & Protection Packages\", ... }"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Studio opening and intake hours across days of the week.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"18:00\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Service pricing tier indicator ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Using Generic LocalBusiness Instead of AutoRepair",
+        "description": "Failing to specialize as AutoRepair prevents Google Maps from recognizing vehicle maintenance and styling capabilities.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings for 'ceramic coating near me' queries in Local Pack.",
+        "solution": "Use the Schema.org '@type: AutoRepair' entity."
+      },
+      {
+        "title": "Missing Structured Service Packages in OfferCatalog",
+        "description": "Listing only general shop info without individual service pricing prevents rich service pricing carousels.",
+        "severity": "warning",
+        "gscImpact": "Competitors with structured package pricing gain higher CTR in local SERPs.",
+        "solution": "Nest service tiers under hasOfferCatalog."
+      },
+      {
+        "title": "Omitting Workshop Bay Suite Address",
+        "description": "Industrial park detailing shops with missing suite numbers encounter Google Maps pin misalignment.",
+        "severity": "error",
+        "gscImpact": "Customer navigation confusion to commercial park bays.",
+        "solution": "Provide complete suite number in streetAddress."
+      }
+    ],
+    "relatedSlugs": [
+      "towing-roadside-assistance",
+      "used-car-certified-pre-owned",
+      "auto-parts-oem-catalog",
+      "retail-strip-mall"
+    ],
+    "useCases": [
+      "Ceramic coating & PPF studio booking pages",
+      "Automotive vinyl wrap shop portfolio websites",
+      "Mobile auto detailing service area pages"
+    ]
+  },
+  {
+    "slug": "towing-roadside-assistance",
+    "title": "24/7 Emergency Towing & Roadside Assistance Schema Markup (JSON-LD)",
+    "shortTitle": "Emergency Towing & Roadside",
+    "schemaType": "EmergencyService",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for 24-hour emergency towing services, flatbed recovery, battery jump-starts, lockout assistance, and highway roadside aid, detailing response dispatch and service areas.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "towing service schema",
+      "roadside assistance structured data",
+      "emergency towing json-ld",
+      "tow truck schema.org",
+      "24 7 towing rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"EmergencyService\",\n  \"@id\": \"https://example.com/towing/quick-recovery#service\",\n  \"name\": \"Apex 24/7 Heavy & Light Duty Towing Recovery\",\n  \"description\": \"Rapid response 24-hour emergency towing, flatbed vehicle transport, tire changes, fuel delivery, and lockout assistance throughout metropolitan area.\",\n  \"telephone\": \"+1-404-555-0199\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1200 Industrial Boulevard NW\",\n    \"addressLocality\": \"Atlanta\",\n    \"addressRegion\": \"GA\",\n    \"postalCode\": \"30318\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ],\n  \"areaServed\": [\n    \"Atlanta\",\n    \"Fulton County\",\n    \"DeKalb County\",\n    \"Cobb County\"\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official dispatch brand name of the towing recovery service.",
+        "required": true,
+        "exampleValue": "Apex 24/7 Heavy & Light Duty Towing Recovery"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "24-hour direct emergency dispatch telephone line.",
+        "required": true,
+        "exampleValue": "+1-404-555-0199"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "24/7 continuous operational availability specification.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"00:00\", \"closes\": \"23:59\" }]"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Immediate roadside recovery counties and highway corridors served.",
+        "required": true,
+        "exampleValue": "[\"Atlanta\", \"Fulton County\", \"DeKalb County\"]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical dispatch yard or impound lot address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1200 Industrial Boulevard NW\", ... }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Hookup and mileage pricing tier ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Failing to Model Continuous 24/7 Opening Hours",
+        "description": "Setting limited business hours for a 24-hour emergency tow company causes Google Maps to show the business as 'Closed' during night emergencies.",
+        "severity": "critical",
+        "gscImpact": "Loss of midnight and weekend emergency call volume from searchers in distress.",
+        "solution": "Declare opens: '00:00' and closes: '23:59' across all 7 days of the week."
+      },
+      {
+        "title": "Missing Direct Click-to-Call Emergency Telephone",
+        "description": "Stranded motorists require immediate phone dialing from mobile SERPs; missing telephone links destroy emergency conversions.",
+        "severity": "critical",
+        "gscImpact": "No click-to-call action on mobile Local Pack cards.",
+        "solution": "Ensure telephone is present and correctly formatted with international dial codes."
+      },
+      {
+        "title": "Using Generic AutomotiveBusiness Instead of EmergencyService",
+        "description": "Using generic categories dilutes Google's emergency urgency ranking signals during real-time roadside queries.",
+        "severity": "warning",
+        "gscImpact": "Lower prominence for 'tow truck near me right now' emergency queries.",
+        "solution": "Use the '@type: EmergencyService' or AutoRepair entity."
+      }
+    ],
+    "relatedSlugs": [
+      "auto-detailing-wrap-service",
+      "used-car-certified-pre-owned",
+      "insurance-policy-auto",
+      "commercial-truck-freight"
+    ],
+    "useCases": [
+      "24/7 emergency roadside assistance landing pages",
+      "Heavy duty commercial truck recovery websites",
+      "Auto insurance dispatch contractor service pages"
+    ]
+  },
+  {
+    "slug": "rv-motorhome-rental",
+    "title": "Class A/C Motorhome & Camper Van Rental Schema Markup (JSON-LD)",
+    "shortTitle": "RV & Motorhome Rental",
+    "schemaType": "Vehicle",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for Class A luxury motorhomes, Class C family RVs, and adventure camper van rentals, detailing sleeping berths, generator power, kitchen galleys, and nightly rental rates.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "rv rental schema",
+      "motorhome rental structured data",
+      "camper van json-ld",
+      "rv hire schema.org",
+      "motorhome rates rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Vehicle\",\n  \"@id\": \"https://example.com/rv/thor-freedom-elite-30ft#rv\",\n  \"name\": \"Thor 30-Foot Class C Family Motorhome Rental (Sleeps 7)\",\n  \"description\": \"Fully equipped 30ft Class C motorhome featuring queen master suite, over-cab bunk, full kitchen, onboard generator, and rear backup camera for family road trips.\",\n  \"vehicleConfiguration\": \"Class C Motorhome with Slide-Out\",\n  \"seatingCapacity\": 7,\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Sleeps Up to 7 Passengers\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Onboard 4000W Gas Generator\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Full Bathroom with Shower\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"185\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"NIGHT\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"seller\": {\n      \"@type\": \"AutoRental\",\n      \"name\": \"Great Outdoors RV Rentals\",\n      \"telephone\": \"+1-801-555-0177\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official rental motorhome model name, length, and sleeping capacity.",
+        "required": true,
+        "exampleValue": "Thor 30-Foot Class C Family Motorhome Rental (Sleeps 7)"
+      },
+      {
+        "name": "seatingCapacity",
+        "type": "Integer",
+        "description": "Seatbelted passenger travel capacity.",
+        "required": true,
+        "exampleValue": "7"
+      },
+      {
+        "name": "vehicleConfiguration",
+        "type": "Text",
+        "description": "RV category ('Class A Motorhome', 'Class C Motorhome', 'Class B Camper Van').",
+        "required": true,
+        "exampleValue": "Class C Motorhome with Slide-Out"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Onboard RV living amenities including generator, full bathroom, slide-outs, and kitchen galley.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Onboard 4000W Gas Generator\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Nightly rental hire rate, currency, and availability.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"185\", \"priceCurrency\": \"USD\", \"unitText\": \"NIGHT\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Detailed summary of bedding layouts, mileage allowances (e.g. 100 free miles/day), and generator hours.",
+        "required": false,
+        "exampleValue": "Fully equipped 30ft Class C motorhome featuring queen master suite..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Nightly unitText on RV Hire Rates",
+        "description": "Listing a nightly price without unitText: 'NIGHT' causes search engines to interpret $185 as total purchase cost.",
+        "severity": "error",
+        "gscImpact": "Inaccurate pricing displays on travel comparison SERPs.",
+        "solution": "Explicitly declare unitText: 'NIGHT' on rental offers."
+      },
+      {
+        "title": "Confusing Seating Capacity with Sleeping Capacity",
+        "description": "RVs often seat 6 with seatbelts but sleep 8; failing to differentiate creates passenger safety confusion.",
+        "severity": "warning",
+        "gscImpact": "Booking disputes and negative renter reviews.",
+        "solution": "Declare seatingCapacity for travel and mention sleeping berths in amenityFeature."
+      },
+      {
+        "title": "Omitting Generator and Water Amenities",
+        "description": "Off-grid boondocking campers filter specifically for generator and water tank capacities.",
+        "severity": "warning",
+        "gscImpact": "Excluded from 'self-contained RV rental' search queries.",
+        "solution": "Detail generator and holding tank specs in amenityFeature."
+      }
+    ],
+    "relatedSlugs": [
+      "campground-rv-park",
+      "car-rental-fleet-vehicle",
+      "vacation-rental-villa",
+      "boat-yacht-charter"
+    ],
+    "useCases": [
+      "Peer-to-peer RV rental marketplace detail pages",
+      "Motorhome fleet hire company booking engines",
+      "National park camper van adventure guides"
+    ]
+  },
+  {
+    "slug": "ferry-water-transit-route",
+    "title": "Passenger Ferry & Island Water Transit Route Schema Markup (JSON-LD)",
+    "shortTitle": "Ferry & Water Transit",
+    "schemaType": "BoatTrip",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for scheduled passenger ferry routes, island water taxis, and vehicle car ferries, encoding departure/arrival marine terminals, sailing durations, vehicle deck fees, and ticketing offers.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "ferry route schema",
+      "water transit structured data",
+      "passenger ferry json-ld",
+      "boat trip schema.org",
+      "island ferry schedule rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BoatTrip\",\n  \"@id\": \"https://example.com/ferry/seattle-bainbridge-route#trip\",\n  \"name\": \"Seattle to Bainbridge Island Scheduled Passenger & Vehicle Ferry\",\n  \"description\": \"Scenic 35-minute cross-sound public ferry transit service carrying walk-on foot passengers, bicycles, and motor vehicles with departures every 50 minutes.\",\n  \"departureBoatTerminal\": {\n    \"@type\": \"BoatTerminal\",\n    \"name\": \"Colman Dock / Seattle Ferry Terminal (Pier 52)\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"801 Alaskan Way\",\n      \"addressLocality\": \"Seattle\",\n      \"addressRegion\": \"WA\",\n      \"postalCode\": \"98104\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"arrivalBoatTerminal\": {\n    \"@type\": \"BoatTerminal\",\n    \"name\": \"Bainbridge Island Ferry Terminal\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"Olympic Drive SE\",\n      \"addressLocality\": \"Bainbridge Island\",\n      \"addressRegion\": \"WA\",\n      \"postalCode\": \"98110\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Washington State Ferries\",\n    \"telephone\": \"+1-206-555-0190\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"9.85\",\n    \"priceCurrency\": \"USD\",\n    \"description\": \"Standard adult walk-on passenger one-way fare.\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official sailing route title connecting departure and arrival terminals.",
+        "required": true,
+        "exampleValue": "Seattle to Bainbridge Island Scheduled Passenger & Vehicle Ferry"
+      },
+      {
+        "name": "departureBoatTerminal",
+        "type": "BoatTerminal",
+        "description": "Originating marine ferry terminal name and physical street address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BoatTerminal\", \"name\": \"Colman Dock / Seattle Ferry Terminal...\" }"
+      },
+      {
+        "name": "arrivalBoatTerminal",
+        "type": "BoatTerminal",
+        "description": "Destination island or mainland ferry terminal and address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"BoatTerminal\", \"name\": \"Bainbridge Island Ferry Terminal...\" }"
+      },
+      {
+        "name": "provider",
+        "type": "Organization",
+        "description": "Operating maritime transit authority or private ferry company.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"Washington State Ferries\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Walk-on passenger or vehicle ticket fare, currency, and concession terms.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"9.85\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Crossing duration, departure frequency, vehicle deck restrictions, and accessibility.",
+        "required": false,
+        "exampleValue": "Scenic 35-minute cross-sound public ferry transit service..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Explicit Departure & Arrival BoatTerminal Nodes",
+        "description": "Using plain string names for ferry docks without BoatTerminal structured nodes prevents Google Maps transit route integration.",
+        "severity": "error",
+        "gscImpact": "Failure to integrate into Google Maps public transit route options.",
+        "solution": "Encapsulate terminals inside typed BoatTerminal objects with postal addresses."
+      },
+      {
+        "title": "Confusing Passenger Foot Fares with Vehicle Deck Fares",
+        "description": "Failing to clarify whether ticket price is per-person or per-vehicle causes passenger fare disputes.",
+        "severity": "warning",
+        "gscImpact": "User drop-off during transit ticketing onboarding.",
+        "solution": "Specify 'walk-on passenger fare' vs 'standard vehicle fare' in offer description."
+      },
+      {
+        "title": "Omission of Crossing Travel Time Duration",
+        "description": "Failing to provide crossing duration in description hurts travel planning SERP utility.",
+        "severity": "warning",
+        "gscImpact": "Lower snippet engagement on travel itinerary queries.",
+        "solution": "State transit duration (e.g., '35 minutes') in description."
+      }
+    ],
+    "relatedSlugs": [
+      "boat-yacht-charter",
+      "airport-shuttle-transfer",
+      "marina-boat-slip",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Public maritime transit schedule and route portals",
+      "Island tourist ferry ticketing pages",
+      "Commuter water taxi booking websites"
+    ]
+  },
+  {
+    "slug": "golf-course-clubhouse",
+    "title": "Championship Golf Course & Clubhouse Schema Markup (JSON-LD)",
+    "shortTitle": "Golf Course & Clubhouse",
+    "schemaType": "GolfCourse",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for championship 18-hole golf courses, country clubs, and driving ranges, detailing green fee pricing, hole count, par rating, pro shop amenities, and tee time booking.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "golf course schema",
+      "country club structured data",
+      "golf club json-ld",
+      "golf course schema.org",
+      "tee time booking rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"GolfCourse\",\n  \"@id\": \"https://example.com/golf/cypress-dunes#course\",\n  \"name\": \"Cypress Dunes Championship Golf Links\",\n  \"description\": \"Premier 18-hole par-72 oceanfront links golf course featuring championship practice greens, PGA professional instruction, and full-service clubhouse dining.\",\n  \"telephone\": \"+1-831-555-0145\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1700 Dunes Road\",\n    \"addressLocality\": \"Pebble Beach\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"93953\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"18-Hole Par 72 Championship Layout\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Full Grass Driving Range & Putting Green\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"PGA Certified Golf Instruction\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"19:30\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"18-Hole Weekend Morning Green Fee with Cart\",\n    \"price\": \"195\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official golf course name or country club facility title.",
+        "required": true,
+        "exampleValue": "Cypress Dunes Championship Golf Links"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the golf course clubhouse.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1700 Dunes Road\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Pro shop tee time reservation telephone line.",
+        "required": true,
+        "exampleValue": "+1-831-555-0145"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Course specifications including 18-hole count, par rating, driving range, and caddie services.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"18-Hole Par 72 Championship Layout\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Sunrise-to-sunset seasonal operational hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"06:30\", \"closes\": \"19:30\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Standard green fee rate, electric golf cart inclusions, and rental club pricing.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"18-Hole Weekend Morning Green Fee\", \"price\": \"195\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Green fee pricing tier indicator ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Private Country Club with Public Daily-Fee Course",
+        "description": "Failing to clarify public accessibility vs private equity membership leads to walk-in customer friction.",
+        "severity": "warning",
+        "gscImpact": "Negative user reviews and elevated bounce rate.",
+        "solution": "Specify 'Public Daily-Fee' or 'Private Member Equity Club' in description and amenityFeature."
+      },
+      {
+        "title": "Missing Cart Inclusion Details in Green Fee Offers",
+        "description": "Quoting a walking-only rate without disclosing mandatory cart fees creates pricing discrepancy disputes.",
+        "severity": "warning",
+        "gscImpact": "User drop-offs on online tee sheet booking widgets.",
+        "solution": "Clarify cart inclusions directly in the Offer name and description."
+      },
+      {
+        "title": "Using Generic SportsActivityLocation Instead of GolfCourse",
+        "description": "Using the general parent type forfeits Google's dedicated golf-specific knowledge panel features.",
+        "severity": "warning",
+        "gscImpact": "Loss of golf scorecards and course layout snippets in Google Search.",
+        "solution": "Always declare the specific '@type: GolfCourse'."
+      }
+    ],
+    "relatedSlugs": [
+      "tennis-pickleball-court",
+      "marina-boat-slip",
+      "ski-resort-trail-map",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Golf course tee time reservation websites",
+      "Country club membership and event showcase pages",
+      "Golf resort tourism destination guide portals"
+    ]
+  },
+  {
+    "slug": "marina-boat-slip",
+    "title": "Marina & Yacht Club Boat Slip Rental Schema Markup (JSON-LD)",
+    "shortTitle": "Marina & Boat Slip",
+    "schemaType": "SportsActivityLocation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for coastal marinas, yacht harbors, and public boat slip facilities, modeling maximum vessel draft, slip length, marine fuel dock, pump-out stations, and transient docking rates.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "marina schema markup",
+      "boat slip structured data",
+      "yacht harbor json-ld",
+      "marina schema.org",
+      "boat dockage rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsActivityLocation\",\n  \"@id\": \"https://example.com/marina/harbor-cove#marina\",\n  \"name\": \"Harbor Cove Marina & Yacht Basin\",\n  \"description\": \"Full-service deepwater marina featuring 250 protected boat slips accommodating vessels up to 85ft, high-speed diesel fuel dock, pump-out, and 50-amp shore power.\",\n  \"telephone\": \"+1-410-555-0182\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"550 Marina Drive\",\n    \"addressLocality\": \"Annapolis\",\n    \"addressRegion\": \"MD\",\n    \"postalCode\": \"21403\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"250 Wet Slips up to 85ft LOA\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Marine Diesel & 93 Octane Ethanol-Free Fuel Dock\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"50/100 Amp Electrical Shore Power Hookups\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Transient Dockage Slip Rental\",\n    \"price\": \"3.50\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"FOT_D\",\n    \"description\": \"Daily transient dockage rate per foot of vessel length.\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official trading name of the marina or yacht basin.",
+        "required": true,
+        "exampleValue": "Harbor Cove Marina & Yacht Basin"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical shoreline street address of the harbor master office.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"550 Marina Drive\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Harbor master dock office telephone line for slip reservations.",
+        "required": true,
+        "exampleValue": "+1-410-555-0182"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Marina facilities including shore power, fuel docks, haul-out travel lifts, and maximum draft depth.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"250 Wet Slips up to 85ft LOA\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Per-foot transient dockage rate or annual slip lease pricing.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Transient Dockage Slip Rental\", \"price\": \"3.50\", \"unitText\": \"FOT_D\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Dockage pricing bracket indicator ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Per-Foot Rate Metric in unitText",
+        "description": "Listing a price like '3.50' without specifying per-foot per-day causes search engines to misrepresent slip fees as flat $3.50 total rates.",
+        "severity": "error",
+        "gscImpact": "Erroneous pricing badges on local marina search snippets.",
+        "solution": "Use unitText 'FOT_D' (foot per day) or clarify in offer description."
+      },
+      {
+        "title": "Omitting Deepwater Draft Restrictions",
+        "description": "Failing to state controlling depth and maximum draft at mean low water risks boat grounding incidents.",
+        "severity": "warning",
+        "gscImpact": "High inquiry bounce rates from deep-draft sailboat owners.",
+        "solution": "Explicitly state maximum draft in feet in amenityFeature."
+      },
+      {
+        "title": "Missing Fuel Dock Specification",
+        "description": "Boaters navigating waterways urgently search for 'diesel fuel dock near me'; omitting fuel specs loses high-volume marine traffic.",
+        "severity": "warning",
+        "gscImpact": "Excluded from marine fuel availability search facets.",
+        "solution": "Include LocationFeatureSpecification for marine fuel options."
+      }
+    ],
+    "relatedSlugs": [
+      "boat-yacht-charter",
+      "ferry-water-transit-route",
+      "scuba-diving-charter",
+      "campground-rv-park"
+    ],
+    "useCases": [
+      "Marina dockage and transient slip booking websites",
+      "Yacht harbor transient reservation portals",
+      "Coastal waterway boating directory pages"
+    ]
+  },
+  {
+    "slug": "ski-resort-trail-map",
+    "title": "Alpine Ski Resort & Winter Mountain Trail Schema Markup (JSON-LD)",
+    "shortTitle": "Ski Resort & Mountain",
+    "schemaType": "SkiResort",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for alpine ski resorts, snowboard parks, and mountain lift systems, detailing skiable acreage, lift counts, trail difficulty breakdown, vertical drop, and lift ticket passes.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "ski resort schema",
+      "ski mountain structured data",
+      "ski trail json-ld",
+      "ski resort schema.org",
+      "lift ticket pass rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SkiResort\",\n  \"@id\": \"https://example.com/ski/summit-peak#resort\",\n  \"name\": \"Summit Peak Alpine Ski Resort\",\n  \"description\": \"World-class alpine ski and snowboard resort featuring 3,500 skiable acres, 14 high-speed chairlifts, 3,100ft vertical drop, and terrain parks across 110 marked trails.\",\n  \"telephone\": \"+1-970-555-0194\",\n  \"priceRange\": \"$$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1000 Mountain Village Way\",\n    \"addressLocality\": \"Breckenridge\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80424\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"14 High-Speed Chairlifts & Gondolas\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"110 Marked Trails: 20% Beginner, 45% Intermediate, 35% Expert\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"3,100 Feet Continuous Vertical Drop\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"16:00\",\n      \"validFrom\": \"2026-11-15\",\n      \"validThrough\": \"2027-04-20\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Adult Full-Day Mountain Lift Ticket\",\n    \"price\": \"169\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official commercial mountain resort brand name.",
+        "required": true,
+        "exampleValue": "Summit Peak Alpine Ski Resort"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical base lodge street address and ski village postal municipality.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1000 Mountain Village Way\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main snow report and mountain ticket office contact telephone.",
+        "required": true,
+        "exampleValue": "+1-970-555-0194"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Mountain statistics including lift count, trail difficulty percentages, vertical drop, and snowmaking coverage.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"14 High-Speed Chairlifts & Gondolas\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Winter ski season operational hours with validFrom and validThrough dates.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:30\", \"closes\": \"16:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Daily lift ticket pass rates, season pass subscriptions, and equipment rental fees.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Adult Full-Day Mountain Lift Ticket\", \"price\": \"169\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Resort expenditure bracket indicator ($$$$).",
+        "required": false,
+        "exampleValue": "$$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Seasonal Operating Dates on Ski Lifts",
+        "description": "Failing to define validFrom and validThrough dates causes Google to report ski lifts as closed during peak fall booking months.",
+        "severity": "critical",
+        "gscImpact": "Loss of pre-season lift ticket sales due to erroneous 'Closed' Google Maps status.",
+        "solution": "Use validFrom/validThrough inside openingHoursSpecification."
+      },
+      {
+        "title": "Using Generic Resort Instead of SkiResort",
+        "description": "Using standard Resort without the specialized SkiResort type prevents Google from surfacing live snow report widgets.",
+        "severity": "warning",
+        "gscImpact": "Loss of automated snow report and mountain condition cards on SERPs.",
+        "solution": "Use the dedicated '@type: SkiResort' entity."
+      },
+      {
+        "title": "Omitting Trail Difficulty Breakdown",
+        "description": "Skiers and snowboarders search by skill level (beginner vs double black diamond); omitting trail percentages limits topical authority.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings for beginner-friendly and expert ski resort queries.",
+        "solution": "Include percentage difficulty breakdowns in amenityFeature."
+      }
+    ],
+    "relatedSlugs": [
+      "campground-rv-park",
+      "golf-course-clubhouse",
+      "hotel-resort-hospitality",
+      "amusement-theme-park"
+    ],
+    "useCases": [
+      "Ski resort lift ticket and season pass booking portals",
+      "Mountain snow condition and trail report pages",
+      "Winter sports vacation destination guides"
+    ]
+  },
+  {
+    "slug": "martial-arts-dojo-gym",
+    "title": "Martial Arts Academy & Brazilian Jiu-Jitsu Dojo Schema Markup (JSON-LD)",
+    "shortTitle": "Martial Arts Dojo",
+    "schemaType": "SportsActivityLocation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for martial arts academies, Brazilian Jiu-Jitsu (BJJ) dojos, Muay Thai kickboxing gyms, and karate schools, detailing age divisions, belt curriculums, trial memberships, and class schedules.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "martial arts schema",
+      "bjj dojo structured data",
+      "karate school json-ld",
+      "martial arts gym schema.org",
+      "bjj class rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsActivityLocation\",\n  \"@id\": \"https://example.com/dojo/apex-martial-arts#gym\",\n  \"name\": \"Apex Brazilian Jiu-Jitsu & Martial Arts Academy\",\n  \"description\": \"Premier martial arts academy offering Brazilian Jiu-Jitsu (Gi and No-Gi), Muay Thai kickboxing, self-defense, and youth martial arts programs taught by IBJJF black belt instructors.\",\n  \"telephone\": \"+1-512-555-0188\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"3200 South Congress Ave, Suite 104\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78704\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"2,500 sq ft Seamless Spring-Loaded Dollamur Tatami Mats\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Certified IBJJF 3rd Degree Black Belt Head Instructor\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Separate Kids (Ages 4-12) and Adult Class Programs\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Unlimited Monthly Adult BJJ & Striking Membership\",\n    \"price\": \"165\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"MONTH\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official academy or dojo commercial business name.",
+        "required": true,
+        "exampleValue": "Apex Brazilian Jiu-Jitsu & Martial Arts Academy"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the martial arts training facility.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"3200 South Congress Ave...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Front desk phone number for class trial inquiries.",
+        "required": true,
+        "exampleValue": "+1-512-555-0188"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Dojo amenities including mat space, shower facilities, certified black belt instructors, and kid programs.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Certified IBJJF 3rd Degree Black Belt...\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Monthly unlimited training tuition, free trial class passes, and uniform gear packages.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Unlimited Monthly Adult BJJ...\", \"price\": \"165\", \"unitText\": \"MONTH\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Monthly tuition tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Kids vs Adult Program Differentiation",
+        "description": "Failing to explicitly structure kids martial arts programs causes parents to overlook the academy in local youth sports queries.",
+        "severity": "warning",
+        "gscImpact": "Loss of high-intent parents searching for 'kids karate' or 'kids bjj'.",
+        "solution": "Highlight age-bracketed classes in amenityFeature and description."
+      },
+      {
+        "title": "Missing Monthly unitText on Tuition Rates",
+        "description": "Listing a $165 tuition without unitText 'MONTH' causes search engines to display tuition as single drop-in fee.",
+        "severity": "error",
+        "gscImpact": "Pricing misinterpretation on Google Local pack cards.",
+        "solution": "Specify unitText: 'MONTH' on all recurring membership plans."
+      },
+      {
+        "title": "Omitting Instructor Rank & Accreditation",
+        "description": "Prospective martial arts students seek credible belt rank lineage; omitting black belt credentials reduces local trust.",
+        "severity": "warning",
+        "gscImpact": "Lower E-E-A-T score in competitive combat sports niches.",
+        "solution": "Detail IBJJF/USATKD black belt credentials in structured amenities."
+      }
+    ],
+    "relatedSlugs": [
+      "crossfit-gym-box",
+      "yoga-pilates-studio",
+      "personal-trainer-coach",
+      "climbing-bouldering-gym"
+    ],
+    "useCases": [
+      "Martial arts dojo membership and trial signup pages",
+      "BJJ academy schedule and curriculum portals",
+      "Youth self-defense and karate school class pages"
+    ]
+  },
+  {
+    "slug": "yoga-pilates-studio",
+    "title": "Yoga & Reformer Pilates Boutique Studio Schema Markup (JSON-LD)",
+    "shortTitle": "Yoga & Pilates Studio",
+    "schemaType": "HealthClub",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for boutique hot yoga studios, Vinyasa centers, and Reformer Pilates studios, detailing Allegro 2 reformers, heated rooms, instructor certifications, class drop-in rates, and memberships.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "yoga studio schema",
+      "pilates studio structured data",
+      "reformer pilates json-ld",
+      "health club schema.org",
+      "yoga class pass rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HealthClub\",\n  \"@id\": \"https://example.com/studio/sol-vinyasa-pilates#studio\",\n  \"name\": \"Sol Flow Heated Yoga & Reformer Pilates Studio\",\n  \"description\": \"Boutique wellness studio offering infrared heated Vinyasa yoga, classical Reformer Pilates, sound baths, and prenatal movement classes led by RYT-500 certified instructors.\",\n  \"telephone\": \"+1-619-555-0176\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1450 University Avenue\",\n    \"addressLocality\": \"San Diego\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"92103\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Custom Infrared Radiant Heating Panels (102°F / 40% Humidity)\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"12 Balanced Body Allegro 2 Reformer Towers\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Luxury Showers & Complimentary Manduka Mat Towels\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"New Student Unlimited 2-Week Intro Pass\",\n    \"price\": \"49\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official studio trading name.",
+        "required": true,
+        "exampleValue": "Sol Flow Heated Yoga & Reformer Pilates Studio"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical studio street address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1450 University Avenue\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Studio front desk phone contact.",
+        "required": true,
+        "exampleValue": "+1-619-555-0176"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Studio amenities like infrared heating, Reformer equipment, showers, and towel service.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"12 Balanced Body Allegro 2...\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Introductory offers, drop-in class rates, and monthly unlimited memberships.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"New Student Unlimited 2-Week Intro Pass\", \"price\": \"49\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Studio price bracket ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Mat Pilates with Reformer Equipment",
+        "description": "Failing to explicitly declare Reformer equipment causes lost traffic from high-intent Reformer searchers.",
+        "severity": "warning",
+        "gscImpact": "Excluded from 'reformer pilates studio near me' local pack results.",
+        "solution": "Specify Reformer machine counts in amenityFeature."
+      },
+      {
+        "title": "Missing Infrared / Heated Specs on Hot Yoga Studios",
+        "description": "Omitting exact temperature and humidity parameters prevents matching hot yoga specific search queries.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings for 'heated vinyasa yoga' searches.",
+        "solution": "Include infrared temperature specifications in structured amenities."
+      },
+      {
+        "title": "Omitting New Student Intro Offers",
+        "description": "Boutique studios rely on intro passes to convert search traffic; omitting them deprives search snippets of attractive price anchors.",
+        "severity": "warning",
+        "gscImpact": "Lower click-through rates compared to studios with visible intro deals.",
+        "solution": "Structure intro pass pricing under offers."
+      }
+    ],
+    "relatedSlugs": [
+      "crossfit-gym-box",
+      "personal-trainer-coach",
+      "martial-arts-dojo-gym",
+      "swimming-aquatics-center"
+    ],
+    "useCases": [
+      "Yoga studio class schedule and pricing pages",
+      "Reformer Pilates online booking portals",
+      "Wellness retreat and movement studio websites"
+    ]
+  },
+  {
+    "slug": "personal-trainer-coach",
+    "title": "Certified Personal Trainer & Strength Coach Schema Markup (JSON-LD)",
+    "shortTitle": "Personal Trainer & Coach",
+    "schemaType": "Person",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for certified personal fitness trainers, strength & conditioning coaches, and private nutritionists, modeling NASM/CSCS credentials, 1-on-1 packages, and client training locations.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "personal trainer schema",
+      "fitness coach structured data",
+      "strength coach json-ld",
+      "nasm trainer schema.org",
+      "private fitness coach rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Person\",\n  \"@id\": \"https://example.com/trainers/alex-vance#coach\",\n  \"name\": \"Alex Vance, CSCS, NASM-CPT\",\n  \"jobTitle\": \"Elite Strength & Conditioning Coach\",\n  \"description\": \"Certified NSCA-CSCS strength coach and sports nutritionist specializing in athletic performance, functional hypertrophy, and post-rehabilitation personal training.\",\n  \"telephone\": \"+1-415-555-0189\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94107\",\n    \"addressCountry\": \"US\"\n  },\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"1-on-1 Coaching & Fitness Packages\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"60-Minute Private 1-on-1 Strength Training Session\"\n        },\n        \"price\": \"120\",\n        \"priceCurrency\": \"USD\"\n      }\n    ]\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official professional coach name with credential suffixes (e.g. CSCS, CPT).",
+        "required": true,
+        "exampleValue": "Alex Vance, CSCS, NASM-CPT"
+      },
+      {
+        "name": "jobTitle",
+        "type": "Text",
+        "description": "Professional coaching title.",
+        "required": true,
+        "exampleValue": "Elite Strength & Conditioning Coach"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Direct business phone line for coaching consultations.",
+        "required": true,
+        "exampleValue": "+1-415-555-0189"
+      },
+      {
+        "name": "hasOfferCatalog",
+        "type": "OfferCatalog",
+        "description": "Structured catalog of private 1-on-1 training and online coaching packages.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"OfferCatalog\", \"name\": \"1-on-1 Coaching...\" }"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Primary training metropolitan area or private gym studio address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"addressLocality\": \"San Francisco\", ... }"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Coaching methodology, collegiate athletic background, and nutrition coaching.",
+        "required": false,
+        "exampleValue": "Certified NSCA-CSCS strength coach and sports nutritionist..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting Recognized National Fitness Certifications",
+        "description": "Failing to highlight CSCS, NASM, ACSM, or ACE certifications damages E-E-A-T signals in health & fitness topics.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in competitive 'personal trainer near me' queries.",
+        "solution": "Append certifications to name and detail them in description."
+      },
+      {
+        "title": "Missing Session Rate in OfferCatalog",
+        "description": "Omitting hourly rates causes prospects to assume prices are prohibitive and bounce.",
+        "severity": "warning",
+        "gscImpact": "Lower conversion on private coach portfolio landing pages.",
+        "solution": "Provide baseline single-session and package rates in hasOfferCatalog."
+      },
+      {
+        "title": "Confusing Independent Coach with Commercial Gym Chain",
+        "description": "Using Organization for a solo private coach deprives the individual of personal entity Knowledge Graph recognition.",
+        "severity": "warning",
+        "gscImpact": "Entity ambiguity in Google Knowledge Graph personal profiles.",
+        "solution": "Use '@type: Person' with nested Service offers."
+      }
+    ],
+    "relatedSlugs": [
+      "crossfit-gym-box",
+      "yoga-pilates-studio",
+      "martial-arts-dojo-gym",
+      "physician-medical-specialist"
+    ],
+    "useCases": [
+      "Independent personal trainer portfolio websites",
+      "Strength & conditioning coach booking pages",
+      "Online fitness coaching client intake hubs"
+    ]
+  },
+  {
+    "slug": "crossfit-gym-box",
+    "title": "CrossFit Box & Functional Fitness Gym Schema Markup (JSON-LD)",
+    "shortTitle": "CrossFit Gym Box",
+    "schemaType": "HealthClub",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for affiliated CrossFit boxes, Olympic weightlifting gyms, and functional strength facilities, detailing coach-led WODs, barbell rigs, drop-in visitor passes, and monthly memberships.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "crossfit schema",
+      "crossfit gym structured data",
+      "wod box json-ld",
+      "functional fitness schema.org",
+      "crossfit drop in rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HealthClub\",\n  \"@id\": \"https://example.com/box/iron-forge-crossfit#gym\",\n  \"name\": \"Iron Forge CrossFit & Functional Fitness\",\n  \"description\": \"Official CrossFit affiliate offering coach-led group WODs, dedicated Olympic weightlifting platforms, Rogue rigs, and open gym access in a 6,000 sq ft industrial facility.\",\n  \"telephone\": \"+1-303-555-0178\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2400 Walnut Street\",\n    \"addressLocality\": \"Denver\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80205\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"6,000 sq ft Facility with 40ft Rogue Monster Rig\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Certified CrossFit Level 3 (CCFT) Head Coach\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Dedicated Olympic Weightlifting Platforms & Eleiko Plates\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"05:30\",\n      \"closes\": \"20:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"12:00\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Traveling Athlete Single Class WOD Drop-In\",\n    \"price\": \"25\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official CrossFit affiliate or functional gym name.",
+        "required": true,
+        "exampleValue": "Iron Forge CrossFit & Functional Fitness"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the gym facility.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"2400 Walnut Street\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Front desk phone number for class schedules.",
+        "required": true,
+        "exampleValue": "+1-303-555-0178"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Gym equipment and specs including barbell rigs, Eleiko weights, and coach credentials.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"6,000 sq ft Facility...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Gym opening hours covering early morning and evening WOD sessions.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"05:30\", \"closes\": \"20:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Visiting athlete drop-in pass rates, punch cards, and monthly memberships.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Traveling Athlete Single Class WOD Drop-In\", \"price\": \"25\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Tuition price bracket ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Visitor Drop-In Rates in Schema",
+        "description": "CrossFit athletes frequently drop in when traveling; omitting drop-in passes loses high-intent transient bookings.",
+        "severity": "warning",
+        "gscImpact": "Lost search traffic for 'CrossFit drop in near me'.",
+        "solution": "Structure drop-in rates under offers."
+      },
+      {
+        "title": "Omission of Split Morning/Evening Opening Hours",
+        "description": "CrossFit boxes often close midday between 1:00 PM and 4:00 PM; publishing monolithic hours causes midday visitor walk-in confusion.",
+        "severity": "warning",
+        "gscImpact": "Negative reviews from prospects arriving during unstaffed midday hours.",
+        "solution": "Use multiple OpeningHoursSpecification entries to reflect morning and evening class blocks."
+      },
+      {
+        "title": "Using Unregistered CrossFit Trademarks Without Affiliate Status",
+        "description": "Claiming CrossFit affiliate name without active licensing violates trademark and entity accuracy guidelines.",
+        "severity": "warning",
+        "gscImpact": "Potential trademark entity complaints in Google Knowledge Graph.",
+        "solution": "Ensure affiliate status is accurate and in good standing."
+      }
+    ],
+    "relatedSlugs": [
+      "personal-trainer-coach",
+      "yoga-pilates-studio",
+      "martial-arts-dojo-gym",
+      "climbing-bouldering-gym"
+    ],
+    "useCases": [
+      "CrossFit affiliate website homepages",
+      "Functional fitness class schedule and WOD portal pages",
+      "Olympic weightlifting club membership hubs"
+    ]
+  },
+  {
+    "slug": "swimming-aquatics-center",
+    "title": "Public Aquatics Center & Competitive Swimming Pool Schema Markup (JSON-LD)",
+    "shortTitle": "Aquatics Center & Swimming Pool",
+    "schemaType": "SportsActivityLocation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for competitive aquatics centers, Olympic 50m swimming pools, swim schools, and community splash parks, detailing lane counts, lap swim schedules, diving wells, and day passes.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "swimming pool schema",
+      "aquatics center structured data",
+      "swim school json-ld",
+      "lap swim schema.org",
+      "aquatics center rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsActivityLocation\",\n  \"@id\": \"https://example.com/aquatics/olympic-center#pool\",\n  \"name\": \"Valley Aquatics Center & Olympic Swim Complex\",\n  \"description\": \"State-of-the-art aquatics center featuring 50-meter 10-lane Olympic competition pool, heated instructional warm-water pool, 1m/3m springboards, and public lap swim programs.\",\n  \"telephone\": \"+1-480-555-0192\",\n  \"priceRange\": \"$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"800 East Rio Salado Parkway\",\n    \"addressLocality\": \"Tempe\",\n    \"addressRegion\": \"AZ\",\n    \"postalCode\": \"85281\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"50-Meter 10-Lane Olympic Competition Pool\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Heated 25-Yard Teaching & Therapy Pool\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Locker Rooms with ADA-Accessible Family Showers\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"05:30\",\n      \"closes\": \"20:30\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Adult Public Lap Swim Daily Admission\",\n    \"price\": \"8\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title of the aquatics center or swimming facility.",
+        "required": true,
+        "exampleValue": "Valley Aquatics Center & Olympic Swim Complex"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the pool facility.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"800 East Rio Salado Parkway\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Aquatics center front desk and swim lesson hotline.",
+        "required": true,
+        "exampleValue": "+1-480-555-0192"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Pool specifications including 50m length, lane count, heated water, diving boards, and ADA lifts.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"50-Meter 10-Lane Olympic Competition Pool\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Public lap swim and open recreation hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"05:30\", \"closes\": \"20:30\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Daily general admission, punch pass, or monthly lap swim pass pricing.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Adult Public Lap Swim Daily Admission\", \"price\": \"8\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Public admission price tier ($).",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Competition Length (50m Olympic vs 25y Short Course)",
+        "description": "Competitive swimmers filter specifically by pool length; omitting pool dimensions reduces athletic credibility.",
+        "severity": "warning",
+        "gscImpact": "Lower organic search traffic for '50m pool near me'.",
+        "solution": "Explicitly declare pool length (50m or 25y) in amenityFeature."
+      },
+      {
+        "title": "Omission of Public Lap Swim Hours",
+        "description": "Aquatics centers host swim teams during specific blocks; publishing generic open hours leads to public lap swimmer walk-in conflicts.",
+        "severity": "warning",
+        "gscImpact": "Negative visitor reviews from lap swimmers turned away during team practices.",
+        "solution": "Specify designated lap swim hours in openingHoursSpecification."
+      },
+      {
+        "title": "Missing Daily Admission Price in Offers",
+        "description": "Public facility visitors check admission costs before visiting; omitting daily pass pricing hurts SERP snippet clarity.",
+        "severity": "warning",
+        "gscImpact": "Lower snippet engagement compared to nearby pools with visible day pass pricing.",
+        "solution": "Declare affordable day admission under offers."
+      }
+    ],
+    "relatedSlugs": [
+      "tennis-pickleball-court",
+      "community-cultural-center",
+      "public-park-recreation-area",
+      "crossfit-gym-box"
+    ],
+    "useCases": [
+      "Municipal aquatics center schedule and fee pages",
+      "Private swim club and lesson registration portals",
+      "Triathlon and competitive swim training facility hubs"
+    ]
+  },
+  {
+    "slug": "tennis-pickleball-court",
+    "title": "Tennis & Pickleball Racquet Club Schema Markup (JSON-LD)",
+    "shortTitle": "Tennis & Pickleball Club",
+    "schemaType": "SportsActivityLocation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for tennis centers, pickleball courts, and racquet clubs, detailing lighted courts, court surfaces (hard, clay, grass), ball machine rentals, and court booking fees.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "tennis court schema",
+      "pickleball club structured data",
+      "racquet club json-ld",
+      "tennis center schema.org",
+      "court reservation rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsActivityLocation\",\n  \"@id\": \"https://example.com/racquet/smash-point#club\",\n  \"name\": \"SmashPoint Tennis & Pickleball Club\",\n  \"description\": \"Premier racquet sports facility featuring 12 lighted championship hard tennis courts, 16 dedicated pickleball courts, pro shop, and USPTA coaching staff.\",\n  \"telephone\": \"+1-407-555-0186\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"450 Racquet Club Drive\",\n    \"addressLocality\": \"Orlando\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"32801\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"16 Dedicated Cushioned Pickleball Courts with LED Lighting\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"12 Championship Lighted Tennis Courts\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Pro Shop with Stringing Services & Demo Racquets\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"60-Minute Lighted Pickleball Court Reservation\",\n    \"price\": \"24\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"HUR\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official club or racquet center title.",
+        "required": true,
+        "exampleValue": "SmashPoint Tennis & Pickleball Club"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the tennis & pickleball center.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"450 Racquet Club Drive\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Pro shop or court booking desk telephone line.",
+        "required": true,
+        "exampleValue": "+1-407-555-0186"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Court details including dedicated pickleball counts, tennis surfaces, LED lights, and ball machines.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"16 Dedicated Cushioned Pickleball Courts...\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Hourly court booking rate, unitText (HUR), and clinic fees.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"60-Minute Lighted Pickleball Court Reservation\", \"price\": \"24\", \"unitText\": \"HUR\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Court rental pricing tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Dedicated Pickleball with Overlaid Tennis Lines",
+        "description": "Claiming pickleball courts without clarifying whether they are dedicated permanent net courts or taped tennis courts leads to player dissatisfaction.",
+        "severity": "warning",
+        "gscImpact": "Negative reviews and high bounce rates from serious pickleball players.",
+        "solution": "Specify 'Dedicated Permanent Net Pickleball Courts' in amenityFeature."
+      },
+      {
+        "title": "Missing Night Court LED Lighting Disclosures",
+        "description": "Night players specifically search for lighted courts; omitting lighting details forfeits evening court reservations.",
+        "severity": "warning",
+        "gscImpact": "Excluded from 'lighted tennis courts near me' search queries.",
+        "solution": "Highlight LED night lighting in amenityFeature."
+      },
+      {
+        "title": "Missing Hourly unitText on Court Rental Rates",
+        "description": "Listing a $24 rate without unitText: 'HUR' leads crawlers to display the rate as an annual membership fee.",
+        "severity": "error",
+        "gscImpact": "Inaccurate pricing presentation on Google Local Business cards.",
+        "solution": "Declare unitText: 'HUR' on court reservation offers."
+      }
+    ],
+    "relatedSlugs": [
+      "golf-course-clubhouse",
+      "swimming-aquatics-center",
+      "community-cultural-center",
+      "public-park-recreation-area"
+    ],
+    "useCases": [
+      "Tennis and pickleball club online court reservation portals",
+      "Municipal racquet sports facility schedule pages",
+      "Pickleball tournament and league directory hubs"
+    ]
+  },
+  {
+    "slug": "bowling-alley-entertainment",
+    "title": "Bowling Alley & Family Entertainment Center Schema Markup (JSON-LD)",
+    "shortTitle": "Bowling Alley & Arcade",
+    "schemaType": "BowlingAlley",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for bowling alleys, boutique VIP bowling lounges, and family entertainment complexes, detailing lane counts, arcade games, shoe rental fees, party packages, and kitchen dining.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "bowling alley schema",
+      "bowling center structured data",
+      "family entertainment center json-ld",
+      "bowling alley schema.org",
+      "bowling lane rental rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BowlingAlley\",\n  \"@id\": \"https://example.com/bowling/starlight-lanes#venue\",\n  \"name\": \"Starlight Lanes & Family Entertainment Lounge\",\n  \"description\": \"Modern entertainment center featuring 32 automated scoring bowling lanes, cosmic glow bowling, 60+ arcade games, laser tag arena, and full gastropub sports bar.\",\n  \"telephone\": \"+1-615-555-0174\",\n  \"priceRange\": \"$$\",\n  \"servesCuisine\": \"American Gastropub\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"700 Thompson Lane\",\n    \"addressLocality\": \"Nashville\",\n    \"addressRegion\": \"TN\",\n    \"postalCode\": \"37204\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"32 Regulation Synthetic Lanes with Bumpers\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Full-Service Sports Bar & Gastropub Dining\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"High-Tech Redemption Arcade & Laser Tag\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"12:00\",\n      \"closes\": \"23:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"11:00\",\n      \"closes\": \"01:00\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"60-Minute Bowling Lane Rental (Up to 6 Bowlers)\",\n    \"price\": \"38\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"HUR\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official venue name of the bowling alley or family entertainment center.",
+        "required": true,
+        "exampleValue": "Starlight Lanes & Family Entertainment Lounge"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the entertainment complex.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"700 Thompson Lane\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main phone line for party bookings and lane reservations.",
+        "required": true,
+        "exampleValue": "+1-615-555-0174"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Features including lane count, arcade games, cosmic lighting, and bumper availability.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"32 Regulation Synthetic Lanes...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Weekly and late-night weekend operating hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"12:00\", \"closes\": \"23:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Hourly lane rental pricing, shoe rental fees, and birthday party package rates.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"60-Minute Bowling Lane Rental\", \"price\": \"38\", \"unitText\": \"HUR\" }"
+      },
+      {
+        "name": "servesCuisine",
+        "type": "Text",
+        "description": "Cuisine type served at on-site restaurant or sports bar.",
+        "required": false,
+        "exampleValue": "American Gastropub"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Shoe Rental Fee Disclosures",
+        "description": "Quoting lane rental without mentioning mandatory shoe hire fees creates customer frustration at the front desk.",
+        "severity": "warning",
+        "gscImpact": "Negative customer reviews mentioning hidden fees.",
+        "solution": "Mention shoe rental pricing in offer description."
+      },
+      {
+        "title": "Confusing Per-Game Rates with Hourly Lane Rentals",
+        "description": "Failing to specify whether price is per person per game or per lane per hour causes large price confusion.",
+        "severity": "warning",
+        "gscImpact": "User drop-off during party booking checkout.",
+        "solution": "Specify unitText 'HUR' or clarify 'per bowler per game' in description."
+      },
+      {
+        "title": "Using Generic EntertainmentBusiness Instead of BowlingAlley",
+        "description": "Using generic categories forfeits bowling-specific rich attributes in Google Maps.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in 'bowling alleys near me' searches.",
+        "solution": "Always declare '@type: BowlingAlley'."
+      }
+    ],
+    "relatedSlugs": [
+      "escape-room-adventure",
+      "amusement-theme-park",
+      "community-cultural-center",
+      "retail-strip-mall"
+    ],
+    "useCases": [
+      "Bowling alley lane reservation and party booking pages",
+      "Family entertainment center arcade portal pages",
+      "Corporate team building and birthday party package hubs"
+    ]
+  },
+  {
+    "slug": "climbing-bouldering-gym",
+    "title": "Indoor Rock Climbing & Bouldering Gym Schema Markup (JSON-LD)",
+    "shortTitle": "Climbing & Bouldering Gym",
+    "schemaType": "SportsActivityLocation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for indoor climbing gyms, bouldering facilities, and lead climbing centers, detailing wall heights, climbing disciplines (bouldering, top-rope, lead), gear rental, and day pass rates.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "climbing gym schema",
+      "bouldering gym structured data",
+      "indoor rock climbing json-ld",
+      "climbing wall schema.org",
+      "climbing day pass rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsActivityLocation\",\n  \"@id\": \"https://example.com/climb/granite-arch#gym\",\n  \"name\": \"Granite Arch Indoor Rock Climbing & Bouldering Gym\",\n  \"description\": \"Massive 22,000 sq ft indoor rock climbing facility featuring 55ft lead climbing walls, 80 bouldering problems reset weekly, auto-belays, and complete gear rentals.\",\n  \"telephone\": \"+1-916-555-0185\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"11335 Folsom Boulevard, Building B\",\n    \"addressLocality\": \"Rancho Cordova\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"95742\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"55-Foot Lead & Top-Rope Climbing Walls\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"8,000 sq ft Dedicated Bouldering Terrain with Seamless Padding\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"18 Perfect Descent Auto-Belay Stations\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"06:00\",\n      \"closes\": \"22:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"20:00\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Full-Day Adult Climbing Pass with Gear Rental Package\",\n    \"price\": \"28\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official climbing facility commercial name.",
+        "required": true,
+        "exampleValue": "Granite Arch Indoor Rock Climbing & Bouldering Gym"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the indoor climbing facility.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"11335 Folsom Boulevard...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Front desk phone number for climbing safety orientation bookings.",
+        "required": true,
+        "exampleValue": "+1-916-555-0185"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Wall height, auto-belay count, bouldering area, training kilter boards, and shoe rentals.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"55-Foot Lead & Top-Rope...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Gym operating hours across weekdays and weekends.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"06:00\", \"closes\": \"22:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Day pass admission, rental shoe/harness package, and monthly unlimited memberships.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Full-Day Adult Climbing Pass...\", \"price\": \"28\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Day pass pricing tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Auto-Belay Count Disclosures",
+        "description": "Solo climbers filter heavily for auto-belay systems; omitting auto-belays reduces visits from individual climbers.",
+        "severity": "warning",
+        "gscImpact": "Lost traffic from solo climbers searching 'auto belay climbing gym'.",
+        "solution": "Include auto-belay numbers in amenityFeature."
+      },
+      {
+        "title": "Confusing Bouldering-Only Gyms with Roped Climbing Gyms",
+        "description": "Failing to state whether a facility has high roped walls or bouldering only creates climber gear mismatch.",
+        "severity": "warning",
+        "gscImpact": "User complaints from climbers expecting lead walls at bouldering gyms.",
+        "solution": "Explicitly clarify climbing disciplines (bouldering, lead, top rope) in description."
+      },
+      {
+        "title": "Omission of Mandatory First-Time Belay Orientation Requirements",
+        "description": "Failing to disclose safety certification requirements leads to delays during peak check-in times.",
+        "severity": "warning",
+        "gscImpact": "Friction at check-in leading to negative user reviews.",
+        "solution": "Mention belay certification policy in description."
+      }
+    ],
+    "relatedSlugs": [
+      "crossfit-gym-box",
+      "martial-arts-dojo-gym",
+      "yoga-pilates-studio",
+      "personal-trainer-coach"
+    ],
+    "useCases": [
+      "Climbing gym membership and day pass online waiver pages",
+      "Bouldering gym class schedule and route reset portals",
+      "Youth climbing team and birthday party booking hubs"
+    ]
+  },
+  {
+    "slug": "scuba-diving-charter",
+    "title": "PADI Scuba Diving Center & Reef Charter Schema Markup (JSON-LD)",
+    "shortTitle": "Scuba Diving Center",
+    "schemaType": "SportsActivityLocation",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for PADI/SSI scuba diving centers, reef dive boat charters, wreck diving expeditions, and Open Water certification courses, detailing dive depths, nitrox, gear, and booking.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "scuba diving schema",
+      "dive shop structured data",
+      "padi dive center json-ld",
+      "scuba charter schema.org",
+      "dive boat charter rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsActivityLocation\",\n  \"@id\": \"https://example.com/scuba/abyss-divers#shop\",\n  \"name\": \"Abyss Coral Reef Scuba Diving & PADI 5-Star Center\",\n  \"description\": \"PADI 5-Star Dive Center offering daily 2-tank boat dive charters to offshore coral reefs and shipwrecks, Nitrox fills, full gear rental, and Open Water to Divemaster certifications.\",\n  \"telephone\": \"+1-305-555-0196\",\n  \"priceRange\": \"$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"102 Ocean Boulevard, Slip 8\",\n    \"addressLocality\": \"Key Largo\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33037\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"PADI 5-Star IDC Dive Center\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"42-Foot Custom Newton Dive Boat with Camera Tables\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Continuous Nitrox Membrane System & Enriched Air Fills\",\n      \"value\": true\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"2-Tank Morning Reef Boat Dive with Tanks & Weights\",\n    \"price\": \"115\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official dive shop or dive charter business title.",
+        "required": true,
+        "exampleValue": "Abyss Coral Reef Scuba Diving & PADI 5-Star Center"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical dive center and charter boat dock location.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"102 Ocean Boulevard...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Dive shop telephone for boat trip reservations.",
+        "required": true,
+        "exampleValue": "+1-305-555-0196"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Dive center certifications (PADI 5-Star), custom dive boats, Nitrox, and rental gear.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"PADI 5-Star IDC Dive Center\", \"value\": true }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Daily 2-tank dive charter rates, PADI certification tuition, and equipment rental fees.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"2-Tank Morning Reef Boat Dive...\", \"price\": \"115\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Charter pricing bracket ($$$).",
+        "required": false,
+        "exampleValue": "$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Certification Agency Accreditation (PADI / SSI / NAUI)",
+        "description": "Failing to state diving agency affiliation reduces credibility for certification-seeking students.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in 'PADI open water certification near me' queries.",
+        "solution": "Specify PADI, SSI, or NAUI credentials in name and amenityFeature."
+      },
+      {
+        "title": "Confusing Snorkel Boat Trips with Certified Scuba Charters",
+        "description": "Failing to separate scuba diver requirements (C-card required) from general snorkelers causes boat seating issues.",
+        "severity": "warning",
+        "gscImpact": "Booking errors and unqualified customer signups.",
+        "solution": "Clearly distinguish certified scuba trips from snorkeling tours in offers."
+      },
+      {
+        "title": "Omitting Marina Dock Slip Coordinates",
+        "description": "Early morning boat departures mean divers arrive in pre-dawn hours; missing slip directions leads to missed boat departures.",
+        "severity": "error",
+        "gscImpact": "Navigation failures and lost customer bookings on charter morning.",
+        "solution": "Include exact boat slip address in streetAddress and GeoCoordinates."
+      }
+    ],
+    "relatedSlugs": [
+      "boat-yacht-charter",
+      "marina-boat-slip",
+      "ferry-water-transit-route",
+      "hotel-resort-hospitality"
+    ],
+    "useCases": [
+      "Scuba diving charter online booking portals",
+      "PADI certification course registration pages",
+      "Liveaboard and dive resort destination travel guides"
+    ]
+  },
+  {
+    "slug": "amusement-theme-park",
+    "title": "Amusement & Theme Park Attraction Schema Markup (JSON-LD)",
+    "shortTitle": "Theme Park & Attractions",
+    "schemaType": "AmusementPark",
+    "category": "Media & Entertainment",
+    "richResultType": "Local Business",
+    "description": "Structured data for amusement parks, roller coaster theme parks, and family attraction destinations, detailing ride counts, thrill categories, seasonal operating hours, express passes, and admission tiers.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "amusement park schema",
+      "theme park structured data",
+      "roller coaster json-ld",
+      "amusement park schema.org",
+      "theme park tickets rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AmusementPark\",\n  \"@id\": \"https://example.com/park/adventure-kingdom#park\",\n  \"name\": \"Adventure Kingdom Theme Park & Water World\",\n  \"description\": \"Premier 150-acre amusement park featuring 16 world-class roller coasters, interactive dark rides, live stunt shows, and family water park attractions.\",\n  \"telephone\": \"+1-813-555-0177\",\n  \"priceRange\": \"$$$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1000 Adventure Parkway\",\n    \"addressLocality\": \"Tampa\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33612\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"16 World-Class Steel & Hybrid Roller Coasters\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Integrated 30-Acre Water Park\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Express Skip-the-Line Pass Upgrades\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"10:00\",\n      \"closes\": \"21:00\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Single-Day General Admission Ticket (Online Advance Rate)\",\n    \"price\": \"79.99\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official theme park commercial title.",
+        "required": true,
+        "exampleValue": "Adventure Kingdom Theme Park & Water World"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical main gate entrance street address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1000 Adventure Parkway\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Guest services and ticketing information phone line.",
+        "required": true,
+        "exampleValue": "+1-813-555-0177"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Park attractions including roller coaster count, water park integration, and express pass systems.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"16 World-Class Steel & Hybrid...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Seasonal daily park opening and closing schedules.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"10:00\", \"closes\": \"21:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "General admission ticket rates, annual passes, and VIP fast-track pricing.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Single-Day General Admission Ticket\", \"price\": \"79.99\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Admission cost tier indicator ($$$$).",
+        "required": false,
+        "exampleValue": "$$$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Online Advance Ticket vs Gate Price Differentiation",
+        "description": "Theme park gate prices are frequently higher than online advance tickets; failing to specify 'Online Rate' creates front-gate disputes.",
+        "severity": "warning",
+        "gscImpact": "Customer complaints regarding gate ticket price mismatches.",
+        "solution": "Specify 'Online Advance Rate' in the Offer name and description."
+      },
+      {
+        "title": "Confusing Theme Park Hours with Water Park Hours",
+        "description": "Water park sections often close 2-3 hours earlier than dry roller coaster zones; failing to structure separate hours confuses families.",
+        "severity": "warning",
+        "gscImpact": "Frustrated visitors arriving late at water park gates.",
+        "solution": "Model sub-departments for water parks with independent opening hours."
+      },
+      {
+        "title": "Using Generic TouristAttraction Instead of AmusementPark",
+        "description": "Using generic attraction types deprives Google of specialized theme park knowledge panel cards.",
+        "severity": "warning",
+        "gscImpact": "Lower visibility for 'theme parks near me' discovery carousels.",
+        "solution": "Always declare the specific '@type: AmusementPark'."
+      }
+    ],
+    "relatedSlugs": [
+      "escape-room-adventure",
+      "bowling-alley-entertainment",
+      "public-park-recreation-area",
+      "ski-resort-trail-map"
+    ],
+    "useCases": [
+      "Theme park online ticket booking portals",
+      "Attraction pass and seasonal event calendar pages",
+      "Family vacation entertainment directory listings"
+    ]
+  },
+  {
+    "slug": "escape-room-adventure",
+    "title": "Escape Room & Immersive Puzzle Adventure Schema Markup (JSON-LD)",
+    "shortTitle": "Escape Room Adventure",
+    "schemaType": "EntertainmentBusiness",
+    "category": "Media & Entertainment",
+    "richResultType": "Local Business",
+    "description": "Structured data for escape rooms, immersive puzzle adventures, and interactive mystery experiences, detailing room themes, difficulty ratings, 60-minute durations, group capacities, and bookings.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "escape room schema",
+      "puzzle adventure structured data",
+      "escape game json-ld",
+      "entertainment business schema.org",
+      "escape room booking rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"EntertainmentBusiness\",\n  \"@id\": \"https://example.com/escape/cipher-quest#venue\",\n  \"name\": \"Cipher Quest Immersive Escape Room Adventures\",\n  \"description\": \"Top-rated immersive escape room center offering 5 cinematic mystery rooms with high-tech props, Hollywood-grade set design, and 60-minute puzzle challenges for 2 to 8 players.\",\n  \"telephone\": \"+1-206-555-0184\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"400 Pine Street, Suite 300\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98101\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"5 Private Cinematic Escape Rooms (No Strangers)\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"60-Minute Game Duration with Dedicated Game Master\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Difficulty Rating: Medium to Expert\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"11:00\",\n      \"closes\": \"23:00\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"Private Room Admission (Per Player)\",\n    \"price\": \"36\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official escape room entertainment business name.",
+        "required": true,
+        "exampleValue": "Cipher Quest Immersive Escape Room Adventures"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the escape room venue.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"400 Pine Street...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Front desk phone line for private bookings and corporate team events.",
+        "required": true,
+        "exampleValue": "+1-206-555-0184"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Room themes, private booking guarantees (no public mixing), puzzle difficulty, and time limits.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"5 Private Cinematic Escape Rooms...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Venue operational hours for daily game sessions.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"11:00\", \"closes\": \"23:00\" }]"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Per-player game admission fee, private room buyout pricing, and corporate packages.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"Private Room Admission (Per Player)\", \"price\": \"36\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Per-player price tier indicator ($$).",
+        "required": false,
+        "exampleValue": "$$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Private Bookings with Public Mixed Group Play",
+        "description": "Failing to state whether groups play privately or are paired with strangers is the #1 complaint in escape room reviews.",
+        "severity": "warning",
+        "gscImpact": "Negative review trends impacting local search rankings.",
+        "solution": "Explicitly state 'Private Room Guarantee' in amenityFeature and description."
+      },
+      {
+        "title": "Missing Minimum / Maximum Player Capacity",
+        "description": "Failing to specify 2-8 player limits leads to booking cancellations from groups that are too large or too small.",
+        "severity": "warning",
+        "gscImpact": "Booking flow drop-offs during game room selection.",
+        "solution": "Include player group capacity in description and amenityFeature."
+      },
+      {
+        "title": "Omitting Game Duration (60 Minutes)",
+        "description": "Failing to state the game duration confuses visitors scheduling multi-activity evenings.",
+        "severity": "warning",
+        "gscImpact": "Lower snippet clarity on entertainment planning searches.",
+        "solution": "Specify '60-Minute Game Duration' in structured amenities."
+      }
+    ],
+    "relatedSlugs": [
+      "bowling-alley-entertainment",
+      "amusement-theme-park",
+      "community-cultural-center",
+      "coworking-space-membership"
+    ],
+    "useCases": [
+      "Escape room online reservation and room selection portals",
+      "Corporate team-building activity package pages",
+      "Birthday party and date-night entertainment directories"
+    ]
+  },
+  {
+    "slug": "live-esports-tournament",
+    "title": "Live Esports Tournament & Championship Event Schema Markup (JSON-LD)",
+    "shortTitle": "Live Esports Tournament",
+    "schemaType": "SportsEvent",
+    "category": "Events & Education",
+    "richResultType": "Event",
+    "description": "Structured data for competitive esports tournaments, gaming championships, and live streamed finals, detailing video game title, prize pool, live Twitch/YouTube streams, arena venue, and ticket sales.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "esports tournament schema",
+      "gaming championship structured data",
+      "esports event json-ld",
+      "sports event schema.org",
+      "live stream esports rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SportsEvent\",\n  \"@id\": \"https://example.com/events/apex-championship-2026#event\",\n  \"name\": \"Global Valorant Champions Tour (VCT) 2026 Grand Finals\",\n  \"description\": \"Live 3-day esports championship tournament featuring the world's top 8 professional Valorant teams competing for a $1,000,000 prize pool with live arena audience and 4K broadcast stream.\",\n  \"startDate\": \"2026-11-20T17:00:00-08:00\",\n  \"endDate\": \"2026-11-22T22:00:00-08:00\",\n  \"eventAttendanceMode\": \"https://schema.org/MixedEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Crypto.com Arena\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"1111 South Figueroa Street\",\n      \"addressLocality\": \"Los Angeles\",\n      \"addressRegion\": \"CA\",\n      \"postalCode\": \"90015\",\n      \"addressCountry\": \"US\"\n    }\n  },\n  \"organizer\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Riot Games & Apex Esports League\",\n    \"url\": \"https://example.com\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"name\": \"3-Day Arena General Admission Tournament Pass\",\n    \"price\": \"149\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\",\n    \"url\": \"https://example.com/tickets/vct-finals-2026\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official esports tournament headline including video game title and championship stage.",
+        "required": true,
+        "exampleValue": "Global Valorant Champions Tour (VCT) 2026 Grand Finals"
+      },
+      {
+        "name": "startDate",
+        "type": "DateTime (ISO 8601)",
+        "description": "Tournament start date and local time with timezone offset.",
+        "required": true,
+        "exampleValue": "2026-11-20T17:00:00-08:00"
+      },
+      {
+        "name": "endDate",
+        "type": "DateTime (ISO 8601)",
+        "description": "Championship grand final conclusion timestamp.",
+        "required": true,
+        "exampleValue": "2026-11-22T22:00:00-08:00"
+      },
+      {
+        "name": "eventAttendanceMode",
+        "type": "EventAttendanceModeEnumeration",
+        "description": "Enumerated mode (MixedEventAttendanceMode for arena audience + live online broadcast).",
+        "required": true,
+        "exampleValue": "https://schema.org/MixedEventAttendanceMode"
+      },
+      {
+        "name": "location",
+        "type": "Place",
+        "description": "Physical arena, stadium, or convention center hosting the tournament stage.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Place\", \"name\": \"Crypto.com Arena\", ... }"
+      },
+      {
+        "name": "organizer",
+        "type": "Organization",
+        "description": "Game publisher, tournament organizer, or esports league.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"Riot Games & Apex Esports League\" }"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Spectator arena pass ticket price, currency, availability, and official booking URL.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"name\": \"3-Day Arena General Admission...\", \"price\": \"149\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "eventStatus",
+        "type": "EventStatusType",
+        "description": "Event lifecycle status (e.g. EventScheduled, EventPostponed).",
+        "required": false,
+        "exampleValue": "https://schema.org/EventScheduled"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing MixedEventAttendanceMode for Hybrid Broadcast Events",
+        "description": "Tagging esports events as OfflineEventAttendanceMode hides the event from global online broadcast streaming viewers.",
+        "severity": "error",
+        "gscImpact": "Exclusion from Google Event live streaming search features.",
+        "solution": "Use 'https://schema.org/MixedEventAttendanceMode' when streaming online."
+      },
+      {
+        "title": "Missing ISO 8601 Timezone Offsets on Start Time",
+        "description": "Esports viewers span global time zones; omitting the timezone offset (e.g., -08:00) causes Google to display match times in the wrong local hour.",
+        "severity": "critical",
+        "gscImpact": "Viewers tune in hours early or late due to timezone miscalculations.",
+        "solution": "Always append explicit timezone offsets on startDate and endDate."
+      },
+      {
+        "title": "Omitting Video Game Title in Description and Name",
+        "description": "Failing to state the exact game title (Valorant, CS2, League of Legends) hurts topical ranking for gamer queries.",
+        "severity": "warning",
+        "gscImpact": "Lower search visibility for game-specific championship queries.",
+        "solution": "Include video game title prominently in both name and description."
+      }
+    ],
+    "relatedSlugs": [
+      "in-person-conference-summit",
+      "virtual-webinar-session",
+      "amusement-theme-park",
+      "escape-room-adventure"
+    ],
+    "useCases": [
+      "Esports tournament schedule and ticket booking portals",
+      "Gaming championship live stream broadcast hubs",
+      "Pro esports league standings and event calendar pages"
+    ]
+  },
+  {
+    "slug": "government-organization-agency",
+    "title": "Government Organization & Municipal Agency Schema Markup (JSON-LD)",
+    "shortTitle": "Government Organization Agency",
+    "schemaType": "GovernmentOrganization",
+    "category": "Organization & Identity",
+    "richResultType": "Organization",
+    "description": "Structured data for municipal government agencies, federal departments, and public administrative bodies, modeling statutory jurisdiction, public service areas, official portals, and citizen contact points.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "government organization schema",
+      "municipal agency structured data",
+      "civic entity json-ld",
+      "government schema.org",
+      "public agency rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"GovernmentOrganization\",\n  \"@id\": \"https://example.gov/agency/transportation-dept#org\",\n  \"name\": \"Department of Transportation & Infrastructure\",\n  \"alternateName\": \"City DOT\",\n  \"description\": \"Municipal department responsible for planning, building, and maintaining city roadways, public transit networks, bridges, and pedestrian infrastructure.\",\n  \"url\": \"https://example.gov/dot\",\n  \"telephone\": \"+1-512-555-0100\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"505 Barton Springs Road, 8th Floor\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78704\",\n    \"addressCountry\": \"US\"\n  },\n  \"areaServed\": {\n    \"@type\": \"AdministrativeArea\",\n    \"name\": \"City of Austin Municipal Jurisdiction\"\n  },\n  \"contactPoint\": {\n    \"@type\": \"ContactPoint\",\n    \"telephone\": \"+1-512-555-0100\",\n    \"contactType\": \"Citizen 311 Inquiries\",\n    \"availableLanguage\": [\n      \"English\",\n      \"Spanish\"\n    ]\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official statutory name of the government department or public authority.",
+        "required": true,
+        "exampleValue": "Department of Transportation & Infrastructure"
+      },
+      {
+        "name": "url",
+        "type": "URL",
+        "description": "Canonical official .gov / .mil / public agency website address.",
+        "required": true,
+        "exampleValue": "https://example.gov/dot"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical headquarters address of the administrative building.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"505 Barton Springs Road...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Official citizen services or 311 agency contact telephone line.",
+        "required": true,
+        "exampleValue": "+1-512-555-0100"
+      },
+      {
+        "name": "areaServed",
+        "type": "AdministrativeArea / Text",
+        "description": "Geographic administrative boundaries over which the agency exercises jurisdiction.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"AdministrativeArea\", \"name\": \"City of Austin Municipal Jurisdiction\" }"
+      },
+      {
+        "name": "contactPoint",
+        "type": "ContactPoint",
+        "description": "Dedicated public helpline, constituent services, and language availability.",
+        "required": false,
+        "exampleValue": "{ \"@type\": \"ContactPoint\", \"telephone\": \"+1-512-555-0100\", \"contactType\": \"Citizen 311 Inquiries\" }"
+      },
+      {
+        "name": "alternateName",
+        "type": "Text",
+        "description": "Common acronym or public abbreviation (e.g. City DOT).",
+        "required": false,
+        "exampleValue": "City DOT"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Commercial Business with Government Organization",
+        "description": "Using standard LocalBusiness or Organization without GovernmentOrganization confuses Knowledge Graph disambiguation for civic authorities.",
+        "severity": "warning",
+        "gscImpact": "Failure to qualify for official government agency Knowledge Panels.",
+        "solution": "Always use '@type: GovernmentOrganization'."
+      },
+      {
+        "title": "Missing Administrative Jurisdiction Scope",
+        "description": "Failing to define areaServed causes citizens outside the municipal boundary to be misrouted to the wrong county or city services.",
+        "severity": "warning",
+        "gscImpact": "Misrouted constituent queries and traffic mismatch.",
+        "solution": "Specify AdministrativeArea with precise territorial jurisdiction."
+      },
+      {
+        "title": "Omitting Multi-Language ContactPoint Details",
+        "description": "Public agencies must support non-English speakers; omitting availableLanguage hurts civic accessibility signals.",
+        "severity": "warning",
+        "gscImpact": "Lower visibility in multilingual civic information searches.",
+        "solution": "Declare availableLanguage in contactPoint arrays."
+      }
+    ],
+    "relatedSlugs": [
+      "city-hall-municipal-office",
+      "consulate-embassy-diplomatic",
+      "public-library-branch",
+      "police-department-precinct"
+    ],
+    "useCases": [
+      "Municipal government department official portal pages",
+      "State and federal regulatory agency directory pages",
+      "Public transportation authority information hubs"
+    ]
+  },
+  {
+    "slug": "consulate-embassy-diplomatic",
+    "title": "Diplomatic Embassy & Foreign Consulate Mission Schema Markup (JSON-LD)",
+    "shortTitle": "Embassy & Consulate",
+    "schemaType": "Embassy",
+    "category": "Organization & Identity",
+    "richResultType": "Organization",
+    "description": "Structured data for foreign diplomatic embassies, consulates-general, and consular service missions, detailing visa processing sections, jurisdiction states, emergency citizen assistance, and appointment hours.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "embassy schema markup",
+      "consulate structured data",
+      "diplomatic mission json-ld",
+      "embassy schema.org",
+      "consular services rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Embassy\",\n  \"@id\": \"https://example.org/diplomatic/consulate-general-ny#mission\",\n  \"name\": \"Consulate General of Japan in New York\",\n  \"description\": \"Official diplomatic consular mission providing Japanese passport services, foreign national visa processing, and consular protection for Japanese citizens in NY, NJ, PA, and CT.\",\n  \"url\": \"https://example.org/japan-consulate-ny\",\n  \"telephone\": \"+1-212-555-0190\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"299 Park Avenue, 18th Floor\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10171\",\n    \"addressCountry\": \"US\"\n  },\n  \"areaServed\": [\n    \"New York\",\n    \"New Jersey\",\n    \"Pennsylvania\",\n    \"Connecticut\"\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"09:30\",\n      \"closes\": \"16:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official diplomatic title of the embassy or consulate-general.",
+        "required": true,
+        "exampleValue": "Consulate General of Japan in New York"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the chancery or consular section.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"299 Park Avenue...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Consular switchboard and emergency citizen hotline.",
+        "required": true,
+        "exampleValue": "+1-212-555-0190"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Consular jurisdiction states or geographical regions serviced by this specific post.",
+        "required": true,
+        "exampleValue": "[\"New York\", \"New Jersey\", \"Pennsylvania\", \"Connecticut\"]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Public consular window hours for visa intakes and passport pickups.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"09:30\", \"closes\": \"16:00\" }]"
+      },
+      {
+        "name": "url",
+        "type": "URL",
+        "description": "Official diplomatic mission website.",
+        "required": false,
+        "exampleValue": "https://example.org/japan-consulate-ny"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Embassy Chancery (Washington DC) with Regional Consulates",
+        "description": "Marking a regional consulate in NYC as the sovereign Embassy confuses international diplomatic protocol and visa jurisdictions.",
+        "severity": "warning",
+        "gscImpact": "Visa applicants submit paperwork to the wrong regional jurisdiction.",
+        "solution": "Use Embassy for primary diplomatic missions and specify consular districts under areaServed."
+      },
+      {
+        "title": "Missing Consular Jurisdiction State Boundaries",
+        "description": "Failing to list specific states under areaServed causes visa applicants in neighboring states to visit the wrong consulate.",
+        "severity": "warning",
+        "gscImpact": "High volume of invalid inquiries and misdirected visa applicants.",
+        "solution": "Explicitly declare all serviced states in areaServed."
+      },
+      {
+        "title": "Missing Emergency Citizen Assistance Contact",
+        "description": "Foreign nationals in medical or legal crisis need 24/7 emergency citizen numbers in mobile SERPs.",
+        "severity": "error",
+        "gscImpact": "Lack of direct emergency action triggers in mobile search.",
+        "solution": "Include dedicated emergency ContactPoint nodes in schema."
+      }
+    ],
+    "relatedSlugs": [
+      "government-organization-agency",
+      "city-hall-municipal-office",
+      "public-library-branch",
+      "community-cultural-center"
+    ],
+    "useCases": [
+      "Diplomatic mission official website homepages",
+      "Foreign consulate visa appointment portal pages",
+      "Expatriate citizen services directory pages"
+    ]
+  },
+  {
+    "slug": "public-library-branch",
+    "title": "Public Library Branch & Community Media Hub Schema Markup (JSON-LD)",
+    "shortTitle": "Public Library Branch",
+    "schemaType": "Library",
+    "category": "Organization & Identity",
+    "richResultType": "Local Business",
+    "description": "Structured data for municipal public library branches, university research libraries, and community digital book hubs, detailing digital catalog access, study room booking, public computers, and hours.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "public library schema",
+      "library branch structured data",
+      "public library json-ld",
+      "library schema.org",
+      "library hours rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Library\",\n  \"@id\": \"https://example.org/library/central-branch#branch\",\n  \"name\": \"Metropolitan Public Library - Central Branch\",\n  \"description\": \"Flagship downtown public library offering 500,000 physical volumes, digital media borrowing, 3D printing maker labs, private study rooms, and free high-speed public Wi-Fi.\",\n  \"telephone\": \"+1-503-555-0193\",\n  \"priceRange\": \"$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"801 SW 10th Avenue\",\n    \"addressLocality\": \"Portland\",\n    \"addressRegion\": \"OR\",\n    \"postalCode\": \"97205\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Free High-Speed Public Wi-Fi & Computer Lab\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"3D Printing & Digital Audio/Video Creator Lab\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"ADA Accessible Wheelchair Entry & Elevators\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"20:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Sunday\"\n      ],\n      \"opens\": \"12:00\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official library system branch title.",
+        "required": true,
+        "exampleValue": "Metropolitan Public Library - Central Branch"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the library branch.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"801 SW 10th Avenue\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Library reference desk phone contact line.",
+        "required": true,
+        "exampleValue": "+1-503-555-0193"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Library amenities including study rooms, computer labs, maker spaces, and ADA access.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Free High-Speed Public Wi-Fi...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Weekly library branch operating hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"09:00\", \"closes\": \"20:00\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Free civic resource tier ($).",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Central Flagship with Neighborhood Branch Hours",
+        "description": "Assigning central library hours to smaller neighborhood branches that close early creates public access disputes.",
+        "severity": "error",
+        "gscImpact": "Google Maps reports incorrect branch opening hours.",
+        "solution": "Deploy unique schema nodes with distinct @ids and hours for each branch location."
+      },
+      {
+        "title": "Using Generic LocalBusiness Instead of Library",
+        "description": "Using general business types deprives public libraries of specialized civic knowledge panel attributes.",
+        "severity": "warning",
+        "gscImpact": "Loss of 'public library' category badging on Google Maps.",
+        "solution": "Always declare '@type: Library'."
+      },
+      {
+        "title": "Omitting Digital Catalog Inclusions",
+        "description": "Patrons heavily search for digital eBook lending (OverDrive, Libby); omitting digital catalog signals reduces online borrowing engagement.",
+        "severity": "warning",
+        "gscImpact": "Lower search relevance for digital library book lending.",
+        "solution": "Mention digital catalog and Libby app access in description."
+      }
+    ],
+    "relatedSlugs": [
+      "community-cultural-center",
+      "city-hall-municipal-office",
+      "government-organization-agency",
+      "public-park-recreation-area"
+    ],
+    "useCases": [
+      "Municipal library branch detail pages",
+      "University research library information pages",
+      "Community media lab and study room booking portals"
+    ]
+  },
+  {
+    "slug": "city-hall-municipal-office",
+    "title": "City Hall & Municipal Government Building Schema Markup (JSON-LD)",
+    "shortTitle": "City Hall & Municipal Building",
+    "schemaType": "GovernmentBuilding",
+    "category": "Organization & Identity",
+    "richResultType": "Local Business",
+    "description": "Structured data for city halls, municipal government buildings, town halls, and county administration centers, detailing city council chambers, mayor's office, building permit departments, and hours.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "city hall schema",
+      "municipal building structured data",
+      "town hall json-ld",
+      "government building schema.org",
+      "city hall hours rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"GovernmentBuilding\",\n  \"@id\": \"https://example.gov/civic/seattle-city-hall#building\",\n  \"name\": \"Seattle City Hall & Municipal Executive Center\",\n  \"description\": \"Seat of Seattle municipal government housing the Mayor's Office, City Council Chambers, public hearing auditoriums, and municipal constituent service desks.\",\n  \"telephone\": \"+1-206-555-0100\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"600 4th Avenue\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98104\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"17:00\"\n    }\n  ],\n  \"department\": [\n    {\n      \"@type\": \"GovernmentOrganization\",\n      \"name\": \"Office of the Mayor\",\n      \"telephone\": \"+1-206-555-0102\"\n    },\n    {\n      \"@type\": \"GovernmentOrganization\",\n      \"name\": \"Seattle City Council Secretariat\",\n      \"telephone\": \"+1-206-555-0105\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official civic title of the city hall or municipal administration center.",
+        "required": true,
+        "exampleValue": "Seattle City Hall & Municipal Executive Center"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the city hall building.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"600 4th Avenue\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Main municipal operator and constituent information line.",
+        "required": true,
+        "exampleValue": "+1-206-555-0100"
+      },
+      {
+        "name": "department",
+        "type": "Array<GovernmentOrganization>",
+        "description": "Key civic departments operating within the building (e.g. Mayor's Office, City Clerk, Permitting).",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"GovernmentOrganization\", \"name\": \"Office of the Mayor\" }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Public building access hours for citizen hearings and permitting.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"17:00\" }]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Administrative functions, public hearing schedules, and security check procedures.",
+        "required": false,
+        "exampleValue": "Seat of Seattle municipal government housing the Mayor's Office..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Using Generic CivicStructure Instead of GovernmentBuilding",
+        "description": "Using vague parent types prevents search engines from triggering civic administrative knowledge cards.",
+        "severity": "warning",
+        "gscImpact": "Loss of government entity Knowledge Graph badges.",
+        "solution": "Declare '@type: GovernmentBuilding' or CityHall."
+      },
+      {
+        "title": "Missing Key Sub-Departments (Permits, City Clerk)",
+        "description": "Omitting department nodes forces citizens to call the main operator for specialized offices like building permits or marriage licenses.",
+        "severity": "warning",
+        "gscImpact": "Loss of sub-department direct call snippets on SERPs.",
+        "solution": "Structure prominent sub-departments under the department array."
+      },
+      {
+        "title": "Confusing City Hall with Court House",
+        "description": "Municipal courts often operate in separate buildings; conflating them creates court appearance confusion.",
+        "severity": "warning",
+        "gscImpact": "Misdirected citizens arriving at City Hall for judicial hearings.",
+        "solution": "Use Courthouse schema for separate judicial facilities."
+      }
+    ],
+    "relatedSlugs": [
+      "government-organization-agency",
+      "public-library-branch",
+      "fire-station-emergency",
+      "police-department-precinct"
+    ],
+    "useCases": [
+      "City government municipal portal homepages",
+      "City clerk and marriage license appointment pages",
+      "City council public hearing directory hubs"
+    ]
+  },
+  {
+    "slug": "fire-station-emergency",
+    "title": "Fire Station & Emergency Rescue House Schema Markup (JSON-LD)",
+    "shortTitle": "Fire Station & Rescue",
+    "schemaType": "EmergencyService",
+    "category": "Organization & Identity",
+    "richResultType": "Local Business",
+    "description": "Structured data for municipal fire stations, ladder companies, and paramedic EMS rescue houses, detailing station engine company numbers, non-emergency dispatch numbers, and response sectors.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "fire station schema",
+      "emergency rescue structured data",
+      "fire house json-ld",
+      "emergency service schema.org",
+      "fire department rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"EmergencyService\",\n  \"@id\": \"https://example.gov/fire/station-14#station\",\n  \"name\": \"Austin Fire Department - Station 14 (Engine 14 & Ladder 14)\",\n  \"description\": \"Municipal fire station providing 24/7 structural fire suppression, advanced life support (ALS) paramedic rescue, and hazardous materials response.\",\n  \"telephone\": \"+1-512-555-0114\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"4305 Airport Boulevard\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78722\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ],\n  \"areaServed\": [\n    \"Mueller District\",\n    \"Central East Austin\",\n    \"University Hills\"\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official station company number and municipal fire department title.",
+        "required": true,
+        "exampleValue": "Austin Fire Department - Station 14 (Engine 14 & Ladder 14)"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Non-emergency business telephone number for administrative inquiries.",
+        "required": true,
+        "exampleValue": "+1-512-555-0114"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the firehouse bays.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"4305 Airport Boulevard\", ... }"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "24/7 continuous operational readiness schedule.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"00:00\", \"closes\": \"23:59\" }]"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Primary municipal neighborhoods and tactical response zones.",
+        "required": true,
+        "exampleValue": "[\"Mueller District\", \"Central East Austin\"]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Apparatus assigned (Engine, Ladder, Heavy Rescue), community tours, and smoke alarm programs.",
+        "required": false,
+        "exampleValue": "Municipal fire station providing 24/7 structural fire suppression..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Publishing 911 Emergency Line Instead of Station Non-Emergency Phone",
+        "description": "Listing 911 directly in telephone schema causes crawler validation errors and dialer malfunctions on mobile devices.",
+        "severity": "critical",
+        "gscImpact": "Dialer failures and search engine emergency schema rejections.",
+        "solution": "Always provide the station's 10-digit non-emergency administrative telephone line."
+      },
+      {
+        "title": "Setting Limited Business Hours on 24/7 Firehouses",
+        "description": "Listing standard 9-5 hours causes Google Maps to mark the emergency fire station as closed during nighttime emergencies.",
+        "severity": "error",
+        "gscImpact": "Google Maps falsely indicates firehouse is closed.",
+        "solution": "Declare 24/7 opening hours (opens: '00:00', closes: '23:59') for all 7 days."
+      },
+      {
+        "title": "Missing Station Number / Company Designation",
+        "description": "Omitting the specific station number confuses citizens seeking community firehouse tours or burn permits.",
+        "severity": "warning",
+        "gscImpact": "Constituents call the wrong firehouse station for local permits.",
+        "solution": "Include station number and assigned engine companies in the name."
+      }
+    ],
+    "relatedSlugs": [
+      "police-department-precinct",
+      "city-hall-municipal-office",
+      "hospital-healthcare-facility",
+      "towing-roadside-assistance"
+    ],
+    "useCases": [
+      "Municipal fire department station directory pages",
+      "Community emergency services overview portals",
+      "Public safety and burn permit information hubs"
+    ]
+  },
+  {
+    "slug": "police-department-precinct",
+    "title": "Police Department & Municipal Precinct Station Schema Markup (JSON-LD)",
+    "shortTitle": "Police Department & Precinct",
+    "schemaType": "PoliceStation",
+    "category": "Organization & Identity",
+    "richResultType": "Local Business",
+    "description": "Structured data for municipal police departments, county sheriff sub-stations, and precinct headquarters, detailing non-emergency dispatch, public records desks, patrol sectors, and 24/7 operations.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "police station schema",
+      "police precinct structured data",
+      "law enforcement json-ld",
+      "police station schema.org",
+      "police non emergency rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"PoliceStation\",\n  \"@id\": \"https://example.gov/police/precinct-01#station\",\n  \"name\": \"Metropolitan Police Department - 1st Precinct\",\n  \"description\": \"Municipal law enforcement precinct providing 24/7 patrol services, public records reports, community policing, and non-emergency crime reporting.\",\n  \"telephone\": \"+1-212-555-0130\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"16 Ericsson Place\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10013\",\n    \"addressCountry\": \"US\"\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ],\n  \"areaServed\": [\n    \"Tribeca\",\n    \"SoHo\",\n    \"Hudson Square\"\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official municipal police department or precinct station name.",
+        "required": true,
+        "exampleValue": "Metropolitan Police Department - 1st Precinct"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Precinct 10-digit non-emergency desk phone number.",
+        "required": true,
+        "exampleValue": "+1-212-555-0130"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the police stationhouse.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"16 Ericsson Place\", ... }"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "24-hour continuous operational schedule.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"00:00\", \"closes\": \"23:59\" }]"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Text>",
+        "description": "Patrol sectors, neighborhoods, and municipal beats covered by the precinct.",
+        "required": true,
+        "exampleValue": "[\"Tribeca\", \"SoHo\", \"Hudson Square\"]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Community policing programs, public report desks, and fingerprinting appointment hours.",
+        "required": false,
+        "exampleValue": "Municipal law enforcement precinct providing 24/7 patrol services..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Emergency 911 with Precinct Desk Number",
+        "description": "Supplying 911 as the telephone string causes schema parsers to flag invalid phone format errors.",
+        "severity": "critical",
+        "gscImpact": "Unparseable structured data in GSC local audits.",
+        "solution": "Provide the 10-digit non-emergency precinct desk telephone."
+      },
+      {
+        "title": "Using Generic CivicStructure Instead of PoliceStation",
+        "description": "Failing to use PoliceStation prevents Google Maps from rendering emergency police badges on map pins.",
+        "severity": "warning",
+        "gscImpact": "Reduced visibility on emergency search maps.",
+        "solution": "Declare '@type: PoliceStation'."
+      },
+      {
+        "title": "Missing Patrol Beat Neighborhood Names",
+        "description": "Residents search by neighborhood (e.g. 'SoHo police precinct'); omitting neighborhood names from areaServed lowers localized rank.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in local neighborhood police queries.",
+        "solution": "List all covered neighborhood names in areaServed."
+      }
+    ],
+    "relatedSlugs": [
+      "fire-station-emergency",
+      "city-hall-municipal-office",
+      "government-organization-agency",
+      "legal-service-law-firm"
+    ],
+    "useCases": [
+      "Municipal police department precinct directory pages",
+      "Community policing and crime report portals",
+      "City government public safety information hubs"
+    ]
+  },
+  {
+    "slug": "post-office-postal-hub",
+    "title": "National Post Office & Parcel Logistics Hub Schema Markup (JSON-LD)",
+    "shortTitle": "Post Office & Postal Hub",
+    "schemaType": "PostOffice",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for national post offices, postal branches, and retail parcel drop-off hubs, detailing retail counter hours, passport photo services, PO box lobby access, and daily package cutoff times.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "post office schema",
+      "postal branch structured data",
+      "mail drop off json-ld",
+      "post office schema.org",
+      "passport services post office rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"PostOffice\",\n  \"@id\": \"https://example.gov/postal/downtown-station#hub\",\n  \"name\": \"United States Postal Service - Downtown Station\",\n  \"description\": \"Full-service federal post office branch providing Priority Mail shipping, PO Box rentals, passport application acceptance, and certified mail services.\",\n  \"telephone\": \"+1-800-555-0100\",\n  \"priceRange\": \"$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"300 East 4th Street\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78701\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Passport Application & Photo Appointments\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"24/7 Automated Postal Kiosk (Self-Service)\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Daily Priority Mail Drop-Off Cutoff at 17:00\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:30\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"13:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official postal facility or post office branch title.",
+        "required": true,
+        "exampleValue": "United States Postal Service - Downtown Station"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the post office location.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"300 East 4th Street\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Customer service or local branch phone line.",
+        "required": true,
+        "exampleValue": "+1-800-555-0100"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Postal services including passport processing, PO Box lobby, and automated stamp kiosks.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Passport Application...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Staffed retail counter business hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:30\", \"closes\": \"17:30\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Service cost indicator ($).",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Staffed Counter Hours with 24/7 PO Box Lobby Access",
+        "description": "Listing 24/7 hours for a post office where retail window service closes at 5 PM causes customer walk-in disputes.",
+        "severity": "warning",
+        "gscImpact": "Frustrated customers arriving after counter closure leaving negative reviews.",
+        "solution": "List retail window hours in openingHoursSpecification and mention 24/7 lobby in amenityFeature."
+      },
+      {
+        "title": "Omitting Passport Service Specifications",
+        "description": "Citizens search heavily for 'post office with passport photos'; omitting passport specs loses high-volume appointments.",
+        "severity": "warning",
+        "gscImpact": "Excluded from passport acceptance facility search queries.",
+        "solution": "Include LocationFeatureSpecification for passport appointment services."
+      },
+      {
+        "title": "Missing Daily Package Drop-Off Cutoff Time",
+        "description": "Failing to disclose the 5:00 PM outgoing dispatch cutoff causes shippers to miss same-day delivery deadlines.",
+        "severity": "warning",
+        "gscImpact": "Customer friction on urgent shipping tasks.",
+        "solution": "State last daily pickup cutoff time in structured amenity features."
+      }
+    ],
+    "relatedSlugs": [
+      "government-organization-agency",
+      "city-hall-municipal-office",
+      "warehouse-logistics-facility",
+      "public-library-branch"
+    ],
+    "useCases": [
+      "Postal service branch locator detail pages",
+      "Passport acceptance agency directory listings",
+      "Package drop-off and shipping locker information hubs"
+    ]
+  },
+  {
+    "slug": "non-profit-charity-foundation",
+    "title": "501(c)(3) Non-Profit Charity & Philanthropic Foundation Schema Markup (JSON-LD)",
+    "shortTitle": "Non-Profit & Charity Foundation",
+    "schemaType": "NGO",
+    "category": "Organization & Identity",
+    "richResultType": "Organization",
+    "description": "Structured data for 501(c)(3) non-profit organizations, global philanthropic charities, and humanitarian foundations, detailing EIN tax exempt status, mission statement, donation portals, and E-E-A-T trust signals.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "non profit schema",
+      "charity structured data",
+      "501c3 foundation json-ld",
+      "ngo schema.org",
+      "philanthropic charity rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"NGO\",\n  \"@id\": \"https://example.org/charity/global-hope#ngo\",\n  \"name\": \"Global Hope Clean Water Foundation\",\n  \"taxID\": \"XX-XXXXXXX\",\n  \"description\": \"Registered 501(c)(3) humanitarian organization dedicated to providing sustainable clean drinking water, community filtration wells, and sanitation infrastructure in developing regions.\",\n  \"url\": \"https://example.org\",\n  \"logo\": \"https://example.org/images/logo.png\",\n  \"telephone\": \"+1-800-555-0150\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1250 Eye Street NW, Suite 600\",\n    \"addressLocality\": \"Washington\",\n    \"addressRegion\": \"DC\",\n    \"postalCode\": \"20005\",\n    \"addressCountry\": \"US\"\n  },\n  \"sameAs\": [\n    \"https://www.guidestar.org/profile/global-hope\",\n    \"https://www.charitynavigator.org/ein/global-hope\",\n    \"https://twitter.com/globalhopewater\"\n  ],\n  \"funder\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Global Giving Initiative\"\n  }\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official legal registered non-profit organization or foundation name.",
+        "required": true,
+        "exampleValue": "Global Hope Clean Water Foundation"
+      },
+      {
+        "name": "taxID",
+        "type": "Text",
+        "description": "Official IRS Employer Identification Number (EIN) or registered charity number.",
+        "required": true,
+        "exampleValue": "XX-XXXXXXX"
+      },
+      {
+        "name": "url",
+        "type": "URL",
+        "description": "Canonical official website URL of the charity.",
+        "required": true,
+        "exampleValue": "https://example.org"
+      },
+      {
+        "name": "logo",
+        "type": "URL",
+        "description": "Direct URL to official high-resolution non-profit logo.",
+        "required": true,
+        "exampleValue": "https://example.org/images/logo.png"
+      },
+      {
+        "name": "sameAs",
+        "type": "Array<URL>",
+        "description": "Links to official GuideStar, Charity Navigator, and verified social media profiles.",
+        "required": true,
+        "exampleValue": "[\"https://www.guidestar.org/...\", \"https://www.charitynavigator.org/...\"]"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical headquarters location of the foundation.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1250 Eye Street NW...\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Donor relations phone number.",
+        "required": false,
+        "exampleValue": "+1-800-555-0150"
+      },
+      {
+        "name": "funder",
+        "type": "Organization / Person",
+        "description": "Major grant-making institutions or philanthropic benefactors supporting the NGO.",
+        "required": false,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"Global Giving Initiative\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing IRS Tax ID (EIN) / Charity Registration Number",
+        "description": "Omitting taxID prevents Google from validating 501(c)(3) tax-exempt status, critical for charity donation badges.",
+        "severity": "critical",
+        "gscImpact": "Loss of verified non-profit Knowledge Panel attributes.",
+        "solution": "Always populate the legal taxID string."
+      },
+      {
+        "title": "Omitting GuideStar / Charity Navigator in sameAs",
+        "description": "Failing to link third-party watchdog ratings weakens E-E-A-T transparency in donation queries.",
+        "severity": "warning",
+        "gscImpact": "Lower trust score for competitive philanthropic and donation keywords.",
+        "solution": "Add verified GuideStar and Charity Navigator URLs to sameAs array."
+      },
+      {
+        "title": "Using Standard Commercial Corporation Type",
+        "description": "Using standard Corporation instead of NGO or NonProfitOrganization misclassifies the organizational tax entity.",
+        "severity": "warning",
+        "gscImpact": "Entity confusion in Google Knowledge Graph.",
+        "solution": "Declare '@type: NGO'."
+      }
+    ],
+    "relatedSlugs": [
+      "organization-corporate-profile",
+      "animal-shelter-adoption",
+      "community-cultural-center",
+      "religious-place-of-worship"
+    ],
+    "useCases": [
+      "501(c)(3) charity homepage and donation landing pages",
+      "Philanthropic grant-making foundation overview portals",
+      "Non-profit annual report and transparency hubs"
+    ]
+  },
+  {
+    "slug": "animal-shelter-adoption",
+    "title": "Animal Shelter & Pet Adoption Center Schema Markup (JSON-LD)",
+    "shortTitle": "Animal Shelter & Pet Adoption",
+    "schemaType": "AnimalShelter",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for humane animal rescue shelters, dog & cat adoption centers, and wildlife rehabilitation facilities, detailing adoption viewing hours, volunteer intake, foster programs, and pet care.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "animal shelter schema",
+      "pet adoption structured data",
+      "dog rescue json-ld",
+      "animal shelter schema.org",
+      "pet adoption hours rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AnimalShelter\",\n  \"@id\": \"https://example.org/rescue/paws-hope#shelter\",\n  \"name\": \"Paws of Hope Animal Rescue & Adoption Center\",\n  \"description\": \"Non-profit no-kill animal shelter facilitating dog and cat adoptions, foster care networks, low-cost spay/neuter clinics, and volunteer programs.\",\n  \"telephone\": \"+1-512-555-0182\",\n  \"priceRange\": \"$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"7201 Levander Loop\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78702\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Dedicated Cat Adoption Lounge & Meet-and-Greet Yards\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Low-Cost Microchipping & Vaccination Clinic\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"No-Kill Humane Shelter Policy\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"11:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official rescue organization or animal shelter title.",
+        "required": true,
+        "exampleValue": "Paws of Hope Animal Rescue & Adoption Center"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the shelter and adoption kennels.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"7201 Levander Loop\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Adoption coordinator and volunteer hotline telephone number.",
+        "required": true,
+        "exampleValue": "+1-512-555-0182"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Shelter features including meet-and-greet yards, no-kill policy, and spay/neuter clinic.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Dedicated Cat Adoption Lounge...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Public adoption viewing hours across open days.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"11:00\", \"closes\": \"18:00\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Adoption fee tier indicator ($).",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Intake Surrender Hours with Public Adoption Hours",
+        "description": "Animal shelters often separate public adoption visiting hours from animal intake surrender appointments; conflating them creates front desk chaos.",
+        "severity": "warning",
+        "gscImpact": "Frustrated visitors arriving at wrong hours for adoption viewing.",
+        "solution": "Specify adoption viewing hours in openingHoursSpecification and explain surrender rules in description."
+      },
+      {
+        "title": "Using Generic LocalBusiness Instead of AnimalShelter",
+        "description": "Using generic types deprives pet adoption centers of specialized 'Animal Shelter' badges on Google Maps.",
+        "severity": "warning",
+        "gscImpact": "Lower visibility in 'dog adoption near me' local queries.",
+        "solution": "Always declare '@type: AnimalShelter'."
+      },
+      {
+        "title": "Missing No-Kill / Adoption Policy Declarations",
+        "description": "Pet adopters heavily seek no-kill rescue shelters; omitting this attribute misses major search intent.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in 'no kill animal shelter' search queries.",
+        "solution": "Include no-kill policy in structured amenityFeature."
+      }
+    ],
+    "relatedSlugs": [
+      "non-profit-charity-foundation",
+      "community-cultural-center",
+      "veterinary-pet-hospital",
+      "public-park-recreation-area"
+    ],
+    "useCases": [
+      "Animal rescue shelter adoption gallery pages",
+      "Pet foster program onboarding portals",
+      "Humane society volunteer and donation hubs"
+    ]
+  },
+  {
+    "slug": "religious-place-of-worship",
+    "title": "Religious Place of Worship & Church / Mosque / Synagogue Schema Markup (JSON-LD)",
+    "shortTitle": "Place of Worship",
+    "schemaType": "PlaceOfWorship",
+    "category": "Organization & Identity",
+    "richResultType": "Local Business",
+    "description": "Structured data for religious places of worship including churches, mosques, synagogues, and temples, detailing weekly service schedules, religious denomination, community outreach, and parking.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "place of worship schema",
+      "church structured data",
+      "synagogue json-ld",
+      "mosque schema.org",
+      "worship service times rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"PlaceOfWorship\",\n  \"@id\": \"https://example.org/worship/grace-cathedral#parish\",\n  \"name\": \"Grace Cathedral & Community Sanctuary\",\n  \"description\": \"Welcoming faith community providing Sunday liturgical services, youth ministry, community food pantry, and choir music performances.\",\n  \"telephone\": \"+1-415-555-0186\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1100 California Street\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94108\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Weekly Sunday Services at 09:00 & 11:00 AM\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Community Food Pantry & Outreach Program\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Wheelchair Accessible Sanctuary Entry\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Sunday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"14:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Wednesday\"\n      ],\n      \"opens\": \"18:00\",\n      \"closes\": \"20:30\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title of the congregation, sanctuary, or place of worship.",
+        "required": true,
+        "exampleValue": "Grace Cathedral & Community Sanctuary"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the worship facility.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1100 California Street\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Church or parish office phone contact.",
+        "required": true,
+        "exampleValue": "+1-415-555-0186"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Worship services, choir, community food pantries, and accessibility ramps.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Weekly Sunday Services...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Weekly ceremonial service times and sanctuary open prayer hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"14:00\" }]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Denominational tradition, liturgy style, pastoral leadership, and outreach missions.",
+        "required": false,
+        "exampleValue": "Welcoming faith community providing Sunday liturgical services..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Parish Office Hours with Weekend Worship Service Times",
+        "description": "Publishing Monday-Friday 9-5 administrative hours while omitting Sunday service times prevents worshipers from discovering weekend service schedules.",
+        "severity": "critical",
+        "gscImpact": "Google Maps indicates church is closed on Sunday mornings during worship.",
+        "solution": "Ensure Sunday/Saturday prayer times are prominently declared in openingHoursSpecification."
+      },
+      {
+        "title": "Omitting Faith Tradition & Denomination",
+        "description": "Failing to disclose denomination (e.g. Episcopal, Catholic, Baptist, Islamic, Jewish) causes theological mismatch for attendees.",
+        "severity": "warning",
+        "gscImpact": "High bounce rates from visitors looking for specific theological traditions.",
+        "solution": "State religious denomination clearly in description."
+      },
+      {
+        "title": "Using Generic Place Instead of PlaceOfWorship / Church",
+        "description": "Using standard generic Place deprives the house of worship of Google's specialized religious organization knowledge card.",
+        "severity": "warning",
+        "gscImpact": "Loss of religious organization knowledge panel features.",
+        "solution": "Use the dedicated '@type: PlaceOfWorship' or Church."
+      }
+    ],
+    "relatedSlugs": [
+      "community-cultural-center",
+      "non-profit-charity-foundation",
+      "cemetery-memorial-park",
+      "civic-monument-historic-site"
+    ],
+    "useCases": [
+      "Church and religious congregation website homepages",
+      "Mosque, synagogue, and temple service schedule portals",
+      "Community food pantry and ministry outreach pages"
+    ]
+  },
+  {
+    "slug": "community-cultural-center",
+    "title": "Community Center & Cultural Arts Hall Schema Markup (JSON-LD)",
+    "shortTitle": "Community & Cultural Center",
+    "schemaType": "CommunityCenter",
+    "category": "Events & Education",
+    "richResultType": "Local Business",
+    "description": "Structured data for neighborhood community centers, cultural arts halls, and senior activity hubs, detailing meeting hall rentals, youth workshops, public lectures, and operating schedules.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "community center schema",
+      "cultural arts center structured data",
+      "civic hall json-ld",
+      "community center schema.org",
+      "event hall rental rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"CommunityCenter\",\n  \"@id\": \"https://example.org/community/oakridge-center#hall\",\n  \"name\": \"Oakridge Civic & Cultural Community Center\",\n  \"description\": \"Multi-purpose civic community center featuring 300-seat banquet hall, senior activity wing, youth STEM robotics lab, and public meeting rooms for local non-profit events.\",\n  \"telephone\": \"+1-415-555-0194\",\n  \"priceRange\": \"$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1800 Community Way\",\n    \"addressLocality\": \"Oakland\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94612\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"300-Seat Multi-Purpose Banquet & Event Hall\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Senior Wellness & Daily Nutrition Center\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Commercial Warming Kitchen for Catered Gatherings\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"21:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official community center or cultural hall name.",
+        "required": true,
+        "exampleValue": "Oakridge Civic & Cultural Community Center"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the community facility.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"1800 Community Way\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Community center front desk phone line.",
+        "required": true,
+        "exampleValue": "+1-415-555-0194"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Facilities including banquet halls, warming kitchens, senior wings, and meeting rooms.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"300-Seat Multi-Purpose Banquet...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "General facility public operational hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"21:00\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Community fee tier ($).",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Room Rental Pricing Disclosures",
+        "description": "Community members frequently seek venue rentals for weddings or meetings; omitting hall rental parameters reduces civic utility.",
+        "severity": "warning",
+        "gscImpact": "Lost event hall rental discovery in local search.",
+        "solution": "Highlight banquet hall rental specs under amenityFeature."
+      },
+      {
+        "title": "Confusing Private Event Buyout with Public Walk-In Hours",
+        "description": "Community centers often close to the public during weekend private rentals; failing to clarify causes visitor disappointment.",
+        "severity": "warning",
+        "gscImpact": "Negative user reviews from walk-in patrons turned away during private bookings.",
+        "solution": "Note private rental scheduling guidelines in description."
+      },
+      {
+        "title": "Using Generic CivicStructure Instead of CommunityCenter",
+        "description": "Using vague parent types dilutes Google's ability to categorize local neighborhood programs.",
+        "severity": "warning",
+        "gscImpact": "Weaker rankings for 'community centers near me'.",
+        "solution": "Always use '@type: CommunityCenter'."
+      }
+    ],
+    "relatedSlugs": [
+      "public-library-branch",
+      "public-park-recreation-area",
+      "religious-place-of-worship",
+      "city-hall-municipal-office"
+    ],
+    "useCases": [
+      "Municipal community center event and class pages",
+      "Cultural arts hall room reservation portals",
+      "Senior center activity calendar and lunch program hubs"
+    ]
+  },
+  {
+    "slug": "recycling-dropoff-center",
+    "title": "Recycling Drop-Off & Hazardous Waste Disposal Center Schema Markup (JSON-LD)",
+    "shortTitle": "Recycling & Disposal Center",
+    "schemaType": "RecyclingCenter",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for municipal recycling drop-off centers, electronic e-waste facilities, and hazardous waste disposal depots, detailing accepted materials, electronic fees, scale gates, and hours.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "recycling center schema",
+      "e waste drop off structured data",
+      "hazardous waste disposal json-ld",
+      "recycling center schema.org",
+      "electronics recycling rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RecyclingCenter\",\n  \"@id\": \"https://example.gov/recycling/metro-eco-hub#center\",\n  \"name\": \"Metro EcoHub Recycling & Household Hazardous Waste Depot\",\n  \"description\": \"Municipal waste diversion center accepting residential electronics, lithium batteries, paint, motor oil, scrap metal, clean cardboard, and yard compost.\",\n  \"telephone\": \"+1-503-555-0188\",\n  \"priceRange\": \"$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"6161 NW 61st Avenue\",\n    \"addressLocality\": \"Portland\",\n    \"addressRegion\": \"OR\",\n    \"postalCode\": \"97210\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Accepts E-Waste, Computers, TVs & Lithium Batteries\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Household Hazardous Waste (Paint, Solvents, Oil) Drop-Off\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Free Residential Cardboard & Scrap Metal Drop-Off\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"16:30\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title of the recycling center or transfer station.",
+        "required": true,
+        "exampleValue": "Metro EcoHub Recycling & Household Hazardous Waste Depot"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical gate address of the recycling depot.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"6161 NW 61st Avenue\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Disposal information hotline.",
+        "required": true,
+        "exampleValue": "+1-503-555-0188"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Materials accepted including e-waste, hazardous paints, scrap metals, and cardboard.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Accepts E-Waste, Computers...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Public gate operating hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"16:30\" }]"
+      },
+      {
+        "name": "priceRange",
+        "type": "Text",
+        "description": "Disposal fee level ($).",
+        "required": false,
+        "exampleValue": "$"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Failing to List Prohibited Materials in Schema Description",
+        "description": "Failing to state exclusions (e.g. no commercial asbestos or biological waste) results in hazardous drop-off attempts.",
+        "severity": "warning",
+        "gscImpact": "Constituent safety violations at drop-off gates.",
+        "solution": "Clearly outline accepted vs prohibited materials in description."
+      },
+      {
+        "title": "Confusing Commercial Waste Rates with Free Residential Drop-Off",
+        "description": "Failing to clarify that free drop-off applies only to residents with municipal ID causes commercial contractor disputes.",
+        "severity": "warning",
+        "gscImpact": "Disputes at weigh-in scale houses.",
+        "solution": "Specify residential vs commercial rules in amenityFeature."
+      },
+      {
+        "title": "Missing Hazardous Waste Specific Days",
+        "description": "Hazardous waste collection is often limited to specific days; publishing full-week hours causes users to bring paint on non-intake days.",
+        "severity": "critical",
+        "gscImpact": "Citizens turned away with hazardous chemicals in vehicles.",
+        "solution": "Specify dedicated hazardous collection schedules in description."
+      }
+    ],
+    "relatedSlugs": [
+      "government-organization-agency",
+      "city-hall-municipal-office",
+      "warehouse-logistics-facility",
+      "public-park-recreation-area"
+    ],
+    "useCases": [
+      "Municipal waste management recycling locator pages",
+      "Electronic waste and battery recycling directory portals",
+      "Household hazardous chemical disposal guidelines hubs"
+    ]
+  },
+  {
+    "slug": "public-park-recreation-area",
+    "title": "Public Municipal Park & Nature Recreation Area Schema Markup (JSON-LD)",
+    "shortTitle": "Public Park & Recreation Area",
+    "schemaType": "Park",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for public municipal parks, state recreation areas, and botanical nature reserves, detailing dog park zones, hiking trails, picnic pavilions, restrooms, and park hours.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "public park schema",
+      "park structured data",
+      "nature reserve json-ld",
+      "park schema.org",
+      "park amenities rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Park\",\n  \"@id\": \"https://example.gov/parks/zilker-metropolitan#park\",\n  \"name\": \"Zilker Metropolitan Park & Botanical Preserve\",\n  \"description\": \"Iconic 350-acre urban park featuring natural spring-fed pool, botanical gardens, off-leash dog park, hiking trails, and picnic pavilions along the river.\",\n  \"telephone\": \"+1-512-555-0196\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2100 Barton Springs Road\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78704\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Off-Leash Dog Park Area\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Spring-Fed Swimming Pool (Barton Springs)\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Covered Picnic Pavilions with BBQ Grills\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"05:00\",\n      \"closes\": \"22:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official public park or nature reserve title.",
+        "required": true,
+        "exampleValue": "Zilker Metropolitan Park & Botanical Preserve"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical main entrance street address of the park grounds.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"2100 Barton Springs Road\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Parks & recreation department contact phone line.",
+        "required": true,
+        "exampleValue": "+1-512-555-0196"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Park facilities including dog parks, playgrounds, hiking trails, pavilions, and restrooms.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Off-Leash Dog Park Area\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Dawn to dusk or curfew park gate hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"05:00\", \"closes\": \"22:00\" }]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Park acreage, parking regulations, permit policies for large gatherings, and trail maps.",
+        "required": false,
+        "exampleValue": "Iconic 350-acre urban park featuring natural spring-fed pool..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Dog Leash Policy Disclosures",
+        "description": "Pet owners search specifically for off-leash vs leashed dog parks; omitting pet rules causes park ranger citation issues.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in 'off leash dog park near me' queries.",
+        "solution": "State dog leash policy explicitly in amenityFeature."
+      },
+      {
+        "title": "Using Generic TouristAttraction Instead of Park",
+        "description": "Using tourist attraction without the Park entity loses Google's dedicated park knowledge card features.",
+        "severity": "warning",
+        "gscImpact": "Loss of park trail and recreation quick answers on SERPs.",
+        "solution": "Always declare '@type: Park'."
+      },
+      {
+        "title": "Missing Curfew Closing Hours",
+        "description": "Parks that close at 10 PM need clear curfew hours in schema to avoid nighttime trespassing fines.",
+        "severity": "error",
+        "gscImpact": "Visitors arrive after park closing hours.",
+        "solution": "Declare exact opening and closing curfew times in openingHoursSpecification."
+      }
+    ],
+    "relatedSlugs": [
+      "campground-rv-park",
+      "swimming-aquatics-center",
+      "tennis-pickleball-court",
+      "community-cultural-center"
+    ],
+    "useCases": [
+      "City parks and recreation department park locator pages",
+      "Botanical garden and nature preserve guide pages",
+      "Dog park and hiking trail directory portals"
+    ]
+  },
+  {
+    "slug": "cemetery-memorial-park",
+    "title": "Cemetery & Memorial Park Schema Markup (JSON-LD)",
+    "shortTitle": "Cemetery & Memorial Park",
+    "schemaType": "Cemetery",
+    "category": "Local Business",
+    "richResultType": "Local Business",
+    "description": "Structured data for historic cemeteries, memorial parks, mausoleums, and veteran burial grounds, detailing visiting gate hours, genealogy archives, floral placement rules, and memorial services.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "cemetery schema",
+      "memorial park structured data",
+      "mausoleum json-ld",
+      "cemetery schema.org",
+      "cemetery visiting hours rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Cemetery\",\n  \"@id\": \"https://example.com/cemetery/evergreen-memorial#park\",\n  \"name\": \"Evergreen Memorial Park & Historic Mausoleum\",\n  \"description\": \"Historic 85-acre landscaped memorial park offering traditional in-ground burial estates, cremation columbarium niches, community mausoleum entombment, and genealogy records.\",\n  \"telephone\": \"+1-206-555-0198\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"11111 Aurora Avenue North\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98133\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Historical Genealogy Burial Records Search\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Indoor Climate-Controlled Mausoleum & Columbarium\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Perpetual Care Landscaped Memorial Grounds\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official title of the cemetery or memorial park.",
+        "required": true,
+        "exampleValue": "Evergreen Memorial Park & Historic Mausoleum"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical main gate street address.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"11111 Aurora Avenue North\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Cemetery administrative office telephone number.",
+        "required": true,
+        "exampleValue": "+1-206-555-0198"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Cemetery attributes including genealogy archives, mausoleums, columbariums, and chapel facilities.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"Historical Genealogy Burial Records...\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "Daily visitor gate access hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"08:00\", \"closes\": \"18:00\" }]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Burial plot options, floral placement rules, historical figures interred, and pre-planning consultation.",
+        "required": false,
+        "exampleValue": "Historic 85-acre landscaped memorial park offering traditional in-ground burial..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Confusing Administrative Office Hours with Cemetery Gate Hours",
+        "description": "Cemetery grounds gates often stay open until sunset while the administrative office closes at 4:30 PM; conflating them creates visitor confusion.",
+        "severity": "warning",
+        "gscImpact": "Visitors unsure if they can visit family graves on weekends.",
+        "solution": "List gate visiting hours in openingHoursSpecification and clarify office hours in description."
+      },
+      {
+        "title": "Using Generic Place Instead of Cemetery",
+        "description": "Using generic Place types prevents Google from indexing burial locator and genealogy features.",
+        "severity": "warning",
+        "gscImpact": "Lower visibility in grave search and genealogy research queries.",
+        "solution": "Always declare '@type: Cemetery'."
+      },
+      {
+        "title": "Missing Floral & Memorial Decoration Guidelines",
+        "description": "Cemeteries have strict seasonal cleanups for flowers and flags; failing to state guidelines creates visitor friction.",
+        "severity": "warning",
+        "gscImpact": "Customer distress when decorations are cleared during maintenance cycles.",
+        "solution": "Summarize floral placement policies in description."
+      }
+    ],
+    "relatedSlugs": [
+      "religious-place-of-worship",
+      "civic-monument-historic-site",
+      "community-cultural-center",
+      "public-park-recreation-area"
+    ],
+    "useCases": [
+      "Memorial park and cemetery visitor information pages",
+      "Genealogy grave search and historical registry portals",
+      "Pre-need funeral and burial plot planning hubs"
+    ]
+  },
+  {
+    "slug": "civic-monument-historic-site",
+    "title": "Civic Monument & National Historic Landmark Schema Markup (JSON-LD)",
+    "shortTitle": "Civic Monument & Historic Site",
+    "schemaType": "LandmarksOrHistoricalBuildings",
+    "category": "Organization & Identity",
+    "richResultType": "Tourist Attraction",
+    "description": "Structured data for national monuments, UNESCO World Heritage sites, historic civic landmarks, and architectural treasures, detailing construction year, architectural style, visitor tours, and preservation.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "historic landmark schema",
+      "monument structured data",
+      "unesco heritage json-ld",
+      "landmarks or historical buildings schema.org",
+      "historic site rich snippet"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LandmarksOrHistoricalBuildings\",\n  \"@id\": \"https://example.gov/landmarks/independence-hall#site\",\n  \"name\": \"Independence Hall & Liberty Bell Center\",\n  \"description\": \"UNESCO World Heritage Site where the Declaration of Independence and the United States Constitution were debated and adopted in 1776 and 1787.\",\n  \"telephone\": \"+1-215-555-0100\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"520 Chestnut Street\",\n    \"addressLocality\": \"Philadelphia\",\n    \"addressRegion\": \"PA\",\n    \"postalCode\": \"19106\",\n    \"addressCountry\": \"US\"\n  },\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"UNESCO World Heritage Site\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"National Park Service Guided Historical Tours\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Preserved 18th Century Georgian Architecture\",\n      \"value\": true\n    }\n  ],\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official historic monument or landmark title.",
+        "required": true,
+        "exampleValue": "Independence Hall & Liberty Bell Center"
+      },
+      {
+        "name": "address",
+        "type": "PostalAddress",
+        "description": "Physical street address of the historic site.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"PostalAddress\", \"streetAddress\": \"520 Chestnut Street\", ... }"
+      },
+      {
+        "name": "telephone",
+        "type": "Text",
+        "description": "Park ranger or visitor center inquiry line.",
+        "required": true,
+        "exampleValue": "+1-215-555-0100"
+      },
+      {
+        "name": "amenityFeature",
+        "type": "Array<LocationFeatureSpecification>",
+        "description": "Site distinctions including UNESCO World Heritage status, architectural style, and ranger tours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"LocationFeatureSpecification\", \"name\": \"UNESCO World Heritage Site\", \"value\": true }]"
+      },
+      {
+        "name": "openingHoursSpecification",
+        "type": "Array<OpeningHoursSpecification>",
+        "description": "National park visitor center operating hours.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"OpeningHoursSpecification\", \"opens\": \"09:00\", \"closes\": \"17:00\" }]"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Historical significance, founding date, architectural heritage, and ticket reservation rules.",
+        "required": false,
+        "exampleValue": "UNESCO World Heritage Site where the Declaration of Independence..."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing National Park Tour Reservation Disclosures",
+        "description": "Historic landmarks often require advance timed-entry tickets; failing to disclose ticket rules creates visitor disappointment at security checkpoints.",
+        "severity": "warning",
+        "gscImpact": "Negative tourist reviews regarding unexpected ticket requirements.",
+        "solution": "Explain timed-entry ticket requirements clearly in description."
+      },
+      {
+        "title": "Using Generic TouristAttraction Instead of LandmarksOrHistoricalBuildings",
+        "description": "Using generic attraction types misses Google's dedicated historical entity Knowledge Graph enrichment.",
+        "severity": "warning",
+        "gscImpact": "Loss of historical chronology and architectural data in Knowledge Panels.",
+        "solution": "Use the dedicated '@type: LandmarksOrHistoricalBuildings'."
+      },
+      {
+        "title": "Omission of Architectural Style & Era Details",
+        "description": "Architectural and history researchers search by era (Georgian, Art Deco, Gothic); omitting architectural style reduces academic and tourism authority.",
+        "severity": "warning",
+        "gscImpact": "Lower rankings in architectural tourism queries.",
+        "solution": "Highlight architectural style in amenityFeature."
+      }
+    ],
+    "relatedSlugs": [
+      "public-library-branch",
+      "city-hall-municipal-office",
+      "religious-place-of-worship",
+      "cemetery-memorial-park"
+    ],
+    "useCases": [
+      "National historic landmark visitor guide portals",
+      "UNESCO World Heritage site tourism pages",
+      "Architectural preservation and city heritage tour websites"
     ]
   }
 ];
