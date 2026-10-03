@@ -32,6 +32,7 @@ import {
   TrendingUp,
   Shuffle,
   Tag,
+  ArrowRight,
 } from "lucide-react";
 import { CATEGORIES } from "@/config/categories";
 import { getAllTools } from "@/config/tools/registry";
@@ -133,6 +134,38 @@ export default function HomePage() {
                 </button>
               )}
             </div>
+          </div>
+
+          {/* Schema Blueprint Library Discovery Card */}
+          <div className="mt-7 max-w-xl mx-auto text-left">
+            <Link
+              href="/schema"
+              className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden rounded-2xl border border-emerald-500/30 bg-white/90 dark:bg-slate-900/90 p-4 sm:p-5 shadow-lg shadow-emerald-950/5 hover:border-emerald-500/60 hover:shadow-emerald-500/10 transition-all backdrop-blur-md"
+            >
+              <div className="flex items-start gap-3.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 group-hover:scale-105 transition-transform">
+                  <Code2 className="h-5 w-5" />
+                </div>
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      Schema.org Blueprint Library
+                    </h2>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                      300+
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-normal">
+                    Explore 300+ production-ready JSON-LD structured data templates tested for Google Rich Results.
+                  </p>
+                </div>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-xs transition-colors shrink-0 group-hover:translate-x-0.5">
+                <span>Browse 300+ Schemas</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </div>
+            </Link>
           </div>
 
           {/* Quick stats pills */}

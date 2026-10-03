@@ -183,7 +183,7 @@ export function Footer() {
                   href="/schema"
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold text-emerald-600 dark:text-emerald-400 transition-colors"
                 >
-                  Schema Blueprints
+                  Schema Blueprint Library (300+)
                 </Link>
                 <span>•</span>
                 <Link
