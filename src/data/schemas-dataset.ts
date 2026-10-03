@@ -1,5 +1,5 @@
 // Auto-generated Schema Blueprints Dataset — OmniSEO Tools
-// Total Blueprints: 65 (Cluster 1: 35 Core Entities + Cluster 2: 30 Local Business Entities)
+// Total Blueprints: 90 (Cluster 1: 35 Core Entities + Cluster 2: 30 Local Business Entities + Cluster 3: 25 Tech & Developer Entities)
 
 export interface SchemaProperty {
   name: string;
@@ -2573,7 +2573,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "food establishment structured data",
       "restaurant opening hours schema"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Restaurant\",\n  \"@id\": \"https://omniseotools.com/demo/restaurant#business\",\n  \"name\": \"La Trattoria Botanica\",\n  \"image\": \"https://omniseotools.com/images/demo/restaurant-hero.jpg\",\n  \"telephone\": \"+1-212-555-0188\",\n  \"url\": \"https://omniseotools.com/demo/restaurant\",\n  \"servesCuisine\": [\n    \"Italian\",\n    \"Tuscan\",\n    \"Handmade Pasta\"\n  ],\n  \"priceRange\": \"$$$\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/restaurant/reservations\",\n  \"menu\": \"https://omniseotools.com/demo/restaurant/menu\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"142 Mulberry Street\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10013\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 40.7189,\n    \"longitude\": -73.9978\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"17:00\",\n      \"closes\": \"22:30\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"12:00\",\n      \"closes\": \"23:30\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Restaurant\",\n  \"@id\": \"https://omniseotools.com/demo/restaurant#business\",\n  \"name\": \"La Trattoria Botanica\",\n  \"image\": \"https://omniseotools.com/images/demo/restaurant-hero.jpg\",\n  \"telephone\": \"+1-212-555-0188\",\n  \"url\": \"https://omniseotools.com/demo/restaurant\",\n  \"servesCuisine\": [\n    \"Italian\",\n    \"Tuscan\",\n    \"Handmade Pasta\"\n  ],\n  \"priceRange\": \"$$\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/restaurant/reservations\",\n  \"menu\": \"https://omniseotools.com/demo/restaurant/menu\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"142 Mulberry Street\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10013\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 40.7189,\n    \"longitude\": -73.9978\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"17:00\",\n      \"closes\": \"22:30\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"12:00\",\n      \"closes\": \"23:30\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "name",
@@ -2620,9 +2620,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Relative expense scale ($, $$, $$$, $$$$).",
+        "description": "Relative expense scale ($, $, $$, $$).",
         "required": true,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "menu",
@@ -2690,7 +2690,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "brick and mortar structured data",
       "local business store schema"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Store\",\n  \"name\": \"Apex Electronics & Pro Audio\",\n  \"image\": \"https://omniseotools.com/images/demo/store-front.jpg\",\n  \"telephone\": \"+1-415-555-0144\",\n  \"url\": \"https://omniseotools.com/demo/store\",\n  \"priceRange\": \"$$\",\n  \"paymentAccepted\": \"Cash, Credit Card, Apple Pay, Google Pay\",\n  \"currenciesAccepted\": \"USD\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"742 Market Street\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94102\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 37.7879,\n    \"longitude\": -122.4048\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"10:00\",\n      \"closes\": \"20:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Sunday\",\n      \"opens\": \"11:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Store\",\n  \"name\": \"Apex Electronics & Pro Audio\",\n  \"image\": \"https://omniseotools.com/images/demo/store-front.jpg\",\n  \"telephone\": \"+1-415-555-0144\",\n  \"url\": \"https://omniseotools.com/demo/store\",\n  \"priceRange\": \"$\",\n  \"paymentAccepted\": \"Cash, Credit Card, Apple Pay, Google Pay\",\n  \"currenciesAccepted\": \"USD\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"742 Market Street\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94102\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 37.7879,\n    \"longitude\": -122.4048\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"10:00\",\n      \"closes\": \"20:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Sunday\",\n      \"opens\": \"11:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "name",
@@ -2730,9 +2730,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Pricing tier ($ to $$$$).",
+        "description": "Pricing tier ($ to $$).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "openingHoursSpecification",
@@ -2792,7 +2792,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "healthcare structured data",
       "urgent care schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MedicalBusiness\",\n  \"name\": \"Horizon Integrated Medical Center\",\n  \"medicalSpecialty\": \"https://schema.org/PrimaryCare\",\n  \"telephone\": \"+1-312-555-0190\",\n  \"url\": \"https://omniseotools.com/demo/clinic\",\n  \"priceRange\": \"$$\",\n  \"isAcceptingNewPatients\": true,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"300 N Michigan Avenue, Suite 400\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60601\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 41.8872,\n    \"longitude\": -87.6246\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MedicalBusiness\",\n  \"name\": \"Horizon Integrated Medical Center\",\n  \"medicalSpecialty\": \"https://schema.org/PrimaryCare\",\n  \"telephone\": \"+1-312-555-0190\",\n  \"url\": \"https://omniseotools.com/demo/clinic\",\n  \"priceRange\": \"$\",\n  \"isAcceptingNewPatients\": true,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"300 N Michigan Avenue, Suite 400\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60601\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 41.8872,\n    \"longitude\": -87.6246\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "name",
@@ -3560,7 +3560,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "dental json-ld",
       "orthodontist schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Dentist\",\n  \"@id\": \"https://omniseotools.com/demo/dentist#clinic\",\n  \"name\": \"Apex Dental & Orthodontic Specialists\",\n  \"medicalSpecialty\": \"https://schema.org/Dentistry\",\n  \"telephone\": \"+1-212-555-0133\",\n  \"url\": \"https://omniseotools.com/demo/dentist\",\n  \"image\": \"https://omniseotools.com/images/demo/dental-clinic.jpg\",\n  \"priceRange\": \"$$$\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/dentist/book\",\n  \"isAcceptingNewPatients\": true,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"450 Lexington Avenue, Suite 1200\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10017\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 40.7527,\n    \"longitude\": -73.9749\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Friday\",\n      \"opens\": \"08:00\",\n      \"closes\": \"16:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Dentist\",\n  \"@id\": \"https://omniseotools.com/demo/dentist#clinic\",\n  \"name\": \"Apex Dental & Orthodontic Specialists\",\n  \"medicalSpecialty\": \"https://schema.org/Dentistry\",\n  \"telephone\": \"+1-212-555-0133\",\n  \"url\": \"https://omniseotools.com/demo/dentist\",\n  \"image\": \"https://omniseotools.com/images/demo/dental-clinic.jpg\",\n  \"priceRange\": \"$$\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/dentist/book\",\n  \"isAcceptingNewPatients\": true,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"450 Lexington Avenue, Suite 1200\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10017\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 40.7527,\n    \"longitude\": -73.9749\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Friday\",\n      \"opens\": \"08:00\",\n      \"closes\": \"16:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "medicalSpecialty",
@@ -3607,9 +3607,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Relative pricing tier ($ to $$$$).",
+        "description": "Relative pricing tier ($ to $$).",
         "required": false,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "isAcceptingNewPatients",
@@ -3670,7 +3670,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "medical specialist json-ld",
       "cardiologist schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Physician\",\n  \"@id\": \"https://omniseotools.com/demo/physician#doctor\",\n  \"name\": \"Dr. Alexander Wright, MD, FACC\",\n  \"medicalSpecialty\": \"https://schema.org/Cardiovascular\",\n  \"telephone\": \"+1-617-555-0182\",\n  \"url\": \"https://omniseotools.com/demo/physician\",\n  \"image\": \"https://omniseotools.com/images/demo/dr-wright.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"hospitalAffiliation\": [\n    {\n      \"@type\": \"Hospital\",\n      \"name\": \"Massachusetts General Hospital\",\n      \"url\": \"https://www.massgeneral.org\"\n    }\n  ],\n  \"availableService\": [\n    {\n      \"@type\": \"MedicalTherapy\",\n      \"name\": \"Echocardiography & Stress Testing\"\n    },\n    {\n      \"@type\": \"MedicalProcedure\",\n      \"name\": \"Preventive Cardiology Consultation\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"55 Fruit Street, Suite 300\",\n    \"addressLocality\": \"Boston\",\n    \"addressRegion\": \"MA\",\n    \"postalCode\": \"02114\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 42.3629,\n    \"longitude\": -71.0691\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Physician\",\n  \"@id\": \"https://omniseotools.com/demo/physician#doctor\",\n  \"name\": \"Dr. Alexander Wright, MD, FACC\",\n  \"medicalSpecialty\": \"https://schema.org/Cardiovascular\",\n  \"telephone\": \"+1-617-555-0182\",\n  \"url\": \"https://omniseotools.com/demo/physician\",\n  \"image\": \"https://omniseotools.com/images/demo/dr-wright.jpg\",\n  \"priceRange\": \"$$\",\n  \"hospitalAffiliation\": [\n    {\n      \"@type\": \"Hospital\",\n      \"name\": \"Massachusetts General Hospital\",\n      \"url\": \"https://www.massgeneral.org\"\n    }\n  ],\n  \"availableService\": [\n    {\n      \"@type\": \"MedicalTherapy\",\n      \"name\": \"Echocardiography & Stress Testing\"\n    },\n    {\n      \"@type\": \"MedicalProcedure\",\n      \"name\": \"Preventive Cardiology Consultation\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"55 Fruit Street, Suite 300\",\n    \"addressLocality\": \"Boston\",\n    \"addressRegion\": \"MA\",\n    \"postalCode\": \"02114\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 42.3629,\n    \"longitude\": -71.0691\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Thursday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "medicalSpecialty",
@@ -3719,7 +3719,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "type": "Text",
         "description": "Fee tier.",
         "required": false,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       }
     ],
     "pitfalls": [
@@ -3773,7 +3773,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "attorney structured data",
       "lawyer schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LegalService\",\n  \"@id\": \"https://omniseotools.com/demo/law-firm#firm\",\n  \"name\": \"Sterling & Associates Corporate Law LLP\",\n  \"legalName\": \"Sterling & Associates Legal Practice LLP\",\n  \"telephone\": \"+1-312-555-0177\",\n  \"url\": \"https://omniseotools.com/demo/law-firm\",\n  \"image\": \"https://omniseotools.com/images/demo/law-firm.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"State\",\n      \"name\": \"Illinois\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Wisconsin\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Legal Practice Areas\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Corporate Mergers & Acquisitions Advisory\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial Intellectual Property Litigation\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"111 S Wacker Drive, Suite 2800\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60606\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 41.8796,\n    \"longitude\": -87.6371\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LegalService\",\n  \"@id\": \"https://omniseotools.com/demo/law-firm#firm\",\n  \"name\": \"Sterling & Associates Corporate Law LLP\",\n  \"legalName\": \"Sterling & Associates Legal Practice LLP\",\n  \"telephone\": \"+1-312-555-0177\",\n  \"url\": \"https://omniseotools.com/demo/law-firm\",\n  \"image\": \"https://omniseotools.com/images/demo/law-firm.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"State\",\n      \"name\": \"Illinois\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Wisconsin\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Legal Practice Areas\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Corporate Mergers & Acquisitions Advisory\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial Intellectual Property Litigation\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"111 S Wacker Drive, Suite 2800\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60606\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 41.8796,\n    \"longitude\": -87.6371\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "legalName",
@@ -3801,7 +3801,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "type": "Text",
         "description": "Relative retainer and hourly expense tier.",
         "required": true,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "telephone",
@@ -3876,7 +3876,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "realtor structured data",
       "property agency schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RealEstateAgent\",\n  \"@id\": \"https://omniseotools.com/demo/real-estate#brokerage\",\n  \"name\": \"Vanguard Luxury Real Estate Group\",\n  \"url\": \"https://omniseotools.com/demo/real-estate\",\n  \"logo\": \"https://omniseotools.com/images/demo/re-logo.png\",\n  \"image\": \"https://omniseotools.com/images/demo/brokerage-office.jpg\",\n  \"telephone\": \"+1-305-555-0164\",\n  \"priceRange\": \"$$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Miami\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Miami Beach\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Coral Gables\"\n    }\n  ],\n  \"makesOffer\": [\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Luxury Waterfront Residential Property Brokerage\"\n      }\n    },\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Commercial Real Estate Acquisition & Leasing\"\n      }\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"800 Brickell Avenue, Suite 1400\",\n    \"addressLocality\": \"Miami\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33131\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 25.7654,\n    \"longitude\": -80.1908\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RealEstateAgent\",\n  \"@id\": \"https://omniseotools.com/demo/real-estate#brokerage\",\n  \"name\": \"Vanguard Luxury Real Estate Group\",\n  \"url\": \"https://omniseotools.com/demo/real-estate\",\n  \"logo\": \"https://omniseotools.com/images/demo/re-logo.png\",\n  \"image\": \"https://omniseotools.com/images/demo/brokerage-office.jpg\",\n  \"telephone\": \"+1-305-555-0164\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Miami\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Miami Beach\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Coral Gables\"\n    }\n  ],\n  \"makesOffer\": [\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Luxury Waterfront Residential Property Brokerage\"\n      }\n    },\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Commercial Real Estate Acquisition & Leasing\"\n      }\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"800 Brickell Avenue, Suite 1400\",\n    \"addressLocality\": \"Miami\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33131\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 25.7654,\n    \"longitude\": -80.1908\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -3925,7 +3925,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "type": "Text",
         "description": "Price tier indication.",
         "required": false,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       }
     ],
     "pitfalls": [
@@ -3979,7 +3979,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "animal hospital structured data",
       "emergency vet schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"VeterinaryCare\",\n  \"@id\": \"https://omniseotools.com/demo/vet#hospital\",\n  \"name\": \"Pinnacle 24/7 Animal Hospital & Urgent Care\",\n  \"telephone\": \"+1-512-555-0195\",\n  \"url\": \"https://omniseotools.com/demo/vet\",\n  \"image\": \"https://omniseotools.com/images/demo/vet-hospital.jpg\",\n  \"priceRange\": \"$$\",\n  \"emergencyService\": true,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"4800 S Lamar Boulevard\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78745\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 30.2345,\n    \"longitude\": -97.7942\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"VeterinaryCare\",\n  \"@id\": \"https://omniseotools.com/demo/vet#hospital\",\n  \"name\": \"Pinnacle 24/7 Animal Hospital & Urgent Care\",\n  \"telephone\": \"+1-512-555-0195\",\n  \"url\": \"https://omniseotools.com/demo/vet\",\n  \"image\": \"https://omniseotools.com/images/demo/vet-hospital.jpg\",\n  \"priceRange\": \"$\",\n  \"emergencyService\": true,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"4800 S Lamar Boulevard\",\n    \"addressLocality\": \"Austin\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"78745\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 30.2345,\n    \"longitude\": -97.7942\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHours / openingHoursSpecification",
@@ -4005,9 +4005,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "General fee tier ($ to $$$$).",
+        "description": "General fee tier ($ to $$).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "telephone",
@@ -4044,7 +4044,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "description": "Omitting priceRange prevents local cost filter matching.",
         "severity": "warning",
         "gscImpact": "Warning in GSC Local Business enhancement report.",
-        "solution": "Supply priceRange string ($$)."
+        "solution": "Supply priceRange string ($)."
       }
     ],
     "relatedSlugs": [
@@ -4075,7 +4075,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "car repair structured data",
       "auto mechanic schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AutoRepair\",\n  \"@id\": \"https://omniseotools.com/demo/auto-repair#shop\",\n  \"name\": \"Precision Performance Auto Care\",\n  \"telephone\": \"+1-206-555-0158\",\n  \"url\": \"https://omniseotools.com/demo/auto-repair\",\n  \"image\": \"https://omniseotools.com/images/demo/auto-shop.jpg\",\n  \"priceRange\": \"$$\",\n  \"paymentAccepted\": \"Cash, Credit Card, Debit Card, Apple Pay\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Seattle\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Bellevue\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Automotive Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Brake System Overhaul & Rotor Resurfacing\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Computer Engine Diagnostics & Emissions Repair\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1200 Airport Way S\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98134\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 47.5912,\n    \"longitude\": -122.3245\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Saturday\",\n      \"opens\": \"08:00\",\n      \"closes\": \"15:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AutoRepair\",\n  \"@id\": \"https://omniseotools.com/demo/auto-repair#shop\",\n  \"name\": \"Precision Performance Auto Care\",\n  \"telephone\": \"+1-206-555-0158\",\n  \"url\": \"https://omniseotools.com/demo/auto-repair\",\n  \"image\": \"https://omniseotools.com/images/demo/auto-shop.jpg\",\n  \"priceRange\": \"$\",\n  \"paymentAccepted\": \"Cash, Credit Card, Debit Card, Apple Pay\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Seattle\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Bellevue\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Automotive Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Brake System Overhaul & Rotor Resurfacing\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Computer Engine Diagnostics & Emissions Repair\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1200 Airport Way S\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98134\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 47.5912,\n    \"longitude\": -122.3245\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Saturday\",\n      \"opens\": \"08:00\",\n      \"closes\": \"15:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "hasOfferCatalog",
@@ -4115,9 +4115,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Labor pricing index ($ to $$$$).",
+        "description": "Labor pricing index ($ to $$).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "address",
@@ -4185,7 +4185,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "air conditioning contractor schema",
       "heating repair structured data"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HVACBusiness\",\n  \"@id\": \"https://omniseotools.com/demo/hvac#contractor\",\n  \"name\": \"CoolStream Heating & Air Conditioning\",\n  \"telephone\": \"+1-480-555-0129\",\n  \"url\": \"https://omniseotools.com/demo/hvac\",\n  \"image\": \"https://omniseotools.com/images/demo/hvac-truck.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"GeoCircle\",\n      \"geoMidpoint\": {\n        \"@type\": \"GeoCoordinates\",\n        \"latitude\": 33.4255,\n        \"longitude\": -111.94\n      },\n      \"geoRadius\": \"40000\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1800 E University Drive\",\n    \"addressLocality\": \"Tempe\",\n    \"addressRegion\": \"AZ\",\n    \"postalCode\": \"85281\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 33.4255,\n    \"longitude\": -111.94\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HVACBusiness\",\n  \"@id\": \"https://omniseotools.com/demo/hvac#contractor\",\n  \"name\": \"CoolStream Heating & Air Conditioning\",\n  \"telephone\": \"+1-480-555-0129\",\n  \"url\": \"https://omniseotools.com/demo/hvac\",\n  \"image\": \"https://omniseotools.com/images/demo/hvac-truck.jpg\",\n  \"priceRange\": \"$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"GeoCircle\",\n      \"geoMidpoint\": {\n        \"@type\": \"GeoCoordinates\",\n        \"latitude\": 33.4255,\n        \"longitude\": -111.94\n      },\n      \"geoRadius\": \"40000\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1800 E University Drive\",\n    \"addressLocality\": \"Tempe\",\n    \"addressRegion\": \"AZ\",\n    \"postalCode\": \"85281\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 33.4255,\n    \"longitude\": -111.94\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -4225,9 +4225,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense indicator ($$).",
+        "description": "Expense indicator ($).",
         "required": false,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "openingHoursSpecification",
@@ -4288,7 +4288,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "emergency plumber structured data",
       "drain cleaning schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Plumber\",\n  \"@id\": \"https://omniseotools.com/demo/plumber#service\",\n  \"name\": \"HydroFlow Master Plumbers\",\n  \"telephone\": \"+1-404-555-0147\",\n  \"url\": \"https://omniseotools.com/demo/plumber\",\n  \"image\": \"https://omniseotools.com/images/demo/plumbing-van.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Atlanta\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Decatur\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Sandy Springs\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2400 Piedmont Road NE\",\n    \"addressLocality\": \"Atlanta\",\n    \"addressRegion\": \"GA\",\n    \"postalCode\": \"30324\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 33.8211,\n    \"longitude\": -84.3682\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Plumber\",\n  \"@id\": \"https://omniseotools.com/demo/plumber#service\",\n  \"name\": \"HydroFlow Master Plumbers\",\n  \"telephone\": \"+1-404-555-0147\",\n  \"url\": \"https://omniseotools.com/demo/plumber\",\n  \"image\": \"https://omniseotools.com/images/demo/plumbing-van.jpg\",\n  \"priceRange\": \"$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Atlanta\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Decatur\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Sandy Springs\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2400 Piedmont Road NE\",\n    \"addressLocality\": \"Atlanta\",\n    \"addressRegion\": \"GA\",\n    \"postalCode\": \"30324\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 33.8211,\n    \"longitude\": -84.3682\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -4328,9 +4328,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Pricing scale ($$).",
+        "description": "Pricing scale ($).",
         "required": false,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       }
     ],
     "pitfalls": [
@@ -4384,7 +4384,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "licensed electrician structured data",
       "ev charger installer schema"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Electrician\",\n  \"@id\": \"https://omniseotools.com/demo/electrician#contractor\",\n  \"name\": \"VoltCraft Electrical Contractors\",\n  \"telephone\": \"+1-720-555-0163\",\n  \"url\": \"https://omniseotools.com/demo/electrician\",\n  \"image\": \"https://omniseotools.com/images/demo/electrician-van.jpg\",\n  \"priceRange\": \"$$\",\n  \"emergencyService\": true,\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Denver\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Aurora\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Lakewood\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Electrical Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Residential 200A Electrical Panel Upgrade\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Level 2 EV Charger Home Station Installation\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"3500 Walnut Street\",\n    \"addressLocality\": \"Denver\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80205\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.7684,\n    \"longitude\": -104.9752\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Electrician\",\n  \"@id\": \"https://omniseotools.com/demo/electrician#contractor\",\n  \"name\": \"VoltCraft Electrical Contractors\",\n  \"telephone\": \"+1-720-555-0163\",\n  \"url\": \"https://omniseotools.com/demo/electrician\",\n  \"image\": \"https://omniseotools.com/images/demo/electrician-van.jpg\",\n  \"priceRange\": \"$\",\n  \"emergencyService\": true,\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Denver\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Aurora\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Lakewood\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Electrical Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Residential 200A Electrical Panel Upgrade\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Level 2 EV Charger Home Station Installation\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"3500 Walnut Street\",\n    \"addressLocality\": \"Denver\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80205\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.7684,\n    \"longitude\": -104.9752\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -4431,9 +4431,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense rating ($$).",
+        "description": "Expense rating ($).",
         "required": false,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       }
     ],
     "pitfalls": [
@@ -4487,14 +4487,14 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "tax accountant structured data",
       "bookkeeping schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AccountingService\",\n  \"@id\": \"https://omniseotools.com/demo/cpa#firm\",\n  \"name\": \"Beacon Hill Financial & CPA Advisors\",\n  \"legalName\": \"Beacon Hill Financial Partners LLC\",\n  \"telephone\": \"+1-617-555-0149\",\n  \"url\": \"https://omniseotools.com/demo/cpa\",\n  \"image\": \"https://omniseotools.com/images/demo/cpa-office.jpg\",\n  \"priceRange\": \"$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Boston\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Cambridge\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"100 High Street, 18th Floor\",\n    \"addressLocality\": \"Boston\",\n    \"addressRegion\": \"MA\",\n    \"postalCode\": \"02110\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 42.3551,\n    \"longitude\": -71.0543\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:30\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AccountingService\",\n  \"@id\": \"https://omniseotools.com/demo/cpa#firm\",\n  \"name\": \"Beacon Hill Financial & CPA Advisors\",\n  \"legalName\": \"Beacon Hill Financial Partners LLC\",\n  \"telephone\": \"+1-617-555-0149\",\n  \"url\": \"https://omniseotools.com/demo/cpa\",\n  \"image\": \"https://omniseotools.com/images/demo/cpa-office.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Boston\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Cambridge\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"100 High Street, 18th Floor\",\n    \"addressLocality\": \"Boston\",\n    \"addressRegion\": \"MA\",\n    \"postalCode\": \"02110\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 42.3551,\n    \"longitude\": -71.0543\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:30\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense classification ($$$).",
+        "description": "Expense classification ($$).",
         "required": true,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "areaServed",
@@ -4590,7 +4590,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "barber shop structured data",
       "hair stylist schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HairSalon\",\n  \"@id\": \"https://omniseotools.com/demo/salon#studio\",\n  \"name\": \"Lumiere Hair Studio & Color Lounge\",\n  \"telephone\": \"+1-310-555-0181\",\n  \"url\": \"https://omniseotools.com/demo/salon\",\n  \"image\": \"https://omniseotools.com/images/demo/salon-interior.jpg\",\n  \"priceRange\": \"$$$\",\n  \"paymentAccepted\": \"Cash, Credit Card, Apple Pay, Square\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/salon/book\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"420 N Rodeo Drive\",\n    \"addressLocality\": \"Beverly Hills\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"90210\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 34.0697,\n    \"longitude\": -118.4038\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HairSalon\",\n  \"@id\": \"https://omniseotools.com/demo/salon#studio\",\n  \"name\": \"Lumiere Hair Studio & Color Lounge\",\n  \"telephone\": \"+1-310-555-0181\",\n  \"url\": \"https://omniseotools.com/demo/salon\",\n  \"image\": \"https://omniseotools.com/images/demo/salon-interior.jpg\",\n  \"priceRange\": \"$$\",\n  \"paymentAccepted\": \"Cash, Credit Card, Apple Pay, Square\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/salon/book\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"420 N Rodeo Drive\",\n    \"addressLocality\": \"Beverly Hills\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"90210\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 34.0697,\n    \"longitude\": -118.4038\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHoursSpecification",
@@ -4602,9 +4602,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Styling and treatment fee tier ($$$).",
+        "description": "Styling and treatment fee tier ($$).",
         "required": true,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "paymentAccepted",
@@ -4693,7 +4693,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "massage therapy structured data",
       "spa resort schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"DaySpa\",\n  \"@id\": \"https://omniseotools.com/demo/spa#facility\",\n  \"name\": \"Serenity Springs Thermal Day Spa\",\n  \"telephone\": \"+1-415-555-0176\",\n  \"url\": \"https://omniseotools.com/demo/spa\",\n  \"image\": \"https://omniseotools.com/images/demo/spa-hydro.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"servesCuisine\": \"Organic Herbal Infusions, Cold-Pressed Juices\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/spa/reserve\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1200 California Street\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94109\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 37.7915,\n    \"longitude\": -122.4142\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"21:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"DaySpa\",\n  \"@id\": \"https://omniseotools.com/demo/spa#facility\",\n  \"name\": \"Serenity Springs Thermal Day Spa\",\n  \"telephone\": \"+1-415-555-0176\",\n  \"url\": \"https://omniseotools.com/demo/spa\",\n  \"image\": \"https://omniseotools.com/images/demo/spa-hydro.jpg\",\n  \"priceRange\": \"$$\",\n  \"servesCuisine\": \"Organic Herbal Infusions, Cold-Pressed Juices\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/spa/reserve\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1200 California Street\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94109\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 37.7915,\n    \"longitude\": -122.4142\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"21:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "servesCuisine",
@@ -4719,9 +4719,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense tier ($$$$).",
+        "description": "Expense tier ($$).",
         "required": true,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "telephone",
@@ -4789,7 +4789,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "fitness center json-ld",
       "crossfit box schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HealthClub\",\n  \"@id\": \"https://omniseotools.com/demo/gym#club\",\n  \"name\": \"IronPeak Athletic Club & Performance Center\",\n  \"telephone\": \"+1-303-555-0193\",\n  \"url\": \"https://omniseotools.com/demo/gym\",\n  \"image\": \"https://omniseotools.com/images/demo/gym-floor.jpg\",\n  \"priceRange\": \"$$\",\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Fitness Memberships & Training\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"All-Access Strength & Cardio Monthly Membership\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"One-on-One High Performance Personal Training\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1900 16th Street Mall\",\n    \"addressLocality\": \"Denver\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80202\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.7532,\n    \"longitude\": -104.9984\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"05:00\",\n      \"closes\": \"23:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"20:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HealthClub\",\n  \"@id\": \"https://omniseotools.com/demo/gym#club\",\n  \"name\": \"IronPeak Athletic Club & Performance Center\",\n  \"telephone\": \"+1-303-555-0193\",\n  \"url\": \"https://omniseotools.com/demo/gym\",\n  \"image\": \"https://omniseotools.com/images/demo/gym-floor.jpg\",\n  \"priceRange\": \"$\",\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Fitness Memberships & Training\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"All-Access Strength & Cardio Monthly Membership\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"One-on-One High Performance Personal Training\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1900 16th Street Mall\",\n    \"addressLocality\": \"Denver\",\n    \"addressRegion\": \"CO\",\n    \"postalCode\": \"80202\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.7532,\n    \"longitude\": -104.9984\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"05:00\",\n      \"closes\": \"23:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"20:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHoursSpecification",
@@ -4801,9 +4801,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Membership pricing indicator ($$).",
+        "description": "Membership pricing indicator ($).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "hasOfferCatalog",
@@ -4885,7 +4885,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "eye doctor json-ld",
       "vision clinic schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Optician\",\n  \"@id\": \"https://omniseotools.com/demo/optician#clinic\",\n  \"name\": \"ClearVision Optometry & Eyewear Boutique\",\n  \"medicalSpecialty\": \"https://schema.org/Optometry\",\n  \"telephone\": \"+1-206-555-0172\",\n  \"url\": \"https://omniseotools.com/demo/optician\",\n  \"image\": \"https://omniseotools.com/images/demo/optician-store.jpg\",\n  \"priceRange\": \"$$$\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/optician/book-exam\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"500 Pine Street, Suite 210\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98101\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 47.6119,\n    \"longitude\": -122.3364\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Saturday\",\n      \"opens\": \"10:00\",\n      \"closes\": \"16:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Optician\",\n  \"@id\": \"https://omniseotools.com/demo/optician#clinic\",\n  \"name\": \"ClearVision Optometry & Eyewear Boutique\",\n  \"medicalSpecialty\": \"https://schema.org/Optometry\",\n  \"telephone\": \"+1-206-555-0172\",\n  \"url\": \"https://omniseotools.com/demo/optician\",\n  \"image\": \"https://omniseotools.com/images/demo/optician-store.jpg\",\n  \"priceRange\": \"$$\",\n  \"acceptsReservations\": \"https://omniseotools.com/demo/optician/book-exam\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"500 Pine Street, Suite 210\",\n    \"addressLocality\": \"Seattle\",\n    \"addressRegion\": \"WA\",\n    \"postalCode\": \"98101\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 47.6119,\n    \"longitude\": -122.3364\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": \"Saturday\",\n      \"opens\": \"10:00\",\n      \"closes\": \"16:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "medicalSpecialty",
@@ -4925,9 +4925,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Price indicator ($$$).",
+        "description": "Price indicator ($$).",
         "required": false,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "acceptsReservations",
@@ -4988,7 +4988,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "dispensary structured data",
       "prescription pharmacy schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Pharmacy\",\n  \"@id\": \"https://omniseotools.com/demo/pharmacy#store\",\n  \"name\": \"Apex Care Community Pharmacy & Compounding\",\n  \"telephone\": \"+1-215-555-0187\",\n  \"url\": \"https://omniseotools.com/demo/pharmacy\",\n  \"image\": \"https://omniseotools.com/images/demo/pharmacy.jpg\",\n  \"priceRange\": \"$$\",\n  \"emergencyService\": true,\n  \"paymentAccepted\": \"Cash, Credit Card, Medicare, Medicaid, Apple Pay\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1700 Market Street\",\n    \"addressLocality\": \"Philadelphia\",\n    \"addressRegion\": \"PA\",\n    \"postalCode\": \"19103\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.9526,\n    \"longitude\": -75.1692\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"21:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Pharmacy\",\n  \"@id\": \"https://omniseotools.com/demo/pharmacy#store\",\n  \"name\": \"Apex Care Community Pharmacy & Compounding\",\n  \"telephone\": \"+1-215-555-0187\",\n  \"url\": \"https://omniseotools.com/demo/pharmacy\",\n  \"image\": \"https://omniseotools.com/images/demo/pharmacy.jpg\",\n  \"priceRange\": \"$\",\n  \"emergencyService\": true,\n  \"paymentAccepted\": \"Cash, Credit Card, Medicare, Medicaid, Apple Pay\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1700 Market Street\",\n    \"addressLocality\": \"Philadelphia\",\n    \"addressRegion\": \"PA\",\n    \"postalCode\": \"19103\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.9526,\n    \"longitude\": -75.1692\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"21:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "paymentAccepted",
@@ -5035,9 +5035,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Relative cost index ($$).",
+        "description": "Relative cost index ($).",
         "required": false,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       }
     ],
     "pitfalls": [
@@ -5091,7 +5091,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "hotel rich snippet structured data",
       "resort schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Hotel\",\n  \"@id\": \"https://omniseotools.com/demo/hotel#resort\",\n  \"name\": \"The Grand Azure Waterfront Hotel & Resort\",\n  \"telephone\": \"+1-808-555-0143\",\n  \"url\": \"https://omniseotools.com/demo/hotel\",\n  \"image\": \"https://omniseotools.com/images/demo/hotel-exterior.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"starRating\": {\n    \"@type\": \"Rating\",\n    \"ratingValue\": \"5\"\n  },\n  \"checkinTime\": \"15:00\",\n  \"checkoutTime\": \"11:00\",\n  \"numberOfRooms\": 180,\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Infinity Oceanfront Heated Swimming Pool\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"High-Speed Fiber Wi-Fi\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Full-Service Valet Parking\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2201 Kalakaua Avenue\",\n    \"addressLocality\": \"Honolulu\",\n    \"addressRegion\": \"HI\",\n    \"postalCode\": \"96815\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 21.2789,\n    \"longitude\": -157.8282\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Hotel\",\n  \"@id\": \"https://omniseotools.com/demo/hotel#resort\",\n  \"name\": \"The Grand Azure Waterfront Hotel & Resort\",\n  \"telephone\": \"+1-808-555-0143\",\n  \"url\": \"https://omniseotools.com/demo/hotel\",\n  \"image\": \"https://omniseotools.com/images/demo/hotel-exterior.jpg\",\n  \"priceRange\": \"$$\",\n  \"starRating\": {\n    \"@type\": \"Rating\",\n    \"ratingValue\": \"5\"\n  },\n  \"checkinTime\": \"15:00\",\n  \"checkoutTime\": \"11:00\",\n  \"numberOfRooms\": 180,\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Infinity Oceanfront Heated Swimming Pool\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"High-Speed Fiber Wi-Fi\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Full-Service Valet Parking\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2201 Kalakaua Avenue\",\n    \"addressLocality\": \"Honolulu\",\n    \"addressRegion\": \"HI\",\n    \"postalCode\": \"96815\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 21.2789,\n    \"longitude\": -157.8282\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "starRating",
@@ -5152,9 +5152,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense indicator ($$$$).",
+        "description": "Expense indicator ($$).",
         "required": true,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       }
     ],
     "pitfalls": [
@@ -5208,7 +5208,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "country inn structured data",
       "guest house schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BedAndBreakfast\",\n  \"@id\": \"https://omniseotools.com/demo/bnb#inn\",\n  \"name\": \"Whispering Pines Historic Bed & Breakfast\",\n  \"telephone\": \"+1-802-555-0155\",\n  \"url\": \"https://omniseotools.com/demo/bnb\",\n  \"image\": \"https://omniseotools.com/images/demo/bnb-manor.jpg\",\n  \"priceRange\": \"$$$\",\n  \"petsAllowed\": true,\n  \"checkinTime\": \"16:00\",\n  \"checkoutTime\": \"10:30\",\n  \"numberOfRooms\": 8,\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Gourmet Farm-to-Table Breakfast Included\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Fireplace in Select Rooms\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"45 Mountain View Road\",\n    \"addressLocality\": \"Stowe\",\n    \"addressRegion\": \"VT\",\n    \"postalCode\": \"05672\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 44.4654,\n    \"longitude\": -72.6874\n  }\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BedAndBreakfast\",\n  \"@id\": \"https://omniseotools.com/demo/bnb#inn\",\n  \"name\": \"Whispering Pines Historic Bed & Breakfast\",\n  \"telephone\": \"+1-802-555-0155\",\n  \"url\": \"https://omniseotools.com/demo/bnb\",\n  \"image\": \"https://omniseotools.com/images/demo/bnb-manor.jpg\",\n  \"priceRange\": \"$$\",\n  \"petsAllowed\": true,\n  \"checkinTime\": \"16:00\",\n  \"checkoutTime\": \"10:30\",\n  \"numberOfRooms\": 8,\n  \"amenityFeature\": [\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Gourmet Farm-to-Table Breakfast Included\",\n      \"value\": true\n    },\n    {\n      \"@type\": \"LocationFeatureSpecification\",\n      \"name\": \"Fireplace in Select Rooms\",\n      \"value\": true\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"45 Mountain View Road\",\n    \"addressLocality\": \"Stowe\",\n    \"addressRegion\": \"VT\",\n    \"postalCode\": \"05672\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 44.4654,\n    \"longitude\": -72.6874\n  }\n}",
     "properties": [
       {
         "name": "checkinTime",
@@ -5262,9 +5262,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense tier ($$$).",
+        "description": "Expense tier ($$).",
         "required": false,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       }
     ],
     "pitfalls": [
@@ -5318,7 +5318,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "travel agency structured data",
       "tour package schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TravelAgency\",\n  \"@id\": \"https://omniseotools.com/demo/travel#agency\",\n  \"name\": \"Nomad Expeditions & Luxury Safari Planners\",\n  \"telephone\": \"+1-800-555-0168\",\n  \"url\": \"https://omniseotools.com/demo/travel\",\n  \"image\": \"https://omniseotools.com/images/demo/travel-safari.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"paymentAccepted\": \"Credit Card, Wire Transfer, Amex\",\n  \"areaServed\": [\n    {\n      \"@type\": \"Country\",\n      \"name\": \"Tanzania\"\n    },\n    {\n      \"@type\": \"Country\",\n      \"name\": \"Kenya\"\n    },\n    {\n      \"@type\": \"Country\",\n      \"name\": \"South Africa\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Curated Tour Itineraries\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"TouristTrip\",\n          \"name\": \"10-Day Serengeti Great Migration Luxury Safari\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"TouristTrip\",\n          \"name\": \"Cape Town & Winelands Private Guided Expedition\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"575 5th Avenue, 14th Floor\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10017\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 40.7562,\n    \"longitude\": -73.9786\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TravelAgency\",\n  \"@id\": \"https://omniseotools.com/demo/travel#agency\",\n  \"name\": \"Nomad Expeditions & Luxury Safari Planners\",\n  \"telephone\": \"+1-800-555-0168\",\n  \"url\": \"https://omniseotools.com/demo/travel\",\n  \"image\": \"https://omniseotools.com/images/demo/travel-safari.jpg\",\n  \"priceRange\": \"$$\",\n  \"paymentAccepted\": \"Credit Card, Wire Transfer, Amex\",\n  \"areaServed\": [\n    {\n      \"@type\": \"Country\",\n      \"name\": \"Tanzania\"\n    },\n    {\n      \"@type\": \"Country\",\n      \"name\": \"Kenya\"\n    },\n    {\n      \"@type\": \"Country\",\n      \"name\": \"South Africa\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Curated Tour Itineraries\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"TouristTrip\",\n          \"name\": \"10-Day Serengeti Great Migration Luxury Safari\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"TouristTrip\",\n          \"name\": \"Cape Town & Winelands Private Guided Expedition\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"575 5th Avenue, 14th Floor\",\n    \"addressLocality\": \"New York\",\n    \"addressRegion\": \"NY\",\n    \"postalCode\": \"10017\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 40.7562,\n    \"longitude\": -73.9786\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -5344,9 +5344,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Tour expense tier ($$$$).",
+        "description": "Tour expense tier ($$).",
         "required": true,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "telephone",
@@ -5421,7 +5421,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "storage units structured data",
       "mini storage schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SelfStorage\",\n  \"@id\": \"https://omniseotools.com/demo/storage#facility\",\n  \"name\": \"SecureVault Climate-Controlled Self Storage\",\n  \"telephone\": \"+1-702-555-0138\",\n  \"url\": \"https://omniseotools.com/demo/storage\",\n  \"image\": \"https://omniseotools.com/images/demo/storage-facility.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Las Vegas\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Henderson\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"4500 S Eastern Avenue\",\n    \"addressLocality\": \"Las Vegas\",\n    \"addressRegion\": \"NV\",\n    \"postalCode\": \"89119\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 36.1072,\n    \"longitude\": -115.1189\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"06:00\",\n      \"closes\": \"22:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SelfStorage\",\n  \"@id\": \"https://omniseotools.com/demo/storage#facility\",\n  \"name\": \"SecureVault Climate-Controlled Self Storage\",\n  \"telephone\": \"+1-702-555-0138\",\n  \"url\": \"https://omniseotools.com/demo/storage\",\n  \"image\": \"https://omniseotools.com/images/demo/storage-facility.jpg\",\n  \"priceRange\": \"$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Las Vegas\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Henderson\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"4500 S Eastern Avenue\",\n    \"addressLocality\": \"Las Vegas\",\n    \"addressRegion\": \"NV\",\n    \"postalCode\": \"89119\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 36.1072,\n    \"longitude\": -115.1189\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"06:00\",\n      \"closes\": \"22:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHoursSpecification",
@@ -5440,9 +5440,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Monthly unit rental fee tier ($$).",
+        "description": "Monthly unit rental fee tier ($).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "telephone",
@@ -5517,7 +5517,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "preschool structured data",
       "infant care schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ChildCare\",\n  \"@id\": \"https://omniseotools.com/demo/childcare#center\",\n  \"name\": \"BrightSprout Early Learning Academy & Child Care\",\n  \"telephone\": \"+1-612-555-0125\",\n  \"url\": \"https://omniseotools.com/demo/childcare\",\n  \"image\": \"https://omniseotools.com/images/demo/childcare-campus.jpg\",\n  \"priceRange\": \"$$$\",\n  \"typicalAgeRange\": \"6 weeks - 5 years\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"3100 W Lake Street\",\n    \"addressLocality\": \"Minneapolis\",\n    \"addressRegion\": \"MN\",\n    \"postalCode\": \"55416\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 44.9482,\n    \"longitude\": -93.3218\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ChildCare\",\n  \"@id\": \"https://omniseotools.com/demo/childcare#center\",\n  \"name\": \"BrightSprout Early Learning Academy & Child Care\",\n  \"telephone\": \"+1-612-555-0125\",\n  \"url\": \"https://omniseotools.com/demo/childcare\",\n  \"image\": \"https://omniseotools.com/images/demo/childcare-campus.jpg\",\n  \"priceRange\": \"$$\",\n  \"typicalAgeRange\": \"6 weeks - 5 years\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"3100 W Lake Street\",\n    \"addressLocality\": \"Minneapolis\",\n    \"addressRegion\": \"MN\",\n    \"postalCode\": \"55416\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 44.9482,\n    \"longitude\": -93.3218\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHoursSpecification",
@@ -5536,9 +5536,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Tuition expense indicator ($$$).",
+        "description": "Tuition expense indicator ($$).",
         "required": true,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "telephone",
@@ -5613,7 +5613,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "commercial cleaning structured data",
       "janitorial schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HomeAndConstructionBusiness\",\n  \"@id\": \"https://omniseotools.com/demo/cleaning#service\",\n  \"name\": \"PristinePro Residential & Commercial Cleaning\",\n  \"telephone\": \"+1-813-555-0141\",\n  \"url\": \"https://omniseotools.com/demo/cleaning\",\n  \"image\": \"https://omniseotools.com/images/demo/cleaning-team.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Tampa\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"St. Petersburg\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Clearwater\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"401 E Jackson Street, Suite 1200\",\n    \"addressLocality\": \"Tampa\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33602\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 27.9478,\n    \"longitude\": -82.4572\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"18:30\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HomeAndConstructionBusiness\",\n  \"@id\": \"https://omniseotools.com/demo/cleaning#service\",\n  \"name\": \"PristinePro Residential & Commercial Cleaning\",\n  \"telephone\": \"+1-813-555-0141\",\n  \"url\": \"https://omniseotools.com/demo/cleaning\",\n  \"image\": \"https://omniseotools.com/images/demo/cleaning-team.jpg\",\n  \"priceRange\": \"$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Tampa\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"St. Petersburg\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Clearwater\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"401 E Jackson Street, Suite 1200\",\n    \"addressLocality\": \"Tampa\",\n    \"addressRegion\": \"FL\",\n    \"postalCode\": \"33602\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 27.9478,\n    \"longitude\": -82.4572\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"18:30\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -5625,9 +5625,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense rating ($$).",
+        "description": "Expense rating ($).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "telephone",
@@ -5678,7 +5678,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "description": "Leaving priceRange blank triggers GSC enhancement warnings.",
         "severity": "warning",
         "gscImpact": "Warning in Search Console Local Business report.",
-        "solution": "Add priceRange: '$$'."
+        "solution": "Add priceRange: '$'."
       }
     ],
     "relatedSlugs": [
@@ -5709,7 +5709,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "relocation company json-ld",
       "interstate movers schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MovingCompany\",\n  \"@id\": \"https://omniseotools.com/demo/movers#company\",\n  \"name\": \"Apex Pro Movers & Interstate Relocation\",\n  \"telephone\": \"+1-469-555-0186\",\n  \"url\": \"https://omniseotools.com/demo/movers\",\n  \"image\": \"https://omniseotools.com/images/demo/moving-truck.jpg\",\n  \"priceRange\": \"$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Dallas\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Fort Worth\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Texas\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Moving & Packing Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Full-Service Residential Packing & White Glove Moving\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial Office Equipment & IT Relocation\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2100 Stemmons Freeway\",\n    \"addressLocality\": \"Dallas\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"75207\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 32.7981,\n    \"longitude\": -96.8247\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MovingCompany\",\n  \"@id\": \"https://omniseotools.com/demo/movers#company\",\n  \"name\": \"Apex Pro Movers & Interstate Relocation\",\n  \"telephone\": \"+1-469-555-0186\",\n  \"url\": \"https://omniseotools.com/demo/movers\",\n  \"image\": \"https://omniseotools.com/images/demo/moving-truck.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Dallas\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Fort Worth\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Texas\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Moving & Packing Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Full-Service Residential Packing & White Glove Moving\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial Office Equipment & IT Relocation\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"2100 Stemmons Freeway\",\n    \"addressLocality\": \"Dallas\",\n    \"addressRegion\": \"TX\",\n    \"postalCode\": \"75207\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 32.7981,\n    \"longitude\": -96.8247\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -5749,9 +5749,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Cost tier ($$$).",
+        "description": "Cost tier ($$).",
         "required": false,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       }
     ],
     "pitfalls": [
@@ -5805,7 +5805,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "mobile locksmith structured data",
       "key replacement schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Locksmith\",\n  \"@id\": \"https://omniseotools.com/demo/locksmith#service\",\n  \"name\": \"24/7 Metro Key & Locksmith Specialists\",\n  \"telephone\": \"+1-312-555-0197\",\n  \"url\": \"https://omniseotools.com/demo/locksmith\",\n  \"image\": \"https://omniseotools.com/images/demo/locksmith-van.jpg\",\n  \"priceRange\": \"$$\",\n  \"emergencyService\": true,\n  \"paymentAccepted\": \"Cash, Credit Card, Apple Pay, Debit Card\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Chicago\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Evanston\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Oak Park\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"600 W Jackson Boulevard\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60661\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 41.8781,\n    \"longitude\": -87.6428\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Locksmith\",\n  \"@id\": \"https://omniseotools.com/demo/locksmith#service\",\n  \"name\": \"24/7 Metro Key & Locksmith Specialists\",\n  \"telephone\": \"+1-312-555-0197\",\n  \"url\": \"https://omniseotools.com/demo/locksmith\",\n  \"image\": \"https://omniseotools.com/images/demo/locksmith-van.jpg\",\n  \"priceRange\": \"$\",\n  \"emergencyService\": true,\n  \"paymentAccepted\": \"Cash, Credit Card, Apple Pay, Debit Card\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Chicago\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Evanston\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Oak Park\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"600 W Jackson Boulevard\",\n    \"addressLocality\": \"Chicago\",\n    \"addressRegion\": \"IL\",\n    \"postalCode\": \"60661\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 41.8781,\n    \"longitude\": -87.6428\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"00:00\",\n      \"closes\": \"23:59\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHoursSpecification",
@@ -5859,9 +5859,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense rating ($$).",
+        "description": "Expense rating ($).",
         "required": false,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       }
     ],
     "pitfalls": [
@@ -5915,7 +5915,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "roof replacement structured data",
       "storm damage roofer schema"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RoofingContractor\",\n  \"@id\": \"https://omniseotools.com/demo/roofing#contractor\",\n  \"name\": \"Titan Ridge Roofing & Restoration\",\n  \"telephone\": \"+1-614-555-0145\",\n  \"url\": \"https://omniseotools.com/demo/roofing\",\n  \"image\": \"https://omniseotools.com/images/demo/roofing-crew.jpg\",\n  \"priceRange\": \"$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Columbus\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Dublin\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Westerville\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"150 E Broad Street\",\n    \"addressLocality\": \"Columbus\",\n    \"addressRegion\": \"OH\",\n    \"postalCode\": \"43215\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.9622,\n    \"longitude\": -82.9988\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"RoofingContractor\",\n  \"@id\": \"https://omniseotools.com/demo/roofing#contractor\",\n  \"name\": \"Titan Ridge Roofing & Restoration\",\n  \"telephone\": \"+1-614-555-0145\",\n  \"url\": \"https://omniseotools.com/demo/roofing\",\n  \"image\": \"https://omniseotools.com/images/demo/roofing-crew.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Columbus\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Dublin\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Westerville\"\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"150 E Broad Street\",\n    \"addressLocality\": \"Columbus\",\n    \"addressRegion\": \"OH\",\n    \"postalCode\": \"43215\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.9622,\n    \"longitude\": -82.9988\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"07:00\",\n      \"closes\": \"19:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -5934,9 +5934,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense tier ($$$).",
+        "description": "Expense tier ($$).",
         "required": true,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "telephone",
@@ -5980,7 +5980,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "description": "Omitting price tier indicator in contractor schema.",
         "severity": "warning",
         "gscImpact": "Warning in Search Console Local Business report.",
-        "solution": "Supply priceRange string ($$$)."
+        "solution": "Supply priceRange string ($$)."
       }
     ],
     "relatedSlugs": [
@@ -6011,7 +6011,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "photovoltaic structured data",
       "solar panel installer schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HomeAndConstructionBusiness\",\n  \"@id\": \"https://omniseotools.com/demo/solar#contractor\",\n  \"name\": \"Helios Pure Energy Solar Solutions\",\n  \"telephone\": \"+1-858-555-0154\",\n  \"url\": \"https://omniseotools.com/demo/solar\",\n  \"image\": \"https://omniseotools.com/images/demo/solar-roof.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"San Diego\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Carlsbad\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Escondido\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Solar Energy Solutions\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Residential Rooftop Solar Panel System Installation\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Home Battery Storage & Backup Integration (Tesla Powerwall)\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"9655 Granite Ridge Drive\",\n    \"addressLocality\": \"San Diego\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"92123\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 32.8091,\n    \"longitude\": -117.1354\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"HomeAndConstructionBusiness\",\n  \"@id\": \"https://omniseotools.com/demo/solar#contractor\",\n  \"name\": \"Helios Pure Energy Solar Solutions\",\n  \"telephone\": \"+1-858-555-0154\",\n  \"url\": \"https://omniseotools.com/demo/solar\",\n  \"image\": \"https://omniseotools.com/images/demo/solar-roof.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"San Diego\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Carlsbad\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Escondido\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Solar Energy Solutions\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Residential Rooftop Solar Panel System Installation\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Home Battery Storage & Backup Integration (Tesla Powerwall)\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"9655 Granite Ridge Drive\",\n    \"addressLocality\": \"San Diego\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"92123\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 32.8091,\n    \"longitude\": -117.1354\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -6030,9 +6030,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "System investment scale ($$$$).",
+        "description": "System investment scale ($$).",
         "required": true,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "telephone",
@@ -6076,7 +6076,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
         "description": "Omitting cost indicator in contractor structured data.",
         "severity": "warning",
         "gscImpact": "Warning in GSC Local Business enhancements report.",
-        "solution": "Add priceRange: '$$$$'."
+        "solution": "Add priceRange: '$$'."
       }
     ],
     "relatedSlugs": [
@@ -6107,14 +6107,14 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "wealth management structured data",
       "cfp advisor schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialService\",\n  \"@id\": \"https://omniseotools.com/demo/wealth#advisor\",\n  \"name\": \"Pinnacle Wealth Management & Fiduciary Advisors\",\n  \"telephone\": \"+1-415-555-0189\",\n  \"url\": \"https://omniseotools.com/demo/wealth\",\n  \"image\": \"https://omniseotools.com/images/demo/wealth-office.jpg\",\n  \"priceRange\": \"$$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"San Francisco\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"San Jose\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Palo Alto\"\n    }\n  ],\n  \"makesOffer\": [\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Fiduciary Comprehensive Retirement Portfolio Planning\"\n      }\n    },\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Executive Stock Option & Equity Compensation Advisory\"\n      }\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"555 California Street, Suite 3200\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94104\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 37.7925,\n    \"longitude\": -122.4042\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:30\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FinancialService\",\n  \"@id\": \"https://omniseotools.com/demo/wealth#advisor\",\n  \"name\": \"Pinnacle Wealth Management & Fiduciary Advisors\",\n  \"telephone\": \"+1-415-555-0189\",\n  \"url\": \"https://omniseotools.com/demo/wealth\",\n  \"image\": \"https://omniseotools.com/images/demo/wealth-office.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"San Francisco\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"San Jose\"\n    },\n    {\n      \"@type\": \"City\",\n      \"name\": \"Palo Alto\"\n    }\n  ],\n  \"makesOffer\": [\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Fiduciary Comprehensive Retirement Portfolio Planning\"\n      }\n    },\n    {\n      \"@type\": \"Offer\",\n      \"itemOffered\": {\n        \"@type\": \"Service\",\n        \"name\": \"Executive Stock Option & Equity Compensation Advisory\"\n      }\n    }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"555 California Street, Suite 3200\",\n    \"addressLocality\": \"San Francisco\",\n    \"addressRegion\": \"CA\",\n    \"postalCode\": \"94104\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 37.7925,\n    \"longitude\": -122.4042\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:30\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense tier indication ($$$$).",
+        "description": "Expense tier indication ($$).",
         "required": true,
-        "exampleValue": "$$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "areaServed",
@@ -6203,7 +6203,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "independent insurance agent structured data",
       "commercial insurance schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"InsuranceAgency\",\n  \"@id\": \"https://omniseotools.com/demo/insurance#agency\",\n  \"name\": \"Guardian Shield Independent Insurance Brokers\",\n  \"telephone\": \"+1-317-555-0174\",\n  \"url\": \"https://omniseotools.com/demo/insurance\",\n  \"image\": \"https://omniseotools.com/images/demo/insurance-office.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"State\",\n      \"name\": \"Indiana\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Ohio\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Insurance Coverage Policies\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial General Liability & Cyber Risk Insurance\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Comprehensive Homeowners & Auto Bundle Policies\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"111 Monument Circle, Suite 1900\",\n    \"addressLocality\": \"Indianapolis\",\n    \"addressRegion\": \"IN\",\n    \"postalCode\": \"46204\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.7686,\n    \"longitude\": -86.1581\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"InsuranceAgency\",\n  \"@id\": \"https://omniseotools.com/demo/insurance#agency\",\n  \"name\": \"Guardian Shield Independent Insurance Brokers\",\n  \"telephone\": \"+1-317-555-0174\",\n  \"url\": \"https://omniseotools.com/demo/insurance\",\n  \"image\": \"https://omniseotools.com/images/demo/insurance-office.jpg\",\n  \"priceRange\": \"$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"State\",\n      \"name\": \"Indiana\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Ohio\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Insurance Coverage Policies\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial General Liability & Cyber Risk Insurance\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Comprehensive Homeowners & Auto Bundle Policies\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"111 Monument Circle, Suite 1900\",\n    \"addressLocality\": \"Indianapolis\",\n    \"addressRegion\": \"IN\",\n    \"postalCode\": \"46204\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 39.7686,\n    \"longitude\": -86.1581\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"08:30\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "areaServed",
@@ -6222,9 +6222,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Policy expense tier ($$).",
+        "description": "Policy expense tier ($).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "telephone",
@@ -6299,7 +6299,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "wedding photographer structured data",
       "commercial photography schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Photographer\",\n  \"@id\": \"https://omniseotools.com/demo/photo#studio\",\n  \"name\": \"Lumina Creative Commercial & Wedding Photography\",\n  \"telephone\": \"+1-503-555-0167\",\n  \"url\": \"https://omniseotools.com/demo/photo\",\n  \"image\": \"https://omniseotools.com/images/demo/photo-studio.jpg\",\n  \"priceRange\": \"$$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Portland\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Oregon\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Washington\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Photography Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Full-Day Destination Wedding Photography & Drone Coverage\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial Product & Architectural Interior Photography\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1122 SE Ankeny Street\",\n    \"addressLocality\": \"Portland\",\n    \"addressRegion\": \"OR\",\n    \"postalCode\": \"97214\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 45.5228,\n    \"longitude\": -122.6541\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Photographer\",\n  \"@id\": \"https://omniseotools.com/demo/photo#studio\",\n  \"name\": \"Lumina Creative Commercial & Wedding Photography\",\n  \"telephone\": \"+1-503-555-0167\",\n  \"url\": \"https://omniseotools.com/demo/photo\",\n  \"image\": \"https://omniseotools.com/images/demo/photo-studio.jpg\",\n  \"priceRange\": \"$$\",\n  \"areaServed\": [\n    {\n      \"@type\": \"City\",\n      \"name\": \"Portland\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Oregon\"\n    },\n    {\n      \"@type\": \"State\",\n      \"name\": \"Washington\"\n    }\n  ],\n  \"hasOfferCatalog\": {\n    \"@type\": \"OfferCatalog\",\n    \"name\": \"Photography Services\",\n    \"itemListElement\": [\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Full-Day Destination Wedding Photography & Drone Coverage\"\n        }\n      },\n      {\n        \"@type\": \"Offer\",\n        \"itemOffered\": {\n          \"@type\": \"Service\",\n          \"name\": \"Commercial Product & Architectural Interior Photography\"\n        }\n      }\n    ]\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1122 SE Ankeny Street\",\n    \"addressLocality\": \"Portland\",\n    \"addressRegion\": \"OR\",\n    \"postalCode\": \"97214\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 45.5228,\n    \"longitude\": -122.6541\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\"\n      ],\n      \"opens\": \"09:00\",\n      \"closes\": \"18:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "hasOfferCatalog",
@@ -6311,9 +6311,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Session and day-rate fee scale ($$$).",
+        "description": "Session and day-rate fee scale ($$).",
         "required": true,
-        "exampleValue": "$$$"
+        "exampleValue": "$$"
       },
       {
         "name": "areaServed",
@@ -6395,7 +6395,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "artisan bakery structured data",
       "custom cake studio schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Bakery\",\n  \"@id\": \"https://omniseotools.com/demo/bakery#shop\",\n  \"name\": \"Maison Douce Artisan Bakery & Patisserie\",\n  \"telephone\": \"+1-504-555-0136\",\n  \"url\": \"https://omniseotools.com/demo/bakery\",\n  \"image\": \"https://omniseotools.com/images/demo/bakery-counter.jpg\",\n  \"priceRange\": \"$$\",\n  \"servesCuisine\": [\n    \"French Pastries\",\n    \"Artisan Sourdough\",\n    \"Croissants\",\n    \"Custom Cakes\"\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"800 Royal Street\",\n    \"addressLocality\": \"New Orleans\",\n    \"addressRegion\": \"LA\",\n    \"postalCode\": \"70116\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 29.9592,\n    \"longitude\": -90.0645\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"15:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Bakery\",\n  \"@id\": \"https://omniseotools.com/demo/bakery#shop\",\n  \"name\": \"Maison Douce Artisan Bakery & Patisserie\",\n  \"telephone\": \"+1-504-555-0136\",\n  \"url\": \"https://omniseotools.com/demo/bakery\",\n  \"image\": \"https://omniseotools.com/images/demo/bakery-counter.jpg\",\n  \"priceRange\": \"$\",\n  \"servesCuisine\": [\n    \"French Pastries\",\n    \"Artisan Sourdough\",\n    \"Croissants\",\n    \"Custom Cakes\"\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"800 Royal Street\",\n    \"addressLocality\": \"New Orleans\",\n    \"addressRegion\": \"LA\",\n    \"postalCode\": \"70116\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 29.9592,\n    \"longitude\": -90.0645\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\",\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"15:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "openingHoursSpecification",
@@ -6414,9 +6414,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense rating ($$).",
+        "description": "Expense rating ($).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "telephone",
@@ -6491,7 +6491,7 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "specialty cafe structured data",
       "espresso bar schema markup"
     ],
-    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"CafeOrCoffeeShop\",\n  \"@id\": \"https://omniseotools.com/demo/coffee#cafe\",\n  \"name\": \"Velvet Roast Specialty Coffee & Espresso Bar\",\n  \"telephone\": \"+1-503-555-0191\",\n  \"url\": \"https://omniseotools.com/demo/coffee\",\n  \"image\": \"https://omniseotools.com/images/demo/coffee-bar.jpg\",\n  \"priceRange\": \"$$\",\n  \"servesCuisine\": [\n    \"Specialty Espresso\",\n    \"Single-Origin Pour-Over\",\n    \"Artisan Pastries\",\n    \"Light Brunch\"\n  ],\n  \"acceptsReservations\": false,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1020 SW Morrison Street\",\n    \"addressLocality\": \"Portland\",\n    \"addressRegion\": \"OR\",\n    \"postalCode\": \"97205\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 45.5195,\n    \"longitude\": -122.6821\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"CafeOrCoffeeShop\",\n  \"@id\": \"https://omniseotools.com/demo/coffee#cafe\",\n  \"name\": \"Velvet Roast Specialty Coffee & Espresso Bar\",\n  \"telephone\": \"+1-503-555-0191\",\n  \"url\": \"https://omniseotools.com/demo/coffee\",\n  \"image\": \"https://omniseotools.com/images/demo/coffee-bar.jpg\",\n  \"priceRange\": \"$\",\n  \"servesCuisine\": [\n    \"Specialty Espresso\",\n    \"Single-Origin Pour-Over\",\n    \"Artisan Pastries\",\n    \"Light Brunch\"\n  ],\n  \"acceptsReservations\": false,\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"1020 SW Morrison Street\",\n    \"addressLocality\": \"Portland\",\n    \"addressRegion\": \"OR\",\n    \"postalCode\": \"97205\",\n    \"addressCountry\": \"US\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 45.5195,\n    \"longitude\": -122.6821\n  },\n  \"openingHoursSpecification\": [\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Monday\",\n        \"Tuesday\",\n        \"Wednesday\",\n        \"Thursday\",\n        \"Friday\"\n      ],\n      \"opens\": \"06:30\",\n      \"closes\": \"18:00\"\n    },\n    {\n      \"@type\": \"OpeningHoursSpecification\",\n      \"dayOfWeek\": [\n        \"Saturday\",\n        \"Sunday\"\n      ],\n      \"opens\": \"07:30\",\n      \"closes\": \"17:00\"\n    }\n  ]\n}",
     "properties": [
       {
         "name": "servesCuisine",
@@ -6517,9 +6517,9 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       {
         "name": "priceRange",
         "type": "Text",
-        "description": "Expense rating ($$).",
+        "description": "Expense rating ($).",
         "required": true,
-        "exampleValue": "$$"
+        "exampleValue": "$"
       },
       {
         "name": "telephone",
@@ -6577,6 +6577,2413 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
       "Micro coffee roasteries",
       "Neighborhood breakfast cafes",
       "Drive-thru artisan coffee kiosks"
+    ]
+  },
+  {
+    "slug": "web-api-service",
+    "title": "WebAPI & RESTful Microservice Schema Markup (JSON-LD Blueprint)",
+    "shortTitle": "WebAPI",
+    "schemaType": "WebAPI",
+    "category": "Technical SEO",
+    "description": "Structured data for public REST/GraphQL APIs, microservice endpoints, and developer platforms with OpenAPI documentation, authentication requirements, and SLAs.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "webapi schema",
+      "rest api structured data",
+      "api json-ld",
+      "developer api schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebAPI\",\n  \"@id\": \"https://omniseotools.com/api#service\",\n  \"name\": \"OmniSEO Core Audit & Metadata Extraction WebAPI\",\n  \"serviceType\": \"Technical SEO Analysis & Metadata Inspection API\",\n  \"documentation\": \"https://omniseotools.com/docs/api\",\n  \"termsOfService\": \"https://omniseotools.com/terms\",\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Technologies Inc.\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"entryPoint\": {\n    \"@type\": \"EntryPoint\",\n    \"urlTemplate\": \"https://api.omniseotools.com/v1/audit{?url,format}\",\n    \"httpMethod\": \"GET\",\n    \"contentType\": \"application/json\"\n  }\n}",
+    "properties": [
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Clear functional classification of the API service (e.g. SEO Analysis API).",
+        "required": true,
+        "exampleValue": "Technical SEO Analysis & Metadata Inspection API"
+      },
+      {
+        "name": "documentation",
+        "type": "URL",
+        "description": "Direct link to developer documentation or OpenAPI / Swagger interactive UI.",
+        "required": true,
+        "exampleValue": "https://omniseotools.com/docs/api"
+      },
+      {
+        "name": "termsOfService",
+        "type": "URL",
+        "description": "Official API rate limit policies and developer terms of service.",
+        "required": true,
+        "exampleValue": "https://omniseotools.com/terms"
+      },
+      {
+        "name": "provider",
+        "type": "Organization",
+        "description": "Corporate or open-source entity operating the API service.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"OmniSEO Technologies Inc.\" }"
+      },
+      {
+        "name": "entryPoint",
+        "type": "EntryPoint",
+        "description": "Primary network endpoint, HTTP method, and content encoding.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"EntryPoint\", \"urlTemplate\": \"...\" }"
+      },
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Official API service name.",
+        "required": true,
+        "exampleValue": "OmniSEO Core Audit WebAPI"
+      },
+      {
+        "name": "description",
+        "type": "Text",
+        "description": "Summary of API capabilities and payload models.",
+        "required": false,
+        "exampleValue": "High-speed client-side and server-side metadata inspection."
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Machine-Readable documentation Link",
+        "description": "Supplying a generic homepage rather than dedicated API reference documentation.",
+        "severity": "error",
+        "gscImpact": "Google Developer Knowledge Graph cannot verify API specification.",
+        "solution": "Point documentation to an interactive OpenAPI, Swagger, or Redoc endpoint."
+      },
+      {
+        "title": "Unspecified serviceType Classification",
+        "description": "Leaving serviceType empty prevents categorization in specialized developer search queries.",
+        "severity": "warning",
+        "gscImpact": "Lower rank for queries like 'metadata extraction REST API'.",
+        "solution": "Provide precise serviceType (e.g. 'Technical SEO Analysis API')."
+      },
+      {
+        "title": "Broken termsOfService URL",
+        "description": "Omitting termsOfService or linking to a 404 page.",
+        "severity": "warning",
+        "gscImpact": "API validation warnings in developer tools indexing.",
+        "solution": "Ensure termsOfService resolves to a live legal agreement."
+      }
+    ],
+    "relatedSlugs": [
+      "rest-api-endpoint",
+      "api-documentation-guide",
+      "developer-sdk-toolkit",
+      "software-application-saas-platform"
+    ],
+    "useCases": [
+      "Public SaaS developer APIs",
+      "B2B microservice platforms",
+      "Payment gateway APIs",
+      "Weather & financial data endpoints"
+    ]
+  },
+  {
+    "slug": "rest-api-endpoint",
+    "title": "REST API Endpoint & Webhook Action Schema (JSON-LD Blueprint)",
+    "shortTitle": "API Endpoint",
+    "schemaType": "WebAPI",
+    "category": "Technical SEO",
+    "description": "Structured data for specific HTTP REST endpoints, webhook listeners, and serverless actions with URI templates, HTTP methods, and payload requirements.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "rest api schema",
+      "endpoint json-ld",
+      "api action structured data",
+      "webhook schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebAPI\",\n  \"@id\": \"https://omniseotools.com/api/v1/validate-schema#endpoint\",\n  \"name\": \"JSON-LD Schema Validation REST Endpoint\",\n  \"description\": \"Programmatic endpoint for linting raw Schema.org structured data graphs and auditing Google Rich Results compliance.\",\n  \"documentation\": \"https://omniseotools.com/docs/api/endpoints/validate\",\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Tools\"\n  },\n  \"potentialAction\": {\n    \"@type\": \"Action\",\n    \"target\": {\n      \"@type\": \"EntryPoint\",\n      \"urlTemplate\": \"https://api.omniseotools.com/v1/schema/validate\",\n      \"httpMethod\": \"POST\",\n      \"contentType\": \"application/json\",\n      \"encodingType\": \"application/json\"\n    },\n    \"resultReview\": {\n      \"@type\": \"Review\",\n      \"reviewBody\": \"Returns real-time syntax error mapping and Google compliance scoring.\"\n    }\n  }\n}",
+    "properties": [
+      {
+        "name": "target",
+        "type": "EntryPoint",
+        "description": "Target URI endpoint with HTTP method and supported payload formats.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"EntryPoint\", \"urlTemplate\": \"...\" }"
+      },
+      {
+        "name": "httpMethod",
+        "type": "Text",
+        "description": "Standard HTTP verb (GET, POST, PUT, DELETE, PATCH).",
+        "required": true,
+        "exampleValue": "POST"
+      },
+      {
+        "name": "resultReview / potentialAction",
+        "type": "Action",
+        "description": "Action encapsulation defining input and expected output.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Action\", ... }"
+      },
+      {
+        "name": "provider",
+        "type": "Organization",
+        "description": "Entity maintaining the endpoint infrastructure.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      },
+      {
+        "name": "documentation",
+        "type": "URL",
+        "description": "Endpoint-specific parameter documentation URL.",
+        "required": true,
+        "exampleValue": "https://.../validate"
+      },
+      {
+        "name": "contentType",
+        "type": "Text",
+        "description": "Accepted request body MIME type (e.g. application/json).",
+        "required": false,
+        "exampleValue": "application/json"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Non-Standard httpMethod String",
+        "description": "Writing 'post' in lowercase or using unsupported custom method tokens.",
+        "severity": "error",
+        "gscImpact": "Action parser error in Google API indexing.",
+        "solution": "Always supply uppercase RFC standard methods (GET, POST, PUT, DELETE, PATCH)."
+      },
+      {
+        "title": "Missing contentType Parameter Format",
+        "description": "Omitting MIME encoding causing client integration ambiguity.",
+        "severity": "warning",
+        "gscImpact": "Developer integration errors.",
+        "solution": "Explicitly set contentType to 'application/json' or 'multipart/form-data'."
+      },
+      {
+        "title": "Inconsistent Provider Attribution",
+        "description": "Mismatched provider node vs host domain name.",
+        "severity": "warning",
+        "gscImpact": "Entity graph disambiguation warning.",
+        "solution": "Link provider to canonical Organization node."
+      }
+    ],
+    "relatedSlugs": [
+      "web-api-service",
+      "api-documentation-guide",
+      "tech-spec-rfc",
+      "software-application-saas-platform"
+    ],
+    "useCases": [
+      "Individual REST endpoints",
+      "Webhook receiver docs",
+      "GraphQL query interfaces",
+      "Authentication OAuth handlers"
+    ]
+  },
+  {
+    "slug": "code-repository-git",
+    "title": "SoftwareSourceCode & Git Repository Schema (JSON-LD Blueprint)",
+    "shortTitle": "Code Repository",
+    "schemaType": "SoftwareSourceCode",
+    "category": "Technical SEO",
+    "description": "Structured data for open-source Git repositories, code libraries, and algorithmic source files on GitHub, GitLab, and Bitbucket.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "softwaresourcecode schema",
+      "git repository json-ld",
+      "github repo structured data",
+      "source code schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareSourceCode\",\n  \"name\": \"OmniSEO Core Engine\",\n  \"description\": \"High-performance client-side library for SERP length calculation, robots.txt linting, and JSON-LD schema generation.\",\n  \"codeRepository\": \"https://github.com/omniseotools/omniseo-core\",\n  \"programmingLanguage\": \"TypeScript\",\n  \"runtimePlatform\": \"Node.js 20+, Modern Browsers\",\n  \"license\": \"https://opensource.org/licenses/MIT\",\n  \"version\": \"2.4.0\",\n  \"codeSampleType\": \"full repository\",\n  \"author\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Tools\",\n    \"url\": \"https://omniseotools.com\"\n  }\n}",
+    "properties": [
+      {
+        "name": "codeRepository",
+        "type": "URL",
+        "description": "Public HTTPS URL to the Git repository (e.g. GitHub/GitLab).",
+        "required": true,
+        "exampleValue": "https://github.com/omniseotools/omniseo-core"
+      },
+      {
+        "name": "programmingLanguage",
+        "type": "Text | ComputerLanguage",
+        "description": "Primary programming language (e.g. TypeScript, Python, Go, Rust).",
+        "required": true,
+        "exampleValue": "TypeScript"
+      },
+      {
+        "name": "runtimePlatform",
+        "type": "Text",
+        "description": "Supported execution environments (e.g. Node.js 20+, Deno, Chromium).",
+        "required": true,
+        "exampleValue": "Node.js 20+, Modern Browsers"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Direct URL to the open-source license terms (MIT, Apache-2.0, GPL-3.0).",
+        "required": true,
+        "exampleValue": "https://opensource.org/licenses/MIT"
+      },
+      {
+        "name": "version",
+        "type": "Text",
+        "description": "Current semver release tag.",
+        "required": false,
+        "exampleValue": "2.4.0"
+      },
+      {
+        "name": "author",
+        "type": "Organization | Person",
+        "description": "Maintainer or creator entity.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"OmniSEO Tools\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Non-Canonical codeRepository URL",
+        "description": "Linking to ephemeral branch mirrors or private repositories.",
+        "severity": "error",
+        "gscImpact": "Google Code Search fails to index repository.",
+        "solution": "Provide direct HTTPS link to primary default branch repo."
+      },
+      {
+        "title": "Unrecognized programmingLanguage String",
+        "description": "Using non-standard language abbreviations like 'ts' instead of 'TypeScript'.",
+        "severity": "warning",
+        "gscImpact": "Lower keyword matching for language-specific developer searches.",
+        "solution": "Use canonical language names ('TypeScript', 'Python', 'Rust')."
+      },
+      {
+        "title": "Missing SPDX Open-Source license URL",
+        "description": "Omitting license makes it impossible for developers to determine usage rights.",
+        "severity": "warning",
+        "gscImpact": "Excluded from 'open source MIT' filtered searches.",
+        "solution": "Always supply official OSI license URL."
+      }
+    ],
+    "relatedSlugs": [
+      "open-source-project",
+      "npm-javascript-module",
+      "python-package-library",
+      "developer-sdk-toolkit"
+    ],
+    "useCases": [
+      "GitHub repository landing pages",
+      "Open-source package documentation",
+      "Developer portfolio code showcases",
+      "Enterprise SDK source repos"
+    ]
+  },
+  {
+    "slug": "python-package-library",
+    "title": "Python Package (PyPI) & Wheel Distribution Schema (JSON-LD)",
+    "shortTitle": "Python Package",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for Python libraries, PyPI packages, wheels, and pip distributions with runtime requirements, download URLs, and versioning.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "python package schema",
+      "pypi structured data",
+      "python library json-ld",
+      "pip package schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"omniseo-core\",\n  \"applicationCategory\": \"DeveloperApplication\",\n  \"operatingSystem\": \"Cross-platform (Linux, macOS, Windows)\",\n  \"programmingLanguage\": \"Python\",\n  \"softwareVersion\": \"1.8.2\",\n  \"downloadUrl\": \"https://pypi.org/project/omniseo-core/\",\n  \"requirements\": \"Python >= 3.10, pydantic >= 2.0\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0.00\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"description\": \"Zero-dependency Python package for high-speed URL slug sanitization, GSC regex building, and technical SEO metric computation.\"\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Must be 'DeveloperApplication' or 'UtilitiesApplication'.",
+        "required": true,
+        "exampleValue": "DeveloperApplication"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct link to the PyPI package page or wheel download.",
+        "required": true,
+        "exampleValue": "https://pypi.org/project/omniseo-core/"
+      },
+      {
+        "name": "programmingLanguage",
+        "type": "Text",
+        "description": "Explicitly declared as 'Python'.",
+        "required": true,
+        "exampleValue": "Python"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Current semver version published on PyPI.",
+        "required": true,
+        "exampleValue": "1.8.2"
+      },
+      {
+        "name": "requirements",
+        "type": "Text",
+        "description": "Minimum Python interpreter version and dependency constraints.",
+        "required": true,
+        "exampleValue": "Python >= 3.10"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Supported OS (Linux, macOS, Windows).",
+        "required": false,
+        "exampleValue": "Cross-platform"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Python Version requirements",
+        "description": "Failing to state Python version support causes installation confusion for legacy environments.",
+        "severity": "warning",
+        "gscImpact": "User drop-off on pip install failure.",
+        "solution": "State requirements: 'Python >= 3.10'."
+      },
+      {
+        "title": "Invalid applicationCategory for Libraries",
+        "description": "Using consumer categories like 'GameApplication' for developer software packages.",
+        "severity": "error",
+        "gscImpact": "Mismatched developer search intent classification.",
+        "solution": "Always use 'DeveloperApplication'."
+      },
+      {
+        "title": "Dead PyPI downloadUrl",
+        "description": "Linking to an unreleased or deleted package name on PyPI.",
+        "severity": "critical",
+        "gscImpact": "Delisting from developer package rich results.",
+        "solution": "Verify public PyPI package accessibility."
+      }
+    ],
+    "relatedSlugs": [
+      "code-repository-git",
+      "npm-javascript-module",
+      "developer-sdk-toolkit",
+      "cli-tool-binary"
+    ],
+    "useCases": [
+      "PyPI package landing pages",
+      "Data science library docs",
+      "FastAPI / Django extension sites",
+      "Machine learning pip packages"
+    ]
+  },
+  {
+    "slug": "npm-javascript-module",
+    "title": "NPM JavaScript Module & Node Package Schema (JSON-LD Blueprint)",
+    "shortTitle": "NPM Module",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for NPM modules, TypeScript libraries, and Node.js packages with install commands, peer dependencies, and license badges.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "npm package schema",
+      "javascript module json-ld",
+      "node.js library structured data",
+      "npm module schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"@omniseo/core\",\n  \"applicationCategory\": \"DeveloperApplication\",\n  \"operatingSystem\": \"Node.js 18+, Bun, Deno, Modern Browsers\",\n  \"softwareVersion\": \"3.4.1\",\n  \"downloadUrl\": \"https://www.npmjs.com/package/@omniseo/core\",\n  \"license\": \"https://opensource.org/licenses/MIT\",\n  \"requirements\": \"Node.js >= 18.0.0\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"description\": \"Ultra-fast TypeScript library for schema linting, Open Graph image dimension checking, and Core Web Vitals physics calculations.\"\n}",
+    "properties": [
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct canonical link to NPM registry page.",
+        "required": true,
+        "exampleValue": "https://www.npmjs.com/package/@omniseo/core"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Latest NPM published release version.",
+        "required": true,
+        "exampleValue": "3.4.1"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Supported JS runtimes (Node.js, Deno, Bun, Browser).",
+        "required": true,
+        "exampleValue": "Node.js 18+, Bun, Deno"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Package open-source license URI.",
+        "required": true,
+        "exampleValue": "https://opensource.org/licenses/MIT"
+      },
+      {
+        "name": "requirements",
+        "type": "Text",
+        "description": "Node engine versions and peer dependencies.",
+        "required": false,
+        "exampleValue": "Node.js >= 18.0.0"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Must be 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "DeveloperApplication"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Scoped Package Name in Schema",
+        "description": "Listing plain 'core' instead of full scoped '@omniseo/core' package identifier.",
+        "severity": "error",
+        "gscImpact": "Google Search fails to associate schema with official NPM registry page.",
+        "solution": "Use exact published name '@scope/pkg'."
+      },
+      {
+        "title": "Missing Runtime Platform Specifications",
+        "description": "Omitting runtime environments (Node, Deno, Bun) leaves compatibility ambiguous.",
+        "severity": "warning",
+        "gscImpact": "Lower relevance for runtime-specific searches.",
+        "solution": "Enumerate runtimes in operatingSystem."
+      },
+      {
+        "title": "Mismatched softwareVersion vs package.json",
+        "description": "Publishing v3.4.1 but hardcoding v1.0.0 in static schema snippet.",
+        "severity": "warning",
+        "gscImpact": "Google extracts stale version data in SERP snippets.",
+        "solution": "Automate schema version synchronization with package.json."
+      }
+    ],
+    "relatedSlugs": [
+      "python-package-library",
+      "code-repository-git",
+      "developer-sdk-toolkit",
+      "open-source-project"
+    ],
+    "useCases": [
+      "NPM package documentation hubs",
+      "React/Vue component libraries",
+      "TypeScript utility modules",
+      "Node.js backend plugins"
+    ]
+  },
+  {
+    "slug": "desktop-application-os",
+    "title": "DesktopApplication & Native OS Software Schema (JSON-LD Blueprint)",
+    "shortTitle": "Desktop Application",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for downloadable native desktop applications on macOS, Windows, and Linux with file sizes, CPU architecture, and memory specs.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "desktopapplication schema",
+      "native app structured data",
+      "windows app json-ld",
+      "macos software schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Studio Pro for Desktop\",\n  \"operatingSystem\": \"macOS 14.0+ (Apple Silicon & Intel), Windows 11 (64-bit)\",\n  \"applicationCategory\": \"BusinessApplication\",\n  \"softwareVersion\": \"4.2.0\",\n  \"fileSize\": \"84MB\",\n  \"downloadUrl\": \"https://omniseotools.com/downloads/OmniSEO-Studio-4.2.0.dmg\",\n  \"memoryRequirements\": \"8GB RAM minimum, 16GB recommended\",\n  \"storageRequirements\": \"500MB available SSD space\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"49.00\",\n    \"priceCurrency\": \"USD\",\n    \"availability\": \"https://schema.org/InStock\"\n  }\n}",
+    "properties": [
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Exact operating system and CPU architecture support.",
+        "required": true,
+        "exampleValue": "macOS 14.0+ (Apple Silicon & Intel), Windows 11"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct installer binary download link (.dmg, .exe, .AppImage).",
+        "required": true,
+        "exampleValue": "https://.../OmniSEO-Studio.dmg"
+      },
+      {
+        "name": "fileSize",
+        "type": "Text",
+        "description": "Installer download payload size.",
+        "required": true,
+        "exampleValue": "84MB"
+      },
+      {
+        "name": "memoryRequirements",
+        "type": "Text",
+        "description": "Minimum and recommended system RAM.",
+        "required": true,
+        "exampleValue": "8GB RAM minimum"
+      },
+      {
+        "name": "storageRequirements",
+        "type": "Text",
+        "description": "Required disk space for local installation.",
+        "required": false,
+        "exampleValue": "500MB available SSD space"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Standard category (e.g. BusinessApplication, UtilitiesApplication).",
+        "required": true,
+        "exampleValue": "BusinessApplication"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting Exact CPU Architecture Support",
+        "description": "Listing 'macOS' without specifying Apple Silicon (M1/M2/M3) vs Intel x86 binary support.",
+        "severity": "warning",
+        "gscImpact": "User friction when Rosetta emulation is required unexpectedly.",
+        "solution": "Explicitly declare 'macOS (Apple Silicon & Intel)'."
+      },
+      {
+        "title": "Dead or Expired Binary downloadUrl",
+        "description": "Serving 404 on direct installer download link.",
+        "severity": "critical",
+        "gscImpact": "Loss of 'Direct Download' trust in search engines.",
+        "solution": "Verify installer CDN links are active and signed."
+      },
+      {
+        "title": "Missing memoryRequirements on Heavy Desktop Apps",
+        "description": "Failing to state RAM requirements on high-resource software tools.",
+        "severity": "warning",
+        "gscImpact": "High return/refund rates from underpowered user hardware.",
+        "solution": "Include memoryRequirements."
+      }
+    ],
+    "relatedSlugs": [
+      "software-application-saas-platform",
+      "cli-tool-binary",
+      "browser-extension-addon",
+      "mobile-application-app-store"
+    ],
+    "useCases": [
+      "macOS DMG download pages",
+      "Windows 11 desktop software",
+      "Electron desktop applications",
+      "Linux AppImage / Flatpak releases"
+    ]
+  },
+  {
+    "slug": "browser-extension-addon",
+    "title": "BrowserExtension & Web Addon Schema Markup (JSON-LD Blueprint)",
+    "shortTitle": "Browser Extension",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for Chrome Web Store extensions, Firefox Add-ons, and Edge extensions with Manifest V3 permissions and store ratings.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "browserextension schema",
+      "chrome extension structured data",
+      "firefox addon json-ld",
+      "web extension schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Live Inspector Chrome Extension\",\n  \"applicationCategory\": \"BrowserExtension\",\n  \"operatingSystem\": \"Google Chrome, Microsoft Edge, Brave, Opera\",\n  \"browserRequirements\": \"Requires Chromium 116+ (Manifest V3)\",\n  \"permissions\": \"activeTab, storage, declarativeNetRequest\",\n  \"softwareVersion\": \"2.1.0\",\n  \"installUrl\": \"https://chromewebstore.google.com/detail/omniseo-live-inspector/exampleExtensionId\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"4.9\",\n    \"reviewCount\": \"320\"\n  }\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Classified as 'BrowserExtension' or 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "BrowserExtension"
+      },
+      {
+        "name": "browserRequirements",
+        "type": "Text",
+        "description": "Minimum browser engine and manifest version (e.g. Chromium 116+, Manifest V3).",
+        "required": true,
+        "exampleValue": "Requires Chromium 116+ (Manifest V3)"
+      },
+      {
+        "name": "permissions",
+        "type": "Text",
+        "description": "Declared browser extension security permissions.",
+        "required": true,
+        "exampleValue": "activeTab, storage"
+      },
+      {
+        "name": "installUrl",
+        "type": "URL",
+        "description": "Direct Chrome Web Store or Firefox Add-ons listing link.",
+        "required": true,
+        "exampleValue": "https://chromewebstore.google.com/detail/..."
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Compatible desktop browsers.",
+        "required": true,
+        "exampleValue": "Google Chrome, Microsoft Edge, Brave"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Extension store build version.",
+        "required": false,
+        "exampleValue": "2.1.0"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting browserRequirements Manifest Version",
+        "description": "Failing to state Manifest V3 compatibility causes users on older engines to face install errors.",
+        "severity": "warning",
+        "gscImpact": "Lower store conversion rates.",
+        "solution": "Declare browserRequirements: 'Chromium 116+ (Manifest V3)'."
+      },
+      {
+        "title": "Undeclared Invasive Permissions",
+        "description": "Requesting broad host permissions (<all_urls>) without clarifying security scope in schema description.",
+        "severity": "warning",
+        "gscImpact": "User privacy concerns and store compliance flags.",
+        "solution": "Document exact permissions in permissions field."
+      },
+      {
+        "title": "Broken Web Store installUrl",
+        "description": "Pointing installUrl to an unapproved or unpublished extension ID.",
+        "severity": "error",
+        "gscImpact": "Direct install CTA failures.",
+        "solution": "Verify live Chrome Web Store URL."
+      }
+    ],
+    "relatedSlugs": [
+      "desktop-application-os",
+      "software-application-saas-platform",
+      "developer-sdk-toolkit",
+      "cybersecurity-tool-audit"
+    ],
+    "useCases": [
+      "Chrome Web Store extensions",
+      "Firefox Add-ons",
+      "Developer DevTools panel extensions",
+      "SEO toolbar addons"
+    ]
+  },
+  {
+    "slug": "data-feed-catalog",
+    "title": "DataFeed & Real-Time Product Catalog Feed Schema (JSON-LD)",
+    "shortTitle": "DataFeed",
+    "schemaType": "DataFeed",
+    "category": "Technical SEO",
+    "description": "Structured data for programmatic data feeds, Google Merchant feeds, real-time pricing streams, and XML/JSON data syndication channels.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "datafeed schema",
+      "product feed json-ld",
+      "data catalog structured data",
+      "syndication feed schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"DataFeed\",\n  \"name\": \"OmniSEO Real-Time Technical Taxonomy & Error Feed\",\n  \"description\": \"Hourly updated structured JSON feed of Google algorithm shifts, crawler User-Agents, and Core Web Vitals thresholds.\",\n  \"url\": \"https://omniseotools.com/feeds/taxonomy.json\",\n  \"dateModified\": \"2026-10-03T18:00:00+00:00\",\n  \"encodingFormat\": \"application/json\",\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Tools\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"dataFeedElement\": [\n    {\n      \"@type\": \"DataFeedItem\",\n      \"name\": \"Core Web Vitals Thresholds 2026\",\n      \"dateCreated\": \"2026-10-01\"\n    },\n    {\n      \"@type\": \"DataFeedItem\",\n      \"name\": \"AI Crawler User-Agent Registry\",\n      \"dateCreated\": \"2026-10-02\"\n    }\n  ]\n}",
+    "properties": [
+      {
+        "name": "dataFeedElement",
+        "type": "Array<DataFeedItem | Thing>",
+        "description": "Individual structured data payload records inside feed.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"DataFeedItem\", ... }]"
+      },
+      {
+        "name": "dateModified",
+        "type": "DateTime (ISO 8601)",
+        "description": "Timestamp of latest feed batch generation.",
+        "required": true,
+        "exampleValue": "2026-10-03T18:00:00+00:00"
+      },
+      {
+        "name": "provider",
+        "type": "Organization",
+        "description": "Entity issuing and maintaining the data stream.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"OmniSEO Tools\" }"
+      },
+      {
+        "name": "encodingFormat",
+        "type": "Text",
+        "description": "Standard MIME type (application/json, application/xml, text/csv).",
+        "required": true,
+        "exampleValue": "application/json"
+      },
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Feed title.",
+        "required": true,
+        "exampleValue": "OmniSEO Technical Taxonomy Feed"
+      },
+      {
+        "name": "url",
+        "type": "URL",
+        "description": "Direct feed download endpoint.",
+        "required": true,
+        "exampleValue": "https://.../taxonomy.json"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Stale dateModified on Dynamic Feeds",
+        "description": "Leaving an old static dateModified timestamp on feeds that update hourly.",
+        "severity": "warning",
+        "gscImpact": "Search crawlers assume feed is abandoned and reduce crawl frequency.",
+        "solution": "Synchronize dateModified with live cache invalidation timestamps."
+      },
+      {
+        "title": "Invalid MIME Type in encodingFormat",
+        "description": "Using informal 'json' or 'xml' instead of official IANA MIME types.",
+        "severity": "error",
+        "gscImpact": "Feed parser rejection in automated syndication pipelines.",
+        "solution": "Use 'application/json' or 'application/xml'."
+      },
+      {
+        "title": "Missing dataFeedElement Items",
+        "description": "Outputting an empty feed header without demonstrating feed items.",
+        "severity": "warning",
+        "gscImpact": "Incomplete feed structure warnings in GSC.",
+        "solution": "Include sample DataFeedItem objects."
+      }
+    ],
+    "relatedSlugs": [
+      "dataset-open-data",
+      "web-api-service",
+      "product-merchant-offer-listing",
+      "item-list-top-ranking-carousel"
+    ],
+    "useCases": [
+      "Google Merchant product feeds",
+      "Real-time pricing data feeds",
+      "News ticker syndication feeds",
+      "Stock ticker & crypto data streams"
+    ]
+  },
+  {
+    "slug": "dataset-open-data",
+    "title": "Dataset & Open Data Repository Schema (JSON-LD Blueprint)",
+    "shortTitle": "Dataset",
+    "schemaType": "Dataset",
+    "category": "Technical SEO",
+    "description": "Structured data for open datasets, benchmark research files, and public statistical corpora qualifying for Google Dataset Search.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "dataset schema",
+      "google dataset search structured data",
+      "open data json-ld",
+      "research data schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Dataset\",\n  \"name\": \"Global Web Performance & INP Benchmark Dataset 2026\",\n  \"description\": \"An open dataset containing 500,000 anonymized real-user Core Web Vitals measurements across 20 global CMS platforms.\",\n  \"url\": \"https://omniseotools.com/datasets/cwv-benchmarks-2026\",\n  \"license\": \"https://creativecommons.org/licenses/by/4.0/\",\n  \"spatialCoverage\": \"Global\",\n  \"temporalCoverage\": \"2025-01-01/2026-09-30\",\n  \"variableMeasured\": [\n    \"Interaction to Next Paint (INP)\",\n    \"Largest Contentful Paint (LCP)\",\n    \"Cumulative Layout Shift (CLS)\"\n  ],\n  \"distribution\": [\n    {\n      \"@type\": \"DataDownload\",\n      \"encodingFormat\": \"text/csv\",\n      \"contentUrl\": \"https://data.omniseotools.com/csv/cwv-benchmarks-2026.csv\"\n    },\n    {\n      \"@type\": \"DataDownload\",\n      \"encodingFormat\": \"application/x-parquet\",\n      \"contentUrl\": \"https://data.omniseotools.com/parquet/cwv-benchmarks-2026.parquet\"\n    }\n  ],\n  \"creator\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Research Labs\",\n    \"url\": \"https://omniseotools.com\"\n  }\n}",
+    "properties": [
+      {
+        "name": "distribution",
+        "type": "Array<DataDownload>",
+        "description": "Direct download links to dataset files (CSV, JSON, Parquet).",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"DataDownload\", ... }]"
+      },
+      {
+        "name": "variableMeasured",
+        "type": "Array<Text> | Text",
+        "description": "Specific scientific or economic variables recorded in the data.",
+        "required": true,
+        "exampleValue": "[\"Interaction to Next Paint (INP)\", \"Largest Contentful Paint (LCP)\"]"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Open data license (e.g. CC-BY-4.0, ODbL).",
+        "required": true,
+        "exampleValue": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      {
+        "name": "spatialCoverage",
+        "type": "Text | Place",
+        "description": "Geographic region covered by the data.",
+        "required": true,
+        "exampleValue": "Global"
+      },
+      {
+        "name": "temporalCoverage",
+        "type": "Text",
+        "description": "Date range in ISO 8601 interval format (e.g. 2025-01-01/2026-09-30).",
+        "required": false,
+        "exampleValue": "2025-01-01/2026-09-30"
+      },
+      {
+        "name": "creator",
+        "type": "Organization | Person",
+        "description": "Research institution or data author.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing direct DataDownload contentUrl in distribution",
+        "description": "Pointing distribution to an HTML paywall page instead of direct file downloads.",
+        "severity": "error",
+        "gscImpact": "Disqualified from Google Dataset Search index.",
+        "solution": "Supply direct DataDownload objects with valid contentUrl."
+      },
+      {
+        "title": "Vague or Missing variableMeasured Identifiers",
+        "description": "Leaving variableMeasured empty prevents scientific researcher discovery.",
+        "severity": "warning",
+        "gscImpact": "Lower search matching in academic query filters.",
+        "solution": "Enumerate key measured metrics (e.g. 'INP', 'LCP')."
+      },
+      {
+        "title": "Invalid temporalCoverage Interval Format",
+        "description": "Writing 'Jan 2025 to Sep 2026' instead of ISO standard '2025-01-01/2026-09-30'.",
+        "severity": "warning",
+        "gscImpact": "Date parsing error in Google Dataset Search timeline.",
+        "solution": "Use ISO 8601 date interval syntax."
+      }
+    ],
+    "relatedSlugs": [
+      "data-feed-catalog",
+      "tech-whitepaper-research",
+      "tech-spec-rfc",
+      "software-application-saas-platform"
+    ],
+    "useCases": [
+      "Open science research data",
+      "Benchmarking statistics repositories",
+      "Government open data portals",
+      "Machine learning training datasets"
+    ]
+  },
+  {
+    "slug": "tech-whitepaper-research",
+    "title": "TechWhitepaper & Research Paper Schema (JSON-LD Blueprint)",
+    "shortTitle": "Tech Whitepaper",
+    "schemaType": "TechArticle",
+    "category": "Technical SEO",
+    "description": "Structured data for engineering whitepapers, cybersecurity research papers, and technical benchmark studies with proficiency levels and dependencies.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "tech whitepaper schema",
+      "research paper json-ld",
+      "technical whitepaper structured data",
+      "engineering study schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TechArticle\",\n  \"headline\": \"Mitigating AI Web Scraper Contention on Cloudflare & Edge CDNs\",\n  \"description\": \"Comprehensive engineering research paper analyzing LLM scraper request patterns, origin bandwidth costs, and edge rate-limiting architectures.\",\n  \"proficiencyLevel\": \"Expert\",\n  \"dependencies\": \"Cloudflare WAF Level 3, RFC 9309 Robots Protocol, Nginx Reverse Proxy\",\n  \"datePublished\": \"2026-09-20T10:00:00+00:00\",\n  \"dateModified\": \"2026-10-02T12:00:00+00:00\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Amr Gharz\",\n    \"jobTitle\": \"Principal Infrastructure Architect\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Research Institute\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"inLanguage\": \"en\"\n}",
+    "properties": [
+      {
+        "name": "dependencies",
+        "type": "Text",
+        "description": "Prerequisite infrastructure, network protocols, or hardware architecture.",
+        "required": true,
+        "exampleValue": "Cloudflare WAF Level 3, RFC 9309"
+      },
+      {
+        "name": "proficiencyLevel",
+        "type": "Text",
+        "description": "Target engineering audience level (Beginner, Intermediate, Expert).",
+        "required": true,
+        "exampleValue": "Expert"
+      },
+      {
+        "name": "author",
+        "type": "Person | Organization",
+        "description": "Lead researcher or principal engineer authoring the paper.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Person\", \"name\": \"Amr Gharz\" }"
+      },
+      {
+        "name": "publisher",
+        "type": "Organization",
+        "description": "Publishing research institute or enterprise.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      },
+      {
+        "name": "headline",
+        "type": "Text",
+        "description": "Full whitepaper research title.",
+        "required": true,
+        "exampleValue": "Mitigating AI Web Scraper Contention..."
+      },
+      {
+        "name": "datePublished",
+        "type": "DateTime (ISO 8601)",
+        "description": "Initial peer review / publication timestamp.",
+        "required": true,
+        "exampleValue": "2026-09-20T10:00:00+00:00"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Misclassifying Sales E-Books as Research TechArticles",
+        "description": "Applying TechArticle whitepaper markup to promotional marketing PDFs.",
+        "severity": "critical",
+        "gscImpact": "Structured data manual penalty for deceptive academic markup.",
+        "solution": "Only apply to genuine technical and empirical research."
+      },
+      {
+        "title": "Missing proficiencyLevel Audience Classification",
+        "description": "Failing to state proficiency level (Beginner, Intermediate, Expert).",
+        "severity": "warning",
+        "gscImpact": "Omission of audience targeting filter in developer search.",
+        "solution": "Include proficiencyLevel: 'Expert'."
+      },
+      {
+        "title": "Anonymous Author Entity in YMYL Topics",
+        "description": "Omitting accredited author details on security or algorithmic research papers.",
+        "severity": "warning",
+        "gscImpact": "Lower E-E-A-T score across authoritative queries.",
+        "solution": "Supply complete Person author profile with job title."
+      }
+    ],
+    "relatedSlugs": [
+      "tech-article-code-documentation",
+      "tech-spec-rfc",
+      "api-documentation-guide",
+      "cybersecurity-tool-audit"
+    ],
+    "useCases": [
+      "Cybersecurity research reports",
+      "Cloud architecture whitepapers",
+      "Database benchmark studies",
+      "Performance engineering papers"
+    ]
+  },
+  {
+    "slug": "api-documentation-guide",
+    "title": "APIDocumentation & Developer Guide Schema (JSON-LD Blueprint)",
+    "shortTitle": "API Documentation",
+    "schemaType": "TechArticle",
+    "category": "Technical SEO",
+    "description": "Structured data for API reference manuals, SDK quickstart guides, and developer tutorials with target endpoints, language tabs, and prerequisites.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "api documentation schema",
+      "developer guide json-ld",
+      "sdk quickstart structured data",
+      "api manual schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TechArticle\",\n  \"headline\": \"Integrating OmniSEO Headless API in Next.js 15 App Router\",\n  \"description\": \"Complete developer tutorial on authenticating, fetching real-time SERP audits, and streaming JSON-LD schemas via Next.js Server Components.\",\n  \"programmingLanguage\": \"TypeScript\",\n  \"softwareRequirements\": \"Node.js >= 20.0.0, Next.js >= 15.0.0\",\n  \"proficiencyLevel\": \"Intermediate\",\n  \"target\": {\n    \"@type\": \"EntryPoint\",\n    \"urlTemplate\": \"https://api.omniseotools.com/v1/audit\"\n  },\n  \"datePublished\": \"2026-09-18T09:00:00+00:00\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Amr Gharz\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Developer Network\",\n    \"url\": \"https://omniseotools.com\"\n  }\n}",
+    "properties": [
+      {
+        "name": "softwareRequirements",
+        "type": "Text",
+        "description": "Required runtime environments and framework versions.",
+        "required": true,
+        "exampleValue": "Node.js >= 20.0.0, Next.js >= 15.0.0"
+      },
+      {
+        "name": "programmingLanguage",
+        "type": "Text",
+        "description": "Primary code sample language.",
+        "required": true,
+        "exampleValue": "TypeScript"
+      },
+      {
+        "name": "target",
+        "type": "EntryPoint",
+        "description": "API endpoint described in the documentation.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"EntryPoint\", ... }"
+      },
+      {
+        "name": "headline",
+        "type": "Text",
+        "description": "Guide title.",
+        "required": true,
+        "exampleValue": "Integrating OmniSEO Headless API"
+      },
+      {
+        "name": "proficiencyLevel",
+        "type": "Text",
+        "description": "Developer skill level (Beginner / Intermediate / Expert).",
+        "required": false,
+        "exampleValue": "Intermediate"
+      },
+      {
+        "name": "datePublished",
+        "type": "DateTime",
+        "description": "Release timestamp.",
+        "required": true,
+        "exampleValue": "2026-09-18T09:00:00+00:00"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Deprecated Code Snippets Without Version Assertions",
+        "description": "Publishing code that fails on modern Next.js 15 without stating softwareRequirements.",
+        "severity": "warning",
+        "gscImpact": "High developer bounce rate and negative UX signals.",
+        "solution": "Document exact softwareRequirements."
+      },
+      {
+        "title": "Missing target EntryPoint URL",
+        "description": "Writing API guides without referencing the actual network endpoint URI.",
+        "severity": "warning",
+        "gscImpact": "Google cannot associate the guide with the WebAPI entity.",
+        "solution": "Include target EntryPoint."
+      },
+      {
+        "title": "Missing programmingLanguage Declaration",
+        "description": "Omitting language tag prevents syntax classification in Google developer search.",
+        "severity": "warning",
+        "gscImpact": "Lower rank for 'Next.js TypeScript API tutorial' queries.",
+        "solution": "Declare programmingLanguage: 'TypeScript'."
+      }
+    ],
+    "relatedSlugs": [
+      "web-api-service",
+      "rest-api-endpoint",
+      "developer-sdk-toolkit",
+      "tech-article-code-documentation"
+    ],
+    "useCases": [
+      "Developer portal quickstart guides",
+      "REST API integration tutorials",
+      "SDK reference manuals",
+      "Webhook debugging walkthroughs"
+    ]
+  },
+  {
+    "slug": "developer-sdk-toolkit",
+    "title": "DeveloperSDK & Client Library Toolkit Schema (JSON-LD)",
+    "shortTitle": "Developer SDK",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for official developer SDKs, client wrappers, and language toolkits across Node.js, Python, Go, Java, and PHP.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "developersdk schema",
+      "sdk structured data",
+      "client library json-ld",
+      "software development kit schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Official Node.js & TypeScript SDK\",\n  \"applicationCategory\": \"DeveloperApplication\",\n  \"operatingSystem\": \"Node.js 18+, Bun, Deno, Cloudflare Workers\",\n  \"downloadUrl\": \"https://www.npmjs.com/package/@omniseo/sdk\",\n  \"softwareVersion\": \"2.2.0\",\n  \"requirements\": \"TypeScript >= 5.0, Node.js >= 18.0.0\",\n  \"codeRepository\": \"https://github.com/omniseotools/omniseo-sdk-js\",\n  \"license\": \"https://opensource.org/licenses/MIT\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  }\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Must be 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "DeveloperApplication"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "NPM / GitHub release download URL.",
+        "required": true,
+        "exampleValue": "https://www.npmjs.com/package/@omniseo/sdk"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "SDK semantic release version.",
+        "required": true,
+        "exampleValue": "2.2.0"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Target runtime environments (Node, Bun, Deno, Edge Workers).",
+        "required": true,
+        "exampleValue": "Node.js 18+, Cloudflare Workers"
+      },
+      {
+        "name": "codeRepository",
+        "type": "URL",
+        "description": "Public repository URL.",
+        "required": true,
+        "exampleValue": "https://github.com/omniseotools/omniseo-sdk-js"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Open source license.",
+        "required": false,
+        "exampleValue": "https://opensource.org/licenses/MIT"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Conflating SDK Client Wrapper with Server WebAPI",
+        "description": "Using WebAPI schema for a downloadable client SDK library.",
+        "severity": "error",
+        "gscImpact": "Schema type mismatch in developer search index.",
+        "solution": "Use SoftwareApplication for SDK packages and WebAPI for the server backend."
+      },
+      {
+        "title": "Missing Edge Runtime Environment Declarations",
+        "description": "Failing to list Cloudflare Workers / Vercel Edge support in operatingSystem.",
+        "severity": "warning",
+        "gscImpact": "Lower ranking in edge computing developer queries.",
+        "solution": "Enumerate edge runtimes in operatingSystem."
+      },
+      {
+        "title": "Broken GitHub codeRepository Link",
+        "description": "Linking to an internal private repo instead of public open-source SDK repo.",
+        "severity": "warning",
+        "gscImpact": "Repository badge error in developer panels.",
+        "solution": "Provide public repository link."
+      }
+    ],
+    "relatedSlugs": [
+      "npm-javascript-module",
+      "python-package-library",
+      "code-repository-git",
+      "web-api-service"
+    ],
+    "useCases": [
+      "Official SaaS client SDKs",
+      "Payment processing libraries",
+      "AI model wrapper toolkits",
+      "Cloud storage client SDKs"
+    ]
+  },
+  {
+    "slug": "cli-tool-binary",
+    "title": "CLITool & Terminal Binary Schema Markup (JSON-LD Blueprint)",
+    "shortTitle": "CLI Tool",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for command-line utilities, terminal tools, Homebrew formulas, and standalone compiled binary tools.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "cli tool schema",
+      "command line utility json-ld",
+      "terminal tool structured data",
+      "homebrew formula schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"omniseo-cli\",\n  \"applicationCategory\": \"DeveloperApplication\",\n  \"operatingSystem\": \"macOS (Homebrew), Linux (Apt/Yum), Windows (Scoop)\",\n  \"softwareRequirements\": \"POSIX Terminal, Zsh / Bash / PowerShell\",\n  \"downloadUrl\": \"https://github.com/omniseotools/cli/releases/latest\",\n  \"softwareVersion\": \"1.5.0\",\n  \"fileSize\": \"18MB\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"description\": \"Zero-dependency command-line utility for bulk sitemap splitting, robots.txt linting, and local schema audits.\"\n}",
+    "properties": [
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Target OS platforms (macOS, Linux, Windows).",
+        "required": true,
+        "exampleValue": "macOS (Homebrew), Linux, Windows"
+      },
+      {
+        "name": "softwareRequirements",
+        "type": "Text",
+        "description": "Terminal shell environments (POSIX, Zsh, Bash, PowerShell).",
+        "required": true,
+        "exampleValue": "POSIX Terminal, Zsh / Bash"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct link to binary releases or Homebrew tap.",
+        "required": true,
+        "exampleValue": "https://.../releases/latest"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Current CLI build version tag.",
+        "required": true,
+        "exampleValue": "1.5.0"
+      },
+      {
+        "name": "fileSize",
+        "type": "Text",
+        "description": "Compiled binary weight.",
+        "required": false,
+        "exampleValue": "18MB"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Classified as 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "DeveloperApplication"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Generic operatingSystem ('All') for Native Compiled Binaries",
+        "description": "Failing to distinguish between architecture builds (x86_64 vs arm64).",
+        "severity": "warning",
+        "gscImpact": "Confusion on Apple Silicon and ARM Linux downloads.",
+        "solution": "List exact OS packaging systems (Homebrew, Apt, Scoop)."
+      },
+      {
+        "title": "Missing Shell softwareRequirements",
+        "description": "Omitting terminal requirements causes Windows CMD users to face syntax errors.",
+        "severity": "warning",
+        "gscImpact": "User command execution failure.",
+        "solution": "Document supported shells (PowerShell, Bash, Zsh)."
+      },
+      {
+        "title": "Missing Installation Syntax in Description",
+        "description": "Failing to provide 'brew install omniseo-cli' in schema description.",
+        "severity": "warning",
+        "gscImpact": "Lost 1-click install intent discovery in SERPs.",
+        "solution": "Include package manager command in description."
+      }
+    ],
+    "relatedSlugs": [
+      "developer-sdk-toolkit",
+      "desktop-application-os",
+      "code-repository-git",
+      "python-package-library"
+    ],
+    "useCases": [
+      "Homebrew CLI utilities",
+      "Rust/Go terminal tools",
+      "DevOps command-line helpers",
+      "Database migration CLI binaries"
+    ]
+  },
+  {
+    "slug": "database-service-cloud",
+    "title": "DatabaseService & Cloud Engine Schema (JSON-LD Blueprint)",
+    "shortTitle": "Cloud Database",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for managed cloud databases, serverless PostgreSQL/MySQL engines, and vector database platforms with storage metrics and SLAs.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "databaseservice schema",
+      "cloud database json-ld",
+      "managed postgres structured data",
+      "vector db schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniVector Serverless Vector Database Engine\",\n  \"applicationCategory\": \"BusinessApplication\",\n  \"operatingSystem\": \"Cloud Hosted (AWS, GCP, Azure)\",\n  \"softwareVersion\": \"3.0.0\",\n  \"storageRequirements\": \"Auto-scaling from 1GB to 100TB, 10,000 IOPS\",\n  \"memoryRequirements\": \"Dedicated RAM clusters from 4GB to 512GB\",\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Cloud Systems\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0.00\",\n    \"priceCurrency\": \"USD\",\n    \"description\": \"Free tier includes 100,000 vector embeddings per month.\"\n  }\n}",
+    "properties": [
+      {
+        "name": "storageRequirements",
+        "type": "Text",
+        "description": "Storage scaling bounds and IOPS performance metrics.",
+        "required": true,
+        "exampleValue": "Auto-scaling from 1GB to 100TB"
+      },
+      {
+        "name": "provider",
+        "type": "Organization",
+        "description": "Cloud provider entity hosting the database clusters.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      },
+      {
+        "name": "memoryRequirements",
+        "type": "Text",
+        "description": "RAM clustering tiers.",
+        "required": true,
+        "exampleValue": "Dedicated RAM from 4GB to 512GB"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Cloud hosting regions and infrastructure (AWS, GCP, Azure).",
+        "required": true,
+        "exampleValue": "Cloud Hosted (AWS, GCP)"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "BusinessApplication or DeveloperApplication.",
+        "required": true,
+        "exampleValue": "BusinessApplication"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Pricing model (Serverless Consumption or Provisioned Compute).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"0.00\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing storageRequirements Scale Specifications",
+        "description": "Omitting disk throughput and IOPS specifications.",
+        "severity": "warning",
+        "gscImpact": "Lower ranking in enterprise database selection queries.",
+        "solution": "Document storageRequirements clearly."
+      },
+      {
+        "title": "Conflating Hosted Managed Cloud with Local DB Software",
+        "description": "Using desktop installation schema for a distributed cloud service.",
+        "severity": "error",
+        "gscImpact": "Misleading download intent classification.",
+        "solution": "Set operatingSystem to 'Cloud Hosted'."
+      },
+      {
+        "title": "Missing Free Tier Breakdown in offers",
+        "description": "Failing to highlight free developer credits in offers description.",
+        "severity": "warning",
+        "gscImpact": "Lower developer trial signup CTR from SERP badges.",
+        "solution": "Include free tier limits in offers."
+      }
+    ],
+    "relatedSlugs": [
+      "cloud-infrastructure-vm",
+      "web-api-service",
+      "software-application-saas-platform",
+      "cybersecurity-tool-audit"
+    ],
+    "useCases": [
+      "Serverless PostgreSQL platforms",
+      "Distributed Vector databases for AI",
+      "Managed Redis cache services",
+      "Cloud document stores"
+    ]
+  },
+  {
+    "slug": "cloud-infrastructure-vm",
+    "title": "CloudInfrastructure & Virtual Compute VM Schema (JSON-LD)",
+    "shortTitle": "Cloud VM",
+    "schemaType": "Service",
+    "category": "Technical SEO",
+    "description": "Structured data for cloud virtual machines, dedicated bare-metal servers, and edge compute instances with terms of service, regions, and pricing.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "cloud infrastructure schema",
+      "virtual machine json-ld",
+      "vps hosting structured data",
+      "compute instance schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Service\",\n  \"name\": \"OmniCompute High-Performance Edge Compute Instances\",\n  \"serviceType\": \"Cloud Infrastructure & Virtual Server Compute\",\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Cloud Systems\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"termsOfService\": \"https://omniseotools.com/terms/cloud-sla\",\n  \"areaServed\": [\n    {\n      \"@type\": \"Country\",\n      \"name\": \"United States\"\n    },\n    {\n      \"@type\": \"Country\",\n      \"name\": \"Germany\"\n    },\n    {\n      \"@type\": \"Country\",\n      \"name\": \"Singapore\"\n    }\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0.015\",\n    \"priceCurrency\": \"USD\",\n    \"unitText\": \"HOUR\",\n    \"description\": \"Pay-as-you-go per-second billing with 99.99% uptime SLA.\"\n  }\n}",
+    "properties": [
+      {
+        "name": "serviceType",
+        "type": "Text",
+        "description": "Infrastructure category (Cloud Infrastructure & VPS Hosting).",
+        "required": true,
+        "exampleValue": "Cloud Infrastructure & Virtual Server Compute"
+      },
+      {
+        "name": "provider",
+        "type": "Organization",
+        "description": "Cloud computing entity.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      },
+      {
+        "name": "termsOfService",
+        "type": "URL",
+        "description": "Dedicated SLA uptime contract URL.",
+        "required": true,
+        "exampleValue": "https://.../cloud-sla"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Hourly or monthly compute pricing structure.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"0.015\", \"unitText\": \"HOUR\" }"
+      },
+      {
+        "name": "areaServed",
+        "type": "Array<Country>",
+        "description": "Global data center availability regions.",
+        "required": true,
+        "exampleValue": "[{ \"@type\": \"Country\", \"name\": \"United States\" }]"
+      },
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Service product name.",
+        "required": true,
+        "exampleValue": "OmniCompute Edge Compute Instances"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Dedicated termsOfService SLA URL",
+        "description": "Failing to link a legal SLA contract for enterprise cloud infrastructure.",
+        "severity": "warning",
+        "gscImpact": "Lower B2B buyer trust in Knowledge Graph listings.",
+        "solution": "Supply explicit termsOfService URL."
+      },
+      {
+        "title": "Hardcoded Dynamic Hourly Pricing in Static offers",
+        "description": "Providing static hourly price without unitText: 'HOUR' causing Google to interpret cost as single purchase price.",
+        "severity": "error",
+        "gscImpact": "Misleading pricing snippet in search results.",
+        "solution": "Always add unitText: 'HOUR' or 'MONTH' to Offer."
+      },
+      {
+        "title": "Missing Global Data Center areaServed Declarations",
+        "description": "Failing to state region availability for low-latency compute queries.",
+        "severity": "warning",
+        "gscImpact": "Lower rank in geo-targeted server hosting queries.",
+        "solution": "Enumerate data center countries in areaServed."
+      }
+    ],
+    "relatedSlugs": [
+      "database-service-cloud",
+      "web-api-service",
+      "software-application-saas-platform",
+      "devops-pipeline-action"
+    ],
+    "useCases": [
+      "Cloud VPS providers",
+      "Bare-metal dedicated servers",
+      "Serverless edge functions",
+      "GPU compute clusters for AI"
+    ]
+  },
+  {
+    "slug": "cybersecurity-tool-audit",
+    "title": "CybersecurityTool & Vulnerability Scanner Schema (JSON-LD)",
+    "shortTitle": "Cybersecurity Tool",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for security scanners, Content Security Policy analyzers, and penetration testing tools with permissions and compliance standards.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "cybersecurity tool schema",
+      "vulnerability scanner json-ld",
+      "security audit structured data",
+      "csp builder schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO CSP & Security Header Hardening Suite\",\n  \"applicationCategory\": \"SecurityApplication\",\n  \"operatingSystem\": \"All Web Browsers, Next.js, Cloudflare, Nginx\",\n  \"permissions\": \"Read-only HTTP Header inspection\",\n  \"softwareVersion\": \"3.5.0\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"description\": \"Client-side Content Security Policy (CSP Level 3) visual generator, HSTS configurator, and OWASP Top 10 header vulnerability analyzer.\"\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Must be 'SecurityApplication' or 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "SecurityApplication"
+      },
+      {
+        "name": "permissions",
+        "type": "Text",
+        "description": "Required network privileges (e.g. Read-only HTTP Header inspection).",
+        "required": true,
+        "exampleValue": "Read-only HTTP Header inspection"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Supported servers, CDNs, and frameworks.",
+        "required": true,
+        "exampleValue": "All Web Browsers, Next.js, Cloudflare, Nginx"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Security definition release build.",
+        "required": true,
+        "exampleValue": "3.5.0"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Pricing tier.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"0\" }"
+      },
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Tool product name.",
+        "required": true,
+        "exampleValue": "OmniSEO CSP Hardening Suite"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Using Generic UtilitiesApplication Instead of SecurityApplication",
+        "description": "Missing specific SecurityApplication classification reduces search ranking for cybersecurity queries.",
+        "severity": "warning",
+        "gscImpact": "Lower relevance for security auditor searches.",
+        "solution": "Use applicationCategory: 'SecurityApplication'."
+      },
+      {
+        "title": "Unstated Network Privilege permissions",
+        "description": "Failing to declare whether the tool performs active intrusion testing vs passive read inspection.",
+        "severity": "warning",
+        "gscImpact": "Enterprise compliance reviewer hesitation.",
+        "solution": "Document permissions: 'Read-only HTTP Header inspection'."
+      },
+      {
+        "title": "Overpromising Zero-Day Detection in Description",
+        "description": "Making unverified absolute security claims violating Google deceptive content guidelines.",
+        "severity": "critical",
+        "gscImpact": "Algorithmic penalty for exaggerated security claims.",
+        "solution": "Accurately state supported OWASP / NIST standards."
+      }
+    ],
+    "relatedSlugs": [
+      "tech-whitepaper-research",
+      "software-application-saas-platform",
+      "browser-extension-addon",
+      "cli-tool-binary"
+    ],
+    "useCases": [
+      "Content Security Policy builders",
+      "SSL/TLS certificate checkers",
+      "OWASP header vulnerability linters",
+      "API security scanning suites"
+    ]
+  },
+  {
+    "slug": "machine-learning-model",
+    "title": "MachineLearningModel & AI Weights Schema (JSON-LD Blueprint)",
+    "shortTitle": "ML Model",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for open-weights machine learning models, LLM checkpoints, and ONNX models with parameter counts and GPU memory specs.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "machine learning model schema",
+      "llm weights json-ld",
+      "ai model structured data",
+      "hugging face model schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSearch-7B Dense Retrieval Transformer\",\n  \"applicationCategory\": \"DeveloperApplication\",\n  \"operatingSystem\": \"Linux, macOS (Metal), Windows (CUDA)\",\n  \"runtimePlatform\": \"PyTorch 2.4, ONNX Runtime, Hugging Face Transformers\",\n  \"memoryRequirements\": \"16GB VRAM for FP16 inference, 8GB for INT4 quantized\",\n  \"downloadUrl\": \"https://huggingface.co/omniseotools/omnisearch-7b\",\n  \"softwareVersion\": \"1.2.0\",\n  \"codeRepository\": \"https://github.com/omniseotools/omnisearch-model\",\n  \"license\": \"https://opensource.org/licenses/Apache-2.0\",\n  \"description\": \"7-billion parameter embedding model fine-tuned for semantic SEO taxonomy matching, entity disambiguation, and SERP query intent classification.\"\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Classified as 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "DeveloperApplication"
+      },
+      {
+        "name": "runtimePlatform",
+        "type": "Text",
+        "description": "AI inference runtimes (PyTorch, ONNX, TensorRT, vLLM).",
+        "required": true,
+        "exampleValue": "PyTorch 2.4, ONNX Runtime"
+      },
+      {
+        "name": "memoryRequirements",
+        "type": "Text",
+        "description": "VRAM and GPU hardware specifications for FP16/quantized execution.",
+        "required": true,
+        "exampleValue": "16GB VRAM for FP16 inference"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct model weights repository link (e.g. Hugging Face).",
+        "required": true,
+        "exampleValue": "https://huggingface.co/..."
+      },
+      {
+        "name": "codeRepository",
+        "type": "URL",
+        "description": "Model training and inference script repo.",
+        "required": true,
+        "exampleValue": "https://github.com/..."
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Weights license terms (Apache-2.0, MIT, Llama Community).",
+        "required": true,
+        "exampleValue": "https://opensource.org/licenses/Apache-2.0"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing VRAM / GPU Hardware memoryRequirements",
+        "description": "Failing to state GPU memory requirements causes developers with underpowered hardware to face out-of-memory crashes.",
+        "severity": "warning",
+        "gscImpact": "Negative developer user reviews.",
+        "solution": "Document exact VRAM thresholds (e.g. '16GB VRAM for FP16')."
+      },
+      {
+        "title": "Missing Permissive vs Commercial License Specification",
+        "description": "Failing to clarify if commercial use is permitted under model weights license.",
+        "severity": "critical",
+        "gscImpact": "Enterprise legal rejection.",
+        "solution": "Explicitly link Apache 2.0, MIT, or custom commercial license."
+      },
+      {
+        "title": "Dead Hugging Face downloadUrl",
+        "description": "Linking to an unauthenticated or deleted model repository.",
+        "severity": "error",
+        "gscImpact": "Weights download failure.",
+        "solution": "Verify public repository availability."
+      }
+    ],
+    "relatedSlugs": [
+      "dataset-open-data",
+      "code-repository-git",
+      "python-package-library",
+      "tech-whitepaper-research"
+    ],
+    "useCases": [
+      "Hugging Face model cards",
+      "Embedding model documentation",
+      "Local LLM weights repositories",
+      "Computer vision model releases"
+    ]
+  },
+  {
+    "slug": "open-source-project",
+    "title": "OpenSourceProject & Community Hub Schema (JSON-LD Blueprint)",
+    "shortTitle": "Open Source Project",
+    "schemaType": "SoftwareSourceCode",
+    "category": "Technical SEO",
+    "description": "Structured data for open-source foundation projects, community initiatives, and public software repositories with issue trackers and contributor guidelines.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "open source project schema",
+      "oss structured data",
+      "community repository json-ld",
+      "github open source schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareSourceCode\",\n  \"name\": \"OmniSEO Open Web Tooling Project\",\n  \"description\": \"Community-driven open-source initiative providing client-side webmaster utilities, schema analyzers, and Core Web Vitals tooling.\",\n  \"codeRepository\": \"https://github.com/omniseotools/omniseotools\",\n  \"programmingLanguage\": \"TypeScript, React, Next.js\",\n  \"runtimePlatform\": \"Next.js 15, Node.js 20+\",\n  \"license\": \"https://opensource.org/licenses/MIT\",\n  \"version\": \"0.1.1\",\n  \"author\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Community Contributors\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"codeSampleType\": \"full repository\"\n}",
+    "properties": [
+      {
+        "name": "codeRepository",
+        "type": "URL",
+        "description": "Public Git repository URL.",
+        "required": true,
+        "exampleValue": "https://github.com/omniseotools/omniseotools"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Open source license (MIT, Apache-2.0).",
+        "required": true,
+        "exampleValue": "https://opensource.org/licenses/MIT"
+      },
+      {
+        "name": "programmingLanguage",
+        "type": "Text",
+        "description": "Core project stack languages.",
+        "required": true,
+        "exampleValue": "TypeScript, React, Next.js"
+      },
+      {
+        "name": "runtimePlatform",
+        "type": "Text",
+        "description": "Target runtime stack.",
+        "required": true,
+        "exampleValue": "Next.js 15, Node.js 20+"
+      },
+      {
+        "name": "name",
+        "type": "Text",
+        "description": "Project title.",
+        "required": true,
+        "exampleValue": "OmniSEO Open Web Tooling Project"
+      },
+      {
+        "name": "author",
+        "type": "Organization",
+        "description": "Community project organization.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Open-Source license SPDX URL",
+        "description": "Omitting official license link prevents open-source catalog inclusion.",
+        "severity": "error",
+        "gscImpact": "Excluded from open-source software indexation.",
+        "solution": "Always supply OSI-approved license URL."
+      },
+      {
+        "title": "Outdated version Tag in Static Schema",
+        "description": "Failing to increment version tag after major releases.",
+        "severity": "warning",
+        "gscImpact": "Stale version numbers in SERP snippets.",
+        "solution": "Synchronize schema version with package releases."
+      },
+      {
+        "title": "Broken GitHub Repository Link",
+        "description": "Typo in codeRepository URL causing 404.",
+        "severity": "critical",
+        "gscImpact": "Loss of source code rich link snippet.",
+        "solution": "Verify active repository URL."
+      }
+    ],
+    "relatedSlugs": [
+      "code-repository-git",
+      "npm-javascript-module",
+      "python-package-library",
+      "developer-sdk-toolkit"
+    ],
+    "useCases": [
+      "Open-source project homepages",
+      "Community software foundations",
+      "Public GitHub repo landing pages",
+      "Developer contribution hubs"
+    ]
+  },
+  {
+    "slug": "tech-spec-rfc",
+    "title": "TechSpec & RFC Architecture Schema (JSON-LD Blueprint)",
+    "shortTitle": "Tech Spec RFC",
+    "schemaType": "TechArticle",
+    "category": "Technical SEO",
+    "description": "Structured data for technical Request for Comments (RFCs), architectural specifications, and web standards documents with version history and dependencies.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "tech spec schema",
+      "rfc structured data",
+      "architecture spec json-ld",
+      "technical standard schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"TechArticle\",\n  \"headline\": \"RFC-2026-08: Client-Side Zero-Telemetry Schema Validation Architecture\",\n  \"description\": \"Architectural specification for performing in-browser JSON-LD parsing, AST tree validation, and Google Rich Results diagnostics without server network roundtrips.\",\n  \"proficiencyLevel\": \"Expert\",\n  \"dependencies\": \"ECMAScript 2026, W3C JSON-LD 1.1 Specification, Web Workers API\",\n  \"datePublished\": \"2026-08-15T00:00:00+00:00\",\n  \"dateModified\": \"2026-10-01T00:00:00+00:00\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Amr Gharz\",\n    \"jobTitle\": \"Lead Architect\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Standards Group\",\n    \"url\": \"https://omniseotools.com\"\n  },\n  \"inLanguage\": \"en\"\n}",
+    "properties": [
+      {
+        "name": "headline",
+        "type": "Text",
+        "description": "Formal RFC specification title and number.",
+        "required": true,
+        "exampleValue": "RFC-2026-08: Client-Side Schema Validation"
+      },
+      {
+        "name": "dependencies",
+        "type": "Text",
+        "description": "Foundational standards and protocol RFC dependencies.",
+        "required": true,
+        "exampleValue": "W3C JSON-LD 1.1, Web Workers API"
+      },
+      {
+        "name": "datePublished",
+        "type": "DateTime",
+        "description": "Initial RFC draft date.",
+        "required": true,
+        "exampleValue": "2026-08-15T00:00:00+00:00"
+      },
+      {
+        "name": "proficiencyLevel",
+        "type": "Text",
+        "description": "Audience level (Expert).",
+        "required": true,
+        "exampleValue": "Expert"
+      },
+      {
+        "name": "author",
+        "type": "Person",
+        "description": "Specification author / editor.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Person\", \"name\": \"...\" }"
+      },
+      {
+        "name": "publisher",
+        "type": "Organization",
+        "description": "Working group or publishing consortium.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Protocol dependencies Declarations",
+        "description": "Omitting standard protocol dependencies (e.g. W3C, IETF RFC numbers).",
+        "severity": "warning",
+        "gscImpact": "Lower semantic authority clustering in technical standard searches.",
+        "solution": "Document exact dependencies."
+      },
+      {
+        "title": "Failing to Update dateModified on RFC Revisions",
+        "description": "Not updating dateModified when new errata or working drafts are published.",
+        "severity": "warning",
+        "gscImpact": "Stale document date warnings.",
+        "solution": "Update dateModified on each RFC draft revision."
+      },
+      {
+        "title": "Missing Structured Author Entity",
+        "description": "Listing author as plain text rather than typed Person with credentials.",
+        "severity": "warning",
+        "gscImpact": "Lower E-E-A-T score across technical topics.",
+        "solution": "Provide full Person object with job title."
+      }
+    ],
+    "relatedSlugs": [
+      "tech-whitepaper-research",
+      "tech-article-code-documentation",
+      "api-documentation-guide",
+      "microservice-architecture-spec"
+    ],
+    "useCases": [
+      "Engineering design RFCs",
+      "Web standards proposals",
+      "Security protocol specifications",
+      "API architectural blueprints"
+    ]
+  },
+  {
+    "slug": "wordpress-plugin-theme",
+    "title": "WordPressPlugin & Theme Schema Markup (JSON-LD Blueprint)",
+    "shortTitle": "WordPress Plugin",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for WordPress plugins, Gutenberg block suites, and FSE themes with PHP version requirements, active installs, and repository downloads.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "wordpress plugin schema",
+      "wordpress theme json-ld",
+      "gutenberg block structured data",
+      "wp plugin schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Pro WordPress Plugin\",\n  \"applicationCategory\": \"BusinessApplication\",\n  \"operatingSystem\": \"WordPress 6.4+, PHP 8.1+\",\n  \"softwareVersion\": \"2.8.4\",\n  \"downloadUrl\": \"https://wordpress.org/plugins/omniseo-pro/\",\n  \"requirements\": \"WordPress >= 6.4, PHP >= 8.1, MySQL >= 5.7\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"4.9\",\n    \"reviewCount\": \"410\"\n  },\n  \"description\": \"High-performance WordPress SEO plugin providing automatic JSON-LD schema injection, breadcrumbs, and real-time Core Web Vitals diagnostics.\"\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "BusinessApplication or UtilitiesApplication.",
+        "required": true,
+        "exampleValue": "BusinessApplication"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Latest plugin release version matching WordPress.org SVN.",
+        "required": true,
+        "exampleValue": "2.8.4"
+      },
+      {
+        "name": "requirements",
+        "type": "Text",
+        "description": "Minimum WordPress and PHP environment requirements.",
+        "required": true,
+        "exampleValue": "WordPress >= 6.4, PHP >= 8.1"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct link to WordPress.org repository or ZIP package.",
+        "required": true,
+        "exampleValue": "https://wordpress.org/plugins/..."
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Compatible CMS versions.",
+        "required": true,
+        "exampleValue": "WordPress 6.4+, PHP 8.1+"
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Plugin pricing tier (Free or Freemium).",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"0\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Omitting PHP and WordPress requirements Constraints",
+        "description": "Failing to state PHP 8.1+ requirement causes fatal crash risks for users on legacy PHP 7.4.",
+        "severity": "error",
+        "gscImpact": "Negative plugin reviews and user churn.",
+        "solution": "Document exact requirements: 'WordPress >= 6.4, PHP >= 8.1'."
+      },
+      {
+        "title": "Unversioned ZIP Download Links",
+        "description": "Providing static 'plugin.zip' link without softwareVersion matching.",
+        "severity": "warning",
+        "gscImpact": "Crawler confusion over cached download payloads.",
+        "solution": "Include exact softwareVersion in downloadUrl."
+      },
+      {
+        "title": "Missing aggregateRating on Verified WP.org Plugins",
+        "description": "Omitting 5-star WordPress.org repository ratings from schema.",
+        "severity": "warning",
+        "gscImpact": "Loss of gold star snippet badge in Google SERPs.",
+        "solution": "Include verified AggregateRating node."
+      }
+    ],
+    "relatedSlugs": [
+      "shopify-app-integration",
+      "software-application-saas-platform",
+      "browser-extension-addon",
+      "npm-javascript-module"
+    ],
+    "useCases": [
+      "WordPress.org plugin directory pages",
+      "WooCommerce extension landing pages",
+      "Gutenberg block suite websites",
+      "Premium WordPress theme portfolios"
+    ]
+  },
+  {
+    "slug": "shopify-app-integration",
+    "title": "ShopifyApp & E-Commerce Integration Schema (JSON-LD Blueprint)",
+    "shortTitle": "Shopify App",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for Shopify App Store listings, headless e-commerce integrations, and Liquid theme extensions with monthly pricing and review scores.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "shopify app schema",
+      "ecommerce app structured data",
+      "shopify app store json-ld",
+      "liquid extension schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Merchant Schema & Rich Snippets for Shopify\",\n  \"applicationCategory\": \"BusinessApplication\",\n  \"operatingSystem\": \"Shopify Online Store 2.0, Hydrogen, Liquid\",\n  \"softwareVersion\": \"3.1.0\",\n  \"installUrl\": \"https://apps.shopify.com/omniseo-merchant-schema\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"19.00\",\n    \"priceCurrency\": \"USD\",\n    \"description\": \"Monthly subscription with 14-day free trial.\"\n  },\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"4.9\",\n    \"reviewCount\": \"580\"\n  },\n  \"description\": \"Automated Shopify App for generating 2026 Google Merchant Center-compliant Product, Offer, and Review JSON-LD structured data.\"\n}",
+    "properties": [
+      {
+        "name": "installUrl",
+        "type": "URL",
+        "description": "Direct official Shopify App Store listing URL.",
+        "required": true,
+        "exampleValue": "https://apps.shopify.com/..."
+      },
+      {
+        "name": "offers",
+        "type": "Offer",
+        "description": "Monthly recurring subscription price and trial duration.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Offer\", \"price\": \"19.00\", \"priceCurrency\": \"USD\" }"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Supported store architectures (Shopify OS 2.0, Liquid, Hydrogen).",
+        "required": true,
+        "exampleValue": "Shopify Online Store 2.0, Liquid"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Classified as 'BusinessApplication'.",
+        "required": true,
+        "exampleValue": "BusinessApplication"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Current app release build.",
+        "required": true,
+        "exampleValue": "3.1.0"
+      },
+      {
+        "name": "aggregateRating",
+        "type": "AggregateRating",
+        "description": "Shopify App Store merchant rating score.",
+        "required": false,
+        "exampleValue": "{ \"@type\": \"AggregateRating\", \"ratingValue\": \"4.9\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Free Trial Terms in offers",
+        "description": "Failing to state '14-day free trial' in offers description leads to lower conversion from SERP pricing badges.",
+        "severity": "warning",
+        "gscImpact": "Lower merchant click-through rates.",
+        "solution": "Document trial period inside offers description."
+      },
+      {
+        "title": "Missing Official Shopify App Store installUrl",
+        "description": "Linking to an unverified private developer URL instead of the official Shopify App Store.",
+        "severity": "error",
+        "gscImpact": "Loss of 'Verified App Store Listing' rich badge.",
+        "solution": "Use canonical apps.shopify.com URL."
+      },
+      {
+        "title": "Omitting Online Store 2.0 Theme Compatibility",
+        "description": "Failing to state OS 2.0 app block support in operatingSystem.",
+        "severity": "warning",
+        "gscImpact": "Merchant hesitation regarding legacy Liquid code injection.",
+        "solution": "Include 'Shopify Online Store 2.0' in operatingSystem."
+      }
+    ],
+    "relatedSlugs": [
+      "wordpress-plugin-theme",
+      "product-merchant-offer-listing",
+      "software-application-saas-platform",
+      "developer-sdk-toolkit"
+    ],
+    "useCases": [
+      "Shopify App Store landing pages",
+      "Headless Hydrogen commerce integrations",
+      "E-commerce marketing tool sites",
+      "Shopify POS app extensions"
+    ]
+  },
+  {
+    "slug": "ios-app-store-listing",
+    "title": "Apple iOS App & App Store Listing Schema (JSON-LD Blueprint)",
+    "shortTitle": "iOS App Listing",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for iPhone, iPad, and watchOS apps on Apple App Store with high-res screenshots, minimum iOS requirements, and in-app purchase offers.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "ios app schema",
+      "apple app store structured data",
+      "iphone app json-ld",
+      "ios app listing schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Mobile Audit Suite for iOS\",\n  \"operatingSystem\": \"iOS 17.0+, iPadOS 17.0+, macOS 14.0+ (Apple Silicon)\",\n  \"applicationCategory\": \"BusinessApplication\",\n  \"softwareVersion\": \"3.2.1\",\n  \"fileSize\": \"68MB\",\n  \"downloadUrl\": \"https://apps.apple.com/app/omniseo-audit-suite/id987654321\",\n  \"screenshot\": [\n    \"https://omniseotools.com/images/ios/screenshot-1.png\",\n    \"https://omniseotools.com/images/ios/screenshot-2.png\"\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"4.8\",\n    \"reviewCount\": \"1840\"\n  }\n}",
+    "properties": [
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Minimum iOS version and Apple hardware compatibility.",
+        "required": true,
+        "exampleValue": "iOS 17.0+, iPadOS 17.0+"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Official Apple App Store URL with numerical app ID.",
+        "required": true,
+        "exampleValue": "https://apps.apple.com/app/.../id..."
+      },
+      {
+        "name": "screenshot",
+        "type": "Array<URL>",
+        "description": "High-resolution iOS app interface screenshots.",
+        "required": true,
+        "exampleValue": "[\"https://.../screenshot-1.png\"]"
+      },
+      {
+        "name": "fileSize",
+        "type": "Text",
+        "description": "App bundle download size.",
+        "required": true,
+        "exampleValue": "68MB"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Current App Store build version.",
+        "required": true,
+        "exampleValue": "3.2.1"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "App Store category (e.g. BusinessApplication, UtilitiesApplication).",
+        "required": true,
+        "exampleValue": "BusinessApplication"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Low-Resolution or Missing screenshot URLs",
+        "description": "Providing tiny thumbnails under 1024px width prevents Google mobile app card generation.",
+        "severity": "error",
+        "gscImpact": "App excluded from visual Google mobile search app carousels.",
+        "solution": "Supply high-resolution screenshots meeting retina dimensions."
+      },
+      {
+        "title": "Outdated Minimum iOS Version in operatingSystem",
+        "description": "Listing 'iOS 12' when minimum deployment target has moved to iOS 17.",
+        "severity": "warning",
+        "gscImpact": "User install failures on older devices.",
+        "solution": "Keep operatingSystem synchronized with Xcode project settings."
+      },
+      {
+        "title": "Invalid Numerical App ID in downloadUrl",
+        "description": "Missing 'id123456789' in apps.apple.com link.",
+        "severity": "error",
+        "gscImpact": "Broken 1-click install button in Google SERP.",
+        "solution": "Verify complete canonical App Store URL."
+      }
+    ],
+    "relatedSlugs": [
+      "android-apk-distribution",
+      "mobile-application-app-store",
+      "desktop-application-os",
+      "software-application-saas-platform"
+    ],
+    "useCases": [
+      "iOS app landing pages",
+      "iPadOS productivity tools",
+      "Apple Watch companion apps",
+      "Universal macOS/iOS apps"
+    ]
+  },
+  {
+    "slug": "android-apk-distribution",
+    "title": "Android App & Google Play APK Distribution Schema (JSON-LD)",
+    "shortTitle": "Android APK",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for Android apps, Google Play listings, and direct APK/AAB distributions with permissions, Android API levels, and file sizes.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "android app schema",
+      "google play structured data",
+      "apk download json-ld",
+      "android package schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Mobile Companion for Android\",\n  \"operatingSystem\": \"Android 14.0+ (API Level 34+)\",\n  \"applicationCategory\": \"UtilitiesApplication\",\n  \"softwareVersion\": \"3.2.0\",\n  \"fileSize\": \"42MB\",\n  \"downloadUrl\": \"https://play.google.com/store/apps/details?id=com.omniseo.companion\",\n  \"permissions\": \"INTERNET, ACCESS_NETWORK_STATE\",\n  \"screenshot\": [\n    \"https://omniseotools.com/images/android/screen1.png\"\n  ],\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"4.7\",\n    \"reviewCount\": \"2200\"\n  }\n}",
+    "properties": [
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Minimum Android version and API level (e.g. Android 14.0+, API Level 34).",
+        "required": true,
+        "exampleValue": "Android 14.0+ (API Level 34+)"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Google Play Store listing or verified APK package link.",
+        "required": true,
+        "exampleValue": "https://play.google.com/store/apps/details?id=..."
+      },
+      {
+        "name": "permissions",
+        "type": "Text",
+        "description": "Declared Android manifest permissions (INTERNET, ACCESS_NETWORK_STATE).",
+        "required": true,
+        "exampleValue": "INTERNET, ACCESS_NETWORK_STATE"
+      },
+      {
+        "name": "fileSize",
+        "type": "Text",
+        "description": "APK / App Bundle payload size.",
+        "required": true,
+        "exampleValue": "42MB"
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Current Play Store release version.",
+        "required": true,
+        "exampleValue": "3.2.0"
+      },
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "UtilitiesApplication or BusinessApplication.",
+        "required": true,
+        "exampleValue": "UtilitiesApplication"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Undeclared Invasive Android OS permissions",
+        "description": "Requesting background location or contacts without documenting permissions in structured data.",
+        "severity": "warning",
+        "gscImpact": "User trust and security review warnings.",
+        "solution": "Enumerate exact Android manifest permissions in permissions field."
+      },
+      {
+        "title": "Mismatched Package ID in downloadUrl",
+        "description": "Typo in '?id=com.example.app' parameter.",
+        "severity": "error",
+        "gscImpact": "Google Play 404 error from SERP download button.",
+        "solution": "Ensure package ID matches AndroidManifest.xml exactly."
+      },
+      {
+        "title": "Outdated Target API Level",
+        "description": "Listing Android 9 on apps that target modern Android 14 requirements.",
+        "severity": "warning",
+        "gscImpact": "Compatibility classification error in Play Store search.",
+        "solution": "Keep API level aligned with Google Play publishing policies."
+      }
+    ],
+    "relatedSlugs": [
+      "ios-app-store-listing",
+      "mobile-application-app-store",
+      "desktop-application-os",
+      "browser-extension-addon"
+    ],
+    "useCases": [
+      "Google Play app landing pages",
+      "Direct APK download sites",
+      "Android TV app portfolios",
+      "Enterprise MDM APK distributions"
+    ]
+  },
+  {
+    "slug": "microservice-architecture-spec",
+    "title": "MicroserviceArchitecture & Container Spec Schema (JSON-LD)",
+    "shortTitle": "Microservice Spec",
+    "schemaType": "SoftwareSourceCode",
+    "category": "Technical SEO",
+    "description": "Structured data for distributed microservice architectures, Docker container specs, and Kubernetes Helm charts with language runtimes and service meshes.",
+    "readingTime": "5 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "microservice schema",
+      "docker container json-ld",
+      "kubernetes spec structured data",
+      "service mesh schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareSourceCode\",\n  \"name\": \"OmniSEO Real-Time Crawler Defense Microservice\",\n  \"description\": \"High-throughput Golang microservice deploying Envoy proxy filters and Redis rate-limiters for AI scraper protection.\",\n  \"codeRepository\": \"https://github.com/omniseotools/crawler-defense-service\",\n  \"programmingLanguage\": \"Go\",\n  \"runtimePlatform\": \"Docker, Kubernetes, Linux x86_64 / ARM64\",\n  \"license\": \"https://opensource.org/licenses/Apache-2.0\",\n  \"version\": \"1.4.0\",\n  \"codeSampleType\": \"microservice container architecture\",\n  \"author\": {\n    \"@type\": \"Organization\",\n    \"name\": \"OmniSEO Cloud Architecture\"\n  }\n}",
+    "properties": [
+      {
+        "name": "codeRepository",
+        "type": "URL",
+        "description": "Git repository containing Dockerfile and Helm charts.",
+        "required": true,
+        "exampleValue": "https://github.com/omniseotools/crawler-defense-service"
+      },
+      {
+        "name": "runtimePlatform",
+        "type": "Text",
+        "description": "Container runtime (Docker, Kubernetes, Linux).",
+        "required": true,
+        "exampleValue": "Docker, Kubernetes, Linux"
+      },
+      {
+        "name": "programmingLanguage",
+        "type": "Text",
+        "description": "Primary microservice backend language (Go, Rust, Node.js).",
+        "required": true,
+        "exampleValue": "Go"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Open source or commercial license.",
+        "required": true,
+        "exampleValue": "https://opensource.org/licenses/Apache-2.0"
+      },
+      {
+        "name": "version",
+        "type": "Text",
+        "description": "Container image tag semver.",
+        "required": true,
+        "exampleValue": "1.4.0"
+      },
+      {
+        "name": "author",
+        "type": "Organization",
+        "description": "Engineering team managing microservice.",
+        "required": true,
+        "exampleValue": "{ \"@type\": \"Organization\", \"name\": \"...\" }"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing Container Runtime in runtimePlatform",
+        "description": "Stating only 'Linux' without declaring Docker/Kubernetes containerization.",
+        "severity": "warning",
+        "gscImpact": "Lower matching for containerized microservice searches.",
+        "solution": "Declare runtimePlatform: 'Docker, Kubernetes, Linux'."
+      },
+      {
+        "title": "Missing SPDX Open-Source license",
+        "description": "Omitting official license URL on public microservice specs.",
+        "severity": "warning",
+        "gscImpact": "Compliance uncertainty in enterprise audits.",
+        "solution": "Include valid OSI license URL."
+      },
+      {
+        "title": "Broken GitHub codeRepository Link",
+        "description": "Providing a broken link to the container repo.",
+        "severity": "error",
+        "gscImpact": "Source code link failure.",
+        "solution": "Verify public repository link."
+      }
+    ],
+    "relatedSlugs": [
+      "code-repository-git",
+      "devops-pipeline-action",
+      "web-api-service",
+      "cloud-infrastructure-vm"
+    ],
+    "useCases": [
+      "Kubernetes microservice catalogs",
+      "Docker container documentation",
+      "Envoy/gRPC backend specs",
+      "Distributed serverless architectures"
+    ]
+  },
+  {
+    "slug": "devops-pipeline-action",
+    "title": "DevOpsPipeline & GitHub Action Schema (JSON-LD Blueprint)",
+    "shortTitle": "DevOps Action",
+    "schemaType": "SoftwareApplication",
+    "category": "Technical SEO",
+    "description": "Structured data for CI/CD pipeline actions, GitHub Actions, GitLab CI components, and automated deployment workflows with runner environments.",
+    "readingTime": "4 min read",
+    "lastUpdated": "2026-10-03",
+    "targetKeywords": [
+      "devops pipeline schema",
+      "github action json-ld",
+      "ci cd structured data",
+      "automation workflow schema markup"
+    ],
+    "jsonLd": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"SoftwareApplication\",\n  \"name\": \"OmniSEO Automated Schema & Rich Snippet Auditor Action\",\n  \"applicationCategory\": \"DeveloperApplication\",\n  \"operatingSystem\": \"GitHub Actions Runners (Ubuntu, macOS, Windows)\",\n  \"downloadUrl\": \"https://github.com/marketplace/actions/omniseo-schema-auditor\",\n  \"softwareVersion\": \"2.0.0\",\n  \"codeRepository\": \"https://github.com/omniseotools/schema-auditor-action\",\n  \"license\": \"https://opensource.org/licenses/MIT\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"0\",\n    \"priceCurrency\": \"USD\"\n  },\n  \"description\": \"GitHub Action for automated CI/CD pull request auditing: validates JSON-LD schemas, detects broken canonicals, and checks Core Web Vitals budgets.\"\n}",
+    "properties": [
+      {
+        "name": "applicationCategory",
+        "type": "Text",
+        "description": "Must be 'DeveloperApplication'.",
+        "required": true,
+        "exampleValue": "DeveloperApplication"
+      },
+      {
+        "name": "operatingSystem",
+        "type": "Text",
+        "description": "Compatible CI/CD runner environments (Ubuntu, macOS, Windows).",
+        "required": true,
+        "exampleValue": "GitHub Actions Runners (Ubuntu, macOS, Windows)"
+      },
+      {
+        "name": "downloadUrl",
+        "type": "URL",
+        "description": "Direct GitHub Marketplace listing URL.",
+        "required": true,
+        "exampleValue": "https://github.com/marketplace/actions/..."
+      },
+      {
+        "name": "codeRepository",
+        "type": "URL",
+        "description": "Action source code repository.",
+        "required": true,
+        "exampleValue": "https://github.com/..."
+      },
+      {
+        "name": "softwareVersion",
+        "type": "Text",
+        "description": "Action release tag (e.g. v2.0.0).",
+        "required": true,
+        "exampleValue": "2.0.0"
+      },
+      {
+        "name": "license",
+        "type": "URL",
+        "description": "Action license.",
+        "required": true,
+        "exampleValue": "https://opensource.org/licenses/MIT"
+      }
+    ],
+    "pitfalls": [
+      {
+        "title": "Missing GitHub Marketplace downloadUrl",
+        "description": "Linking to raw repo without providing official Marketplace install link.",
+        "severity": "warning",
+        "gscImpact": "Lower discoverability in marketplace developer searches.",
+        "solution": "Include direct Marketplace downloadUrl."
+      },
+      {
+        "title": "Unspecified Runner Environments in operatingSystem",
+        "description": "Failing to document whether the Action runs on Linux only vs cross-platform macOS/Windows runners.",
+        "severity": "warning",
+        "gscImpact": "CI/CD execution failures on non-Linux self-hosted runners.",
+        "solution": "Specify runner compatibility in operatingSystem."
+      },
+      {
+        "title": "Missing Action Semver Release Version",
+        "description": "Failing to increment softwareVersion on new GitHub Action release tags.",
+        "severity": "warning",
+        "gscImpact": "Stale version numbers in marketplace panels.",
+        "solution": "Align softwareVersion with git tag releases."
+      }
+    ],
+    "relatedSlugs": [
+      "microservice-architecture-spec",
+      "code-repository-git",
+      "cli-tool-binary",
+      "developer-sdk-toolkit"
+    ],
+    "useCases": [
+      "GitHub Marketplace Actions",
+      "GitLab CI components",
+      "Bitbucket Pipelines tools",
+      "CircleCI orbs & automation workflows"
     ]
   }
 ];
