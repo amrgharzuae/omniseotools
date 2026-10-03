@@ -15,7 +15,7 @@ export async function GET() {
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>`,
-    // 2. All 120 Blueprint Detail Pages
+    // 2. All 150 Blueprint Detail Pages
     ...blueprints.map(
       (bp) => `  <url>
     <loc>${BASE_URL}/schema/${bp.slug}</loc>

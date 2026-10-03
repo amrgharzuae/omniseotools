@@ -9,14 +9,14 @@ import { Code2, Sparkles, ChevronRight, CheckCircle2, ArrowRight } from "lucide-
 export const metadata: Metadata = {
   title: "Schema Markup Blueprints & JSON-LD Cheat Sheets | OmniSEO Tools",
   description:
-    "Comprehensive directory of 120 production-ready Schema.org JSON-LD blueprints for Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
+    "Comprehensive directory of 150 production-ready Schema.org JSON-LD blueprints for Events, Education & Jobs, Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
   alternates: {
     canonical: "https://omniseotools.com/schema",
   },
   openGraph: {
     title: "Schema Markup Blueprints & JSON-LD Cheat Sheets | OmniSEO Tools",
     description:
-      "Comprehensive directory of 120 production-ready Schema.org JSON-LD blueprints for Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
+      "Comprehensive directory of 150 production-ready Schema.org JSON-LD blueprints for Events, Education & Jobs, Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
     url: "https://omniseotools.com/schema",
     type: "website",
     siteName: "OmniSEOTools",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Schema Markup Blueprints & JSON-LD Cheat Sheets | OmniSEO Tools",
     description:
-      "Comprehensive directory of 120 production-ready Schema.org JSON-LD blueprints for Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
+      "Comprehensive directory of 150 production-ready Schema.org JSON-LD blueprints for Events, Education & Jobs, Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
   },
 };
 
@@ -41,7 +41,7 @@ export default function SchemaHubPage() {
         name: "OmniSEOTools Schema Markup Blueprints & JSON-LD Cheat Sheets",
         url: "https://omniseotools.com/schema",
         description:
-          "Comprehensive directory of 120 production-ready Schema.org JSON-LD blueprints for Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
+          "Comprehensive directory of 150 production-ready Schema.org JSON-LD blueprints for Events, Education & Jobs, Publishing & Media, Local Businesses, Healthcare, Tech & SaaS, E-Commerce, and Technical SEO.",
         publisher: {
           "@type": "Organization",
           name: "OmniSEOTools",
