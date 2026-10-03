@@ -14,6 +14,7 @@ import { OG_VALIDATOR_PLATFORMS } from "@/config/open-graph-validator-platforms"
 import { XML_SITEMAP_PLATFORMS } from "@/config/xml-sitemap-platforms";
 import { AI_CRAWLER_FIREWALL_PLATFORMS } from "@/config/ai-crawler-firewall-platforms";
 import { CWV_BUDGET_PLATFORMS } from "@/config/cwv-budget-platforms";
+import { getAllBlueprints } from "@/data/schemas-dataset";
 
 const BASE_URL = "https://omniseotools.com";
 
@@ -204,6 +205,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // 7b. Schema Blueprints Directory & Detail Pages (Phase 2 Programmatic Footprint)
+  const schemaPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/schema`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    ...getAllBlueprints().map((bp) => ({
+      url: `${BASE_URL}/schema/${bp.slug}`,
+      lastModified: new Date(bp.lastUpdated),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  ];
+
   // 8. Legal & Compliance Informational Pages
   const legalPages: MetadataRoute.Sitemap = [
     {
@@ -244,6 +261,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cwvBudgetPlatformSubRoutes,
     ...blogPages,
     ...recipePages,
+    ...schemaPages,
     ...legalPages,
   ];
 }
