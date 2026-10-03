@@ -30876,13 +30876,24 @@ export function getAllBlueprintCategories(): string[] {
  * Get related blueprints for bidirectional contextual internal linking
  */
 export function getRelatedBlueprints(blueprint: SchemaBlueprint): SchemaBlueprint[] {
-  const bySlugs = SCHEMAS_DATASET.filter((item) => blueprint.relatedSlugs.includes(item.slug));
-  if (bySlugs.length >= 3) return bySlugs;
+  const bySlugs = (blueprint.relatedSlugs || [])
+    .map((slug) => SCHEMAS_DATASET.find((item) => item.slug === slug))
+    .filter((item): item is SchemaBlueprint => Boolean(item && item.slug !== blueprint.slug));
+
+  if (bySlugs.length >= 3) return bySlugs.slice(0, 4);
 
   // Fallback: add items from same category
   const sameCategory = SCHEMAS_DATASET.filter(
-    (item) => item.category === blueprint.category && item.slug !== blueprint.slug && !bySlugs.includes(item)
+    (item) => item.category === blueprint.category && item.slug !== blueprint.slug && !bySlugs.some((b) => b.slug === item.slug)
   );
 
-  return [...bySlugs, ...sameCategory].slice(0, 4);
+  const combined = [...bySlugs, ...sameCategory];
+  if (combined.length >= 3) return combined.slice(0, 4);
+
+  // General fallback: other blueprints if category has very few items
+  const generalFallback = SCHEMAS_DATASET.filter(
+    (item) => item.slug !== blueprint.slug && !combined.some((b) => b.slug === item.slug)
+  );
+
+  return [...combined, ...generalFallback].slice(0, 4);
 }
