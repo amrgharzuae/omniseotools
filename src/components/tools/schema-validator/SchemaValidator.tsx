@@ -145,6 +145,17 @@ export function SchemaValidator({
     return validateJsonLd(inputCode);
   }, [inputCode]);
 
+  // Check for preloaded payload from Schema Blueprint action bar
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const preloaded = sessionStorage.getItem("omni_schema_preload");
+      if (preloaded) {
+        setInputCode(preloaded);
+        sessionStorage.removeItem("omni_schema_preload");
+      }
+    }
+  }, []);
+
   // Handle permalink hydration from URL hash on mount
   useEffect(() => {
     if (typeof window === "undefined") return;

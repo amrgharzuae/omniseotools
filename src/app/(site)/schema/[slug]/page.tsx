@@ -8,6 +8,7 @@ import {
   getRelatedBlueprints,
 } from "@/data/schemas-dataset";
 import { SchemaCodeViewer } from "@/components/schema/SchemaCodeViewer";
+import BlueprintActionBar from "@/components/schema/BlueprintActionBar";
 import { AdSlot } from "@/components/ads/AdSlot";
 import {
   Code2,
@@ -230,6 +231,12 @@ export default async function SchemaDetailPage({ params }: SchemaPageProps) {
               </p>
             </div>
           </div>
+
+          <BlueprintActionBar
+            jsonLd={blueprint.jsonLdPayload ?? blueprint.rawJsonLd ?? blueprint.jsonLd}
+            slug={blueprint.slug}
+            title={blueprint.name ?? blueprint.shortTitle ?? blueprint.title}
+          />
 
           <SchemaCodeViewer jsonLd={blueprint.jsonLd} schemaType={blueprint.schemaType} />
         </section>

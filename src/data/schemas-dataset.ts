@@ -32,6 +32,7 @@ export interface SchemaBlueprint {
   slug: string;
   title: string;
   shortTitle: string;
+  name?: string;
   schemaType: string;
   category: BlueprintCategory;
   description: string;
@@ -39,6 +40,8 @@ export interface SchemaBlueprint {
   lastUpdated: string;
   targetKeywords: string[];
   jsonLd: string;
+  rawJsonLd?: string;
+  jsonLdPayload?: Record<string, unknown> | string;
   properties: SchemaProperty[];
   pitfalls: SchemaPitfall[];
   relatedSlugs: string[];
@@ -30853,7 +30856,14 @@ export function getAllBlueprints(): SchemaBlueprint[] {
  * Get a specific Schema Blueprint by unique slug
  */
 export function getBlueprintBySlug(slug: string): SchemaBlueprint | undefined {
-  return SCHEMAS_DATASET.find((item) => item.slug === slug);
+  const item = SCHEMAS_DATASET.find((item) => item.slug === slug);
+  if (!item) return undefined;
+  return {
+    ...item,
+    name: item.shortTitle || item.title,
+    rawJsonLd: item.jsonLd,
+    jsonLdPayload: item.jsonLd,
+  };
 }
 
 /**
