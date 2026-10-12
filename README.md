@@ -2,7 +2,7 @@
 
 > Live Application: [omniseotools.com](https://omniseotools.com)
 
-OmniSEO is a lightweight, zero-latency suite of web utilities designed for content creators, webmasters, and developers. All processing runs 100% client-side in the browser.
+OmniSEO is a lightweight, zero-latency suite of web utilities designed for content creators, webmasters, and developers. All processing runs 100% client-side in the browser only.
 
 ### Featured Live Tools
 - [Twitter / X Card Previewer](https://omniseotools.com/tools/twitter-card-preview): Live visual mockup for 1.91:1 summary cards.
