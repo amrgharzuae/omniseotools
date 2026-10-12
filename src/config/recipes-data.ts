@@ -4,7 +4,10 @@ export type RecipeCategory =
   | "AI & Crawlers"
   | "Server & Nginx"
   | "SEO & Search Console"
-  | "International SEO";
+  | "International SEO"
+  | "Technical SEO"
+  | "Marketing & Analytics"
+  | "Content & On-Page SEO";
 
 export interface RecipeImplementationStep {
   title: string;

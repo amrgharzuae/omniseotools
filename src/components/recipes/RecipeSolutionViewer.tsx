@@ -34,6 +34,9 @@ export function RecipeSolutionViewer({
     if (snippetLanguage === "javascript") {
       ext = ".mjs";
       mime = "application/javascript";
+    } else if (snippetLanguage === "typescript") {
+      ext = ".ts";
+      mime = "text/typescript";
     } else if (snippetLanguage === "html") {
       ext = ".html";
       mime = "text/html";
@@ -94,7 +97,13 @@ export function RecipeSolutionViewer({
         </div>
 
         <Link
-          href={`/tools/${relatedToolSlug}`}
+          href={
+            relatedToolSlug.startsWith("/")
+              ? relatedToolSlug
+              : relatedToolSlug.startsWith("bulk")
+              ? `/${relatedToolSlug}`
+              : `/tools/${relatedToolSlug}`
+          }
           className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-300 hover:text-emerald-800 dark:hover:text-emerald-200 underline underline-offset-4 decoration-emerald-500/50 hover:decoration-emerald-500 transition-all"
         >
           <span>{relatedToolCta}</span>

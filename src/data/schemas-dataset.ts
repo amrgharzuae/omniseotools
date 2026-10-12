@@ -34,6 +34,7 @@ export interface SchemaBlueprint {
   shortTitle: string;
   name?: string;
   schemaType: string;
+  targetEntity?: string;
   category: BlueprintCategory;
   description: string;
   readingTime: string;
@@ -30849,7 +30850,27 @@ export const SCHEMAS_DATASET: SchemaBlueprint[] = [
  * Returns all active Schema Blueprints
  */
 export function getAllBlueprints(): SchemaBlueprint[] {
-  return SCHEMAS_DATASET;
+  return SCHEMAS_DATASET.map((item) => ({
+    ...item,
+    targetEntity: item.schemaType,
+    name: item.shortTitle || item.title,
+    rawJsonLd: item.jsonLd,
+    jsonLdPayload: item.jsonLd,
+  }));
+}
+
+/**
+ * All distinct schema blueprint categories without "All" prefix
+ */
+export const SCHEMA_CATEGORIES: BlueprintCategory[] = Array.from(
+  new Set(SCHEMAS_DATASET.map((item) => item.category))
+);
+
+/**
+ * Get distinct categories present across all blueprints (without "All")
+ */
+export function getAllSchemaCategories(): BlueprintCategory[] {
+  return SCHEMA_CATEGORIES;
 }
 
 /**
@@ -30860,6 +30881,7 @@ export function getBlueprintBySlug(slug: string): SchemaBlueprint | undefined {
   if (!item) return undefined;
   return {
     ...item,
+    targetEntity: item.schemaType,
     name: item.shortTitle || item.title,
     rawJsonLd: item.jsonLd,
     jsonLdPayload: item.jsonLd,

@@ -12,7 +12,10 @@ interface RecipesDirectoryClientProps {
 
 const CATEGORIES: Array<"All" | RecipeCategory> = [
   "All",
+  "Technical SEO",
   "SEO & Search Console",
+  "Marketing & Analytics",
+  "Content & On-Page SEO",
   "International SEO",
   "Next.js & React",
   "Core Web Vitals",

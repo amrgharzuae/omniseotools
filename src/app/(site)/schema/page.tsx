@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllBlueprints } from "@/data/schemas-dataset";
+import { getAllBlueprints, getAllSchemaCategories } from "@/data/schemas-dataset";
 import { SchemaDirectoryClient } from "@/components/schema/SchemaDirectoryClient";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { Code2, Sparkles, ChevronRight, CheckCircle2, ArrowRight } from "lucide-react";
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 
 export default function SchemaHubPage() {
   const blueprints = getAllBlueprints();
+  const categories = getAllSchemaCategories();
 
   // Structured Data Schema: CollectionPage + BreadcrumbList
   const structuredDataGraph = {
@@ -123,7 +124,7 @@ export default function SchemaHubPage() {
         <AdSlot slotType="leaderboard" className="mb-8" />
 
         {/* Directory Client with Dynamic Filters & Search */}
-        <SchemaDirectoryClient blueprints={blueprints} />
+        <SchemaDirectoryClient categories={categories} initialSchemas={blueprints} />
 
         {/* Bottom Banner to Schema Validator Tool */}
         <div className="mt-14 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 dark:bg-emerald-950/20 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">

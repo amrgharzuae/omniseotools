@@ -180,13 +180,6 @@ export function Footer() {
               </span>
               <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
                 <Link
-                  href="/schema"
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold text-emerald-600 dark:text-emerald-400 transition-colors"
-                >
-                  Schema Blueprint Library (300+)
-                </Link>
-                <span>•</span>
-                <Link
                   href="/blog"
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold text-emerald-600 dark:text-emerald-400 transition-colors"
                 >

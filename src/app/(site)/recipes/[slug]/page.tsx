@@ -220,7 +220,13 @@ export default async function RecipeDetailPage({ params }: RecipePageProps) {
             </div>
 
             <Link
-              href={`/tools/${recipe.relatedToolSlug}`}
+              href={
+                recipe.relatedToolSlug.startsWith("/")
+                  ? recipe.relatedToolSlug
+                  : recipe.relatedToolSlug.startsWith("bulk")
+                  ? `/${recipe.relatedToolSlug}`
+                  : `/tools/${recipe.relatedToolSlug}`
+              }
               className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all shrink-0 self-start sm:self-auto"
             >
               <span>{recipe.relatedToolCta}</span>

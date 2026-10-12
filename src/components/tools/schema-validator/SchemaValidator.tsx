@@ -145,17 +145,6 @@ export function SchemaValidator({
     return validateJsonLd(inputCode);
   }, [inputCode]);
 
-  // Check for preloaded payload from Schema Blueprint action bar
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const preloaded = sessionStorage.getItem("omni_schema_preload");
-      if (preloaded) {
-        setInputCode(preloaded);
-        sessionStorage.removeItem("omni_schema_preload");
-      }
-    }
-  }, []);
-
   // Handle permalink hydration from URL hash on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -331,37 +320,6 @@ export function SchemaValidator({
             Missing Required Fields
           </button>
         </div>
-      </div>
-
-      {/* Schema Blueprint Library Discovery Banner */}
-      <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-slate-50 dark:to-slate-900/40 p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-              <span>Need tested Schema.org templates?</span>
-            </p>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-              Browse 300+ validated examples with GSC error avoidance in our{" "}
-              <Link
-                href="/schema"
-                className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-0.5"
-              >
-                Schema Blueprint Library
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-        <Link
-          href="/schema"
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-xs transition-colors shrink-0"
-        >
-          <span>Explore 300+ Blueprints</span>
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
       </div>
 
       {/* Main Two-Column Grid: Left Editor | Right Diagnostics */}
