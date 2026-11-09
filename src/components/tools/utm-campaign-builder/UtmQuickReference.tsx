@@ -12,24 +12,30 @@ import {
   Code2,
   Sparkles,
   ArrowRight,
-  ShieldAlert,
   ChevronDown,
+  Zap,
 } from "lucide-react";
 import {
   UTM_SYNTAX_DATA,
-  DYNAMIC_PRESET_SNIPPETS,
+  DYNAMIC_MACRO_PLATFORMS,
   PRIMARY_UTM_FAQS,
 } from "@/config/utm-quick-reference-data";
 
 export function UtmQuickReference() {
-  const [copiedSnippet, setCopiedSnippet] = useState<string | null>(null);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("all");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const handleCopy = (snippet: string, key: string) => {
-    navigator.clipboard.writeText(snippet);
-    setCopiedSnippet(key);
-    setTimeout(() => setCopiedSnippet(null), 2000);
+  const handleCopy = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2000);
   };
+
+  const displayedPlatforms =
+    activeTab === "all"
+      ? DYNAMIC_MACRO_PLATFORMS
+      : DYNAMIC_MACRO_PLATFORMS.filter((p) => p.id === activeTab);
 
   return (
     <div className="space-y-12 mt-12 text-slate-800 dark:text-slate-200">
@@ -117,10 +123,10 @@ export function UtmQuickReference() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. PLATFORM PRESETS & DYNAMIC MACROS SNIPPET BOX                          */}
+      {/* 2. PLATFORM DYNAMIC TOKEN CHEAT SHEETS (GRID & TABBED)                    */}
       {/* ========================================================================= */}
       <section
-        id="platform-presets-tokens"
+        id="dynamic-macro-presets"
         className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-6 sm:p-8 shadow-sm space-y-6"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
@@ -130,92 +136,160 @@ export function UtmQuickReference() {
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-                Platform Dynamic Tokens &amp; Copy-Paste Snippets
+                Platform Dynamic Token Cheat Sheets
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Auto-populated ad platform macros for Meta Ads, Google Ads, TikTok Ads, and LinkedIn
+                One-click copy of standard dynamic URL parameters for Google Ads, Meta, TikTok, and LinkedIn
               </p>
             </div>
           </div>
-          <Link
-            href="/tools/utm-campaign-builder/meta-ads"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
-          >
-            <span>Explore Meta Ads Preset</span>
-            <ArrowRight className="h-3 w-3" />
-          </Link>
+
+          {/* Quick Platform Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl text-xs font-semibold">
+            <button
+              type="button"
+              onClick={() => setActiveTab("all")}
+              className={`px-3 py-1.5 rounded-xl transition-all ${
+                activeTab === "all"
+                  ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              All Platforms
+            </button>
+            {DYNAMIC_MACRO_PLATFORMS.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => setActiveTab(p.id)}
+                className={`px-3 py-1.5 rounded-xl transition-all ${
+                  activeTab === p.id
+                    ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+              >
+                {p.platform.split(" ")[0]}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {DYNAMIC_PRESET_SNIPPETS.map((preset) => {
-            const isCopied = copiedSnippet === preset.platformSlug;
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {displayedPlatforms.map((platform) => {
+            const isFullSnippetCopied = copiedKey === `${platform.id}-full`;
+
             return (
               <div
-                key={preset.platformSlug}
-                className="flex flex-col justify-between rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 space-y-4 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+                key={platform.id}
+                className="flex flex-col justify-between rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 space-y-4 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-xs"
               >
-                <div className="space-y-3">
+                <div className="space-y-4">
+                  {/* Platform Header */}
                   <div className="flex items-center justify-between">
-                    <Link
-                      href={`/tools/utm-campaign-builder/${preset.platformSlug}`}
-                      className="text-sm font-bold text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1"
-                    >
-                      <span>{preset.platform}</span>
-                      <ExternalLink className="h-3 w-3 opacity-60" />
-                    </Link>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
-                      {preset.badge}
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/tools/utm-campaign-builder/${platform.platformSlug}`}
+                        className="text-base font-bold text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>{platform.platform}</span>
+                        <ExternalLink className="h-3.5 w-3.5 opacity-60" />
+                      </Link>
+                    </div>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-900/40">
+                      {platform.badge}
                     </span>
                   </div>
 
-                  <div>
-                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-1.5">
-                      Supported Dynamic Tokens:
+                  {/* Individual Macro Token Blocks */}
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                      Standard Dynamic Parameters:
                     </span>
-                    <div className="flex flex-wrap gap-1">
-                      {preset.tokens.map((tok) => (
-                        <code
-                          key={tok}
-                          className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-mono text-blue-600 dark:text-blue-400"
-                        >
-                          {tok}
-                        </code>
-                      ))}
+                    <div className="space-y-1.5">
+                      {platform.macros.map((macro) => {
+                        const tokenKey = `${platform.id}-${macro.role}`;
+                        const isTokenCopied = copiedKey === tokenKey;
+
+                        return (
+                          <div
+                            key={macro.role}
+                            className="flex items-center justify-between bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold text-slate-700 dark:text-slate-300 w-18">
+                                {macro.role}:
+                              </span>
+                              <code className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400 border border-slate-200/50 dark:border-slate-700">
+                                {macro.token}
+                              </code>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => handleCopy(macro.token, tokenKey)}
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-[11px] font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer shrink-0"
+                              title={`Copy ${macro.token}`}
+                              aria-label={`Copy ${macro.token}`}
+                            >
+                              {isTokenCopied ? (
+                                <>
+                                  <Check className="h-3 w-3 text-emerald-500" />
+                                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                                    Copied
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3 w-3" />
+                                  <span>Copy</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
-                  <div>
-                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-1.5">
+                  {/* Ready-to-Paste Query String */}
+                  <div className="space-y-1.5 pt-1">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                       Ready-to-Paste Query String:
                     </span>
-                    <pre className="p-2.5 rounded-xl bg-slate-900 text-slate-100 text-[11px] font-mono overflow-x-auto select-all whitespace-pre-wrap break-all">
-                      {preset.snippet}
-                    </pre>
+                    <div className="relative group">
+                      <pre className="p-3 rounded-xl bg-slate-900 text-slate-100 text-[11px] font-mono overflow-x-auto select-all whitespace-pre-wrap break-all border border-slate-800">
+                        {platform.snippet}
+                      </pre>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-slate-200/60 dark:border-slate-800/80">
+                {/* Card Footer Actions */}
+                <div className="flex items-center justify-between pt-3 border-t border-slate-200/70 dark:border-slate-800">
                   <Link
-                    href={`/tools/utm-campaign-builder/${preset.platformSlug}`}
-                    className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                    href={`/tools/utm-campaign-builder/${platform.platformSlug}`}
+                    className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
                   >
-                    Open dedicated {preset.platform.split(" ")[0]} builder &rarr;
+                    <span>Open dedicated builder</span>
+                    <ArrowRight className="h-3 w-3" />
                   </Link>
 
                   <button
                     type="button"
-                    onClick={() => handleCopy(preset.snippet, preset.platformSlug)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                    onClick={() => handleCopy(platform.snippet, `${platform.id}-full`)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shadow-xs"
                   >
-                    {isCopied ? (
+                    {isFullSnippetCopied ? (
                       <>
                         <Check className="h-3.5 w-3.5 text-emerald-500" />
-                        <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
+                        <span className="text-emerald-600 dark:text-emerald-400">
+                          Copied All!
+                        </span>
                       </>
                     ) : (
                       <>
                         <Copy className="h-3.5 w-3.5" />
-                        <span>Copy Query</span>
+                        <span>Copy Query String</span>
                       </>
                     )}
                   </button>
@@ -242,7 +316,7 @@ export function UtmQuickReference() {
               Frequently Asked Questions (UTM Architecture &amp; GA4)
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Essential technical answers on case sensitivity, spacing rules, and parameter ordering
+              Essential technical answers on case sensitivity, SEO duplicate content, and parameter ordering
             </p>
           </div>
         </div>
@@ -281,4 +355,3 @@ export function UtmQuickReference() {
     </div>
   );
 }
-

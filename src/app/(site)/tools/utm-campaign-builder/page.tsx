@@ -71,7 +71,7 @@ export default function UtmCampaignBuilderPage() {
         author: {
           "@type": "Organization",
           name: "OmniSEOTools",
-          url: "https://omniseotools.com",
+          url: "https://www.omniseotools.com",
         },
       },
       {

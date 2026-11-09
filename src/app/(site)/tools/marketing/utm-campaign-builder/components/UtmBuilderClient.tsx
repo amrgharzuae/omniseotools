@@ -556,30 +556,27 @@ export function UtmBuilderClient({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* LEFT COLUMN: Input Fields (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
-          {/* Internal Bulk Hub Bridge Banner */}
-          <div className="rounded-2xl border border-emerald-200/80 bg-emerald-50/70 p-4 sm:p-4.5 dark:border-emerald-900/50 dark:bg-emerald-950/30 shadow-xs">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
-              <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-200">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400">
-                  <Sparkles className="h-4 w-4" />
-                </span>
-                <span className="leading-snug">
-                  Tagging hundreds of landing pages? Try our{" "}
-                  <Link
-                    href="/bulk/utm-matrix"
-                    className="font-bold text-emerald-600 dark:text-emerald-400 underline underline-offset-2 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
-                  >
-                    Bulk UTM Matrix
-                  </Link>{" "}
-                  to process CSV batches with zero latency.
-                </span>
+          {/* Prominent Bulk Matrix Banner */}
+          <div className="rounded-2xl sm:rounded-3xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent p-5 dark:border-emerald-500/25 dark:from-emerald-950/40 dark:via-slate-900/40 dark:to-slate-950/40 shadow-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-xs dark:bg-emerald-400 dark:text-slate-950">
+                  <Zap className="h-5 w-5 fill-current" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                    Managing multi-channel campaigns?
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Tag hundreds of landing pages across Google, Meta, and TikTok simultaneously with zero server uploads.
+                  </p>
+                </div>
               </div>
               <Link
                 href="/bulk/utm-matrix"
-                className="inline-flex items-center gap-1 font-semibold text-xs text-emerald-700 dark:text-emerald-300 hover:text-emerald-800 dark:hover:text-emerald-200 bg-emerald-100/70 dark:bg-emerald-900/40 px-3 py-1.5 rounded-xl border border-emerald-300/50 dark:border-emerald-800/60 transition-all shrink-0"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:text-slate-950 shadow-xs transition-all duration-200 shrink-0 whitespace-nowrap self-stretch sm:self-auto justify-center"
               >
-                <span>Launch Bulk Matrix</span>
-                <ArrowRight className="h-3 w-3" />
+                <span>Open Bulk UTM Matrix &rarr;</span>
               </Link>
             </div>
           </div>

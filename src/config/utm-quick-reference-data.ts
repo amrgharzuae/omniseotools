@@ -44,77 +44,68 @@ export const UTM_SYNTAX_DATA: UtmSyntaxRow[] = [
   },
 ];
 
-export interface DynamicPresetSnippet {
+export interface MacroItem {
+  role: "Campaign" | "Content" | "Term";
+  param: "utm_campaign" | "utm_content" | "utm_term";
+  token: string;
+}
+
+export interface DynamicPresetPlatform {
+  id: string;
   platform: string;
   platformSlug: string;
   badge: string;
-  tokens: string[];
+  macros: MacroItem[];
   snippet: string;
-  documentationUrl?: string;
 }
 
-export const DYNAMIC_PRESET_SNIPPETS: DynamicPresetSnippet[] = [
+export const DYNAMIC_MACRO_PLATFORMS: DynamicPresetPlatform[] = [
   {
-    platform: "Meta Ads (Facebook & Instagram)",
-    platformSlug: "meta-ads",
-    badge: "Paid Social",
-    tokens: [
-      "{{campaign.name}}",
-      "{{campaign.id}}",
-      "{{adset.name}}",
-      "{{adset.id}}",
-      "{{ad.name}}",
-      "{{ad.id}}",
-      "{{placement}}",
-      "{{site_source_name}}",
-    ],
-    snippet:
-      "utm_source=facebook&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}",
-  },
-  {
+    id: "google-ads",
     platform: "Google Ads",
     platformSlug: "google-ads",
-    badge: "Paid Search / Display",
-    tokens: [
-      "{campaignid}",
-      "{adgroupid}",
-      "{keyword}",
-      "{creative}",
-      "{matchtype}",
-      "{network}",
-      "{device}",
+    badge: "Paid Search",
+    macros: [
+      { role: "Campaign", param: "utm_campaign", token: "{campaignid}" },
+      { role: "Content", param: "utm_content", token: "{adgroupid}" },
+      { role: "Term", param: "utm_term", token: "{keyword}" },
     ],
-    snippet:
-      "utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}&utm_content={creative}",
+    snippet: "utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={adgroupid}&utm_term={keyword}",
   },
   {
+    id: "meta-ads",
+    platform: "Meta Ads (Facebook/Instagram)",
+    platformSlug: "meta-ads",
+    badge: "Paid Social",
+    macros: [
+      { role: "Campaign", param: "utm_campaign", token: "{{campaign.name}}" },
+      { role: "Content", param: "utm_content", token: "{{ad.name}}" },
+      { role: "Term", param: "utm_term", token: "{{adset.name}}" },
+    ],
+    snippet: "utm_source=facebook&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}",
+  },
+  {
+    id: "tiktok-ads",
     platform: "TikTok Ads",
     platformSlug: "tiktok-ads",
-    badge: "Short-Form Video",
-    tokens: [
-      "__CAMPAIGN_NAME__",
-      "__CAMPAIGN_ID__",
-      "__AID_NAME__",
-      "__AID__",
-      "__CID_NAME__",
-      "__CID__",
-      "__PLACEMENT__",
+    badge: "Paid Social / Video",
+    macros: [
+      { role: "Campaign", param: "utm_campaign", token: "__CAMPAIGN_NAME__" },
+      { role: "Content", param: "utm_content", token: "__AID_NAME__" },
+      { role: "Term", param: "utm_term", token: "__CID_NAME__" },
     ],
-    snippet:
-      "utm_source=tiktok&utm_medium=paid_social&utm_campaign=__CAMPAIGN_NAME__&utm_content=__CID_NAME__&utm_term=__AID_NAME__",
+    snippet: "utm_source=tiktok&utm_medium=paid_social&utm_campaign=__CAMPAIGN_NAME__&utm_content=__AID_NAME__&utm_term=__CID_NAME__",
   },
   {
+    id: "linkedin-ads",
     platform: "LinkedIn Ads",
     platformSlug: "linkedin-ads",
     badge: "B2B Professional",
-    tokens: [
-      "campaign_id",
-      "creative_id",
-      "account_id",
-      "sponsored_update",
+    macros: [
+      { role: "Campaign", param: "utm_campaign", token: "{{campaignName}}" },
+      { role: "Content", param: "utm_content", token: "{{creativeId}}" },
     ],
-    snippet:
-      "utm_source=linkedin&utm_medium=paid_social&utm_campaign=q4_demand_gen&utm_content=lead_magnet_v1",
+    snippet: "utm_source=linkedin&utm_medium=paid_social&utm_campaign={{campaignName}}&utm_content={{creativeId}}",
   },
 ];
 
@@ -125,19 +116,18 @@ export interface PrimaryUtmFaq {
 
 export const PRIMARY_UTM_FAQS: PrimaryUtmFaq[] = [
   {
-    question: "Are UTM parameters case-sensitive in Google Analytics 4?",
+    question: "Are UTM parameters case-sensitive?",
     answer:
-      "Yes, UTM parameters are strictly case-sensitive in GA4. If you use utm_source=Google on one ad and utm_source=google on another, GA4 records them as two completely separate traffic sources in your Acquisition reports. This fragments your visitor sessions, engagement rates, and conversion counts across duplicate rows. Always use lowercase conventions for every UTM parameter.",
+      "Yes. Google Analytics treats utm_source=Google and utm_source=google as two separate sources. Standard practice is to always lowercase all parameters.",
   },
   {
-    question: "Can you use spaces in UTM parameters?",
+    question: "Do UTM parameters hurt my SEO or create duplicate content?",
     answer:
-      "No, you should never include raw spaces in UTM parameter values. Web browsers URL-encode spaces into '%20' or '+', which can trigger server redirect chains, break client-side tracking scripts, and create messy reporting rows in GA4. Replace all spaces with hyphens (-) or underscores (_) to ensure clean, human-readable URLs.",
+      "No, provided your pages use a self-referencing canonical tag pointing to the clean base URL without query strings.",
   },
   {
-    question: "Does the order of UTM parameters in a URL matter?",
+    question: "What is the proper order of UTM tags in a URL?",
     answer:
-      "No, query parameter order does not impact Google Analytics 4 processing or server routing. Web servers and GA4 parse query strings into independent key-value dictionaries regardless of whether utm_source precedes utm_campaign. However, maintaining a consistent taxonomy order (utm_source → utm_medium → utm_campaign → utm_term → utm_content) across your marketing team improves URL readability, debugging, and spreadsheet management.",
+      "The order does not affect tracking in GA4 or BI tools, but following standard taxonomy (utm_source → utm_medium → utm_campaign → utm_term → utm_content) maintains consistency across marketing teams.",
   },
 ];
-

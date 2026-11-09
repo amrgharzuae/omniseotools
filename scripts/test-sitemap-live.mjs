@@ -189,25 +189,74 @@ async function runTests() {
 
     // Check title
     const titleMatch = utmHtml.match(/<title>([^<]+)<\/title>/);
-    console.log(`Title tag: "${titleMatch ? titleMatch[1] : "NOT FOUND"}"`);
+    const expectedTitle = "Free UTM Campaign Builder &amp; URL Tracker (No Sign-Up) | OmniSEOTools";
+    const actualTitle = titleMatch ? titleMatch[1] : "";
+    console.log(`Title tag: "${actualTitle}"`);
+    if (!actualTitle.includes("Free UTM Campaign Builder &amp; URL Tracker (No Sign-Up) | OmniSEOTools")) {
+      throw new Error(`Title tag did not match expected! Got: "${actualTitle}"`);
+    }
+
+    // Check description
+    const descMatch = utmHtml.match(/<meta name="description" content="([^"]+)"/);
+    const expectedDesc = "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.";
+    const actualDesc = descMatch ? descMatch[1] : "";
+    console.log(`Description tag: "${actualDesc}"`);
+    if (actualDesc !== expectedDesc) {
+      throw new Error(`Description tag mismatch! Got: "${actualDesc}"`);
+    }
 
     // Check canonical
     const canonicalMatch = utmHtml.match(/<link rel="canonical" href="([^"]+)"/);
     console.log(`Canonical tag: "${canonicalMatch ? canonicalMatch[1] : "NOT FOUND"}"`);
+    if (!canonicalMatch || canonicalMatch[1] !== "https://www.omniseotools.com/tools/utm-campaign-builder") {
+      throw new Error(`Canonical tag mismatch! Got: ${canonicalMatch ? canonicalMatch[1] : "none"}`);
+    }
 
-    // Check Bulk Matrix bridge callout
+    // Check Bulk Matrix bridge callout banner
     const hasBulkBridge = utmHtml.includes("/bulk/utm-matrix");
+    const hasBulkHeadline = utmHtml.includes("Managing multi-channel campaigns?");
+    const hasBulkBody = utmHtml.includes("Tag hundreds of landing pages across Google, Meta, and TikTok simultaneously with zero server uploads.");
+    const hasBulkButton = utmHtml.includes("Open Bulk UTM Matrix");
     console.log(`Bulk UTM Matrix bridge link present: ${hasBulkBridge ? "✅ YES" : "❌ NO"}`);
+    console.log(`Bulk Banner headline present: ${hasBulkHeadline ? "✅ YES" : "❌ NO"}`);
+    console.log(`Bulk Banner body copy present: ${hasBulkBody ? "✅ YES" : "❌ NO"}`);
+    console.log(`Bulk Banner action button present: ${hasBulkButton ? "✅ YES" : "❌ NO"}`);
 
-    // Check Meta Ads preset link
-    const hasMetaPresetLink = utmHtml.includes("/tools/utm-campaign-builder/meta-ads");
-    console.log(`Meta Ads preset sub-route link present: ${hasMetaPresetLink ? "✅ YES" : "❌ NO"}`);
+    if (!hasBulkBridge || !hasBulkHeadline || !hasBulkBody || !hasBulkButton) {
+      throw new Error("Bulk Matrix bridge banner missing required copy or button!");
+    }
+
+    // Check Platform Dynamic Token Cheat Sheets
+    const hasGoogleTokens = utmHtml.includes("{campaignid}") && utmHtml.includes("{adgroupid}") && utmHtml.includes("{keyword}");
+    const hasMetaTokens = utmHtml.includes("{{campaign.name}}") && utmHtml.includes("{{ad.name}}") && utmHtml.includes("{{adset.name}}");
+    const hasTikTokTokens = utmHtml.includes("__CAMPAIGN_NAME__") && utmHtml.includes("__AID_NAME__") && utmHtml.includes("__CID_NAME__");
+    const hasLinkedInTokens = utmHtml.includes("{{campaignName}}") && utmHtml.includes("{{creativeId}}");
+
+    console.log(`Google Ads dynamic tokens: ${hasGoogleTokens ? "✅ PRESENT" : "❌ MISSING"}`);
+    console.log(`Meta Ads dynamic tokens: ${hasMetaTokens ? "✅ PRESENT" : "❌ MISSING"}`);
+    console.log(`TikTok Ads dynamic tokens: ${hasTikTokTokens ? "✅ PRESENT" : "❌ MISSING"}`);
+    console.log(`LinkedIn Ads dynamic tokens: ${hasLinkedInTokens ? "✅ PRESENT" : "❌ MISSING"}`);
+
+    if (!hasGoogleTokens || !hasMetaTokens || !hasTikTokTokens || !hasLinkedInTokens) {
+      throw new Error("One or more platform dynamic token cheat sheet blocks are missing!");
+    }
 
     // Check FAQ & SoftwareApplication Schema
     const hasSoftwareApp = utmHtml.includes('"@type":"SoftwareApplication"');
     const hasFaqPage = utmHtml.includes('"@type":"FAQPage"');
+    const hasFaq1 = utmHtml.includes("Are UTM parameters case-sensitive?");
+    const hasFaq2 = utmHtml.includes("Do UTM parameters hurt my SEO or create duplicate content?");
+    const hasFaq3 = utmHtml.includes("What is the proper order of UTM tags in a URL?");
+
     console.log(`SoftwareApplication JSON-LD schema: ${hasSoftwareApp ? "✅ VALID" : "❌ MISSING"}`);
     console.log(`FAQPage JSON-LD schema: ${hasFaqPage ? "✅ VALID" : "❌ MISSING"}`);
+    console.log(`FAQ 1 present: ${hasFaq1 ? "✅ YES" : "❌ NO"}`);
+    console.log(`FAQ 2 present: ${hasFaq2 ? "✅ YES" : "❌ NO"}`);
+    console.log(`FAQ 3 present: ${hasFaq3 ? "✅ YES" : "❌ NO"}`);
+
+    if (!hasSoftwareApp || !hasFaqPage || !hasFaq1 || !hasFaq2 || !hasFaq3) {
+      throw new Error("FAQ schema or FAQ accordion items are incomplete!");
+    }
 
     console.log(`\n🎉 ALL AUTOMATED VERIFICATION CHECKS PASSED!\n`);
   } finally {
