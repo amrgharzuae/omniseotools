@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
 import { getAllBlueprints } from "@/data/schemas-dataset";
 
+const CANONICAL_DOMAIN = "https://www.omniseotools.com";
+
 const BASE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://omniseotools.com"
-).replace(/\/+$/, "").toLowerCase();
+  process.env.NEXT_PUBLIC_SITE_URL &&
+  process.env.NEXT_PUBLIC_SITE_URL.includes("localhost")
+    ? process.env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, "")
+    : CANONICAL_DOMAIN
+).toLowerCase();
 
 function normalizeSitemapUrl(path: string): string {
   // Enforce direct HTTPS, lowercase, no trailing slash (matching Next.js App Router default)

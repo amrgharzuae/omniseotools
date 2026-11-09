@@ -10,7 +10,7 @@ import { ToolContent } from "@/app/(site)/tools/marketing/utm-campaign-builder/c
 import { UtmQuickReference } from "@/components/tools/utm-campaign-builder";
 import { PRIMARY_UTM_FAQS } from "@/config/utm-quick-reference-data";
 
-const CANONICAL_URL = "https://omniseotools.com/tools/utm-campaign-builder";
+const CANONICAL_URL = "https://www.omniseotools.com/tools/utm-campaign-builder";
 
 export const metadata: Metadata = {
   title: {

@@ -55,7 +55,7 @@ export async function generateMetadata({
     };
   }
 
-  const canonicalUrl = `https://omniseotools.com/tools/utm-campaign-builder/${platform.slug}`;
+  const canonicalUrl = `https://www.omniseotools.com/tools/utm-campaign-builder/${platform.slug}`;
 
   return {
     title: `${platform.title} | OmniSEO Tools`,
@@ -95,7 +95,7 @@ export default async function UtmPlatformPage({ params }: PlatformPageProps) {
     notFound();
   }
 
-  const canonicalUrl = `https://omniseotools.com/tools/utm-campaign-builder/${platform.slug}`;
+  const canonicalUrl = `https://www.omniseotools.com/tools/utm-campaign-builder/${platform.slug}`;
 
   const structuredDataGraph = {
     "@context": "https://schema.org",
@@ -115,7 +115,7 @@ export default async function UtmPlatformPage({ params }: PlatformPageProps) {
         author: {
           "@type": "Organization",
           name: "OmniSEOTools",
-          url: "https://omniseotools.com",
+          url: "https://www.omniseotools.com",
         },
       },
       {

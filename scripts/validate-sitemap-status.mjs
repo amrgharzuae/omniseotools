@@ -3,7 +3,9 @@ import fs from "fs";
 import path from "path";
 
 const rootDir = process.cwd();
+const CANONICAL_DOMAIN = "https://www.omniseotools.com";
 const datasetPath = path.resolve(rootDir, "src/data/schemas-dataset.ts");
+const xmlPath = path.resolve(rootDir, "public/sitemaps/p-seo-batch-1.xml");
 
 if (!fs.existsSync(datasetPath)) {
   console.error(`❌ Could not locate schemas-dataset.ts at ${datasetPath}`);
@@ -21,12 +23,13 @@ while ((match = slugRegex.exec(content)) !== null) {
 console.log(`\n=================================================`);
 console.log(`📋 SITEMAP P-SEO-BATCH-1 NORMALIZATION AUDIT`);
 console.log(`=================================================`);
+console.log(`Canonical Base Domain: ${CANONICAL_DOMAIN}`);
 console.log(`Total blueprint detail pages found : ${slugs.length}`);
 
 // Normalization checks
 let normalizationErrors = 0;
 const normalizedUrls = [
-  "https://omniseotools.com/schema",
+  `${CANONICAL_DOMAIN}/schema`,
   ...slugs.map((slug) => {
     // Check slug rules
     if (slug !== slug.toLowerCase()) {
@@ -41,7 +44,7 @@ const normalizedUrls = [
       console.error(`❌ Slug contains whitespace: "${slug}"`);
       normalizationErrors++;
     }
-    return `https://omniseotools.com/schema/${slug}`;
+    return `${CANONICAL_DOMAIN}/schema/${slug}`;
   }),
 ];
 
@@ -51,7 +54,19 @@ if (normalizationErrors > 0) {
   console.error(`❌ Found ${normalizationErrors} URL normalization errors.`);
   process.exit(1);
 } else {
-  console.log(`✅ All ${normalizedUrls.length} URLs pass strict normalization (HTTPS, lowercase, no trailing slash, zero redirects)!\n`);
+  console.log(`✅ All ${normalizedUrls.length} URLs pass strict normalization (Canonical WWW, HTTPS, lowercase, no trailing slash, zero redirects)!`);
+}
+
+// Check public/sitemaps/p-seo-batch-1.xml if exists
+if (fs.existsSync(xmlPath)) {
+  const xmlContent = fs.readFileSync(xmlPath, "utf8");
+  const nonWwwMatches = [...xmlContent.matchAll(/https:\/\/omniseotools\.com/g)];
+  if (nonWwwMatches.length > 0) {
+    console.error(`❌ REGRESSION in public/sitemaps/p-seo-batch-1.xml: ${nonWwwMatches.length} non-www URLs found!`);
+    process.exit(1);
+  } else {
+    console.log(`✅ File public/sitemaps/p-seo-batch-1.xml verified: 0 non-www URLs detected.\n`);
+  }
 }
 
 // Optional HTTP Status Validation against local server

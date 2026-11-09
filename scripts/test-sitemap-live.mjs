@@ -126,6 +126,15 @@ async function runTests() {
       );
     }
 
+    // Verify zero non-www URLs
+    const nonWwwMatches = locMatches.filter((u) => !u.startsWith("https://www.omniseotools.com"));
+    if (nonWwwMatches.length > 0) {
+      throw new Error(
+        `Found ${nonWwwMatches.length} URLs without www prefix! First few: ${nonWwwMatches.slice(0, 3).join(", ")}`
+      );
+    }
+    console.log(`✅ All ${locMatches.length} URLs strictly use https://www.omniseotools.com (0 non-www URLs)!`);
+
     console.log(`\n=================================================`);
     console.log(`3. VERIFYING 200 OK STATUS FOR ALL SITEMAP URLS`);
     console.log(`=================================================`);

@@ -16,7 +16,14 @@ import { AI_CRAWLER_FIREWALL_PLATFORMS } from "@/config/ai-crawler-firewall-plat
 import { CWV_BUDGET_PLATFORMS } from "@/config/cwv-budget-platforms";
 import { getAllBlueprints } from "@/data/schemas-dataset";
 
-const BASE_URL = "https://omniseotools.com";
+const CANONICAL_DOMAIN = "https://www.omniseotools.com";
+
+const BASE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL &&
+  process.env.NEXT_PUBLIC_SITE_URL.includes("localhost")
+    ? process.env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, "")
+    : CANONICAL_DOMAIN
+).toLowerCase();
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

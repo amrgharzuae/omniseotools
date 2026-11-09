@@ -2,8 +2,8 @@ export const siteConfig = {
   name: "OmniSEOTools",
   shortName: "OmniSEO",
   description: "Free, lightning-fast utility tools for SEO specialists, digital marketers, developers, and creators.",
-  url: "https://omniseotools.com",
-  ogImage: "https://omniseotools.com/og.png",
+  url: "https://www.omniseotools.com",
+  ogImage: "https://www.omniseotools.com/og.png",
   creator: "OmniSEOTools Team",
   links: {
     twitter: "https://twitter.com/omniseotools",
