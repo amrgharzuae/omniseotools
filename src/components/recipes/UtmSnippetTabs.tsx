@@ -202,7 +202,7 @@ export function UtmSnippetTabs() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="/tools/marketing/utm-campaign-builder"
+            href="/tools/utm-campaign-builder"
             className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 dark:text-emerald-300 hover:text-emerald-800 dark:hover:text-emerald-200 underline underline-offset-4 decoration-emerald-500/50 hover:decoration-emerald-500 transition-all"
           >
             <span>Single Builder</span>

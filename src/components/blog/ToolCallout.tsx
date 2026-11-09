@@ -65,7 +65,7 @@ export function ToolCallout({
   if (toolSlug.startsWith("/")) {
     toolHref = toolSlug;
   } else if (normalizedSlug === "utm-campaign-builder" || toolSlug === "campaign-utm-builder") {
-    toolHref = "/tools/marketing/utm-campaign-builder";
+    toolHref = "/tools/utm-campaign-builder";
   } else if (normalizedSlug === "serp-preview" || normalizedSlug === "google-serp-simulator" || toolSlug === "google-serp-simulator") {
     toolHref = "/tools/seo/serp-preview";
   }

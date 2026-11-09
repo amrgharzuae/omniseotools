@@ -199,7 +199,7 @@ export function BulkUtmMatrixGenerator({
           <span>
             Need to build a single URL with instant QR code preview? Use our{" "}
             <Link
-              href="/tools/marketing/utm-campaign-builder"
+              href="/tools/utm-campaign-builder"
               className="font-bold underline hover:text-emerald-900 dark:hover:text-emerald-200 inline-flex items-center gap-0.5"
             >
               Single UTM Campaign Builder
@@ -788,7 +788,7 @@ export function BulkUtmMatrixGenerator({
           <p className="text-sm leading-relaxed">
             Need to build single URLs with live QR code previews or inspect individual query parameters? Explore our companion utility:{" "}
             <Link
-              href="/tools/marketing/utm-campaign-builder"
+              href="/tools/utm-campaign-builder"
               className="text-emerald-600 dark:text-emerald-400 font-bold underline hover:text-emerald-700 dark:hover:text-emerald-300"
             >
               UTM Campaign Builder &amp; URL Tracker (Tool #22)

@@ -105,7 +105,7 @@ export interface MatrixGenerationResult {
 
 export const SAMPLE_BASE_URLS = [
   "https://omniseotools.com/tools/seo/serp-preview",
-  "https://omniseotools.com/tools/marketing/utm-campaign-builder",
+  "https://omniseotools.com/tools/utm-campaign-builder",
   "https://omniseotools.com/blog/why-ga4-strips-utm-parameters-spa",
 ];
 

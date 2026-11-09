@@ -629,7 +629,7 @@ export const SAMPLE_SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="es" href="https://omniseotools.com/es/tools/google-serp-simulator" />
   </url>
   <url>
-    <loc>https://omniseotools.com/tools/marketing/utm-campaign-builder</loc>
+    <loc>https://omniseotools.com/tools/utm-campaign-builder</loc>
     <lastmod>2026-09-18T16:45:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

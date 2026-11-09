@@ -231,7 +231,7 @@ export function Header() {
                 Bulk Sitemap Extractor ⚡
               </Link>
               <Link
-                href="/tools/marketing/utm-campaign-builder"
+                href="/tools/utm-campaign-builder"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block px-3 py-1.5 rounded-md text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-indigo-600"
               >

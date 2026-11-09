@@ -6,43 +6,48 @@ import { RelatedTools } from "@/components/tool-layout/RelatedTools";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolErrorBoundary } from "@/components/common/ToolErrorBoundary";
 import { UtmBuilderClient } from "@/app/(site)/tools/marketing/utm-campaign-builder/components/UtmBuilderClient";
-import { ToolContent, UTM_FAQS } from "@/app/(site)/tools/marketing/utm-campaign-builder/components/ToolContent";
+import { ToolContent } from "@/app/(site)/tools/marketing/utm-campaign-builder/components/ToolContent";
+import { UtmQuickReference } from "@/components/tools/utm-campaign-builder";
+import { PRIMARY_UTM_FAQS } from "@/config/utm-quick-reference-data";
 
 const CANONICAL_URL = "https://omniseotools.com/tools/utm-campaign-builder";
 
 export const metadata: Metadata = {
-  title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
+  title: {
+    absolute: "Free UTM Campaign Builder & URL Tracker (No Sign-Up) | OmniSEOTools",
+  },
   description:
-    "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
+    "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.",
   keywords: [
+    "Free UTM Campaign Builder",
+    "URL Tracker",
+    "UTM campaign builder",
     "Campaign URL Builder",
     "Google Analytics URL Builder Tool",
     "GA4 UTM Parameter Generator",
-    "campaign builder",
-    "utm campaign builder",
-    "utm builder",
-    "campaign url builder",
-    "google analytics campaign url builder",
-    "ga4 url builder",
-    "campaign utm builder",
-    "utm link generator",
+    "Meta ads UTM builder",
+    "Google ads UTM generator",
+    "TikTok campaign URL builder",
+    "utm builder no sign up",
+    "clean utm links",
+    "dynamic utm macros",
   ],
   alternates: {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
+    title: "Free UTM Campaign Builder & URL Tracker (No Sign-Up) | OmniSEOTools",
     description:
-      "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
+      "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.",
     url: CANONICAL_URL,
     type: "website",
     siteName: "OmniSEOTools",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
+    title: "Free UTM Campaign Builder & URL Tracker (No Sign-Up) | OmniSEOTools",
     description:
-      "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
+      "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.",
   },
 };
 
@@ -51,13 +56,13 @@ export default function UtmCampaignBuilderPage() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebApplication",
-        name: "Campaign URL Builder",
+        "@type": "SoftwareApplication",
+        name: "Free UTM Campaign Builder & URL Tracker",
         operatingSystem: "All",
-        applicationCategory: "SEOApplication",
+        applicationCategory: "BusinessApplication",
         url: CANONICAL_URL,
         description:
-          "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
+          "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.",
         offers: {
           "@type": "Offer",
           price: "0.00",
@@ -71,7 +76,7 @@ export default function UtmCampaignBuilderPage() {
       },
       {
         "@type": "FAQPage",
-        mainEntity: UTM_FAQS.map((faq) => ({
+        mainEntity: PRIMARY_UTM_FAQS.map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: {
@@ -98,20 +103,23 @@ export default function UtmCampaignBuilderPage() {
         {/* Top Zero-CLS AdSlot Container */}
         <AdSlot slotType="leaderboard" className="my-6" />
 
-        {/* Interactive Tool Widget (GA4 UTM Builder with Presets & QR Code Generator) */}
+        {/* Interactive Tool Widget (GA4 UTM Builder with Presets, Dynamic Macros & QR Code) */}
         <section className="mt-4" aria-label="Interactive GA4 Campaign URL Builder">
           <ToolErrorBoundary
             toolSlug="utm-campaign-builder"
-            toolName="Campaign URL Builder & Google Analytics URL Generator"
+            toolName="Free UTM Campaign Builder & URL Tracker"
           >
             <UtmBuilderClient />
           </ToolErrorBoundary>
         </section>
 
+        {/* Lightweight Reference Section: Quick Syntax Table, Dynamic Presets & FAQs */}
+        <UtmQuickReference />
+
         {/* Mid-Content In-Feed AdSlot */}
         <AdSlot slotType="in-feed" className="my-10" />
 
-        {/* Deep Technical Guide, Channel Grouping Matrix & FAQ Accordion */}
+        {/* Deep Technical Guide & Channel Grouping Matrix */}
         <ToolContent />
 
         {/* Related Internal Linking Mesh */}

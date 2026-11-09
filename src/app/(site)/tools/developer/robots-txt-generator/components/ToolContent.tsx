@@ -647,10 +647,10 @@ export default function robots(): MetadataRoute.Robots {
 
             <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <span className="text-[11px] font-mono text-slate-400">
-                /tools/marketing/utm-campaign-builder
+                /tools/utm-campaign-builder
               </span>
               <Link
-                href="/tools/marketing/utm-campaign-builder"
+                href="/tools/utm-campaign-builder"
                 className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:translate-x-0.5 transition-transform"
               >
                 <span>Open</span>

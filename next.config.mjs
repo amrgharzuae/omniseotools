@@ -5,12 +5,22 @@ const nextConfig = {
     return [
       {
         source: "/tools/utm-builder",
-        destination: "/tools/marketing/utm-campaign-builder",
+        destination: "/tools/utm-campaign-builder",
         permanent: true,
       },
       {
         source: "/tools/campaign-utm-builder",
-        destination: "/tools/marketing/utm-campaign-builder",
+        destination: "/tools/utm-campaign-builder",
+        permanent: true,
+      },
+      {
+        source: "/tools/marketing/utm-campaign-builder",
+        destination: "/tools/utm-campaign-builder",
+        permanent: true,
+      },
+      {
+        source: "/tools/marketing/utm-campaign-builder/:platform",
+        destination: "/tools/utm-campaign-builder/:platform",
         permanent: true,
       },
       {

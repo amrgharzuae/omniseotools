@@ -160,7 +160,7 @@ export default async function UtmPlatformPage({ params }: PlatformPageProps) {
             "@type": "ListItem",
             position: 3,
             name: "UTM Campaign Builder",
-            item: "https://omniseotools.com/tools/marketing/utm-campaign-builder",
+            item: "https://omniseotools.com/tools/utm-campaign-builder",
           },
           {
             "@type": "ListItem",
@@ -195,7 +195,7 @@ export default async function UtmPlatformPage({ params }: PlatformPageProps) {
               Tools
             </Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/tools/marketing/utm-campaign-builder" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+            <Link href="/tools/utm-campaign-builder" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
               UTM Builder
             </Link>
             <ChevronRight className="h-3 w-3" />

@@ -4,15 +4,15 @@ export const utmCampaignBuilderTool: ToolDefinition = {
   id: "utm-campaign-builder",
   slug: "utm-campaign-builder",
   name: "Campaign URL Builder",
-  title: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
-  metaTitle: "Campaign URL Builder - Free Google Analytics URL Builder Tool | OmniSEO Tools",
+  title: "Free UTM Campaign Builder & URL Tracker (No Sign-Up) | OmniSEOTools",
+  metaTitle: "Free UTM Campaign Builder & URL Tracker (No Sign-Up) | OmniSEOTools",
   metaDescription:
-    "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
+    "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.",
   h1: "Campaign URL Builder & Google Analytics URL Generator",
   tagline:
     "Build, sanitize, and validate Google Analytics 4 (GA4) campaign tracking URLs in real time. 100% private, client-side execution.",
   shortDescription:
-    "Create custom tracking links with our free Campaign URL Builder. Generate compliant GA4 UTM parameters for Google Ads, Meta, TikTok, and email campaigns instantly client-side.",
+    "Generate clean, error-free UTM campaign tracking links for Google Ads, Meta/Facebook, TikTok, and email campaigns in seconds. Zero sign-up required.",
   category: "marketing",
   icon: "Link2",
   badge: "Popular",

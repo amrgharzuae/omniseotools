@@ -59,7 +59,7 @@ export const bulkUtmMatrixGeneratorTool: ToolDefinition = {
       {
         heading: "Why Multi-Channel Campaigns Require Matrix Tagging",
         content:
-          "<p>Modern digital marketing campaigns rarely launch on a single distribution channel. A standard product launch or seasonal promotion typically spans <strong>Google Search Ads, Meta feeds, TikTok videos, LinkedIn sponsored posts, and email newsletters</strong> simultaneously pointing to multiple product and landing pages.</p><p>Manually generating UTM parameters for every landing page and channel combination using a single URL builder is tedious and leads to typo-ridden parameter naming. Our <strong>Bulk UTM Matrix Generator</strong> solves this by computing the Cartesian product of destination URLs and advertising channels in a single operation, guaranteeing 100% parameter consistency across your entire marketing team.</p><p>For single-link generation with instant QR codes, explore our companion tool: <a href='/tools/marketing/utm-campaign-builder' class='text-emerald-600 dark:text-emerald-400 font-bold underline'>UTM Campaign Builder & URL Tracker</a>.</p>",
+          "<p>Modern digital marketing campaigns rarely launch on a single distribution channel. A standard product launch or seasonal promotion typically spans <strong>Google Search Ads, Meta feeds, TikTok videos, LinkedIn sponsored posts, and email newsletters</strong> simultaneously pointing to multiple product and landing pages.</p><p>Manually generating UTM parameters for every landing page and channel combination using a single URL builder is tedious and leads to typo-ridden parameter naming. Our <strong>Bulk UTM Matrix Generator</strong> solves this by computing the Cartesian product of destination URLs and advertising channels in a single operation, guaranteeing 100% parameter consistency across your entire marketing team.</p><p>For single-link generation with instant QR codes, explore our companion tool: <a href='/tools/utm-campaign-builder' class='text-emerald-600 dark:text-emerald-400 font-bold underline'>UTM Campaign Builder & URL Tracker</a>.</p>",
         keyTakeaways: [
           "Matrix multiplication generates all Landing Page × Channel combinations simultaneously.",
           "Enforces company-wide parameter conventions, eliminating lowercase split rows in GA4.",
@@ -117,7 +117,7 @@ export const bulkUtmMatrixGeneratorTool: ToolDefinition = {
     {
       question: "Where can I build a single UTM link with QR code generation?",
       answer:
-        "For single-link creation with mobile QR code previews and GA4 channel validation, use our dedicated UTM Campaign Builder & URL Tracker (Tool #22) at /tools/marketing/utm-campaign-builder.",
+        "For single-link creation with mobile QR code previews and GA4 channel validation, use our dedicated UTM Campaign Builder & URL Tracker (Tool #22) at /tools/utm-campaign-builder.",
     },
   ],
 };

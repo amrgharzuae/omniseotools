@@ -556,7 +556,7 @@ export default function FixGa4UtmCasingFragmentationRecipe() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link
-              href="/tools/marketing/utm-campaign-builder"
+              href="/tools/utm-campaign-builder"
               className="group flex flex-col justify-between p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:shadow-sm transition-all"
             >
               <div className="space-y-2">

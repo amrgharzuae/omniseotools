@@ -141,7 +141,7 @@ export function Footer() {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link
-                  href="/tools/marketing/utm-campaign-builder"
+                  href="/tools/utm-campaign-builder"
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block font-medium text-emerald-600 dark:text-emerald-400"
                 >
                   Campaign UTM Builder

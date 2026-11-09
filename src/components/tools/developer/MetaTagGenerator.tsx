@@ -654,7 +654,7 @@ export function MetaTagGenerator({
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Want to track traffic attribution? Generate tagged links with the{" "}
                 <Link
-                  href="/tools/marketing/utm-campaign-builder"
+                  href="/tools/utm-campaign-builder"
                   className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium inline-flex items-center gap-0.5"
                 >
                   <span>Campaign UTM Builder</span>

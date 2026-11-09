@@ -556,6 +556,34 @@ export function UtmBuilderClient({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* LEFT COLUMN: Input Fields (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
+          {/* Internal Bulk Hub Bridge Banner */}
+          <div className="rounded-2xl border border-emerald-200/80 bg-emerald-50/70 p-4 sm:p-4.5 dark:border-emerald-900/50 dark:bg-emerald-950/30 shadow-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
+              <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-200">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400">
+                  <Sparkles className="h-4 w-4" />
+                </span>
+                <span className="leading-snug">
+                  Tagging hundreds of landing pages? Try our{" "}
+                  <Link
+                    href="/bulk/utm-matrix"
+                    className="font-bold text-emerald-600 dark:text-emerald-400 underline underline-offset-2 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+                  >
+                    Bulk UTM Matrix
+                  </Link>{" "}
+                  to process CSV batches with zero latency.
+                </span>
+              </div>
+              <Link
+                href="/bulk/utm-matrix"
+                className="inline-flex items-center gap-1 font-semibold text-xs text-emerald-700 dark:text-emerald-300 hover:text-emerald-800 dark:hover:text-emerald-200 bg-emerald-100/70 dark:bg-emerald-900/40 px-3 py-1.5 rounded-xl border border-emerald-300/50 dark:border-emerald-800/60 transition-all shrink-0"
+              >
+                <span>Launch Bulk Matrix</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </div>
+
           {/* Destination URL Card */}
           <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
@@ -892,15 +920,15 @@ export function UtmBuilderClient({
                 <span>Bulk Campaign Tagging</span>
               </div>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                Need to tag multiple landing pages at once? Try the{" "}
+                Tagging hundreds of landing pages? Try our{" "}
                 <Link
-                  href="/tools/bulk-utm-matrix-generator"
+                  href="/bulk/utm-matrix"
                   className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-0.5"
                 >
-                  <span>Bulk UTM Matrix Generator</span>
+                  <span>Bulk UTM Matrix</span>
                   <ArrowRight className="h-3 w-3" />
-                </Link>
-                .
+                </Link>{" "}
+                to process CSV batches with zero latency.
               </p>
             </div>
           </div>
